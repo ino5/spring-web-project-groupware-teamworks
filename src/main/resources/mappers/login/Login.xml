@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.login.LoginDao">
+
+	<select id="selectOneMemberOfLogin" parameterType="java.lang.String" resultType="com.example.sproject.model.login.Member">
+		SELECT * FROM member WHERE m_id = #{m_id}
+	</select>
+	
+	<insert id="insertMemberOfLogin" parameterType="com.example.sproject.model.login.Member">
+		INSERT INTO member (m_id, m_password, m_tf) VALUES (#{m_id}, #{m_password}, 1)
+	</insert>
+	
+</mapper>

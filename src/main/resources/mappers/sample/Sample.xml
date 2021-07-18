@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.sample.SampleDao">
+<!-- 	<resultMap id="sampleResult" type="com.example.sproject.model.sample.Sample"> -->
+<!-- 		<result property="num" column="num" /> -->
+<!-- 		<result property="name" column="name" /> -->
+<!-- 	</resultMap> -->
+<!-- 	<select id="selectSample" resultMap="sampleResult"> -->
+<!-- 		SELECT * FROM sample -->
+<!-- 	</select> -->
+	<select id="selectSample" resultType="com.example.sproject.model.sample.Sample">
+		SELECT * FROM sample
+	</select>
+	<insert id="insertSample" parameterType="com.example.sproject.model.sample.Sample">
+		INSERT into sample values (#{num},#{name})
+	</insert>
+</mapper>

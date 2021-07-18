@@ -1,0 +1,54 @@
+# http port set
+server:
+  port: 8484
+
+spring:
+  # Oracle Connect
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: S20210703
+    password: tiger
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  # ORM JPA
+  jpa:
+    hibernate:
+      ddl-auto: none # create
+    properties:
+      hibernate:
+      show_sql: true
+      format_sql: true
+  # gmail Transfer 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ttaekwang3@gmail.com
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          
+  #view resolver(Templete ->JSP Use)
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  
+  devtools:
+    livereload:
+      enabled: true  
+
+ 
+# Mybatis 
+mybatis:
+  # dto Location
+  type-aliases-package: com.example.sproject.model
+  # xml Location
+  config-location: classpath:configuration.xml
+  mapper-locations: classpath:mappers/**/*.xml
+      
+#logging.level:
+#  org.hibernate.SQL: debug
+  # org.hibernate.type: trace
+  
