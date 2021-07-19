@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.sample.Sample;
 import com.example.sproject.service.sample.SampleService;
@@ -41,6 +44,18 @@ public class SampleController {
 		System.out.println("Method sampleInsert in Class SampleController");
 		sampleService.insertSample(sample);
 		return "redirect:/sample/list";
+	}
+	
+	@GetMapping("ajaxTest")
+	public String ajaxTest (Model model) {
+		return "sample/sampleAjax";
+	}
+	
+	@PostMapping("ajaxTest")
+	@ResponseBody
+	public String ajaxTestPost(String data_content, Model model) {
+		System.out.println("data_content: " + data_content);
+		return "result value: test";
 	}
 	
 }

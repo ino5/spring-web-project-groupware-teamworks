@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
-<!-- Ajax위한 Spring Security csrf 토큰 값 가져오기-->
+<!-- Ajax위한 Spring Security csrf 토큰 값 가져오기 -->
 <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 
+<!-- js 위한 contextPath 세팅 -->
+<meta id="_contextPath" name="_contextPath" content="${pageContext.request.contextPath}" />
+
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/header/js/jquery.js"></script>
+
+<!-- header js -->
+<script src="${pageContext.request.contextPath}/header/js/header.js"></script>
 
 <!-- Ajax에서 Post 요청마다 csrf 토큰 값 넘겨주기 위한 스크립트 -->
 <script src="${pageContext.request.contextPath}/header/js/csrf.js"></script>
