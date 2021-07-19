@@ -5,8 +5,7 @@
 <html>
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/sample/css/time.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/sample/js/sampleAjax.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,7 +14,7 @@
 
 	</div>
 	<div id="content">
-
+		<button id="ajaxButton">버튼</button>
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

@@ -50,12 +50,6 @@ public class LoginController {
 		return "login/memberInfo";
 	}
 	
-	@PostMapping("test")
-	@ResponseBody
-	public String testPost(Model model) {
-		return "return: test";
-	}
-	
 	@GetMapping("denied")
 	public String denied(Model model) {
 		System.out.println("Method denied in Class LoginController");

@@ -1,0 +1,1 @@
+let _contextPath = $("meta[name='_contextPath']").attr("content");
