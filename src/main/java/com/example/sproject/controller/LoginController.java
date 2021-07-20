@@ -38,7 +38,7 @@ public class LoginController {
 		return "redirect:/login/login";
 	}
 	
-	@GetMapping("memberInfo")
+	@GetMapping("")
 	public String memberInfo(Principal principal, Model model) {
 		System.out.println("--Method memberInfo in Class LoginController");
 		if (null == principal) {
@@ -47,7 +47,7 @@ public class LoginController {
 		String m_id = principal.getName();
 		System.out.println("m_id: " + m_id);
 		model.addAttribute("m_id", m_id);
-		return "login/memberInfo";
+		return "main/main";
 	}
 	
 	@GetMapping("denied")

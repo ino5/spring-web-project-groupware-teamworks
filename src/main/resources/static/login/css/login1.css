@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+* {
+	margin: 0 auto;
+}
+
+body,html {
+	background-color: #ececee;
+	height: 100%;
+}
+
+.container {
+	height: 100%;
+	display: flex;
+	text-align: center;
+}
+
+#div_login {
+	width: 700px;
+	background-color: white;
+}
+
+.login {
+	width: 400px;
+	height: 44px;
+	margin-bottom: 10px;
+	border: solid 1px #D5D5D5 !important;
+	font-size: 16px;
+}
+
+.btn_login {
+	width: 406px;
+	height: 55px;
+	background: #0f91e6;
+    color: white;
+    border: 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn_login:hover {
+	background-color: #00b6c2;
+}
+
+#team {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 80px;
+	font-weight: bolder;
+	color: #0f91e6;
+}
+
+#works {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 50px;
+	font-weight: lighter;
+	color: #0f91e69e;
+}
+
+input[type=checkbox] + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label:before {
+  content: "\2714";	 /* 체크모양 */
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.6em;
+  vertical-align: middle;
+  color: transparent;
+  transition: .2s;
+}
+
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+
+input[type=checkbox]:checked + label:before {
+  background-color: #0f91e6;
+  border-color: #0f91e6;
+  color: #fff;
+}
