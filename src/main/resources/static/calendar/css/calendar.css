@@ -1,0 +1,266 @@
+@charset "UTF-8";
+
+#head_calendar{
+	background-color: #4374D9;
+}
+/* ======================== Div Side ============================= */
+
+#btn1 {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	background-color : white;
+	border-style: solid;
+	border-radius : 10px;
+	border-width : 2px;
+	box-shadow: none;
+	border-color : #D5D5D5;
+/* 	margin-top: 10%; */
+/* 	margin-left: 10%; */
+/* 	margin-bottom: 10%; */
+	margin : 10% 10%;
+	padding : 5% 0%;
+	width: 85%;
+	font-size: 21px;   
+}
+
+#btn1:hover{
+     transition: all 0.2s linear;
+     transform: translate(0, -5%);
+       box-shadow: 2px 2px 2px 2px #BDBDBD; 
+       border: 2px solid gray;
+  
+ }
+ 
+ .button1{	
+  	margin-left: 3%;
+  	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+  	font-size: 17px;
+  	cursor: pointer;
+ }
+
+#scroll {
+	margin-left: 18%;
+}
+
+#div2 {
+	margin-top: 7%;
+}
+
+.li {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+  	font-size: 17px;
+  	line-height: 20px;
+  	padding-top: 5px;
+}
+
+#span_hover{
+	display: none;
+}
+@-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+/*     @-webkit-keyframes fadeout { */
+/*         Safari and Chrome */
+/*         from { */
+/*             opacity: 1; */
+/*         } */
+/*         to { */
+/*             opacity: 0; */
+/*         } */
+/*     } */
+#side:hover #span_hover {
+    display: inline;	
+    -webkit-animation: fadein 1s;
+}
+
+#side:hover #span_none {
+    display: none;
+}
+
+input[type=checkbox] + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label:before {
+  content: "\2714";	 /* 체크모양 */
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.6em;
+  vertical-align: middle;
+  color: transparent;
+  transition: .2s;
+}
+
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+
+input[type=checkbox]:checked + label:before {
+  background-color: #0f91e6;
+  border-color: #0f91e6;
+  color: #fff;
+}
+
+
+/* ========================== Content ========================== */
+
+h2 {
+	margin: 50px 50px;
+	float: left;
+	font-size: 30px;
+	font-weight: normal;
+}
+
+#searchBox{
+	float:right;
+	margin-top: 40px;
+	margin-right: 50px;
+	position: relative;
+	width: 200px;
+	height: 37px;
+	border: 1px solid #ddd;
+	padding : 0px 10px;
+}
+
+ #search {
+ 	border : none;
+	padding : 0px 30px;
+	border-radius: 50px;
+	font-size: 18px;
+	font-family: "Nunito";
+	color : #424242;
+	font-weight: 500;
+	width: 150px;
+}
+
+#search:focus {
+	outline : none;
+}
+
+#option {
+	border: 0;
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 17px;
+	color: black;
+}
+
+
+/* calendar */
+#calendar_head {
+	font-weight: bold;
+	font-size: 26px;
+	display: block;
+	margin-top: 100px;
+	margin-left: 45%;
+}
+#calendar {
+	border-top:1px solid #ddd;
+	margin-top: 50px;
+	width: 100%;
+	border-collapse : collapse;
+}
+
+#calendar tr{
+	border-top: 1px;
+	border-color: #F6F6F6;
+}
+
+#calendar tr th{
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	text-align: center;
+	font-weight: normal;
+}
+
+#calendar tr td{
+	border-top : 1px solid #F6F6F6;
+   	width: 170px;
+   	height: 120px;
+   	text-align: center;
+   	font-size: 14px;
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+    text-align: left;
+    vertical-align : top;
+    padding: 10px;
+}
+
+
+
+/* =========================== Modal ===================================== */
+
+.modal-content {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 20px;
+}
+
+.modal_btn {
+	margin-right: 5px;
+    color: white;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: top;
+    font-size: 13px;
+	background: #0f91e6;
+    border: 1px solid #0f91e6;
+    border-radius: 2px;
+    padding-left: 5px; 
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+#modal_form tr {
+	width: 70px;
+	line-height: 35px;
+}
+
+#modal_form tr td {
+	padding: 8px;	
+}
+
+.input {
+	width: 494px;	
+	height: 25px;
+	border: 1px solid #c0c0c0;
+	border-radius: 4px;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 620px; /* Could be more or less, depending on screen size */
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}

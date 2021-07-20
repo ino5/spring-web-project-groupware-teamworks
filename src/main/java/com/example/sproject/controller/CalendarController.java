@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CalendarController {
 	@RequestMapping("")
 	public String index(Model model) {
-		return "index";
+		return "calendar/calendar";
 	}
 }

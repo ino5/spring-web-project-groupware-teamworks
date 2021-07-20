@@ -8,16 +8,16 @@
 			<ul>
 				<li><a onclick="javascript:doShow()" class="button3" style="vertical-align:middle; padding-top: 18px; padding-bottom: 11px;"><img alt="image"
 					src="${pageContext.request.contextPath}/header/img/full.png" style="width: 30px; height: 23px;"></a></li>
-				<li><a href="${pageContext.request.contextPath}/main.jsp">홈</a></li>
-				<li><a href="#">메일</a></li>
-				<li><a href="${pageContext.request.contextPath}/time.jsp" style="background-color: #4374D9;">근태관리</a></li>
-				<li><a href="#">전자결재</a></li>
-				<li><a href="${pageContext.request.contextPath}/calendar.jsp">캘린더</a></li>
-				<li><a href="#">게시판</a></li>
-				<li><a href="${pageContext.request.contextPath}/juso.jsp">주소록</a></li>
-				<li><a href="#">드라이브</a></li>
-				<li><a href="#">예약</a></li>
-				<li><a href="#">설문</a></li>
+				<li><a href="main" id="head_main">홈</a></li>
+				<li><a href="mail" id="head_mail">메일</a></li>
+				<li><a href="time" id="head_time">근태관리</a></li>
+				<li><a href="sign" id="head_sign">전자결재</a></li>
+				<li><a href="calendar" id="head_calendar">캘린더</a></li>
+				<li><a href="board" id="head_board">게시판</a></li>
+				<li><a href="address" id="head_address">주소록</a></li>
+				<li><a href="drive" id="head_drive">드라이브</a></li>
+				<li><a href="reservation" id="head_reservation">예약</a></li>
+				<li><a href="survey" id="head_survey">설문</a></li>
 			</ul>
 		</nav>
 	</header>
