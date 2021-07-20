@@ -45,7 +45,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 
 		http.formLogin()
 	        .loginPage("/login/login")
-	        .defaultSuccessUrl("/")
+	        .defaultSuccessUrl("/login")
 	        .permitAll()
 	        .usernameParameter(Member.usernameParameter)
 	        .passwordParameter(Member.passwordParameter);
