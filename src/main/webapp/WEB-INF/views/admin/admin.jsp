@@ -28,10 +28,11 @@
 	margin: 15% auto; /* 15% from the top and centered */
 	padding: 20px;
 	width: 650px; /* Could be more or less, depending on screen size */
-	height: 700px;
+	height: 850px; 
 	border: 2px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0px 5px 8px rgb(0 0 0/ 20%);
+
 }
 </style>
 <title>Insert title here</title>
@@ -300,23 +301,23 @@
 			</p>
 			<h2>멤버 생성</h2>
 			<p>
-			<form id="modal_form">
+			<form id="modal_form" action="${pageContext.request.contextPath}/login/join" method="post">
 				<table id="modal_tb" style="font-size: 20px; font-weight: bold; margin: 0 auto;">
 					<tr>
 						<td><span style="color: red;"> * </span>이름 (한글)</td>
-						<td colspan="3"><input type="text" class="input"></td>
+						<td colspan="3"><input type="text" class="input" name=m_name></td>
 					</tr>
 					<tr>
 						<td><span style="color: red;"> * </span>아이디</td>
-						<td colspan="3"><input type="text" class="input"></td>
+						<td colspan="3"><input type="text" class="input" name="m_id"></td>
 					</tr>
 					<tr>
 						<td><span style="color: red;"> * </span>비밀번호</td>
-						<td colspan="3"><input type="text" class="input"></td>
+						<td colspan="3"><input type="password" name="m_password" class="input"></td>
 					</tr>
 					<tr>
-						<td><span style="color: red;"> * </span>비밀번호 확인</td>
-						<td colspan="3"><input type="text" class="input"></td>
+						<td><span style="color: red;"> * </span>사번</td>
+						<td colspan="3"><input type="text" name="m_empnum" class="input"></td>
 					</tr>
 					<tr>
 						<td><span style="color: red;"> * </span>직위</td>
@@ -336,6 +337,18 @@
 						<td><span style="color: red;"> * </span>부서</td>
 						<td colspan="3"><input type="text" class="input"></td>
 					</tr>
+					<tr>
+						<td><span style="color: red;"> * </span>생일</td>
+						<td colspan="3"><input type="text" name="m_birth" class="input"></td>
+					</tr>
+					<tr>
+						<td><span style="color: red;"> * </span>전화번호</td>
+						<td colspan="3"><input type="text" name="m_phone" class="input"></td>
+					</tr>
+					<tr>
+						<td><span style="color: red;"> * </span>이메일</td>
+						<td colspan="3"><input type="text" name="m_email" class="input"></td>
+					</tr>
 				</table>
 				<br>
 				<div id="modal_wrap">
@@ -343,6 +356,7 @@
 				<div id="modal_btn"><input type="button" value="취소" id="close_btn" class="modal_btn" /></div>
 			
 				</div>
+				<sec:csrfInput/>
 			</form>
 		</div>
 

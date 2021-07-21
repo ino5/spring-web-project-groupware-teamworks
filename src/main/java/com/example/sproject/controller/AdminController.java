@@ -17,12 +17,12 @@ public class AdminController {
 	@Autowired
 	private LoginService loginService;
 
-	@GetMapping("admin_join")
+	@GetMapping("admin")
 	public String join() {
-		return "admin/join";
+		return "admin/admin";
 	}
 	
-	@PostMapping("admin_join")
+	@PostMapping("admin")
 	public String joinPost(Member member) {
 		System.out.println("Method joinPost in Class LoginController");
 		loginService.join(member);

@@ -67,3 +67,4 @@ function selectAll(selectAll)  {
 				$('#myModal').hide();
 			});
 		});
+		
