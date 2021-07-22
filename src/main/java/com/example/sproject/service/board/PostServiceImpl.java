@@ -2,6 +2,8 @@ package com.example.sproject.service.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +14,21 @@ import com.example.sproject.model.board.Post;
 public class PostServiceImpl implements PostService {
 
 	@Autowired
-	private PostDao pd;
+	private PostDao postDao;
 
 
 	@Override
 	public List<Post> listPost(Post post) {
 	List<Post> postList = null;
 	System.out.println("PostServiceImpl listPost Start...");
-	postList =pd.listPost(post);
+	postList =postDao.listPost(post);
 		return postList;
 	}
 
 	@Override
 	public int total() {
 		System.out.println("PostServiceImpl Start total...");
-		int totCnt = pd.total();
+		int totCnt = postDao.total();
 		System.out.println("PostServiceImpl total totCnt->"+totCnt);
 		return totCnt;
 	}
@@ -52,7 +54,38 @@ public class PostServiceImpl implements PostService {
         post.setP_name(p_name);
         post.setP_content(p_content);
         
-        return pd.insert(post);
+        return postDao.insert(post);
 
 }
+
+
+	@Override
+	public Post read(int p_num) {
+		System.out.println("PostServiceImpl Start read...");
+		return postDao.read(p_num);
+	}
+
+	@Override
+	public int increase_p_view(int p_num, HttpSession session) {
+		long update_time = 0;
+        // 세션에 저장된 조회시간 검색
+        // 최초로 조회할 경우 세션에 저장된 값이 없기 때문에 if문은 실행X
+        if(session.getAttribute("update_time_"+p_num) != null){
+                                // 세션에서 읽어오기
+            update_time = (long)session.getAttribute("update_time_"+p_num);
+        }
+        // 시스템의 현재시간을 current_time에 저장
+        long current_time = System.currentTimeMillis();
+        // 일정시간이 경과 후 조회수 증가 처리 24*60*60*1000(24시간)
+        // 시스템현재시간 - 열람시간 > 일정시간(조회수 증가가 가능하도록 지정한 시간)
+        if(current_time - update_time > 5*1000){
+            postDao.increase_p_view(p_num);
+            // 세션에 시간을 저장 : "update_time_"+bno는 다른변수와 중복되지 않게 명명한 것
+            session.setAttribute("update_time_"+p_num, current_time);
+         
+	}
+		return p_num;
+	
+	}
 }
+        

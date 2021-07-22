@@ -50,7 +50,7 @@ public class PostDaoImpl implements PostDao {
 		int tot = 0;
 		System.out.println("PostDaoImpl Start insert...");
 		try {
-			tot = session.insert("PostInsertOfBoard1", post);
+			tot = session.insert("PostInsertOfBoard", post);
 			System.out.println("PostDaoImpl Start insert...");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,5 +58,32 @@ public class PostDaoImpl implements PostDao {
 		}
 		return tot;
     }
+
+	@Override
+	public Post read(int p_num) {
+		Post post = null;
+		System.out.println("PostDaoImpl Start read...");
+		try {
+			 post = session.selectOne("PostReadOfBoard", p_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl read Exception->"+e.getMessage());
+		}
+		return post;
+	}
+
+	@Override
+	public int increase_p_view(int p_num) {
+		int tot = 0;
+		System.out.println("PostDaoImpl Start increaseViewcnt...");
+		try {
+			tot = session.update("PostReadOfBoard", p_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl increaseViewcnt Exception->"+e.getMessage());
+		}
+		 
+		return tot;
+	}
 
 }
