@@ -22,8 +22,13 @@ public class BoardController {
 		System.out.println("BoardController Start List..");
 		int total = ps.total();
 		System.out.println("BoardController total=>"+total);
-		System.out.println("currentPage=>" + currentPage);
 		
+		//입력받은 currentpage가 null일 때 1로 바꿔주기
+		if(currentPage == null || "".equals(currentPage)) {
+			currentPage = "1";
+		}
+		System.out.println("currentPage=>" + currentPage);
+
 		Paging pg = new Paging(total, currentPage);
 		Post.setStart(pg.getStart());
 		Post.setEnd(pg.getEnd());
