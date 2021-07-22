@@ -55,13 +55,6 @@ public class BoardController {
 	public String insert(Post Post, Model model ) throws Exception {
 		System.out.println("BoardController Start insert..");
 		ps.insert(Post);
-		return "redirect:board/board";
-	}
-	
-	@GetMapping(value = "insert")
-	public String insertGet(Post Post, Model model ) throws Exception {
-		System.out.println("BoardController Start insert.. (get)");
-		ps.insert(Post);
-		return "redirect:board/board";
+		return "redirect:/board/board";
 	}
 }

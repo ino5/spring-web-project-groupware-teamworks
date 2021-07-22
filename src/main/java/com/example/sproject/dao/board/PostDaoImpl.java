@@ -46,11 +46,11 @@ public class PostDaoImpl implements PostDao {
 	//게시글 작성
 	@Override
     public int insert(Post post) {
-       // return session.insert("board.insert", post);
+       // return session.insert("PostInsertOfBoard", post);
 		int tot = 0;
 		System.out.println("PostDaoImpl Start insert...");
 		try {
-			tot = session.insert("board.insert", post);
+			tot = session.insert("PostInsertOfBoard1", post);
 			System.out.println("PostDaoImpl Start insert...");
 		} catch (Exception e) {
 			e.printStackTrace();

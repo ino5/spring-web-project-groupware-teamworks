@@ -39,6 +39,7 @@
 
 	<div id="content">
 			<form action="${pageContext.request.contextPath}/board/insert" method="post" enctype="multipart/form-data">
+				<sec:csrfInput/>
 				<input type="hidden" name="m_id" value="">
 				<section id="point">
 					<article class="pt pt1">
@@ -48,7 +49,7 @@
 							</tr>
 							<tr>
 								<td class="td_subject">
-									<input id="subject" type="text" name="subject" placeholder="글 제목" class="form_box">
+									<input id="subject" type="text" name="p_name" placeholder="글 제목" class="form_box">
 								</td>
 								<td>
 									<select id="select_bd_code" name="bd_code">
@@ -59,7 +60,7 @@
 							</tr>
 							<tr>
 								<td colspan="5">
-									<textarea id="content" name="content" placeholder="글 내용" rows="15" class="form_box"></textarea>
+									<textarea id="content" name="p_content" placeholder="글 내용" rows="15" class="form_box"></textarea>
 								</td>
 							</tr>
 							<tr>
