@@ -7,15 +7,13 @@
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/sample/css/time.css">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-
 	</div>
 	<div id="content">
-
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>
