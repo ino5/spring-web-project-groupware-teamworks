@@ -12,7 +12,7 @@ import com.example.sproject.model.board.Post;
 public class PostDaoImpl implements PostDao {
 	@Autowired
 	private SqlSession session;
-	
+
 	@Override
 	public List<Post> listPost(Post post) {
 		List<Post> postList = null;
@@ -22,10 +22,10 @@ public class PostDaoImpl implements PostDao {
 			System.out.println("before selectList");
 			postList = session.selectList("selectListPostOfBoard", post);
 			System.out.println("postList.size() in PostDaoImpl: " + postList.size());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("PostDaoImpl listpost Exception->"+e.getMessage());
+			System.out.println("PostDaoImpl listpost Exception->" + e.getMessage());
 		}
 		return postList;
 	}
@@ -39,14 +39,15 @@ public class PostDaoImpl implements PostDao {
 			System.out.println("PostDaoImpl Start total...");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("PostDaoImpl total Exception->"+e.getMessage());
+			System.out.println("PostDaoImpl total Exception->" + e.getMessage());
 		}
 		return tot;
 	}
-	//게시글 작성
+
+	// 게시글 작성
 	@Override
-    public int insert(Post post) {
-       // return session.insert("PostInsertOfBoard", post);
+	public int insert(Post post) {
+		// return session.insert("PostInsertOfBoard", post);
 		int tot = 0;
 		System.out.println("PostDaoImpl Start insert...");
 		try {
@@ -54,36 +55,29 @@ public class PostDaoImpl implements PostDao {
 			System.out.println("PostDaoImpl Start insert...");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("PostDaoImpl insert Exception->"+e.getMessage());
+			System.out.println("PostDaoImpl insert Exception->" + e.getMessage());
 		}
 		return tot;
-    }
+	}
 
 	@Override
 	public Post read(int p_num) {
 		Post post = null;
 		System.out.println("PostDaoImpl Start read...");
 		try {
-			 post = session.selectOne("PostReadOfBoard", p_num);
+			post = session.selectOne("PostReadOfBoard", p_num);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("PostDaoImpl read Exception->"+e.getMessage());
+			System.out.println("PostDaoImpl read Exception->" + e.getMessage());
 		}
 		return post;
 	}
 
 	@Override
-	public int increase_p_view(int p_num) {
-		int tot = 0;
+	public void increase_p_view(int p_num) {
+
 		System.out.println("PostDaoImpl Start increaseViewcnt...");
-		try {
-			tot = session.update("PostReadOfBoard", p_num);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("PostDaoImpl increaseViewcnt Exception->"+e.getMessage());
-		}
-		 
-		return tot;
+		session.update("PostincreaseViewcntOfBoard", p_num);
 	}
 
 }

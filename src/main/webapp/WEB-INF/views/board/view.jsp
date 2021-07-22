@@ -56,6 +56,9 @@
 										<option value="2">취준톡톡</option>
 									</select>
 								</td>
+								<td>
+									조회수: ${view.p_view}
+								</td>
 							</tr>
 							<tr>
 								<td colspan="5">

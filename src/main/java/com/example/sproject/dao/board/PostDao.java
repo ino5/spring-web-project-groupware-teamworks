@@ -8,5 +8,5 @@ public interface PostDao {
 	int total();
 	int insert(Post post);
     Post read(int p_num);
-	int increase_p_view(int p_num);
+	void increase_p_view(int p_num);
 }
