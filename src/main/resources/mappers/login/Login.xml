@@ -8,7 +8,7 @@
 	</select>
 	
 	<insert id="insertMemberOfLogin" parameterType="com.example.sproject.model.login.Member">
-		INSERT INTO member (m_id, m_password, m_name, m_empnum, m_birth, m_exnum, m_phone, m_email, m_status) VALUES (#{m_id}, #{m_password}, #{m_name}, #{m_empnum}, #{m_birth}, #{m_exnum}, #{m_phone}, #{m_email}, 1)
+		INSERT INTO member (m_id, m_password, m_name, m_empnum, m_birth, m_phone, m_email, m_status) VALUES (#{m_id}, #{m_password}, #{m_name}, #{m_empnum}, #{m_birth}, #{m_phone}, #{m_email}, 1)
 	</insert>
 	
 </mapper>

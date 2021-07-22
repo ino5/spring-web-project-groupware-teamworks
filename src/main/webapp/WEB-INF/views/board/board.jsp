@@ -1,61 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/board/css/board.css">
-<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-	rel="stylesheet">
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#button1").click(function() {
-			var submenu = $(this).next("#scroll");
-			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
-			if (submenu.is(":visible")) {
-				$('#img1').css({
-					'transform' : 'rotate(0deg)'
-				});
-				submenu.slideUp("fast");
-			} else {
-				$('#img1').css({
-					'transform' : 'rotate(90deg)'
-				});
-				submenu.slideDown("fast");
-			}
-		})
-	});
-	//체크박스 전체선택
-	function selectAll(selectAll)  {
-		  const checkboxes 
-		       = document.getElementsByName('check');
-		  
-		  checkboxes.forEach((checkbox) => {
-		    checkbox.checked = selectAll.checked;
-		  })
-		}
-</script>
+	pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/header/header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<%@include file="/WEB-INF/views/header/headerHead.jsp"%>
+<link rel="styleSheet" href="${pageContext.request.contextPath}/board/css/board.css">
+<script src="${pageContext.request.contextPath}/board/js/board.js"></script>
 <title>Insert title here</title>
 </head>
-<!-- 바디 태그 더블 클릭 시 블록 선택 방지 -->
-<body onselectstart="return false" ondragstart="return false">
-	<header>
-		<%-- 	<img alt="" src="${pageContext.request.contextPath}/images/11.JPG" style="width: 20%;"> --%>
-		<nav class="head_nav">
-			<ul>
-				<li><a href="${pageContext.request.contextPath}/main.jsp">홈</a></li>
-				<li><a href="#">메일</a></li>
-				<li><a href="${pageContext.request.contextPath}/time.jsp">근태관리</a></li>
-				<li><a href="#">전자결재</a></li>
-				<li><a href="${pageContext.request.contextPath}/calendar.jsp"
-					>캘린더</a></li>
-				<li><a href="${pageContext.request.contextPath}/board.jsp" style="background-color: #4374d9">게시판</a></li>
-				<li><a href="${pageContext.request.contextPath}/juso.jsp">주소록</a></li>
-				<li><a href="#">드라이브</a></li>
-				<li><a href="#">예약</a></li>
-				<li><a href="#">설문</a></li>
-			</ul>
-		</nav>
-	</header>
-	<div id="side">
+<body>
+	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
+		<div id="side">
 		<button type="button" id="btn1">일정등록</button>
 		<div>
 			<a id="button1" class="button1"><span id="span_hover"><img
@@ -135,126 +92,18 @@
 						<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">조회</td>
 					
 					</tr>
+					<c:forEach var="ps" items="${listPost }">
 					<tr>
 						<td style="text-align: center;">
 							<input type="checkbox" name="check" id="chk_1">
 						</td>
-						<td>안민현</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>		
+						<td>${ps.p_num}</td>
+						<td>${ps.p_name}</td>
+						<td>${ps.m_id}</td>
+						<td>${ps.p_regdate}</td>
+						<td>${ps.p_view}</td>		
 					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>정민희</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>백인호</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>임다솔</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>안민현</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>정민희</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>백인호</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>임다솔</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>안민현</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>정민희</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>백인호</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
-						</td>
-						<td>임다솔</td>
-						<td>1234567</td>
-						<td>부장</td>
-						<td>정상</td>
-						<td>10</td>
-					</tr>
+						</c:forEach>
 				</table>
 			</div>
 		</div>
