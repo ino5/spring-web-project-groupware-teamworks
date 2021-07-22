@@ -14,6 +14,13 @@ public class Paging {
 	
 	public Paging(int total, String currentPage1) {
 		this.total = total;
+		
+		//입력받은 currentpage가 null일 때 1로 바꿔주기
+		if(currentPage1 == null || "".equals(currentPage1)) {
+			currentPage1 = "1";
+		}
+		
+		//기본 로직
 		if (currentPage1 != null) {
 			this.currentPage = Integer.parseInt(currentPage1);
 		}

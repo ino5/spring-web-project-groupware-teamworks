@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sproject.dao.board.PostDao">
-<select id="selectListPostOfBoard" parameterType="java.lang.String" resultType="com.example.sproject.model.board.Post">
-	SELECT  p_num, p_name, m_id, p_regdate, p_view  FROM post
+<select id="selectListPostOfBoard" parameterType="com.example.sproject.model.board.Post" resultType="com.example.sproject.model.board.Post">
+	<![CDATA[
+		select *
+		from (select rownum rn, a.*
+			  from (select * from post order by p_num) a) where rn >= #{start} and rn <= #{end}
+	]]>	
 </select>
 <select id="PostTotalOfBoard" resultType="int">
 		select Count(*) FROM post	
