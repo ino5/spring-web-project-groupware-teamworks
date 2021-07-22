@@ -16,6 +16,9 @@
 <!-- 		INSERT INTO member (m_id, m_password, m_name, m_empnum, m_birth, m_phone, m_email, m_status) VALUES (#{m_id}, #{m_password}, #{m_name}, #{m_empnum}, #{m_birth}, #{m_phone}, #{m_email}, 1) -->
 <!-- 	</insert> -->
 
-
+  <insert id="PostInsertOfBoard">
+	INSERT INTO post (m_id,p_name,p_content) VALUES (
+	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content})
+    </insert>
 
  </mapper>

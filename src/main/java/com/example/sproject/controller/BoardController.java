@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.sproject.model.board.Post;
@@ -16,9 +18,9 @@ import com.example.sproject.service.board.PostService;
 public class BoardController {
 	@Autowired
 	private PostService ps;
-
+//게시글 리스트, 페이징
 	@RequestMapping(value = "board")
-	public String Board(Post Post, String currentPage, Model model) {
+	public String board(Post Post, String currentPage, Model model) {
 		System.out.println("BoardController Start List..");
 		int total = ps.total();
 		System.out.println("BoardController total=>"+total);
@@ -39,5 +41,27 @@ public class BoardController {
 		model.addAttribute("pg",pg);
 		return "board/board";
 	}
-
+	
+	//게시글 작성화면
+	//@RequestMapping(value = "write", method=RequestMethod.POST)
+	@GetMapping(value = "write")
+	public String write(Model model) {
+		System.out.println("BoardController Start write..");
+		return "board/write";
+	}
+	//
+	
+	@PostMapping(value = "insert")
+	public String insert(Post Post, Model model ) throws Exception {
+		System.out.println("BoardController Start insert..");
+		ps.insert(Post);
+		return "redirect:board/board";
+	}
+	
+	@GetMapping(value = "insert")
+	public String insertGet(Post Post, Model model ) throws Exception {
+		System.out.println("BoardController Start insert.. (get)");
+		ps.insert(Post);
+		return "redirect:board/board";
+	}
 }

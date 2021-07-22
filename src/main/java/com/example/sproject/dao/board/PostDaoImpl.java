@@ -14,7 +14,7 @@ public class PostDaoImpl implements PostDao {
 	private SqlSession session;
 	
 	@Override
-	public List<Post> listEmp(Post post) {
+	public List<Post> listPost(Post post) {
 		List<Post> postList = null;
 		System.out.println("PostDaoImpl listpost Start...");
 		System.out.println("before try");
@@ -43,5 +43,20 @@ public class PostDaoImpl implements PostDao {
 		}
 		return tot;
 	}
+	//게시글 작성
+	@Override
+    public int insert(Post post) {
+       // return session.insert("board.insert", post);
+		int tot = 0;
+		System.out.println("PostDaoImpl Start insert...");
+		try {
+			tot = session.insert("board.insert", post);
+			System.out.println("PostDaoImpl Start insert...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl insert Exception->"+e.getMessage());
+		}
+		return tot;
+    }
 
 }

@@ -106,7 +106,18 @@
 						</c:forEach>
 				</table>
 			</div>
+			<div class="pageNum">
+		<c:if test="${pg.startPage > pg.pageBlock }">
+			<a href="?currentPage=${pg.startPage-pg.pageBlock}"></a>
+		</c:if>
+		<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
+			<a href="?currentPage=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${pg.endPage < pg.totalPage }">
+			<a href="?currentPage=${pg.startPage+pg.pageBlock}"></a>
+		</c:if>
 		</div>
+	</div>
 	
 
 
