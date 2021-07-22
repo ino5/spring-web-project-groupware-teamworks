@@ -88,7 +88,7 @@
 
 	function getRoom(){
 		console.log("getRoom start...");
-		commonAjax('/getRoom', "", 'post', function(result){
+		commonAjax(_contextPath+'/getRoom', "", 'post', function(result){
 			createChatingRoom(result);
 		});
 	}
@@ -97,7 +97,7 @@
 		console.log("createRoom start...");
 		$("#createRoom").click(function(){
 			var msg = {	roomName : $('#roomName').val()	};
-			commonAjax('/createRoom', msg, 'post', function(result){
+			commonAjax(_contextPath+'/createRoom', msg, 'post', function(result){
 				createChatingRoom(result);
 			});
 
@@ -107,7 +107,7 @@
 
 	function goRoom(number, name){
 		console.log("goRoom");
-		location.href="/moveChating?roomName="+name+"&"+"roomNumber="+number;
+		location.href=_contextPath+"/moveChating?roomName="+name+"&"+"roomNumber="+number;
 	}
 	
 

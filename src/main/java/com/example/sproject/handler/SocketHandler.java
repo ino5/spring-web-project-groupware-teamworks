@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -18,9 +19,12 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class SocketHandler extends TextWebSocketHandler {
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); // 웹소켓 세션을 담아둘 리스트 -- roomListSessions
+	private static final String FILE_UPLOAD_PATH = "C:/test/websocket";
+	static int fileUploadIdx = 0;
+	static String fileUploadSession  = "";
 	// 메시지 발송
-	@Override
 	
+	@Override	
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		// 메세지 발송
 		String msg = message.getPayload();
@@ -28,12 +32,13 @@ public class SocketHandler extends TextWebSocketHandler {
 		System.out.println("SocketHandler handleTextMessage msg->"+msg);
 		
 		String rN = (String) obj.get("roomNumber");
+		String msgType = (String) obj.get("type");
 		HashMap<String, Object> temp = new HashMap<String, Object>();
 		if(rls.size() > 0) {
 			for(int i=0; i < rls.size(); i++) {
 				String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
 				if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
-					temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다 (haspmap이니까! number get하면 value인   object를 가져옴)
+					temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다 (hashmap이니까! number get하면 value인   object를 가져옴)
 					break;
 				}
 			}
