@@ -30,7 +30,7 @@
   
  }
  
- .button1{	
+.button1{	
   	margin-left: 3%;
   	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
   	font-size: 17px;
@@ -38,8 +38,13 @@
  }
 
 #scroll {
-	margin-left: 18%;
+	margin-left : 18%;
 }
+
+a {
+	color: black;
+  	text-decoration: none;
+}	
 
 #div2 {
 	margin-top: 7%;
@@ -51,6 +56,10 @@
   	line-height: 20px;
   	padding-top: 10px;
   	padding-bottom: 7px;
+}
+
+.li:hover {
+	background-color: #F6F6F6;
 }
 
 #span_hover{

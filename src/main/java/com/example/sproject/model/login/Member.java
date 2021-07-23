@@ -29,6 +29,16 @@ public class Member implements UserDetails{
 	private Timestamp m_lastdate;
 	private int m_status;
 	
+//	position
+	private String pt_name;
+//	department
+	private String dpt_name;
+//  address
+	private int adg_num;
+	// 조회용
+	private String search;   private String keyword;
+	private String pageNum;  
+	private int start; 		 private int end;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
