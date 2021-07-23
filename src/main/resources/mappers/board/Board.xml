@@ -27,4 +27,15 @@
         UPDATE post SET p_view = p_view + 1 
         WHERE p_num = #{p_num}
     </update>
+      <!-- 05. 게시글 수정처리 -->
+    <update id="PostUpdateOfBoard">
+        UPDATE post SET
+            p_name = #{p_name},
+            p_content = #{p_content},
+            m_id = #{m_id}
+        WHERE p_num = #{p_num}
+    </update>
+    <delete id="PostDeleteOfBoard">
+    delete from post where p_num = #{p_num}
+    </delete>
  </mapper>

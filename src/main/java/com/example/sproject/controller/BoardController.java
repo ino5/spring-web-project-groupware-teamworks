@@ -43,6 +43,7 @@ public class BoardController {
 		model.addAttribute("total", total);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("pg",pg);
+//		model.addAttribute("p_num", p_num);
 		return "board/board";
 	}
 	
@@ -61,7 +62,7 @@ public class BoardController {
 		postService.insert(Post);
 		return "redirect:/board/board";
 	}
-	// 03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
+	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
 	
@@ -77,7 +78,7 @@ public class BoardController {
         Post post = postService.read(p_num);
         modelandview.addObject("view", post);
         // toString
-        System.out.println(post.toString());
+        
 //        System.out.println("post.bd_num: " + post.getBd_num());
 //        Sysout 결과
 //        Post(p_num=4, bd_num=0, m_id=null, p_name=안녕하세요, p_content=반가워요, p_filename=null, p_regdate=Thu Jul 22 00:00:00 KST 2021, p_view=3, p_type=0, p_is_del=0, search=null, keyword=null, pageNum=null, start=0, end=0)
@@ -85,4 +86,27 @@ public class BoardController {
         
         return modelandview;
     }
+    
+ // 게시글 수정
+    // 폼에서 입력한 내용들은 post로 전달됨
+    @PostMapping(value="update")
+    public String update(Post post) throws Exception{
+    	System.out.println("BoardController Start update..");
+        postService.update(post);
+        return "redirect:/board/board";
+    }
+    // 게시글 삭제
+    // 폼에서 입력한 내용들은 post로 전달됨
+//    @RequestMapping(value="delete")
+//    public String delete(@RequestParam int p_num)throws Exception{
+//    	System.out.println("BoardController delete start..");
+//        postService.delete(p_num);
+//        return "redirect:/board/board";
+//    }
+	@RequestMapping(value="delete")
+	public String delete(int p_num, Model model) {
+		System.out.println("EmpController Start delete...");
+		postService.delete(p_num);
+		return  "redirect:/board/board";
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.sproject.dao.board.PostDao;
 import com.example.sproject.model.board.Post;
 
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -89,5 +90,23 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	}
+
+	@Override
+	public int update(Post post) {
+		System.out.println("PostServiceImpl Start update...");
+		int result = 0;
+		result = postDao.update(post);
+		return result;
+	
+	}
+
+	@Override
+	public int delete(int p_num) {
+		System.out.println("PostServiceImpl Start update...");
+		int result = 0;
+		result = postDao.delete(p_num);
+		return result;
+	}
+
 }
         

@@ -38,7 +38,7 @@
 	</div>
 
 	<div id="content">
-			<form action="${pageContext.request.contextPath}/board/insert" method="post" enctype="multipart/form-data">
+			<form action="${pageContext.request.contextPath}/board/update" method="post" enctype="multipart/form-data">
 				<sec:csrfInput/>
 				<input type="hidden" name="m_id" value="">
 				<section id="point">
