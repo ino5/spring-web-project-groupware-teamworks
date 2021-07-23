@@ -52,8 +52,16 @@
 		.img{
 			float: right;
 		}
+		.msgImg{
+			width: 200px;
+			height: 200px;
+		}
 		.img2{
 			float: left;
+		}
+		.msgImg2{
+			width: 200px;
+			height: 200px;
 		}
 	</style>
 </head>
@@ -61,6 +69,7 @@
 <script type="text/javascript">
 	var ws;
 
+	var isMyMessage = 0;
 	function wsOpen(){
 		console.log("wsOpen  location.host: " + location.host);
         var wsUri  = "ws://" + location.host + _contextPath + "/taking/"+$("#roomNumber").val();
@@ -98,8 +107,10 @@
                 // 메시지이므로 오른쪽으로 정렬하는 클래스를 처리하고 메시지를 출력.     
                 // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
 					if(jsonMsg.sessionId == $("#sessionId").val()){
+						isMyMessage = 1;
 						$("#chating").append("<p class='me'>나 :" + jsonMsg.msg + "</p>");	
 					}else{
+						isMyMessage = 0;
 						$("#chating").append("<p class='others'>" + jsonMsg.userName + " :" + jsonMsg.msg + "</p>");
 					}						
 				}else{
@@ -108,12 +119,11 @@
 			}else{
 				// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
 				var url = URL.createObjectURL(new Blob([msg]));
-				$("#chating").append("<div class='img2'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
-// 				if(jsonMsg.sessionId == $("#sessionId").val()){
-// 					$("#chating").append("<div class='img2'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");	
-// 				}else{
-// 					$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
-// 				}	
+				if(isMyMessage == 1){
+					$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");	
+				} else{
+					$("#chating").append("<div class='img2'><img class='msgImg2' src="+url+"></div><div class='clearBoth'></div>");
+				}	
 			}
 		}
 		document.addEventListener("keypress", function(e){
@@ -151,6 +161,7 @@
 	
 	function fileSend() {
 		console.log("파일전송 시작");
+		send();
 		var file = document.querySelector("#fileUpload").files[0];
 		var fileReader = new FileReader();
 		fileReader.onload = function() {

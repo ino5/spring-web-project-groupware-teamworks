@@ -45,6 +45,7 @@ public class SocketHandler extends TextWebSocketHandler {
 					temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다 (hashmap이니까! number get하면 value인   object를 가져옴)
 					fileUploadIdx = i;
 					fileUploadSession = (String) obj.get("sessionId");
+					System.out.println("fileUploadSession: " + fileUploadSession);
 					break;
 				}
 			}
