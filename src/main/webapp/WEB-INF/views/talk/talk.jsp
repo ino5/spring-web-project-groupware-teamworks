@@ -46,6 +46,15 @@
 		#yourMsg{
 			display: none;
 		}
+		.clearBoth{
+			clear: both;
+		}
+		.img{
+			float: right;
+		}
+		.img2{
+			float: left;
+		}
 	</style>
 </head>
 
@@ -72,7 +81,8 @@
 			
 			var msg = data.data;
 			alert("ws.onmessage->"+msg)
-			if(msg != null && msg.trim() != ''){
+			if(msg != null && msg.type != ''){
+				// 파일 업로드가 아닌 경우 메시지 뿌려준다
 				var jsonMsg = JSON.parse(msg);
 				// 파싱한 객체의 type값을 확인하여 getId값이면 초기 설정된 값이므로 채팅창에 값을 입력하는게 아니라
 				// 추가한 태그 sessionId에 값을 세팅
@@ -91,14 +101,21 @@
 						$("#chating").append("<p class='me'>나 :" + jsonMsg.msg + "</p>");	
 					}else{
 						$("#chating").append("<p class='others'>" + jsonMsg.userName + " :" + jsonMsg.msg + "</p>");
-					}
-						
+					}						
 				}else{
 					console.warn("unknown type!")
 				}
+			}else{
+				// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
+				var url = URL.createObjectURL(new Blob([msg]));
+				$("#chating").append("<div class='img2'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
+// 				if(jsonMsg.sessionId == $("#sessionId").val()){
+// 					$("#chating").append("<div class='img2'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");	
+// 				}else{
+// 					$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
+// 				}	
 			}
 		}
-
 		document.addEventListener("keypress", function(e){
 			if(e.keyCode == 13){ //enter press
 				send();
@@ -131,6 +148,28 @@
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
 	}
+	
+	function fileSend() {
+		console.log("파일전송 시작");
+		var file = document.querySelector("#fileUpload").files[0];
+		var fileReader = new FileReader();
+		fileReader.onload = function() {
+			var param = {
+				type: "fileUpload",
+				file: file,
+				roomNumber: $("#roomNumber").val(),
+				sessionId: $("#sessionId").val(),
+				msg: $("#chatting").val(),
+				userName : $("#userName").val()
+			}
+			ws.send(JSON.stringify(param)); // 파일 보내기전 메시지를 보내서 파일을 보냄을 명시
+			$('chatting').val("");
+		
+			arrayBuffer = this.result;
+				ws.send(arrayBuffer); // 파일 소켓 전송
+		};
+		fileReader.readAsArrayBuffer(file);	
+	}
 </script>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
@@ -162,6 +201,11 @@
 					<th>메시지</th>
 					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
 					<th><button onclick="send()" id="sendBtn">보내기</button></th>
+				</tr>
+				<tr>
+					<th>파일업로드</th>
+					<th><input  type="file" id="fileUpload"></th>
+					<th><button onclick="fileSend()" id="sendFileBtn">파일올리기</button></th>
 				</tr>
 			</table>
 		</div>
