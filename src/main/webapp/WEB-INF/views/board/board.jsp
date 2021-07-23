@@ -101,7 +101,6 @@
 							<input type="checkbox" name="check" id="chk_1">
 						</td>
 						<td>${ps.p_num}</td>
-						<td>${ps.p_name}</td>
 						<td><a href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
 						<td>${ps.m_id}</td>
 						<td>${ps.p_regdate}</td>

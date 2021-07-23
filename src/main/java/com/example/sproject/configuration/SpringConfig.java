@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.sproject.model.login.Member;
 
@@ -58,5 +60,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		http.exceptionHandling()
 	        .accessDeniedPage("/login/denied");
 	}
-	
+	@Configuration
+	public class WebMvcConfig implements WebMvcConfigurer {
+	    @Override
+	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	        registry.addResourceHandler("/summernoteImage/**")
+	                .addResourceLocations("file:///C:/summernote_image/");
+	    }
+	}
 }

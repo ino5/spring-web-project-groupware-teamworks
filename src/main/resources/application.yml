@@ -34,12 +34,18 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+    #SummerNote 위한 설정
+    converters:
+      preferred-json-mapper: gson
   
   devtools:
     livereload:
       enabled: true  
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 
- 
 # Mybatis 
 mybatis:
   # dto Location
