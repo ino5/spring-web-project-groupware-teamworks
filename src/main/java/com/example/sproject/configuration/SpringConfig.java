@@ -37,12 +37,15 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        //URL 권한 체크
+		http.authorizeRequests()
+	        .antMatchers("/admin/**").hasRole("ADMIN")
 	        .antMatchers("/member1/**").authenticated()
-	        .antMatchers("/member2/**").hasRole("MEMBER")
-	        .antMatchers("/admin1/**").hasRole("ADMIN")
+	        .antMatchers("/member2/**").authenticated()
+	        .antMatchers("/drive/**").authenticated()
 	        .antMatchers("/**").permitAll();
-
+		
+		//로그인 관련
 		http.formLogin()
 	        .loginPage("/login/login")
 	        .defaultSuccessUrl("/login")

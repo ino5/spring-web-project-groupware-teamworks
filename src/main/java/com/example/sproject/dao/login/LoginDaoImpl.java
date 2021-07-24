@@ -1,5 +1,7 @@
 package com.example.sproject.dao.login;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,12 @@ public class LoginDaoImpl implements LoginDao {
 	public int insertMember(Member member) {
 		//think about try
 		return session.insert("insertMemberOfLogin", member);
+	}
+
+	@Override
+	public List<String> listAuthorities(String m_id) {
+		List<String> Authorities = session.selectList("selectListAuthoritiesOfLogin", m_id);
+		return Authorities;
 	}
 
 }

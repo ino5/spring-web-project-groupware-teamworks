@@ -3,6 +3,7 @@ package com.example.sproject.model.login;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,12 +30,24 @@ public class Member implements UserDetails{
 	private Timestamp m_lastdate;
 	private int m_status;
 	
+	//권한
+	private List<GrantedAuthority> authorities;
+	
+	
+	public void setAuthorities(List<String> authList) {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (int i = 0; i< authList.size(); i++) {
+			authorities.add(new SimpleGrantedAuthority(authList.get(i)));
+		}
+		this.authorities = authorities;
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		ArrayList<SimpleGrantedAuthority> grants = new ArrayList<SimpleGrantedAuthority>();
-		grants.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
-		return grants;
+//		ArrayList<SimpleGrantedAuthority> grants = new ArrayList<SimpleGrantedAuthority>();
+//		grants.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
+//		return grants;
+		return authorities;
 	}
 	@Override
 	public String getPassword() {
@@ -46,21 +59,25 @@ public class Member implements UserDetails{
 		return m_id;
 	}
 	@Override
+	// 계정 만료되지 않았는지
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 	@Override
+	// 계정 잠기지 않았는지
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 	@Override
+	// 패스워드 만료되지 않았는지
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 	@Override
+	// 계정 활성화 되었는지
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
