@@ -9,13 +9,33 @@
 			  from (select * from post order by p_num) a) where rn >= #{start} and rn <= #{end}
 	]]>	
 </select>
+
 <select id="PostTotalOfBoard" resultType="int">
 		select Count(*) FROM post	
 	</select>
-<!-- <insert id="insertMemberOfLogin" parameterType="com.example.sproject.model.login.Member"> -->
-<!-- 		INSERT INTO member (m_id, m_password, m_name, m_empnum, m_birth, m_phone, m_email, m_status) VALUES (#{m_id}, #{m_password}, #{m_name}, #{m_empnum}, #{m_birth}, #{m_phone}, #{m_email}, 1) -->
-<!-- 	</insert> -->
-
-
-
+  <insert id="PostInsertOfBoard" parameterType="com.example.sproject.model.board.Post">
+	INSERT INTO post (p_num, m_id, p_name, p_content) VALUES (
+	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content})
+   </insert>
+<!--  게시물 상세조회 -->
+    <select id="PostReadOfBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
+        SELECT * FROM post
+        WHERE p_num = #{p_num}
+    </select>
+        <!-- 게시글 조회수 증가처리 -->
+    <update id="PostincreaseViewcntOfBoard" parameterType="int">
+        UPDATE post SET p_view = p_view + 1 
+        WHERE p_num = #{p_num}
+    </update>
+      <!-- 05. 게시글 수정처리 -->
+    <update id="PostUpdateOfBoard">
+        UPDATE post SET
+            p_name = #{p_name},
+            p_content = #{p_content},
+            m_id = #{m_id}
+        WHERE p_num = #{p_num}
+    </update>
+    <delete id="PostDeleteOfBoard">
+    delete from post where p_num = #{p_num}
+    </delete>
  </mapper>
