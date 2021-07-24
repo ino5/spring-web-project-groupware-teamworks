@@ -11,7 +11,7 @@ import com.example.sproject.model.address.AddressGroup;
 import com.example.sproject.model.login.Member;
 
 @Repository
-public class addressDaoImpl implements addressDao {
+public class AddressDaoImpl implements AddressDao {
 
 	@Autowired
 	private SqlSession session;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.sproject.dao.address.addressDao;
+import com.example.sproject.dao.address.AddressDao;
 import com.example.sproject.model.address.AddressGroup;
 import com.example.sproject.model.login.Member;
 
@@ -13,7 +13,7 @@ import com.example.sproject.model.login.Member;
 public class AddressServiceImpl implements AddressService {
 	
 	@Autowired
-	private addressDao addDao;
+	private AddressDao addDao;
 	
 	@Override
 	public int total() {

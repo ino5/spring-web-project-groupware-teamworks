@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.sproject.model.address.AddressGroup;
 import com.example.sproject.model.login.Member;
 
-public interface addressDao {
+public interface AddressDao {
 
 	int tot();
 
