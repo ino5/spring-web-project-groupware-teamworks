@@ -6,191 +6,40 @@
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/talk/js/talk.js"></script>
+<link rel="styleSheet" href="${pageContext.request.contextPath}/talk/css/talk.css">
 <meta charset="UTF-8">
 	<title>Chating</title>
-	<style>
-		*{
-			margin:0;
-			padding:0;
-		}
-		.container{
-			width: 500px;
-			margin: 0 auto;
-			padding: 25px
-		}
-		.container h1{
-			text-align: left;
-			padding: 5px 5px 5px 15px;
-			color: #FFBB00;
-			border-left: 3px solid #FFBB00;
-			margin-bottom: 20px;
-		}
-		.chating{
-			background-color: #000;
-			width: 500px;
-			height: 500px;
-			overflow: auto;
-		}
-		.chating .me{
-			color: #F6F6F6;
-			text-align: right;
-		}
-		.chating .others{
-			color: #FFE400;
-			text-align: left;
-		}
-		input{
-			width: 330px;
-			height: 25px;
-		}
-		#yourMsg{
-			display: none;
-		}
-		.clearBoth{
-			clear: both;
-		}
-		.img{
-			float: right;
-		}
-		.msgImg{
-			width: 200px;
-			height: 200px;
-		}
-		.img2{
-			float: left;
-		}
-		.msgImg2{
-			width: 200px;
-			height: 200px;
-		}
-	</style>
 </head>
-
-<script type="text/javascript">
-	var ws;
-
-	var isMyMessage = 0;
-	function wsOpen(){
-		console.log("wsOpen  location.host: " + location.host);
-        var wsUri  = "ws://" + location.host + _contextPath + "/taking/"+$("#roomNumber").val();
- 		ws = new WebSocket(wsUri);
-		wsEvt();
-	}
-		
-	function wsEvt() {
-		console.log("wsEvt  start... ");
-		//소켓이 열리면 동작
-		ws.onopen = function(data){
-			console.log("wsEvt  소켓이 열리면 초기화 세팅하기..");
-			}
-		
-		//메시지를 받으면 동작
-		console.log("메세지를 받다")
-		ws.onmessage = function(data) {
-			
-			var msg = data.data;
-			alert("ws.onmessage->"+msg)
-			if(msg != null && msg.type != ''){
-				// 파일 업로드가 아닌 경우 메시지 뿌려준다
-				var jsonMsg = JSON.parse(msg);
-				// 파싱한 객체의 type값을 확인하여 getId값이면 초기 설정된 값이므로 채팅창에 값을 입력하는게 아니라
-				// 추가한 태그 sessionId에 값을 세팅
-				if(jsonMsg.type == "getId"){
-					var sid = jsonMsg.sessionId != null ? jsonMsg.sessionId : "";
-					if(sid != ''){
-						$("#sessionId").val(sid); 
-					}
-				}else if(jsonMsg.type == "message"){
-				// type이 message인 경우엔 채팅이 발생한 경우.
-                // 상대방과 자신을 구분하기 위해 여기서 sessionId값을 사용
-                // 최초 이름을 입력하고 연결되었을때, 발급받은 sessionId값을 비교하여 같다면 자기 자신이 발신한
-                // 메시지이므로 오른쪽으로 정렬하는 클래스를 처리하고 메시지를 출력.     
-                // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
-					if(jsonMsg.sessionId == $("#sessionId").val()){
-						isMyMessage = 1;
-						$("#chating").append("<p class='me'>나 :" + jsonMsg.msg + "</p>");	
-					}else{
-						isMyMessage = 0;
-						$("#chating").append("<p class='others'>" + jsonMsg.userName + " :" + jsonMsg.msg + "</p>");
-					}						
-				}else{
-					console.warn("unknown type!")
-				}
-			}else{
-				// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
-				var url = URL.createObjectURL(new Blob([msg]));
-				if(isMyMessage == 1){
-					$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");	
-				} else{
-					$("#chating").append("<div class='img2'><img class='msgImg2' src="+url+"></div><div class='clearBoth'></div>");
-				}	
-			}
-		}
-		document.addEventListener("keypress", function(e){
-			if(e.keyCode == 13){ //enter press
-				send();
-			}
-		});
-	}
-
-	function chatName(){
-		var userName = $("#userName").val();
-		console.log("chatName userName: " + userName);
-		if(userName == null || userName.trim() == ""){
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		}else{
-			wsOpen();
-			$("#meName").append('나의이름:'+userName); 
-			$("#yourName").hide();
-			$("#yourMsg").show();
-		}
-	}
-
-	function send() {
-		var option ={
-			type: "message",
-			roomNumber : $("#roomNumber").val(),  
-			sessionId : $("#sessionId").val(),
-			userName : $("#userName").val(),
-			msg : $("#chatting").val()
-		}  //roomNumber는 방의 번호를 보내줌으로써 소켓서버는 어느방에서 메시지를 보냈는지 구분
-		ws.send(JSON.stringify(option))
-		$('#chatting').val("");
-	}
-	
-	function fileSend() {
-		console.log("파일전송 시작");
-		send();
-		var file = document.querySelector("#fileUpload").files[0];
-		var fileReader = new FileReader();
-		fileReader.onload = function() {
-			var param = {
-				type: "fileUpload",
-				file: file,
-				roomNumber: $("#roomNumber").val(),
-				sessionId: $("#sessionId").val(),
-				msg: $("#chatting").val(),
-				userName : $("#userName").val()
-			}
-			ws.send(JSON.stringify(param)); // 파일 보내기전 메시지를 보내서 파일을 보냄을 명시
-			$('chatting').val("");
-		
-			arrayBuffer = this.result;
-				ws.send(arrayBuffer); // 파일 소켓 전송
-		};
-		fileReader.readAsArrayBuffer(file);	
-	}
-</script>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
-	<div id="side">
-
+	<div id="side"></div>
+	<div class="wrap">
+			<div id="content1">
+			<div id="room1">
+			<div id="logo">
+				<div class="img">
+					<img alt="로고.jpg" src="${pageContext.request.contextPath}/talk/img/로고.png">
+				</div>
+				<div class="h5"><b>TEAM</b></div>
+				<div class="h6"><b>works</b></div>
+			</div>
+				<div id="roomContainer" class="roomContainer">
+					<table id="roomList" class="roomList"></table>
+				</div>
+				<div>
+					<table class="inputTable">
+						<tr>
+							<th>방 이름</th>
+							<th><input type="text" name="roomName" id="roomName"></th>
+							<th><button id="createRoom">방 만들기</button></th>
+						</tr>
+					</table>
+				</div>
+			</div>
 	</div>
-	<div id="content">
- <h1>chat View</h1>
-	<div id="container" class="container">
-		<h1>${roomName}의 채팅방</h1>
+	<div class="container">
+		<h1>${roomName}</h1>
 		<input type="hidden" id="sessionId" value="">
 		<input type="hidden" id="roomNumber" value="${roomNumber}">
 		<div id="meName"></div>
@@ -202,7 +51,7 @@
 				<tr>
 					<th>사용자명</th>
 					<th><input type="text" name="userName" id="userName"></th>
-					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+					<th><button onclick="chatName()" id="startBtn">+</button></th>
 				</tr>
 			</table>
 		</div>
@@ -211,17 +60,17 @@
 				<tr>
 					<th>메시지</th>
 					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
+					<th><button onclick="send()" id="sendBtn">전송</button></th>
 				</tr>
 				<tr>
-					<th>파일업로드</th>
+					<th>파일</th>
 					<th><input  type="file" id="fileUpload"></th>
-					<th><button onclick="fileSend()" id="sendFileBtn">파일올리기</button></th>
+					<th><button onclick="fileSend()" id="sendFileBtn"><img alt="다운.png" src="${pageContext.request.contextPath}/talk/img/다운.png"></button></th>
 				</tr>
 			</table>
 		</div>
 	</div>
-	</div>
+</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>
 </html>
