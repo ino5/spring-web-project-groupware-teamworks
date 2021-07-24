@@ -125,7 +125,7 @@ public class BoardController {
 	   @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
 	    @ResponseBody
 	    public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
-
+		   System.out.println("uploadSummernoteImageFile");
 	        JsonObject jsonObject = new JsonObject();
 
 	        String fileRoot = "C:\\summernote_image\\";	//저장될 파일 경로

@@ -33,7 +33,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**/css/**", "/**/js/**", "/**/img/**", "/**/lib/**", "/**/upload/**");
+		web.ignoring().antMatchers("/**/css/**", "/**/js/**", "/**/img/**", "/**/lib/**", "/**/upload/**", "/summernoteImage/**");
 	}
 	
 	
@@ -59,13 +59,5 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		
 		http.exceptionHandling()
 	        .accessDeniedPage("/login/denied");
-	}
-	@Configuration
-	public class WebMvcConfig implements WebMvcConfigurer {
-	    @Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/summernoteImage/**")
-	                .addResourceLocations("file:///C:/summernote_image/");
-	    }
 	}
 }
