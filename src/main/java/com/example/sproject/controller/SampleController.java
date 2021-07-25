@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.sample.Sample;
+import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.sample.SampleService;
 
 @Controller
@@ -18,6 +19,9 @@ import com.example.sproject.service.sample.SampleService;
 public class SampleController {
 	@Autowired
 	private SampleService sampleService;
+	
+	@Autowired
+	private CommonService CommonGroupService;
 	
 	@RequestMapping("")
 	public String sample(Model model) {

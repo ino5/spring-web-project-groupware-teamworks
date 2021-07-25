@@ -5,7 +5,7 @@
 <html>
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
-<meta charset="UTF-8" http-equiv="refresh" content="0; URL='${pageContext.request.contextPath}/login/login'" />
+<meta charset="UTF-8" http-equiv="refresh" content="0; URL='${pageContext.request.contextPath}/login/'" />
 <title>Insert title here</title>
 </head>
 <body>

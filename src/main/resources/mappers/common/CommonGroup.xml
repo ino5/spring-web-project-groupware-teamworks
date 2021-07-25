@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.common.CommonGroupDao">
+	<select id="selectListOfCommonGroup" parameterType="String" resultType="com.example.sproject.model.common.CommonGroup">
+	<![CDATA[
+		SELECT * FROM common_group WHERE tb_code = #{tb_code} ORDER BY cg_ref, cg_order
+	]]>	
+	</select>
+	
+	<select id="selectOneInsertedCg_orderOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="int">
+	<![CDATA[
+		SELECT NVL(MIN(cg_order),-1) FROM common_group 
+		WHERE 	(tb_code = #{tb_code} AND cg_ref = #{cg_ref}) AND 
+				(cg_order > #{parent_cg_order} AND cg_depth <= #{parent_cg_depth})
+	]]>	
+	</select>
+	
+	<select id="selectOneMaxCg_orderOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="int">
+	<![CDATA[
+		SELECT MAX(cg_order) FROM common_group  WHERE (tb_code = #{tb_code} AND cg_ref = #{cg_ref})
+	]]>	
+	</select>
+	
+	<update id="pushCg_orderOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup">
+	<![CDATA[
+		UPDATE common_group SET cg_order = cg_order + 1 WHERE (tb_code = #{tb_code} AND cg_ref = #{cg_ref}) AND cg_order >= #{cg_order}
+	]]>
+	</update>
+	
+	<select id="selectOneMaxCg_numOfCommonGroup" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT MAX(cg_num) FROM common_group WHERE tb_code = #{tb_code}
+	]]>	
+	</select>
+	
+	<insert id="insertCommonGroupOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup">
+	<![CDATA[
+		INSERT INTO common_group
+		(tb_code, cg_num, cg_name, cg_content, m_id, cg_ref, cg_order, cg_depth)
+		VALUES
+		(#{tb_code}, #{cg_num}, #{cg_name}, #{cg_content}, #{m_id}, #{cg_ref}, #{cg_order}, #{cg_depth})
+	]]>
+	</insert>
+	
+	<select id="selectOneParentOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="com.example.sproject.model.common.CommonGroup">
+	<![CDATA[
+		SELECT * FROM common_group WHERE tb_code = #{tb_code} AND cg_num = #{parent_cg_num}
+	]]>	
+	</select>
+</mapper>

@@ -42,7 +42,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
         //URL 권한 체크
 		http.authorizeRequests()
 	        .antMatchers("/admin/**").hasRole("ADMIN")
-	        .antMatchers("/drive/**").authenticated()
+	        .antMatchers("/**/test/**").permitAll()
 	        .antMatchers("/**").authenticated();
 		
 		//로그인 관련
@@ -60,5 +60,8 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		
 		http.exceptionHandling()
 	        .accessDeniedPage("/login/denied");
+		
+		//csrf 예외 처리
+		http.csrf().ignoringAntMatchers("/**/test/**");
 	}
 }
