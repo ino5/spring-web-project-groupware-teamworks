@@ -84,6 +84,8 @@ public class PostDaoImpl implements PostDao {
 		System.out.println("PostDaoImpl Start update...");
 		int result = 0;
 		try {
+			System.out.println("post: " + post.toString());
+			System.out.println("m_id: " + post.getM_id());
 			result = session.update("PostUpdateOfBoard",post);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,6 +103,20 @@ public class PostDaoImpl implements PostDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("PostDaoImpl delete Exception->"+e.getMessage());
+		}
+		return result;
+	}
+	
+	@Override
+	public int likeDelete(int p_num) {
+		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
+		System.out.println("PostDaoImpl Start delete...");
+		int result = 0;
+		try {
+			result = session.delete("PostLikeDeleteOfBoard",p_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl LikeDelete Exception->"+e.getMessage());
 		}
 		return result;
 	}

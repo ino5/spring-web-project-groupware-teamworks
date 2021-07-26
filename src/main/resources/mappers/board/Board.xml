@@ -14,8 +14,8 @@
 		select Count(*) FROM post	
 	</select>
   <insert id="PostInsertOfBoard" parameterType="com.example.sproject.model.board.Post">
-	INSERT INTO post (p_num, m_id, p_name, p_content) VALUES (
-	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content})
+	INSERT INTO post (p_num, m_id, p_name, p_content,p_view) VALUES (
+	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content},0)
    </insert>
 <!--  게시물 상세조회 -->
     <select id="PostReadOfBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
@@ -37,5 +37,8 @@
     </update>
     <delete id="PostDeleteOfBoard">
     delete from post where p_num = #{p_num}
+    </delete>
+     <delete id="PostLikeDeleteOfBoard">
+    delete from post_like where p_num = #{p_num}
     </delete>
  </mapper>

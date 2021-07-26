@@ -17,6 +17,7 @@ public class Post {
 	private int p_view;
 	private int p_type;
 	private int p_is_del;
+	private String loginId;
 	
 	// 조회용
 	private String search;		private String keyword;

@@ -62,7 +62,7 @@
 			<div id="board_table">
 				<section class="tool_bar">
 					<ul class="tool_ul">
-						<li><button type="button" class="btn2">
+						<li><button type="button" class="btn2"onclick="location.href='${pageContext.request.contextPath}/board/write'">
 								새글쓰기
 							</button></li>
 

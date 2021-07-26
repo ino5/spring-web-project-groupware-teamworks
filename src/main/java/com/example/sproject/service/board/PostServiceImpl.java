@@ -36,7 +36,7 @@ public class PostServiceImpl implements PostService {
 	// p_num, p_name, p_content, p_regdate, p_view
 	@Override
 	public int insert(Post post) {
-	
+	System.out.println("PostServiceImpl Start insert");
 		String m_id =post.getM_id();
 		String p_name = post.getP_name();
         String p_content = post.getP_content();
@@ -104,6 +104,9 @@ public class PostServiceImpl implements PostService {
 	public int delete(int p_num) {
 		System.out.println("PostServiceImpl Start update...");
 		int result = 0;
+		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
+	    postDao.likeDelete(p_num);
+	
 		result = postDao.delete(p_num);
 		return result;
 	}

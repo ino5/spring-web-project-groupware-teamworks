@@ -13,7 +13,7 @@
 				<li><a href="time" id="head_time">근태관리</a></li>
 				<li><a href="sign" id="head_sign">전자결재</a></li>
 				<li><a href="calendar" id="head_calendar">캘린더</a></li>
-				<li><a href="board" id="head_board">게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/board" id="head_board">게시판</a></li>
 				<li><a href="address" id="head_address">주소록</a></li>
 				<li><a href="drive" id="head_drive">드라이브</a></li>
 				<li><a href="reservation" id="head_reservation">예약</a></li>
