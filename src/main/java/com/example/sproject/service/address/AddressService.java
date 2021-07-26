@@ -2,7 +2,7 @@ package com.example.sproject.service.address;
 
 import java.util.List;
 
-import com.example.sproject.model.address.AddressGroup;
+import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.login.Member;
 
 public interface AddressService {
@@ -11,7 +11,7 @@ public interface AddressService {
 
 	List<Member> listMember(Member member);
 
-	List<AddressGroup> listAddressGroup(String m_id);
+	List<Address_Group> listAddressGroup(String m_id);
 
 	List<Member> listPersonalGroup(Member member);
 
@@ -21,6 +21,8 @@ public interface AddressService {
 
 	int searchTotal(Member member);
 
-	int simpleAdd(Member member);
+	void simpleAdd(Member member);
+
+	void groupAdd(Address_Group addressGroup);
 
 }

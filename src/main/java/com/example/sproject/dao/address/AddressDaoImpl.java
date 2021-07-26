@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.sproject.model.address.AddressGroup;
+import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.login.Member;
 
 @Repository
@@ -36,10 +36,10 @@ public class AddressDaoImpl implements AddressDao {
 	}
 
 	@Override
-	public List<AddressGroup> listAddressGroup(String m_id) {
+	public List<Address_Group> listAddressGroup(String m_id) {
 		System.out.println("addressDaoImpl listAddressGroup Start ..." );
 		System.out.println("m_id >>>>"+ m_id);
-		List<AddressGroup> addressGroupList = session.selectList("addressGroupListOfAddress", m_id);
+		List<Address_Group> addressGroupList = session.selectList("addressGroupListOfAddress", m_id);
 		return addressGroupList;
 	}
 	
@@ -83,10 +83,15 @@ public class AddressDaoImpl implements AddressDao {
 	}
 
 	@Override
-	public int simpleAdd(Member member) {
+	public void simpleAdd(Member member) {
 		System.out.println("addressDaoImpl simpleAdd Start ..." );
-		int simpleAdd = session.insert("simpleAddOfAddess", member);
-		return simpleAdd;
+		session.insert("simpleAddOfAddess", member);
+	}
+
+	@Override
+	public void groupAdd(Address_Group addressGroup) {
+		System.out.println("addressDaoImpl groupAdd Start ..." );
+		session.insert("groupAddOfAddress", addressGroup);
 	}
 
 }

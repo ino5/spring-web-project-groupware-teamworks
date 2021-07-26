@@ -19,7 +19,7 @@
      ]]>	 
     </select>
     
-    <select id="addressGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.address.AddressGroup">
+    <select id="addressGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.address.Address_Group">
     	select * from address_Group where m_id = #{m_id}
     </select>
     
@@ -57,5 +57,9 @@
 	
 	<insert id="simpleAddOfAddess" parameterType="com.example.sproject.model.login.Member">
 		insert into member (m_id, m_name, m_email, m_phone, dpt_code, pt_code, m_status) values (#{m_id}, #{m_name}, #{m_email}, #{m_phone}, 'none', 'none', 11)
+	</insert>
+	
+	<insert id="groupAddOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		insert into address_group (adg_num, m_id, adg_name) values ((select nvl(max(adg_num),0) +1 from address_group) , #{m_id}, #{adg_name})
 	</insert>
 </mapper>

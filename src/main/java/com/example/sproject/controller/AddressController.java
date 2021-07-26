@@ -1,23 +1,16 @@
 package com.example.sproject.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.sproject.model.address.AddressGroup;
+import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.service.address.AddressService;
 import com.example.sproject.service.address.Paging;
@@ -38,7 +31,7 @@ public class AddressController {
 		member.setStart(pg.getStart());   // 시작시 1
 		member.setEnd(pg.getEnd());       // 시작시 10 
 		List<Member> listMember = adds.listMember(member);
-		List<AddressGroup> listAddressGroup = adds.listAddressGroup(m_id);
+		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
 		model.addAttribute("total", total); 
 		model.addAttribute("listMember",listMember); 
 		model.addAttribute("listAddressGroup",listAddressGroup); 
@@ -55,7 +48,7 @@ public class AddressController {
 		member.setStart(pg.getStart());   // 시작시 1
 		member.setEnd(pg.getEnd());       // 시작시 10 
 		List<Member> listPersonalGroup = adds.listPersonalGroup(member);
-		List<AddressGroup> listAddressGroup = adds.listAddressGroup(m_id);
+		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
 		model.addAttribute("total", total); 
 		model.addAttribute("listPersonalGroup",listPersonalGroup); 
 		model.addAttribute("listAddressGroup",listAddressGroup); 
@@ -80,8 +73,16 @@ public class AddressController {
 		System.out.println("AddressController Start simpleAdd..." );
 		UUID uid = UUID.randomUUID();
 		member.setM_id(uid.toString());
-		int simpleAdd = adds.simpleAdd(member);
+		adds.simpleAdd(member);
 		return "redirect:/address";
 	}
 	
+	@RequestMapping(value="groupAdd")
+	public String groupAdd(Principal principal, Address_Group addressGroup) {
+		System.out.println("AddressController Start groupAdd..." );
+		String m_id = principal.getName();
+		addressGroup.setM_id(m_id);
+		adds.groupAdd(addressGroup);
+		return "redirect:/address";
+	}
 }

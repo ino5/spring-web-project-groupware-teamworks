@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sproject.dao.address.AddressDao;
-import com.example.sproject.model.address.AddressGroup;
+import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.login.Member;
 
 @Service
@@ -29,8 +29,8 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<AddressGroup> listAddressGroup(String m_id) {
-		List<AddressGroup> addressGroupList = addDao.listAddressGroup(m_id);
+	public List<Address_Group> listAddressGroup(String m_id) {
+		List<Address_Group> addressGroupList = addDao.listAddressGroup(m_id);
 		return addressGroupList;
 	}
 
@@ -59,8 +59,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public int simpleAdd(Member member) {
-		int simpleAdd = addDao.simpleAdd(member);
-		return 0;
+	public void simpleAdd(Member member) {
+		addDao.simpleAdd(member);
+	}
+
+	@Override
+	public void groupAdd(Address_Group addressGroup) {
+		addDao.groupAdd(addressGroup);
 	}
 }

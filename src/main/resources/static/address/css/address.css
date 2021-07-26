@@ -93,6 +93,27 @@ a {
     display: none;
 }
 
+/* 	연락처 주소록 추가 */
+.groupAdd{
+	cursor: pointer;
+	
+}
+
+#group {
+	display: none;
+}
+
+#groupName{
+	width: 150px;
+	height: 27px;
+	margin-right: 10px;
+}
+
+#groupAdd{
+	width:17px; 
+	height:17px;
+	margin-right: 10px;
+}
 /* ========================== Content ========================== */
 
 h2 {

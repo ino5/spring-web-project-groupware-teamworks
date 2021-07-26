@@ -11,61 +11,21 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	var globalResult;
-	function addressSearchList(start, end) {
-		var str = "";
-
-		$
-				.ajax({
-					url : _contextPath + "/address/addressSearchList",
-					data : {
-						start_num : start,
-						end_num : end
-					},
-					dataType : 'json',
-					success : function(result) {
-						console.log("ajax success");
-						console.log(result);
-						var jsonResult = JSON.stringify(result);
-						$('#list_table > tbody').empty();
-						$('#pg').empty();
-						$
-								.each(
-										result,
-										function(i) {
-											if(result[i].m_empnum == 0){
-											str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>"
-													+ result[i].m_name
-													+ '</TD><TD>'
-													+ '</TD><TD>'
-													+ result[i].m_phone
-													+ '</TD><TD>'
-													+ result[i].m_email
-													+ '</TD><TD>'
-													+ result[i].dpt_name
-													+ '</TD><TD>'
-													+ result[i].pt_name;
-											str += '</TR>';
-											} else {
-												str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>"
-													+ result[i].m_name
-													+ '</TD><TD>'
-													+ result[i].m_empnum
-													+ '</TD><TD>'
-													+ result[i].m_phone
-													+ '</TD><TD>'
-													+ result[i].m_email
-													+ '</TD><TD>'
-													+ result[i].dpt_name
-													+ '</TD><TD>'
-													+ result[i].pt_name;
-											str += '</TR>';
-											}
-										});
-						$("#list_table").append(str);
-					}
-				});
-	}
+	$("#groupAdd").click(function() {
+		var submenu = $(this).next("#scroll");
+		// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+		if (submenu.is(":visible")) {
+			$('#img1').css({
+				'transform' : 'rotate(0deg)'
+			});
+			submenu.slideUp("fast");
+		} else {
+			$('#img1').css({
+				'transform' : 'rotate(90deg)'
+			});
+			submenu.slideDown("fast");
+		}
+	})
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -91,7 +51,17 @@
 					<li class="li"><a
 						href="${pageContext.request.contextPath}/address/personal?adg_num=${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</a></li>
 				</c:forEach>
-				<li class="li"><span id="groupAdd">연락처 주소록 추가</span></li>
+				<li class="li"><span class="groupAdd"
+					onclick="javascript:doShow3()">연락처 주소록 추가</span></li>
+				<li class="li" id="group">
+					<form action="${pageContext.request.contextPath}/address/groupAdd">
+						<input type="text" name="adg_name" placeholder="그룹 명"
+							required="required" id="groupName"><input type="image" 
+							src="${pageContext.request.contextPath}/address/img/plus.png" name="Submit" value="Submit" id="groupAdd">
+							 <img alt="" src="${pageContext.request.contextPath}/address/img/gear.png"
+							width="19px" height="19px" style="margin-top: 2px;" class="groupAdd" id="groupSet">
+					</form>
+				</li>
 			</ol>
 			<div id="div2">
 				<a id="button2" class="button1"><span id="span_hover"><img
@@ -168,16 +138,18 @@
 		</div>
 		<br>
 		<div id="speed" style="display: none">
-		<form action="${pageContext.request.contextPath}/address/simpleAdd">
-			<input type="text" class="speed" placeholder="이름(표시명)" name="m_name" required="required"> <input
-				type="email" class="speed" placeholder="이메일" name="m_email" required="required"> <input
-				type="text" class="speed" placeholder="휴대폰" name="m_phone" required="required">
-			<button type="submit" class="speed_plus_btn">
-				<img alt=""
-					src="${pageContext.request.contextPath}/address/img/plus.png"
-					width="17px" height="17px">
-			</button>
-		</form>
+			<form action="${pageContext.request.contextPath}/address/simpleAdd">
+				<input type="text" class="speed" placeholder="이름(표시명)" name="m_name"
+					required="required"> <input type="email" class="speed"
+					placeholder="이메일" name="m_email" required="required"> <input
+					type="text" class="speed" placeholder="휴대폰" name="m_phone"
+					required="required">
+				<button type="submit" class="speed_plus_btn">
+					<img alt=""
+						src="${pageContext.request.contextPath}/address/img/plus.png"
+						width="17px" height="17px">
+				</button>
+			</form>
 		</div>
 		<div>
 			<ul class="search_ul">
@@ -249,10 +221,10 @@
 								name="check" id="chk_1"></td>
 							<td>${member.m_name }</td>
 							<c:if test="${member.m_empnum > 0}">
-							<td>${member.m_empnum }</td>
+								<td>${member.m_empnum }</td>
 							</c:if>
 							<c:if test="${member.m_empnum == 0}">
-							<td></td>
+								<td></td>
 							</c:if>
 							<td>${member.m_phone }</td>
 							<td>${member.m_email }</td>
