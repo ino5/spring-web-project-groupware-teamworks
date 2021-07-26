@@ -62,7 +62,7 @@
 			<div id="board_table">
 				<section class="tool_bar">
 					<ul class="tool_ul">
-						<li><button type="button" class="btn2">
+						<li><button type="button" class="btn2"onclick="location.href='${pageContext.request.contextPath}/board/write'">
 								새글쓰기
 							</button></li>
 
@@ -93,12 +93,15 @@
 					
 					</tr>
 					<c:forEach var="ps" items="${listPost }">
+					<form >
+						
+					</form>
 					<tr>
 						<td style="text-align: center;">
 							<input type="checkbox" name="check" id="chk_1">
 						</td>
 						<td>${ps.p_num}</td>
-						<td>${ps.p_name}</td>
+						<td><a href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
 						<td>${ps.m_id}</td>
 						<td>${ps.p_regdate}</td>
 						<td>${ps.p_view}</td>		
@@ -106,7 +109,18 @@
 						</c:forEach>
 				</table>
 			</div>
+			<div class="pageNum">
+		<c:if test="${pg.startPage > pg.pageBlock }">
+			<a href="?currentPage=${pg.startPage-pg.pageBlock}"></a>
+		</c:if>
+		<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
+			<a href="?currentPage=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${pg.endPage < pg.totalPage }">
+			<a href="?currentPage=${pg.startPage+pg.pageBlock}"></a>
+		</c:if>
 		</div>
+	</div>
 	
 
 

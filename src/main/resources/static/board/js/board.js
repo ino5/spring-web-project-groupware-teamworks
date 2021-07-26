@@ -1,4 +1,4 @@
-<script type="text/javascript">
+
 	$(document).ready(function() {
 		$("#button1").click(function() {
 			var submenu = $(this).next("#scroll");
@@ -25,4 +25,3 @@
 		    checkbox.checked = selectAll.checked;
 		  })
 		}
-</script>

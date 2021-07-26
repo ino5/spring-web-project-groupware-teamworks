@@ -1,5 +1,7 @@
 package com.example.sproject.service.login;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,8 +25,16 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println("--Method loadUserByUsername");
 		System.out.println("m_id: " + m_id);
 		Member member = loginDao.getUserById(m_id);
+		
+		// 사용자 정보 없을 경우
 		if (null == member) {
 			throw new UsernameNotFoundException("Member Not Found");
+//			return null; //null 처리 하는 경우
+		
+		// 사용자 정보 있을 경우 추가 로직 수행
+		} else {
+			// 권한 부여
+			member.setAuthorities(loginDao.listAuthorities(m_id));
 		}
 		return member;
 	}
@@ -50,5 +60,4 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println("result: " + result);
 		return result;
 	}
-
 }

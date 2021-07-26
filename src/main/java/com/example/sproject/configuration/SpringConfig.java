@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.sproject.model.login.Member;
 
@@ -31,18 +33,19 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**/css/**", "/**/js/**", "/**/img/**", "/**/lib/**", "/**/upload/**");
+		web.ignoring().antMatchers("/**/css/**", "/**/js/**", "/**/img/**", "/**/lib/**", "/**/upload/**", "/summernoteImage/**", "/resource/**");
 	}
 	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-	        .antMatchers("/member1/**").authenticated()
-	        .antMatchers("/member2/**").hasRole("MEMBER")
-	        .antMatchers("/admin1/**").hasRole("ADMIN")
-	        .antMatchers("/**").permitAll();
-
+        //URL 권한 체크
+		http.authorizeRequests()
+	        .antMatchers("/admin/**").hasRole("ADMIN")
+	        .antMatchers("/**/test/**").permitAll()
+	        .antMatchers("/**").authenticated();
+		
+		//로그인 관련
 		http.formLogin()
 	        .loginPage("/login/login")
 	        .defaultSuccessUrl("/login")
@@ -57,6 +60,8 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		
 		http.exceptionHandling()
 	        .accessDeniedPage("/login/denied");
+		
+		//csrf 예외 처리
+		http.csrf().ignoringAntMatchers("/**/test/**");
 	}
-	
 }
