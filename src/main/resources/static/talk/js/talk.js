@@ -89,6 +89,9 @@
 		ws.onmessage = function(data) {
 			
 			var msg = data.data;
+			var date = new Date();
+			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+			var $chat = $("<div class='chat-box'><div class='chat'>" + "</div><div class='chat-info chat-box'>" + dateInfo + "</div></div>");
 			alert("ws.onmessage->"+msg)
 			if(msg != null && msg.type != ''){
 				// 파일 업로드가 아닌 경우 메시지 뿌려준다
@@ -108,10 +111,10 @@
                 // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
 					if(jsonMsg.sessionId == $("#sessionId").val()){
 						isMyMessage = 1;
-						$("#chating").append("<p class='me'>" + jsonMsg.msg + "</p>");	
+						$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + dateInfo + "</p></div>");
 					}else{
 						isMyMessage = 0;
-						$("#chating").append("<p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p>");
+						$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + dateInfo + "</p></div>");
 					}						
 				}else{
 					console.warn("unknown type!")
@@ -124,7 +127,7 @@
 				} else{
 					$("#chating").append("<div class='img2'><img class='msgImg2' src="+url+"></div><div class='clearBoth'></div>");
 				}	
-			}
+			}			
 		}
 		document.addEventListener("keypress", function(e){
 			if(e.keyCode == 13){ //enter press

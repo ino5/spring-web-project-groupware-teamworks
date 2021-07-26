@@ -130,7 +130,11 @@
 			color: #0F91E6;
 			font-size: 15px;
 			font-weight: bold;			
-		}		
+		}
+		#memo {
+			height: 50px;
+			
+		}				
 		.chating{
 			background-color: #F6F6F6;
 			width: 500px;
@@ -140,27 +144,38 @@
 		.chating .me{
 			color: white;
 			background-color: #0F91E6;
-    		width: 301px;
     		margin-bottom: 10px;
     		text-align: center;
     		border-radius: 10px;
-    		height: 40px;
     		line-height: 40px;
     		float: right;
     		font-size: 18px;
+    		position: relative;
+    		padding-left: 15px;
+    		padding-right: 15px;
+		}
+		.chating .date{
+			float: left;
+			position: relative;
+			margin-left: 120px;
 		}
 		.chating .others{
 			color: black;
 			background-color: white;
-			width: 301px;
     		text-align: center;
     		border-radius: 10px;
-    		height: 40px;
     		margin-bottom: 10px;
     		line-height: 40px;
     		float: left;
     		font-size: 18px;
+    		position: relative;
+    		padding-left: 15px;
+    		padding-right: 15px;
 			}
+		.chating .date2{
+			float: left;
+			margin-left: 120px;
+		}
 		#yourName {
 			margin-top: 10px;
 			margin-left: 5px;

@@ -44,6 +44,7 @@
 		<input type="hidden" id="roomNumber" value="${roomNumber}">
 		<div id="meName"></div>
 		<div id="chating" class="chating">
+		<div id="chating2"></div>
 		</div>
 		
 		<div id="yourName">

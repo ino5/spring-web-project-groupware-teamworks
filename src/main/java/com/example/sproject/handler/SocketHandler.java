@@ -34,7 +34,6 @@ public class SocketHandler extends TextWebSocketHandler {
 		String msg = message.getPayload(); // JSON 형태의 String메시지를 받음
 		JSONObject obj = jsonToObjectParser(msg); // JSON 데이터를 JSONObject로 파싱
 		System.out.println("SocketHandler handleTextMessage msg->"+msg);
-		
 		String rN = (String) obj.get("roomNumber"); // 방 번호 받음
 		String msgType = (String) obj.get("type"); // 메시지 타입 확인
 		HashMap<String, Object> temp = new HashMap<String, Object>();
@@ -176,7 +175,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 	
-	@Override
+	@Override 
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("SocketHandler afterConnectionEstablished start...");
 		// 웹소켓 종료

@@ -1,5 +1,6 @@
 package com.example.sproject.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class TalkController {
 	}
 	
 	List<Room> roomList = new ArrayList<Room>();
-	static int roomNumber = 0;
+	static int roomNumber = 0; // 메모리에 한번 할당되어 프로그램이 종료될 때 해제되는 것을 의미
 	
 	@RequestMapping("/talker")
 	public ModelAndView chat() {
@@ -44,6 +45,8 @@ public class TalkController {
 		mv.setViewName("talk/room");
 		return mv;
 	}
+	// Model -> model.addAttribute를 사용하여 데이터만 저장
+	// ModelAndView -> 데이터와 이동하고자 하는 View Page를 같이 저장
 	
 	/**
 	 * 방 생성하기
@@ -53,7 +56,7 @@ public class TalkController {
 	@RequestMapping("/createRoom")
 	public 
 	@ResponseBody 
-	List<Room> createRoom(@RequestParam HashMap<Object, Object> params){
+	List<Room> createRoom(@RequestParam HashMap<Object, Object> params){ // 메소드의 파라미터값으로 @RequestParam을 넣어주면된다
 		System.out.println("SocketController createroom Start...");
 		String roomName = (String) params.get("roomName");
 		if(roomName != null && !roomName.trim().equals("")) {
@@ -83,11 +86,19 @@ public class TalkController {
 	 * @return
 	 */
 	@RequestMapping("/moveChating")
-	public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
+	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, Principal principal) {
 		System.out.println("SocketController moveChating Start...");
+		//세션 아이디 출력
+		String m_id = null;
+		if(principal != null) {
+			m_id = principal.getName();
+		}
+		System.out.println("m_id: " + m_id);
+		
 		ModelAndView mv = new ModelAndView();
 		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
 		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
 		if(new_list != null && new_list.size() > 0) {
 			mv.addObject("roomName", params.get("roomName"));
 			mv.addObject("roomNumber", params.get("roomNumber"));

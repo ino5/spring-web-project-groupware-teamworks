@@ -16,6 +16,7 @@
 	<div id="side">
 
 	</div>
+	<div class="wrap">
 	<div id="content1">
 		<div id="room1">
 			<div id="logo">
@@ -39,6 +40,7 @@
 				</div>
 			</div>
 	</div>
+</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>
 </html>
