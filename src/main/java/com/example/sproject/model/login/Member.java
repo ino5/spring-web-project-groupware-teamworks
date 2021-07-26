@@ -40,7 +40,7 @@ public class Member implements UserDetails{
 	private String search;   private String keyword;
 	private String pageNum;  
 	private int start; 		 private int end;	
-	
+
 	//권한
 	private List<GrantedAuthority> authorities;
 	
@@ -52,7 +52,6 @@ public class Member implements UserDetails{
 		}
 		this.authorities = authorities;
 	}
-
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
