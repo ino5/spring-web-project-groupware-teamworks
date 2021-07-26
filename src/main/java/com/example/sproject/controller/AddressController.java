@@ -85,4 +85,13 @@ public class AddressController {
 		adds.groupAdd(addressGroup);
 		return "redirect:/address";
 	}
+	
+	@RequestMapping(value="groupDelete")
+	public String groupDelete(Principal principal, Address_Group addressGroup) {
+		System.out.println("AddressController Start groupDelete..." );
+		String m_id = principal.getName();
+		addressGroup.setM_id(m_id);
+		adds.groupDelete(addressGroup);
+		return "redirect:/address";
+	}
 }

@@ -11,21 +11,20 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	$("#groupAdd").click(function() {
-		var submenu = $(this).next("#scroll");
-		// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
-		if (submenu.is(":visible")) {
-			$('#img1').css({
-				'transform' : 'rotate(0deg)'
-			});
-			submenu.slideUp("fast");
-		} else {
-			$('#img1').css({
-				'transform' : 'rotate(90deg)'
-			});
-			submenu.slideDown("fast");
-		}
-	})
+$(document).ready(function() {
+	// 달력 클릭 시 모달창 열기
+$("#groupSet").on("click", function () {
+	$('#myModal').show();
+});
+//모달창 Close 기능
+	$("#close_btn").unbind('click').on('click', function() {
+		$('#myModal').hide();
+	});
+//모달창 Close 기능
+	$("#x_icon").unbind('click').on('click', function() {
+		$('#myModal').hide();
+	});
+});
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -249,6 +248,45 @@
 				</c:if>
 			</div>
 			<div id="pg1"></div>
+		</div>
+	</div>
+	
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<p>
+				<span>그룹관리 <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form">
+				<table>
+					<tr>
+						<td>그룹선택</td>
+						<td colspan="3">
+							<select name="adg_num">
+								<c:forEach var="listAddressGroup" items="${listAddressGroup}">
+									  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>이름변경</td>
+						<td colspan="3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="이름변경"></td>
+						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete"></td>
+						<td><input type="button" value="취소" id="close_btn"></td>
+				</table>
+			</form>
 		</div>
 	</div>
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>

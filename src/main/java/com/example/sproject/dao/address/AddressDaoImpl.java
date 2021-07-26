@@ -94,4 +94,12 @@ public class AddressDaoImpl implements AddressDao {
 		session.insert("groupAddOfAddress", addressGroup);
 	}
 
+	@Override
+	public void groupDelete(Address_Group addressGroup) {
+		System.out.println("addressDaoImpl groupDelete Start ..." );
+		System.out.println("addressGroup.getAdg_num()>>>" + addressGroup.getAdg_num());
+		session.delete("addressDelOfAddress", addressGroup);
+		session.delete("groupDelOfAddress", addressGroup);
+	}
+
 }

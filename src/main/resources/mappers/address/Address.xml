@@ -62,4 +62,12 @@
 	<insert id="groupAddOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
 		insert into address_group (adg_num, m_id, adg_name) values ((select nvl(max(adg_num),0) +1 from address_group) , #{m_id}, #{adg_name})
 	</insert>
+	
+	<delete id="addressDelOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		delete from address where adg_num = #{adg_num}
+	</delete>
+	
+	<delete id="groupDelOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		delete from address_group where adg_num = #{adg_num}
+	</delete>
 </mapper>

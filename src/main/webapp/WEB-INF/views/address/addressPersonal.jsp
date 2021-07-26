@@ -40,7 +40,8 @@
 	<div id="side">
 		<button type="button" id="btn1">연락처 추가</button>
 		<div>
-			<a href="${pageContext.request.contextPath}/address" class="button1"><span><img alt="image"
+			<a href="${pageContext.request.contextPath}/address" class="button1"><span><img
+					alt="image"
 					src="${pageContext.request.contextPath}/address/img/white.png"
 					style="width: 16px; height: 12px;" id="img"></span> 전체 주소록</a>
 		</div>
@@ -55,9 +56,20 @@
 					style="width: 16px; height: 12px;" id="img1"></span> 개인 주소록</a>
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="listAddressGroup" items="${listAddressGroup}">
-					<li class="li"><a href="${pageContext.request.contextPath}/address/personal?adg_num=${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</a></li>
+					<li class="li"><a
+						href="${pageContext.request.contextPath}/address/personal?adg_num=${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</a></li>
 				</c:forEach>
-				<li class="li"><span id="addGroup">연락처 주소록 추가</span></li>
+				<li class="li"><span class="groupAdd"
+					onclick="javascript:doShow3()">연락처 주소록 추가</span></li>
+				<li class="li" id="group">
+					<form action="${pageContext.request.contextPath}/address/groupAdd">
+						<input type="text" name="adg_name" placeholder="그룹 명"
+							required="required" id="groupName"><input type="image" 
+							src="${pageContext.request.contextPath}/address/img/plus.png" name="Submit" value="Submit" id="groupAdd">
+							 <img alt="" src="${pageContext.request.contextPath}/address/img/gear.png"
+							width="19px" height="19px" style="margin-top: 2px;" class="groupAdd" id="groupSet">
+					</form>
+				</li>
 			</ol>
 			<div id="div2">
 				<a id="button2" class="button1"><span id="span_hover"><img
