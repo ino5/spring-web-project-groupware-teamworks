@@ -29,6 +29,17 @@ public class Member implements UserDetails{
 	private String pt_code;
 	private Timestamp m_lastdate;
 	private int m_status;
+
+//	position
+	private String pt_name;
+//	department
+	private String dpt_name;
+//  address
+	private int adg_num;
+	// 조회용
+	private String search;   private String keyword;
+	private String pageNum;  
+	private int start; 		 private int end;	
 	
 	//권한
 	private List<GrantedAuthority> authorities;
@@ -41,6 +52,7 @@ public class Member implements UserDetails{
 		}
 		this.authorities = authorities;
 	}
+
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

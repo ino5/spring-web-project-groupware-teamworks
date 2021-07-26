@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.sproject.dao.address.AddressDao">
+
+<!-- 	전체 -->
+
+	<select id="memberCnt" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE M_STATUS = 1
+	</select>
+	
+	<select id="memberListOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+    <![CDATA[
+         select * from (select rownum rn, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		 (select * from member where m_status = 1 order by m_name) a, position p, department d 
+		 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code) 
+    	 where rn >= #{start} and rn <= #{end} 
+     ]]>	 
+    </select>
+    
+    <select id="addressGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.address.AddressGroup">
+    	select * from address_Group where m_id = #{m_id}
+    </select>
+    
+<!--     그룹 -->
+    
+    <select id="personalCnt" resultType="int">
+		select count(*) from address ad, address_group ag where ad.adg_num = ag.adg_num and ad.adg_num = ${adg_num}
+	</select>
+    
+    <select id="personalGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.login.Member">
+    <![CDATA[
+                select * from (select rownum rn, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		 (select * from member where m_status = 1 and m_id IN (select ad.m_id from address ad, address_group ag where ad.adg_num = ag.adg_num and ad.adg_num = ${adg_num}) order by m_name) a, position p, department d
+		 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code) 
+    	 where rn >= #{start} and rn <= #{end} 
+     ]]>	 
+    </select>
+</mapper>

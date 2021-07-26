@@ -168,7 +168,7 @@
 
 				</tr>
 
-				<c:forEach var="member" items="${listMember }">
+				<c:forEach var="member" items="${listPersonalGroup }">
 					<tr>
 						<td style="text-align: center;"><input type="checkbox"
 							name="check" id="chk_1"></td>
