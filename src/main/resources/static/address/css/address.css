@@ -240,3 +240,7 @@ h2 {
 	border-collapse: collapse;
 }
 
+.clicked {
+	color: black;
+}
+

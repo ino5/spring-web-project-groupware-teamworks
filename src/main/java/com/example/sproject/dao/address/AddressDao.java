@@ -17,4 +17,10 @@ public interface AddressDao {
 
 	int totPersonal(int adg_num);
 
+	List<Member> searchList(Member member);
+
+	int searchTotal(Member member);
+
+	int simpleAdd(Member member);
+
 }

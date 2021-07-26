@@ -45,4 +45,22 @@ public class AddressServiceImpl implements AddressService {
 		int totCnt = addDao.totPersonal(adg_num);
 		return totCnt;
 	}
+
+	@Override
+	public List<Member> listSearch(Member member) {
+		List<Member> memberList = addDao.searchList(member);
+		return memberList;
+	}
+
+	@Override
+	public int searchTotal(Member member) {
+		int searchTotal = addDao.searchTotal(member);
+		return searchTotal;
+	}
+
+	@Override
+	public int simpleAdd(Member member) {
+		int simpleAdd = addDao.simpleAdd(member);
+		return 0;
+	}
 }

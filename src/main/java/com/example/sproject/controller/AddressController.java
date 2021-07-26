@@ -1,9 +1,15 @@
 package com.example.sproject.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,18 +62,26 @@ public class AddressController {
 		model.addAttribute("pg",pg);
 		return "address/addressPersonal"; 
 	}
-//	@RequestMapping(value = "search.do", produces = "application/json")
-//	@ResponseBody
-//	public ResponseEntity<HashMap<String, Object>> testListDo(Member member, Model model) throws Exception {
-//
-//		HashMap<String, Object> result = new HashMap<>();
-//		// 검색
-//		member.pageInfo(listCnt);
-//		// 페이징
-//		result.put("pagination", search);
-//		// 게시글 화면 출력
-//		result.put("list", testServiceImpl.selectTest(search));
-//
-//		return ResponseEntity.ok(result);
+
+	@RequestMapping(value="addressSearchList")
+	@ResponseBody
+	public List<Member> addressSearchList(Member member, String currentPage) {
+		System.out.println("AddressController Start addressSearchList..." );
+		int total = adds.searchTotal(member);
+		Paging pg = new Paging(total, currentPage);
+		member.setStart(pg.getStart());   // 시작시 1
+		member.setEnd(pg.getEnd());       // 시작시 10 
+		List<Member> listSearch = adds.listSearch(member);
+		return listSearch;
+	}
+	
+	@RequestMapping(value="simpleAdd")
+	public String simpleAdd(Member member) {
+		System.out.println("AddressController Start simpleAdd..." );
+		UUID uid = UUID.randomUUID();
+		member.setM_id(uid.toString());
+		int simpleAdd = adds.simpleAdd(member);
+		return "redirect:/address";
+	}
 	
 }

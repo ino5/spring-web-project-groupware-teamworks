@@ -17,4 +17,10 @@ public interface AddressService {
 
 	int totalPersonal(int adg_num);
 
+	List<Member> listSearch(Member member);
+
+	int searchTotal(Member member);
+
+	int simpleAdd(Member member);
+
 }

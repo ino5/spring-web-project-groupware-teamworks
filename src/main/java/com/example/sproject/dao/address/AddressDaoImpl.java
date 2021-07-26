@@ -37,10 +37,9 @@ public class AddressDaoImpl implements AddressDao {
 
 	@Override
 	public List<AddressGroup> listAddressGroup(String m_id) {
-		System.out.println("addressDaoImpl listMember Start ..." );
+		System.out.println("addressDaoImpl listAddressGroup Start ..." );
 		System.out.println("m_id >>>>"+ m_id);
 		List<AddressGroup> addressGroupList = session.selectList("addressGroupListOfAddress", m_id);
-		System.out.println("addressGroupList >>>> " + addressGroupList);
 		return addressGroupList;
 	}
 	
@@ -55,13 +54,39 @@ public class AddressDaoImpl implements AddressDao {
 	public List<Member> listPersonalGroup(Member member) {
 		System.out.println("addressDaoImpl listPersonalGroup Start ...");
 		List<Member> groupMemberList = null;
-		System.out.println("addressDaoImpl listMember Start ..." );
 		try {
 			groupMemberList = session.selectList("personalGroupListOfAddress", member);
 		} catch (Exception e) {
 			System.out.println("addressDaoImpl listPersonalGroup Exception->"+e.getMessage());
 		}
 		return groupMemberList;
+	}
+
+	@Override
+	public List<Member> searchList(Member member) {
+		List<Member> memberList = null;
+		System.out.println("addressDaoImpl searchList Start ..." );
+		try {
+			memberList = session.selectList("searchListOfAddress", member);
+			System.out.println("after session.selectList");
+		} catch (Exception e) {
+			System.out.println("addressDaoImpl searchList Exception->"+e.getMessage());
+		}
+		return memberList;
+	}
+
+	@Override
+	public int searchTotal(Member member) {
+		System.out.println("addressDaoImpl searchTotal Start ..." );
+		int searchTotal = session.selectOne("searchTotalOfAddress", member);
+		return searchTotal;
+	}
+
+	@Override
+	public int simpleAdd(Member member) {
+		System.out.println("addressDaoImpl simpleAdd Start ..." );
+		int simpleAdd = session.insert("simpleAddOfAddess", member);
+		return simpleAdd;
 	}
 
 }

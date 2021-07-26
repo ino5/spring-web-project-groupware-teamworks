@@ -14,6 +14,21 @@
 				submenu.slideDown("fast");
 			}
 		})
+		
+		var div2 = document.getElementsByClassName('click_a');
+
+	    for (var i = 0; i < div2.length; i++) {
+	      div2[i].addEventListener('click', function(){
+	        for (var j = 0; j < div2.length; j++) {
+	          div2[j].style.color = "#8C8C8C";
+	          div2[j].style.fontWeight = "normal";
+	          div2[j].style.borderBottom = "none";
+	        }
+	        this.style.color = "black";
+	        this.style.fontWeight = "bold";
+	        this.style.borderBottom = "2px solid black";
+	      })
+	    }
 	});
 	$(document).ready(function() {
 		$("#button2").click(function() {
@@ -31,6 +46,7 @@
 				submenu.slideDown("fast");
 			}
 		})
+
 	});
 	// div side 없애기
 	function doShow() {
