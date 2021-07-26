@@ -1,6 +1,10 @@
 package com.example.sproject.handler;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +23,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class SocketHandler extends TextWebSocketHandler {
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); // 웹소켓 세션을 담아둘 리스트 -- roomListSessions
-	private static final String FILE_UPLOAD_PATH = "C:/test/websocket";
+	private static final String FILE_UPLOAD_PATH = "C:/test/websocket/";
 	static int fileUploadIdx = 0;
 	static String fileUploadSession  = "";
 	// 메시지 발송
@@ -27,36 +31,94 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override	
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		// 메세지 발송
-		String msg = message.getPayload();
-		JSONObject obj = jsonToObjectParser(msg);
+		String msg = message.getPayload(); // JSON 형태의 String메시지를 받음
+		JSONObject obj = jsonToObjectParser(msg); // JSON 데이터를 JSONObject로 파싱
 		System.out.println("SocketHandler handleTextMessage msg->"+msg);
 		
-		String rN = (String) obj.get("roomNumber");
-		String msgType = (String) obj.get("type");
+		String rN = (String) obj.get("roomNumber"); // 방 번호 받음
+		String msgType = (String) obj.get("type"); // 메시지 타입 확인
 		HashMap<String, Object> temp = new HashMap<String, Object>();
 		if(rls.size() > 0) {
 			for(int i=0; i < rls.size(); i++) {
 				String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
 				if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
 					temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다 (hashmap이니까! number get하면 value인   object를 가져옴)
+					fileUploadIdx = i;
+					fileUploadSession = (String) obj.get("sessionId");
+					System.out.println("fileUploadSession: " + fileUploadSession);
 					break;
 				}
 			}
+		if(!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송			
 		// 해당 방의 세션들만 찾아서 메시지를 발송
-		for(String k : temp.keySet()) {
-			if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
-				continue;
+			for(String k : temp.keySet()) {
+				if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
+					continue;
+				}
+				
+				WebSocketSession wss = (WebSocketSession)temp.get(k);
+				if(wss != null) {
+					try {
+						wss.sendMessage(new TextMessage(obj.toJSONString()));
+					} catch (IOException e) {
+						e.printStackTrace();
+				}
+				}
+			
 			}
-			
-			WebSocketSession wss = (WebSocketSession)temp.get(k);
-			if(wss != null) {
-				try {
-					wss.sendMessage(new TextMessage(obj.toJSONString()));
-				} catch (IOException e) {
+			}
+		}
+	}
+	
+	@Override
+	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
+		// 바이너리 메시지 발송
+		System.out.println("SocketHandler handleBinaryMessage start...");
+		ByteBuffer byteBuffer = message.getPayload();
+		String fileName = "temp.jpg";
+		File dir = new File(FILE_UPLOAD_PATH);
+		System.out.println("dif->"+dir);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		File file = new File(FILE_UPLOAD_PATH, fileName);
+		System.out.println("fileName->"+fileName);
+		FileOutputStream out = null;
+		FileChannel outChannel = null;
+		try {
+			byteBuffer.flip(); //byteBuffer를 읽기 위해 세팅
+			out = new FileOutputStream(file, true); //생성을 위해 OutputStream을 연다
+			outChannel = out.getChannel(); // 채널을 열고
+			byteBuffer.compact(); // 파일을 복사
+			outChannel.write(byteBuffer); // 파일을 쓴다
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(out != null) {
+					out.close();
+				}
+				if(outChannel != null) {
+					outChannel.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		byteBuffer.position(0); // 파일을 저장하면서 position 값이 변경되었으므로 0으로 초기화
+		// 파일쓰기가 끝나면 이미지 발송
+		HashMap<String, Object> temp = rls.get(fileUploadIdx);
+		for(String k : temp.keySet()) {
+			if(k.equals("roomNumber")) {
+					continue;
+			}
+			WebSocketSession wss = (WebSocketSession) temp.get(k);
+			try {
+				wss.sendMessage(new BinaryMessage(byteBuffer)); // 초기화된 버퍼 발송
+			} catch (IOException e) {
 					e.printStackTrace();
-				}
-				}
-			
 			}
 		}
 	}
@@ -122,6 +184,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			for(int i=0; i<rls.size(); i++) {
 				rls.get(i).remove(session.getId());
 			}
+			
 		}
 		super.afterConnectionClosed(session, status);
 	}

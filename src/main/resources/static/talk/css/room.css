@@ -1,0 +1,109 @@
+@charset "UTF-8";
+*{
+			margin:0;
+			padding:0;
+		}
+		.container{
+			width: 500px;
+			margin: 0 auto;
+			padding: 25px
+		}
+		.container h1{
+			text-align: left;
+			padding: 5px 5px 5px 15px;
+			color: #FFBB00;
+			border-left: 3px solid #FFBB00;
+			margin-bottom: 20px;
+		}
+		#content1 {
+			width: 84%;
+    		float: right;
+		}		
+		#room1 {
+			margin-top: 50px;
+		}
+		#logo {
+			background: #F6F6F6;
+    		height: 70px;
+    		width: 500px;
+		}
+		#logo .img{
+			width: 40px;
+			position: relative;
+			float: left;
+		}
+		#logo img {
+			height: 40px;
+    		margin-left: 20px;
+    		margin-top: 13px;
+		}
+		#logo .h5 {
+			width: 80px;
+			float: left;
+			position: relative;
+			font-family: 'talk/img/서울 남산체.ttf';
+			font-size: 25px;
+			color: #0F91E6;
+			margin-left: 30px;
+   			margin-top: 18px;
+		}
+		#logo .h6 {
+			width: 60px;
+			float: left;
+			font-family: 'talk/img/서울 남산체.ttf';
+			font-size: 20px;
+			color: #5DAEF0;
+			opacity: 50%;
+			margin-top: 22px;
+		}
+		.roomContainer{
+			background-color: #F6F6F6;
+			width: 500px;
+			height: 500px;
+			overflow: auto;
+		}
+		.roomList{
+			border: none;
+		}
+		.roomList th{
+			background-color: #F6F6F6;
+			color: #0F91E6;
+			font-size: 16px;
+			border-bottom: 1px solid #0F91E6;
+    		padding-bottom: 10px;
+    		text-align: center;	
+		}
+		.roomList td{
+			background-color: #F6F6F6;
+			text-align: center;
+			color: black;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		.roomList .num{
+			width: 75px;
+			text-align: center;
+		}
+		.roomList .room{
+			width: 350px;
+		}
+		.roomList .go{
+			width: 71px;
+			text-align: center;
+		}
+		button{
+			background-color: #0F91E6;
+			font-size: 15px;
+			color: white;
+			border-radius: 10px;
+			padding: 5px;
+			font-weight: bold;
+			margin: 3px;
+		}
+		.inputTable th{
+			padding: 5px;
+		}
+		.inputTable input{
+			width: 330px;
+			height: 25px;
+		}
