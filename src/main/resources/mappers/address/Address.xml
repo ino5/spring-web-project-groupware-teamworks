@@ -68,6 +68,10 @@
 	</delete>
 	
 	<delete id="groupDelOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
-		delete from address_group where adg_num = #{adg_num}
+		delete from address_group where adg_num = #{adg_num} and m_id = #{m_id}
 	</delete>
+	
+	<update id="groupNameUpdateOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		update address_group set adg_name = #{adg_name} where adg_num = #{adg_num} and m_id = #{m_id}
+	</update>
 </mapper>

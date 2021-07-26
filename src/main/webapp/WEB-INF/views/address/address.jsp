@@ -278,11 +278,11 @@ $("#groupSet").on("click", function () {
 					</tr>
 					<tr>
 						<td>이름변경</td>
-						<td colspan="3"><input type="text"></td>
+						<td colspan="3"><input type="text" name="adg_name"></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="이름변경"></td>
+						<td><input type="submit" value="이름변경" formaction="${pageContext.request.contextPath}/address/groupNameUpdate"></td>
 						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete"></td>
 						<td><input type="button" value="취소" id="close_btn"></td>
 				</table>

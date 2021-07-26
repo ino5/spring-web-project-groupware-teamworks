@@ -27,4 +27,6 @@ public interface AddressService {
 
 	void groupDelete(Address_Group addressGroup);
 
+	void groupNameUpdate(Address_Group addressGroup);
+
 }

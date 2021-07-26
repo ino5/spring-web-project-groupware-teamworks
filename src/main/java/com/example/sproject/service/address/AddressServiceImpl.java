@@ -72,4 +72,9 @@ public class AddressServiceImpl implements AddressService {
 	public void groupDelete(Address_Group addressGroup) {
 		addDao.groupDelete(addressGroup);
 	}
+
+	@Override
+	public void groupNameUpdate(Address_Group addressGroup) {
+		addDao.groupNameUpdate(addressGroup);
+	}
 }

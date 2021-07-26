@@ -94,4 +94,13 @@ public class AddressController {
 		adds.groupDelete(addressGroup);
 		return "redirect:/address";
 	}
+	
+	@RequestMapping(value="groupNameUpdate")
+	public String groupNameUpdate(Principal principal, Address_Group addressGroup) {
+		System.out.println("AddressController Start groupNameUpdate..." );
+		String m_id = principal.getName();
+		addressGroup.setM_id(m_id);
+		adds.groupNameUpdate(addressGroup);
+		return "redirect:/address";
+	}
 }
