@@ -14,9 +14,12 @@
 	</div>
 	<div id="content">
 		drive/uploadForm.jsp <br>
-		<form method="post">
+		<form id="form1" action="${pageContext.request.contextPath}/drive/upload" method="post" enctype="multipart/form-data" target="myBatisFrame">
 			<sec:csrfInput/>
-			<input type="submit" value="업로드" class="" formaction="${pageContext.request.contextPath}/drive/upload">
+			<input type="file" name="file1"> <p>
+			<input type="text" name="title"> <p>
+		    <input type="hidden" name="path" value="${pageContext.request.contextPath}/resources/image/"> 
+			<input type="submit">
 		</form>
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>

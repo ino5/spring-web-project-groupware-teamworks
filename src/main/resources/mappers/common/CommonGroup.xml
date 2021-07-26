@@ -11,7 +11,7 @@
 	<select id="selectOneInsertedCg_orderOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="int">
 	<![CDATA[
 		SELECT NVL(MIN(cg_order),-1) FROM common_group 
-		WHERE 	(tb_code = #{tb_code} AND cg_ref = #{cg_ref}) AND 
+		WHERE	(tb_code = #{tb_code} AND cg_ref = #{cg_ref}) AND 
 				(cg_order > #{parent_cg_order} AND cg_depth <= #{parent_cg_depth})
 	]]>	
 	</select>

@@ -21,8 +21,12 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public int addCommonGroup(CommonGroup commonGroup) {
+	public int addCommonGroup(String tb_code, CommonGroup commonGroup, int parent_cg_num) {
+		//tb_code 값 설정
+		commonGroup.setTb_code(tb_code);
+		
 		//parent_cg_num 통해서 나머지 parent값 찾기
+		commonGroup.setParent_cg_num(parent_cg_num);
 		CommonGroup parentCommonGroup = commonGroupDao.selectOneParentCommonGroup(commonGroup);
 		commonGroup.setParent_cg_ref(parentCommonGroup.getCg_ref());
 		commonGroup.setParent_cg_order(parentCommonGroup.getCg_order());
@@ -33,7 +37,6 @@ public class CommonServiceImpl implements CommonService {
 		commonGroup.setCg_depth(commonGroup.getParent_cg_depth() + 1);
 		
 		//삽입될 cg_num 찾기
-		String tb_code = commonGroup.getTb_code();
 		int cg_num = commonGroupDao.selectOneMaxCg_num(tb_code) + 1;
 		commonGroup.setCg_num(cg_num);
 		
@@ -46,6 +49,11 @@ public class CommonServiceImpl implements CommonService {
 		
 		//기존 CommonGroup들 order 한칸씩 뒤로밀어버리기
 		commonGroupDao.pushCg_order(commonGroup);
+		
+		//CommonGroup 삽입하기 전 null값 처리하기
+		if(commonGroup.getCg_name() == null) commonGroup.setCg_name("");
+		if(commonGroup.getCg_content() == null) commonGroup.setCg_content("");
+		if(commonGroup.getM_id() == null) commonGroup.setM_id("");
 		
 		//CommonGroup 삽입하기
 		return commonGroupDao.insertCommonGroup(commonGroup);
