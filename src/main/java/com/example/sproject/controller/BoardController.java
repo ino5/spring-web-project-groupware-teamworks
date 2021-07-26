@@ -3,6 +3,7 @@ package com.example.sproject.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,8 +35,8 @@ public class BoardController {
 	@Autowired
 	private PostService postService;
 //게시글 리스트, 페이징
-	@RequestMapping(value = "board")
-	public String board(Post Post, String currentPage, Model model) {
+	@RequestMapping(value = "")
+	public String board(Post post, String currentPage, Model model) {
 		System.out.println("BoardController Start List..");
 		int total = postService.total();
 		System.out.println("BoardController total=>"+total);
@@ -47,9 +48,9 @@ public class BoardController {
 		System.out.println("currentPage=>" + currentPage);
 
 		Paging pg = new Paging(total, currentPage);
-		Post.setStart(pg.getStart());
-		Post.setEnd(pg.getEnd());
-		List<Post> listPost = postService.listPost(Post);
+		post.setStart(pg.getStart());
+		post.setEnd(pg.getEnd());
+		List<Post> listPost = postService.listPost(post);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("total", total);
 		model.addAttribute("listPost", listPost);
@@ -68,17 +69,17 @@ public class BoardController {
 	//
 	
 	@PostMapping(value = "insert")
-	public String insert(Post Post, Model model ) throws Exception {
+	public String insert(Post post, Model model ) throws Exception {
 		System.out.println("BoardController Start insert..");
-		postService.insert(Post);
-		return "redirect:/board/board";
+		postService.insert(post);
+		return "redirect:/board";
 	}
 	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
 	
     @GetMapping(value="view") //무조건 값을 받아야함
-    public ModelAndView view(@RequestParam int p_num, HttpSession session) throws Exception{
+    public ModelAndView view(@RequestParam int p_num, HttpSession session, Principal principal) throws Exception{
         // 조회수 증가 처리
       postService.increase_p_view(p_num, session);
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
@@ -87,6 +88,10 @@ public class BoardController {
         modelandview.setViewName("board/view");
         // 뷰에 전달할 데이터
         Post post = postService.read(p_num);
+        //String loginId = (String) session.getAttribute("m_id");
+        
+        post.setLoginId(principal.getName());
+        System.out.println("!!!!!!!"+ post.getLoginId());
         modelandview.addObject("view", post);
         // toString
         
@@ -104,7 +109,7 @@ public class BoardController {
     public String update(Post post) throws Exception{
     	System.out.println("BoardController Start update..");
         postService.update(post);
-        return "redirect:/board/board";
+        return "redirect:/board";
     }
     // 게시글 삭제
     // 폼에서 입력한 내용들은 post로 전달됨
@@ -117,8 +122,9 @@ public class BoardController {
 	@RequestMapping(value="delete")
 	public String delete(int p_num, Model model) {
 		System.out.println("EmpController Start delete...");
+		System.out.println("p_num"+p_num);
 		postService.delete(p_num);
-		return  "redirect:/board/board";
+		return  "redirect:/board";
 	}
 	
 	//파일 업로드

@@ -14,7 +14,8 @@
 	src="${pageContext.request.contextPath}/board/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
-<!--  -->
+	
+<!--  <script src="${pageContext.request.contextPath}/board/js/view.js"></script> -->
 
 <title>Insert title here</title>
 </head>
@@ -50,12 +51,9 @@
 
 	<div id="content">
 		<form
-			action="${pageContext.request.contextPath}/board/update?p_num=${view.p_num}&m_id=${view.m_id}"
+			action="${pageContext.request.contextPath}/board/update?p_num=${view.p_num}&m_id=${view.m_id}&loginId=${view.loginId}"
 			method="post">
 			<sec:csrfInput />
-
-			<%-- 				<input type="hidden" name="m_id" value="${view.m_id}"> --%>
-
 			<section id="point">
 				<article class="pt pt1">
 					<table class="pt_tb">
@@ -75,41 +73,23 @@
 						</tr>
 						<tr>
 							<td colspan="5"><textarea id="summernote" class="summernote"
-									name="p_content" placeholder="글 내용" rows="15">${view.p_content}</textarea>
+									name="p_content" placeholder="글 내용" rows="15" readonly >${view.p_content}</textarea>
 
 								<script type="text/javascript">
-// 									$(document).ready(function() {
-// 										//여기 아래 부분
-// 										$('#summernote').summernote({
-// 											height : 300, // 에디터 높이
-// 											minHeight : null, // 최소 높이
-// 											maxHeight : null, // 최대 높이
-// 											focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-// 											lang : "ko-KR", // 한글 설정
-// 											placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-// 											callbacks: {	//이미지 첨부하는 부분
-// 										               onImageUpload : function(files) {
-// 										            	   	alert("onImageUpload : function");
-// 										                    uploadSummernoteImageFile(files[0],this);
-// 										                }
-// 										            }
-
-// 										});
-// 									});
-										$('#summernote').summernote({
-											height : 300, // 에디터 높이
-											minHeight : null, // 최소 높이
-											maxHeight : null, // 최대 높이
-											focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-											lang : "ko-KR", // 한글 설정
-											placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-											callbacks: {	//이미지 첨부하는 부분
-										               onImageUpload : function(files) {
-										                    uploadSummernoteImageFile(files[0],this);
-										                }
-										            }
-
-										});
+									$('#summernote').summernote({
+										height : 300, // 에디터 높이
+										minHeight : null, // 최소 높이
+										maxHeight : null, // 최대 높이
+										focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+										lang : "ko-KR", // 한글 설정
+										placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
+										callbacks: {	//이미지 첨부하는 부분
+									               onImageUpload : function(files) {
+									                    uploadSummernoteImageFile(files[0],this);
+									                }
+									            }
+	
+									});
 									$('.summernote').summernote({
 										height : 300,
 										lang : "ko-KR"
@@ -129,14 +109,34 @@
 							                }
 							            });
 							        }
+									$(document).ready(function() {
+										//여기 아래 부분					
+										////////////////////////
+										var mid = $('#m_id').val();
+										var loginId = $('#loginId').val();
+										console.log("mid",mid);
+										console.log("loginId",loginId);
+										if(mid == loginId){
+											alert(true);
+											$('#summernote').summernote('enable');
+											
+										}else{
+											alert(false)
+											$('#summernote').summernote('disable');
+											$("#btnUpdete").remove();
+											$("#btnDelete").remove();
 
-								</script></td>
+										}
+										console.log($("#btnUpdete"));
+									});
+								</script>
+								</td>
 						</tr>
 					</table>
 				</article>
 			</section>
-			<button type="submit" id="btnUpdete">수정</button>
-			<button type="button" id="btnDelete"
+			<button type="submit" id="btnUpdete" >수정</button>
+			<button type="button" id="btnDelete" 
 				onclick="location.href='${pageContext.request.contextPath}/board/delete?p_num=${view.p_num}'">삭제</button>
 		</form>
 	</div>
