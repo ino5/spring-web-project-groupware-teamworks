@@ -41,6 +41,7 @@
 	<div class="container">
 		<h1>${roomName}</h1>
 		<input type="hidden" id="sessionId" value="">
+		<input type="hidden" id="m_id" value="${m_id}">
 		<input type="hidden" id="roomNumber" value="${roomNumber}">
 		<div id="meName"></div>
 		<div id="chating" class="chating">

@@ -12,6 +12,7 @@ import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
@@ -19,8 +20,14 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.example.sproject.model.talk.Talk;
+import com.example.sproject.service.talk.TalkService;
+
 @Component
 public class SocketHandler extends TextWebSocketHandler {
+	@Autowired
+	TalkService talkService;
+	
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); // 웹소켓 세션을 담아둘 리스트 -- roomListSessions
 	private static final String FILE_UPLOAD_PATH = "C:/test/websocket/";
@@ -36,6 +43,24 @@ public class SocketHandler extends TextWebSocketHandler {
 		System.out.println("SocketHandler handleTextMessage msg->"+msg);
 		String rN = (String) obj.get("roomNumber"); // 방 번호 받음
 		String msgType = (String) obj.get("type"); // 메시지 타입 확인
+		String m_id = (String) obj.get("m_id");
+		String content = (String) obj.get("msg");
+		System.out.println("m_id: " + m_id);
+		System.out.println("content: " + content);
+		
+		Talk talk = new Talk();
+		talk.setTkrm_num(Integer.parseInt(rN));
+		talk.setM_id(m_id);
+		talk.setTk_content(content);
+		talkService.insertMsg(talk);
+		//TalkMsg = dto
+		//TalkMsg talkMsg = new TalkMsg();
+		//talkMsg.setM_id(m_id);
+		//talkMsg.setContent(content);
+		//chatService.insertMsg(talkMsg);
+		//ChatService 안에 insertMsg는 그냥 chatDao.insertMsg(talkMsg) 실행
+		//ChatDao 안에 session.insert("insertMsgOfTalk", talkMsg);
+		//xml 안에 id를 insertMsgOfTalk 이거로 해서 "insert into talk(m_id, content, regdate) values(#{m_id}, #{content}, SYSDATE)
 		HashMap<String, Object> temp = new HashMap<String, Object>();
 		if(rls.size() > 0) {
 			for(int i=0; i < rls.size(); i++) {

@@ -65,6 +65,7 @@ public class TalkController {
 			room.setRoomName(roomName);
 			roomList.add(room);
 		}
+		//이건 확실하지 않지만, TALK_ROOM테이블과 TALKER테이블에 값 입력을 이 때 해야될 것 같습니다. 정민희 토크팀 팀장님
 		return roomList;
 	}
 	
@@ -78,6 +79,7 @@ public class TalkController {
 	@ResponseBody
 	List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
 		System.out.println("SocketController getRoom Start...");
+		System.out.println("roomList: " + roomList);
 		return roomList;
 	}
 	
@@ -102,6 +104,12 @@ public class TalkController {
 		if(new_list != null && new_list.size() > 0) {
 			mv.addObject("roomName", params.get("roomName"));
 			mv.addObject("roomNumber", params.get("roomNumber"));
+			mv.addObject("m_id", m_id);
+			
+			//List<Talk> talkList 해서 해당 방번호에 대한 talk들을 List로 가져오는거야.
+			//그리고 이걸 addObject하는 거야
+			//그다음 jsp에서 그냥 뿌려주는거야. foreach로  보여주면서 c:if로 나와 나아닌거 구분
+			
 			mv.setViewName("talk/talk");
 		}else {
 			mv.setViewName("talk/room");

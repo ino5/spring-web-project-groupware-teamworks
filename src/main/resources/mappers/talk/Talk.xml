@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.talk.TalkDao">
+
+<insert id="insertMsgOfTalk" parameterType="com.example.sproject.model.talk.Talk">
+	insert into talk(tkrm_num, tk_num, m_id, tk_content, tk_time_sent) values(#{tkrm_num}, #{tk_num}, #{m_id}, #{tk_content}, sysdate)
+</insert>
+
+<select id="selectOneMaxTk_numOfTalk" resultType="int">
+	SELECT NVL(MAX(tk_num),0) FROM talk
+</select>
+
+</mapper>

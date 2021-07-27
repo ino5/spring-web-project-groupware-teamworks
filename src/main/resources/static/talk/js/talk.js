@@ -1,6 +1,3 @@
-	function button_click() {
-				document.getElementById("container").style.display = "block";
-	}
 	var ws;
 
 	window.onload = function(){   
@@ -46,7 +43,7 @@
 				tag += "<tr>"+
 							"<td class='num'>"+(idx+1)+"</td>"+
 							"<td class='room'>"+ rn +"</td>"+
-							"<td class='go'><button type='button' class='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\"); button_click();'>참여</button></td>" +
+							"<td class='go'><button type='button' class='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
 						"</tr>";	
 			});
 			$("#roomList").empty().append(tag);
@@ -90,9 +87,9 @@
 			
 			var msg = data.data;
 			var date = new Date();
-			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+			var dateInfo = date.getHours() + ":" + date.getMinutes();
 			var $chat = $("<div class='chat-box'><div class='chat'>" + "</div><div class='chat-info chat-box'>" + dateInfo + "</div></div>");
-			alert("ws.onmessage->"+msg)
+			//alert("ws.onmessage->"+msg)
 			if(msg != null && msg.type != ''){
 				// 파일 업로드가 아닌 경우 메시지 뿌려준다
 				var jsonMsg = JSON.parse(msg);
@@ -156,7 +153,8 @@
 			roomNumber : $("#roomNumber").val(),  
 			sessionId : $("#sessionId").val(),
 			userName : $("#userName").val(),
-			msg : $("#chatting").val()
+			msg : $("#chatting").val(),
+			m_id : $("#m_id").val()
 		}  //roomNumber는 방의 번호를 보내줌으로써 소켓서버는 어느방에서 메시지를 보냈는지 구분
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
