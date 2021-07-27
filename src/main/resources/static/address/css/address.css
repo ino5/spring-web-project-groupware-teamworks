@@ -268,6 +268,10 @@ h2 {
 
 .modal-content {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 15px;
+}
+
+.modal-content span {
 	font-size: 20px;
 }
 
@@ -275,14 +279,14 @@ h2 {
 	margin-right: 5px;
     color: white;
     height: 32px;
-    line-height: 32px;
+    line-height: 28px;
     vertical-align: top;
     font-size: 13px;
 	background: #0f91e6;
     border: 1px solid #0f91e6;
     border-radius: 2px;
-    padding-left: 5px; 
-    padding-right: 5px;
+    padding-left: 8px; 
+    padding-right: 8px;
     cursor: pointer;
 }
 
@@ -293,13 +297,6 @@ h2 {
 
 #modal_form tr td {
 	padding: 8px;	
-}
-
-.input {
-	width: 494px;	
-	height: 25px;
-	border: 1px solid #c0c0c0;
-	border-radius: 4px;
 }
 
 .modal {
@@ -320,7 +317,7 @@ h2 {
 	background-color: #fefefe;
 	margin: 15% auto; /* 15% from the top and centered */
 	padding: 20px;
-	width: 620px; /* Could be more or less, depending on screen size */
+	width: 350px; /* Could be more or less, depending on screen size */
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);

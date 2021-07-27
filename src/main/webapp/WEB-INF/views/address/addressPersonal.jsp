@@ -10,31 +10,6 @@
 <script src="${pageContext.request.contextPath}/address/js/address.js"></script>
 <title>Insert title here</title>
 </head>
-<script type="text/javascript">
-	var globalResult;
-	function addressSearchList(start, end){
-		var str = "";
-		
-		$.ajax({
-			url:_contextPath + "/address/addressSearchList",
-			data:{start_num : start, end_num : end },
-			dataType:'json',
-			success:function(result){
-				console.log("ajax success");
-				console.log(result);
-				var jsonResult = JSON.stringify(result);
-				$( '#list_table > tbody').empty();
-				$( '#pg1').empty();
-				$.each(result , function(i){
-	                str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>" + result[i].m_name + '</TD><TD>' + result[i].m_empnum + '</TD><TD>' + 
-	                result[i].m_phone + '</TD><TD>' + result[i].m_email + '</TD><TD>' + result[i].dpt_name + '</TD><TD>' + result[i].pt_name;
-	                str += '</TR>';
-	           });
-	           $("#list_table").append(str); 
-			}
-		});
-	}
-</script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 	<div id="side">
@@ -178,48 +153,50 @@
 
 
 		<div id="board_table">
-			<c:set var="num" value="${pg.total-pg.start+1}"></c:set>
 			<table id="list_table"
 				style="margin-top: 4%; border-top: 2px solid #EAEAEA;">
-				<tr>
-					<td
-						style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">
-						<input type="checkbox" name="check" id="chk_1"
-						onclick='selectAll(this)'> <label for="chk_1"></label>
-					</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이름</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">사번</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">휴대폰</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이메일</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">부서</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">직급</td>
-
-				</tr>
-
-				<c:forEach var="member" items="${listPersonalGroup }">
+				<thead>
 					<tr>
-						<td style="text-align: center;"><input type="checkbox"
-							name="check" id="chk_1"></td>
-						<td>${member.m_name }</td>
-						<c:if test="${member.m_empnum > 0}">
-							<td>${member.m_empnum }</td>
-						</c:if>
-						<c:if test="${member.m_empnum == 0}">
-							<td></td>
-						</c:if>
-						<td>${member.m_phone }</td>
-						<td>${member.m_email }</td>
-						<td>${member.dpt_name }</td>
-						<td>${member.pt_name }</td>
+						<td
+							style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">
+							<input type="checkbox" name="check" id="chk_1"
+							onclick='selectAll(this)'> <label for="chk_1"></label>
+						</td>
+						<td
+							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이름</td>
+						<td
+							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">사번</td>
+						<td
+							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">휴대폰</td>
+						<td
+							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이메일</td>
+						<td
+							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">부서</td>
+						<td
+							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">직급</td>
+
 					</tr>
-					<c:set var="num" value="${num - 1 }"></c:set>
-				</c:forEach>
+				</thead>
+				<tbody>
+					<c:forEach var="member" items="${listPersonalGroup }">
+						<tr>
+							<td style="text-align: center;"><input type="checkbox"
+								name="check" id="chk_1"></td>
+							<td>${member.m_name }</td>
+							<c:if test="${member.m_empnum > 0}">
+								<td>${member.m_empnum }</td>
+							</c:if>
+							<c:if test="${member.m_empnum == 0}">
+								<td></td>
+							</c:if>
+							<td>${member.m_phone }</td>
+							<td>${member.m_email }</td>
+							<td>${member.dpt_name }</td>
+							<td>${member.pt_name }</td>
+						</tr>
+
+					</c:forEach>
+				</tbody>
 			</table>
 		<c:if test="${pg.startPage > pg.pageBlock }">
 			<a href="address?currentPage=${pg.startPage-pg.pageBlock}">[이전]</a>
@@ -233,6 +210,44 @@
 			<a href="address?currentPage=${pg.startPage+pg.pageBlock}">[다음]</a>
 		</c:if>
 
+		</div>
+	</div>
+		<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<p>
+				<span>그룹관리 <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form">
+				<table>
+					<tr>
+						<td>그룹선택</td>
+						<td>
+							<select name="adg_num">
+								<c:forEach var="listAddressGroup" items="${listAddressGroup}">
+									  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>이름변경</td>
+						<td colspan="3"><input type="text" name="adg_name"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="이름변경" formaction="${pageContext.request.contextPath}/address/groupNameUpdate" class="modal_btn">
+						<input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete" class="modal_btn">
+						<input type="button" value="취소" id="close_btn" class="modal_btn"></td>
+				</table>
+			</form>
 		</div>
 	</div>
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>

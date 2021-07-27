@@ -3,6 +3,7 @@ package com.example.sproject.dao.address;
 import java.util.List;
 
 import com.example.sproject.model.address.Address_Group;
+import com.example.sproject.model.address.Department;
 import com.example.sproject.model.login.Member;
 
 public interface AddressDao {
@@ -28,5 +29,13 @@ public interface AddressDao {
 	void groupDelete(Address_Group addressGroup);
 
 	void groupNameUpdate(Address_Group addressGroup);
+
+	List<Department> listDeptGroup();
+
+	int totDept(String dpt_code);
+
+	List<Member> listDeptGroup(Member member);
+
+	List<Member> addressSearchListDept(Member member);
 
 }

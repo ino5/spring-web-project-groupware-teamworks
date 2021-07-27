@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.sproject.model.address.Address_Group;
+import com.example.sproject.model.address.Department;
 import com.example.sproject.model.login.Member;
 
 @Repository
@@ -19,7 +20,7 @@ public class AddressDaoImpl implements AddressDao {
 	@Override
 	public int tot() {
 		System.out.println("addressDaoImpl tot Start ..." );
-		int tot = session.selectOne("memberCnt");
+		int tot = session.selectOne("memberCntOfAddress");
 		return tot;
 	}
 
@@ -46,7 +47,7 @@ public class AddressDaoImpl implements AddressDao {
 	@Override
 	public int totPersonal(int adg_num) {
 		System.out.println("addressDaoImpl totPersonal Start ..." );
-		int tot = session.selectOne("personalCnt", adg_num);
+		int tot = session.selectOne("personalCntOfAddress", adg_num);
 		return tot;
 	}
 
@@ -105,5 +106,44 @@ public class AddressDaoImpl implements AddressDao {
 	public void groupNameUpdate(Address_Group addressGroup) {
 		System.out.println("addressDaoImpl groupNameUpdate Start ..." );
 		session.update("groupNameUpdateOfAddress", addressGroup);
+	}
+
+	@Override
+	public List<Department> listDeptGroup() {
+		System.out.println("addressDaoImpl listDeptGroup Start ..." );
+		List<Department> listDeptGroup = session.selectList("listDeptGroupOfAddress");
+		return listDeptGroup;
+	}
+
+	@Override
+	public int totDept(String dpt_code) {
+		System.out.println("addressDaoImpl totDept Start ..." );
+		int tot = session.selectOne("deptCntOfAddress", dpt_code);
+		return tot;
+	}
+
+	@Override
+	public List<Member> listDeptGroup(Member member) {
+		System.out.println("addressDaoImpl listDeptGroup Start ...");
+		List<Member> listDeptGroup = null;
+		try {
+			listDeptGroup = session.selectList("DeptGroupListOfAddress", member);
+		} catch (Exception e) {
+			System.out.println("addressDaoImpl listDeptGroup Exception->"+e.getMessage());
+		}
+		return listDeptGroup;
+	}
+
+	@Override
+	public List<Member> addressSearchListDept(Member member) {
+		List<Member> addressSearchListDept = null;
+		System.out.println("addressDaoImpl addressSearchListDept Start ..." );
+		try {
+			addressSearchListDept = session.selectList("searchListDeptOfAddress", member);
+			System.out.println("after session.selectList");
+		} catch (Exception e) {
+			System.out.println("addressDaoImpl addressSearchListDept Exception->"+e.getMessage());
+		}
+		return addressSearchListDept;
 	}
 }

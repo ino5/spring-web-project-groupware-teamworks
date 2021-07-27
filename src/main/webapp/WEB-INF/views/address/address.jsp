@@ -10,22 +10,6 @@
 <script src="${pageContext.request.contextPath}/address/js/address.js"></script>
 <title>Insert title here</title>
 </head>
-<script type="text/javascript">
-$(document).ready(function() {
-	// 달력 클릭 시 모달창 열기
-$("#groupSet").on("click", function () {
-	$('#myModal').show();
-});
-//모달창 Close 기능
-	$("#close_btn").unbind('click').on('click', function() {
-		$('#myModal').hide();
-	});
-//모달창 Close 기능
-	$("#x_icon").unbind('click').on('click', function() {
-		$('#myModal').hide();
-	});
-});
-</script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 	<div id="side">
@@ -71,12 +55,10 @@ $("#groupSet").on("click", function () {
 						src="${pageContext.request.contextPath}/address/img/white.png"
 						style="width: 16px; height: 12px;" id="img2"></span> 공용 주소록</a>
 				<ol id="scroll" style="display: none; list-style: none;">
-					<li class="li">인사부</li>
-					<li class="li">총무부</li>
-					<li class="li">회계부</li>
-					<li class="li">기획부</li>
-					<li class="li">영업부</li>
-					<li class="li">개발부</li>
+					<c:forEach var="listDeptGroup" items="${listDeptGroup }">
+						<li class="li"><a
+							href="${pageContext.request.contextPath}/address/dept?dpt_code=${listDeptGroup.dpt_code}">${listDeptGroup.dpt_name}</a></li>
+					</c:forEach>
 				</ol>
 			</div>
 		</div>
@@ -268,7 +250,7 @@ $("#groupSet").on("click", function () {
 				<table>
 					<tr>
 						<td>그룹선택</td>
-						<td colspan="3">
+						<td>
 							<select name="adg_num">
 								<c:forEach var="listAddressGroup" items="${listAddressGroup}">
 									  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
@@ -282,9 +264,9 @@ $("#groupSet").on("click", function () {
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="이름변경" formaction="${pageContext.request.contextPath}/address/groupNameUpdate"></td>
-						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete"></td>
-						<td><input type="button" value="취소" id="close_btn"></td>
+						<td><input type="submit" value="이름변경" formaction="${pageContext.request.contextPath}/address/groupNameUpdate" class="modal_btn">
+						<input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete" class="modal_btn">
+						<input type="button" value="취소" id="close_btn" class="modal_btn"></td>
 				</table>
 			</form>
 		</div>
