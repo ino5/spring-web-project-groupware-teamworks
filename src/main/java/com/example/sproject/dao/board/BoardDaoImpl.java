@@ -5,10 +5,13 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.Reply;
 
 @Repository
-public class PostDaoImpl implements PostDao {
+public class BoardDaoImpl implements BoardDao {
 	@Autowired
 	private SqlSession session;
 
@@ -120,5 +123,62 @@ public class PostDaoImpl implements PostDao {
 		}
 		return result;
 	}
+
+	@Override
+	public List<Board> listBoard(Board board) {
+		List<Board> boardList = null;
+		System.out.println("PostDaoImpl boardList Start...");
+		try {
+			boardList = session.selectList("selectListBoardofBoard",board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardList;
+	}
+	@Override
+	public List<Reply> listReply(int p_num) {
+		List<Reply> replyList = null;
+		System.out.println("PostDaoImpl replyList Start...");
+		try {
+			replyList = session.selectList("ReplyListofBoard",p_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return replyList;
 	}
 
+	@Override
+	public int insert(Reply reply) {
+	 int tot = 0;
+	 System.out.println("PostDaoImpl Start replyinsert...");
+		try {
+			tot = session.insert("ReplyInsertOfBoard", reply);
+			System.out.println("PostDaoImpl Start replyinsert...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl replyinsert Exception->" + e.getMessage());
+		}
+		return tot;
+
+	}
+
+	@Override
+	public int selectOneMaxRp_num() {
+		return session.selectOne("selectOneMaxRp_num");
+	}
+
+	@Override
+	public int reply_delete(int rp_num) {
+		System.out.println("PostDaoImpl Start reply_delete...");
+		int result = 0;
+		try {
+			result = session.delete("Reply_DeleteOfBoard",rp_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl reply_delete Exception->"+e.getMessage());
+		}
+		return result;
+	}
+	
+	}
+	

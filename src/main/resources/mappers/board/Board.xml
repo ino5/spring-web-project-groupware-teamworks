@@ -41,4 +41,30 @@
      <delete id="PostLikeDeleteOfBoard">
     delete from post_like where p_num = #{p_num}
     </delete>
+<!--     게시판 리스트  -->
+
+<select id="selectListBoardofBoard" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
+		select *
+		from board order by bd_ref, bd_order, bd_depth
+</select>
+<!--     댓글 리스트  -->
+<select id="ReplyListofBoard" parameterType="int" resultType="com.example.sproject.model.board.Reply">
+		select *
+		from reply 
+		where p_num = #{p_num}
+		order by rp_ref, rp_order, rp_depth
+</select>
+<!-- 댓글 추가 -->
+  <insert id="ReplyInsertOfBoard" parameterType="com.example.sproject.model.board.Reply">
+	INSERT INTO REPLY (p_num, rp_num, m_id, rp_content, rp_ref, rp_order, rp_depth )
+	VALUES (#{p_num}, #{rp_num}, #{m_id}, #{rp_content}, #{rp_ref},#{rp_order}, #{rp_depth})
+   </insert>
+   
+<!--    댓글 추가를 위해 가장 큰 댓글 번호 가져오기 -->
+   <select id="selectOneMaxRp_num" resultType="int">
+   	SELECT MAX(rp_num) FROM reply
+   </select>
+ <delete id="Reply_DeleteOfBoard" parameterType="int">
+    delete from reply where rp_num= #{rp_num}
+    </delete>
  </mapper>

@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.Reply;
 
 
-public interface PostService {
+public interface BoardService {
 
 	List<Post> listPost(Post post);
 	int total();
@@ -16,5 +18,11 @@ public interface PostService {
 	void increase_p_view(int p_num, HttpSession session);
 	int update(Post post);
 	int delete(int p_num);
+	List<Board> listBoard(Board board);
+	List<Reply> listReply(int p_num);
+	int insert(Reply reply);
+	int reply_delete(int rp_num);
+
+
 	
 }

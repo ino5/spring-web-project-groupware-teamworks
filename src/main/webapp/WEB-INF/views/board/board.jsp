@@ -21,20 +21,12 @@
 					style="width: 16px; height: 12px; transition:0.5s;" id="img1"></span> <span
 				id="span_none"><img alt="image"
 					src="${pageContext.request.contextPath}/images/white.png"
-					style="width: 16px; height: 12px;" id="img1"></span> 내 캘린더</a>
+					style="width: 16px; height: 12px;" id="img1"></span> 게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<li class="li"><input type="checkbox" name="check" id="chk_1"><label
-					for="chk_1">전체일정</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_2"><label
-					for="chk_2">개인일정</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_3"><label
-					for="chk_3">AI개발팀</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_4"><label
-					for="chk_4">SW개발팀</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_5"><label
-					for="chk_5">기획팀</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_6"><label
-					for="chk_6">경영지원팀</label></li>
+				<c:forEach var="bs" items="${listBoard }">
+				<li class="li">${bs.bd_name}</li>
+				</c:forEach>
+
 			</ol>
 		</div>
 

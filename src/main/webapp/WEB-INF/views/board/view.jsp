@@ -14,6 +14,7 @@
 	src="${pageContext.request.contextPath}/board/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
+	<script defer src="${pageContext.request.contextPath}/board/js/view.js"></script>
 	
 <!--  <script src="${pageContext.request.contextPath}/board/js/view.js"></script> -->
 
@@ -75,61 +76,6 @@
 							<td colspan="5"><textarea id="summernote" class="summernote"
 									name="p_content" placeholder="글 내용" rows="15" readonly >${view.p_content}</textarea>
 
-								<script type="text/javascript">
-									$('#summernote').summernote({
-										height : 300, // 에디터 높이
-										minHeight : null, // 최소 높이
-										maxHeight : null, // 최대 높이
-										focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-										lang : "ko-KR", // 한글 설정
-										placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-										callbacks: {	//이미지 첨부하는 부분
-									               onImageUpload : function(files) {
-									                    uploadSummernoteImageFile(files[0],this);
-									                }
-									            }
-	
-									});
-									$('.summernote').summernote({
-										height : 300,
-										lang : "ko-KR"
-									});
-									function uploadSummernoteImageFile(file, editor) {
-							            data = new FormData();
-							            data.append("file", file);
-							            $.ajax({
-							                data : data,
-							                type : "POST",
-							                url : _contextPath+"/board/uploadSummernoteImageFile",
-							                contentType : false,
-							                processData : false,
-							                success : function(data) {
-							                    //항상 업로드된 파일의 url이 있어야 한다.
-							                    $(editor).summernote('insertImage', _contextPath+data.url);
-							                }
-							            });
-							        }
-									$(document).ready(function() {
-										//여기 아래 부분					
-										////////////////////////
-										var mid = $('#m_id').val();
-										var loginId = $('#loginId').val();
-										console.log("mid",mid);
-										console.log("loginId",loginId);
-										if(mid == loginId){
-											alert(true);
-											$('#summernote').summernote('enable');
-											
-										}else{
-											alert(false)
-											$('#summernote').summernote('disable');
-											$("#btnUpdete").remove();
-											$("#btnDelete").remove();
-
-										}
-										console.log($("#btnUpdete"));
-									});
-								</script>
 								</td>
 						</tr>
 					</table>
@@ -138,9 +84,32 @@
 			<button type="submit" id="btnUpdete" >수정</button>
 			<button type="button" id="btnDelete" 
 				onclick="location.href='${pageContext.request.contextPath}/board/delete?p_num=${view.p_num}'">삭제</button>
-		</form>
+					<button type="submit" id="btnUpdete"onclick="location.href='${pageContext.request.contextPath}/board'">등록</button>
+					</form>
+				<div>
+				<form action="${pageContext.request.contextPath}/board/reply_insert?p_num=${view.p_num}&loginId=${view.loginId}"
+			method="post">
+					<sec:csrfInput />
+					<table border="2"   style="width: 750px; height:30px;  "><tr><td><textarea rows = "2" cols = "5" id = "rp_content" name = "rp_content"></textarea></td></tr></table>
+					<button type="submit" id="btnUpdete"onclick="location.href='${pageContext.request.contextPath}/board/view'">댓글등록</button>
+					<!--  <button type="submit" id="btnUpdete"onclick="location.href='${pageContext.request.contextPath}/board/view">댓글삭제</button>-->
+					
+					
+					<table id="list_table" style="margin-top: 4%; border-top: 2px solid #EAEAEA;">
+						<c:forEach var="reply" items="${listReply}">
+							<tr id="rp_${reply.rp_num}">
+								<td>${reply.rp_content}</td>
+								<td><button type="button" id="btnUpdete"onclick="clickDelete(${reply.rp_num})">삭제</button></td>
+							</tr>
+						</c:forEach>
+						
+					</table>
+				</form>
 	</div>
 	</div>
+
+	</div>
+		
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
 </html>

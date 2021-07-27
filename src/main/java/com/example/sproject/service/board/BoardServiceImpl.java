@@ -7,15 +7,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.sproject.dao.board.PostDao;
+import com.example.sproject.dao.board.BoardDao;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.Reply;
+import com.example.sproject.model.board.Board;
 
 
 @Service
-public class PostServiceImpl implements PostService {
+public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	private PostDao postDao;
+	private BoardDao postDao;
+	private List<Board> boardList;
+	private Object replyList;
 
 
 	@Override
@@ -88,6 +92,7 @@ public class PostServiceImpl implements PostService {
             session.setAttribute("update_time_"+p_num, current_time);
          
 	}
+        
 	
 	}
 
@@ -111,5 +116,36 @@ public class PostServiceImpl implements PostService {
 		return result;
 	}
 
+	@Override
+	public List<Board> listBoard(Board board) {
+		System.out.println("PostServiceImpl listBoard Start...");
+		boardList = postDao.listBoard(board);
+		return boardList;
+	}
+
+	@Override
+	public List<Reply> listReply(int p_num) {
+		System.out.println("PostServiceImpl listReply Start...");
+		List<Reply>replyList = postDao.listReply(p_num);
+		return replyList;
+	}
+
+	@Override
+	public int insert(Reply reply) {
+		System.out.println("PostServiceImpl Start replyinsert");
+		System.out.println("reply: " + reply.toString());
+		int rp_num = 1 + postDao.selectOneMaxRp_num();
+		reply.setRp_num(rp_num);
+		return postDao.insert(reply);
+	}
+	@Override
+	public int reply_delete(int rp_num) {
+		System.out.println("PostServiceImpl Start replydelete...");
+		int result = 0;
+		result = postDao.reply_delete(rp_num);
+		return result;
+	}
+
 }
+
         
