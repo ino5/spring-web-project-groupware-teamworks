@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.sproject.model.address.AddressGroup;
+import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.login.Member;
 
 @Repository
@@ -36,11 +36,10 @@ public class AddressDaoImpl implements AddressDao {
 	}
 
 	@Override
-	public List<AddressGroup> listAddressGroup(String m_id) {
-		System.out.println("addressDaoImpl listMember Start ..." );
+	public List<Address_Group> listAddressGroup(String m_id) {
+		System.out.println("addressDaoImpl listAddressGroup Start ..." );
 		System.out.println("m_id >>>>"+ m_id);
-		List<AddressGroup> addressGroupList = session.selectList("addressGroupListOfAddress", m_id);
-		System.out.println("addressGroupList >>>> " + addressGroupList);
+		List<Address_Group> addressGroupList = session.selectList("addressGroupListOfAddress", m_id);
 		return addressGroupList;
 	}
 	
@@ -55,7 +54,6 @@ public class AddressDaoImpl implements AddressDao {
 	public List<Member> listPersonalGroup(Member member) {
 		System.out.println("addressDaoImpl listPersonalGroup Start ...");
 		List<Member> groupMemberList = null;
-		System.out.println("addressDaoImpl listMember Start ..." );
 		try {
 			groupMemberList = session.selectList("personalGroupListOfAddress", member);
 		} catch (Exception e) {
@@ -64,4 +62,48 @@ public class AddressDaoImpl implements AddressDao {
 		return groupMemberList;
 	}
 
+	@Override
+	public List<Member> searchList(Member member) {
+		List<Member> memberList = null;
+		System.out.println("addressDaoImpl searchList Start ..." );
+		try {
+			memberList = session.selectList("searchListOfAddress", member);
+			System.out.println("after session.selectList");
+		} catch (Exception e) {
+			System.out.println("addressDaoImpl searchList Exception->"+e.getMessage());
+		}
+		return memberList;
+	}
+
+	@Override
+	public int searchTotal(Member member) {
+		System.out.println("addressDaoImpl searchTotal Start ..." );
+		int searchTotal = session.selectOne("searchTotalOfAddress", member);
+		return searchTotal;
+	}
+
+	@Override
+	public void simpleAdd(Member member) {
+		System.out.println("addressDaoImpl simpleAdd Start ..." );
+		session.insert("simpleAddOfAddess", member);
+	}
+
+	@Override
+	public void groupAdd(Address_Group addressGroup) {
+		System.out.println("addressDaoImpl groupAdd Start ..." );
+		session.insert("groupAddOfAddress", addressGroup);
+	}
+
+	@Override
+	public void groupDelete(Address_Group addressGroup) {
+		System.out.println("addressDaoImpl groupDelete Start ..." );
+		session.delete("addressDelOfAddress", addressGroup);
+		session.delete("groupDelOfAddress", addressGroup);
+	}
+
+	@Override
+	public void groupNameUpdate(Address_Group addressGroup) {
+		System.out.println("addressDaoImpl groupNameUpdate Start ..." );
+		session.update("groupNameUpdateOfAddress", addressGroup);
+	}
 }

@@ -14,6 +14,21 @@
 				submenu.slideDown("fast");
 			}
 		})
+		
+		var div2 = document.getElementsByClassName('click_a');
+
+	    for (var i = 0; i < div2.length; i++) {
+	      div2[i].addEventListener('click', function(){
+	        for (var j = 0; j < div2.length; j++) {
+	          div2[j].style.color = "#8C8C8C";
+	          div2[j].style.fontWeight = "normal";
+	          div2[j].style.borderBottom = "none";
+	        }
+	        this.style.color = "black";
+	        this.style.fontWeight = "bold";
+	        this.style.borderBottom = "2px solid black";
+	      })
+	    }
 	});
 	$(document).ready(function() {
 		$("#button2").click(function() {
@@ -31,6 +46,7 @@
 				submenu.slideDown("fast");
 			}
 		})
+
 	});
 	// div side 없애기
 	function doShow() {
@@ -50,7 +66,16 @@
 		    $('#list_table').css({"width": "100%"}); 
 		}
 	}
-	// div speed 없애기
+	// li 만들기 (groupAdd)
+	function doShow3() {
+		if ($('#group').is(":visible")) {
+			$('#group').fadeOut(150);
+		} else {
+			$('#group').fadeIn(150);
+			$('#group').show();
+		}
+	}
+	// div speed 만들기
 	function doShow2() {
 		if ($('#speed').is(":visible")) {
 			$('#speed').fadeOut(150);
@@ -59,6 +84,7 @@
 			$('#speed').show();
 		}
 	}
+	
 	function selectAll(selectAll)  {
 		  const checkboxes 
 		       = document.getElementsByName('check');
@@ -67,3 +93,57 @@
 		    checkbox.checked = selectAll.checked;
 		  })
 		}
+		
+		var globalResult;
+	function addressSearchList(start, end) {
+		var str = "";
+
+		$.ajax({
+				url : _contextPath + "/address/addressSearchList",
+				data : {
+					start_num : start,
+					end_num : end
+				},
+				dataType : 'json',
+				success : function(result) {
+					console.log("ajax success");
+					console.log(result);
+					var jsonResult = JSON.stringify(result);
+					$('#list_table > tbody').empty();
+					$('#pg').empty();
+					$.each(
+								result,
+									function(i) {
+										if (result[i].m_empnum == 0) {
+											str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>"
+													+ result[i].m_name
+													+ '</TD><TD>'
+													+ '</TD><TD>'
+													+ result[i].m_phone
+													+ '</TD><TD>'
+													+ result[i].m_email
+													+ '</TD><TD>'
+													+ result[i].dpt_name
+													+ '</TD><TD>'
+													+ result[i].pt_name;
+											str += '</TR>';
+										} else {
+											str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>"
+													+ result[i].m_name
+													+ '</TD><TD>'
+													+ result[i].m_empnum
+													+ '</TD><TD>'
+													+ result[i].m_phone
+													+ '</TD><TD>'
+													+ result[i].m_email
+													+ '</TD><TD>'
+													+ result[i].dpt_name
+													+ '</TD><TD>'
+													+ result[i].pt_name;
+											str += '</TR>';
+										}
+									});
+					$("#list_table").append(str);
+					}
+				});
+	}
