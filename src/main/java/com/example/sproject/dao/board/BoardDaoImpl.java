@@ -179,6 +179,38 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		return result;
 	}
-	
+
+
+	@Override
+	public int pushRp_order(Reply reply) {
+		return session.selectOne("selectpushRp_orderOfBoard",reply);
 	}
+
+	@Override
+	public int rereply_insert(Reply reply) {
+		return session.insert("insertRereplyOfBoard", reply);
+	}
+
+	@Override
+	public int selectOneMaxRp_num(int p_num) {
+		return session.selectOne("selectOneMaxRp_num",p_num);
+	}
+
+	@Override
+	public int selectOneInsertedRp_order(Reply reply) {
+		return session.insert("pushRp_orderOfBoard", reply);
+	}
+
+	@Override
+	public Reply selectOneParentReply(Reply reply) {
+		return session.selectOne("selectListParentOfBoard", reply);
+	}
+
+	@Override
+	public int selectOneMaxRp_order(Reply reply) {
+		return session.selectOne("selectOneMaxRp_orderOfBoard", reply);
+	}
+
+	}
+	
 	

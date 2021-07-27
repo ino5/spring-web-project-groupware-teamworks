@@ -12,4 +12,10 @@ public class Reply {
 	private int rp_ref;
 	private int rp_order;
 	private int rp_depth;
-}
+	
+	int parent_rp_ref;
+	int parent_rp_num;
+	int parent_rp_order;
+	int parent_rp_depth;
+	}
+

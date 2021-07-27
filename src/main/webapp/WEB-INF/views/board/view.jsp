@@ -97,8 +97,17 @@
 					
 					<table id="list_table" style="margin-top: 4%; border-top: 2px solid #EAEAEA;">
 						<c:forEach var="reply" items="${listReply}">
-							<tr id="rp_${reply.rp_num}">
-								<td>${reply.rp_content}</td>
+							<tr id="rp_${reply.rp_num}">								
+								<td>
+									<c:if test="${reply.rp_depth > 1}">
+										<c:forEach begin="3" end="${reply.rp_depth}" step="1">
+											&nbsp;&nbsp;&nbsp;
+										</c:forEach>
+										ㄴ
+									</c:if>
+									${reply.rp_content}
+								
+								</td>
 								<td><button type="button" id="btnUpdete"onclick="clickDelete(${reply.rp_num})">삭제</button></td>
 							</tr>
 						</c:forEach>

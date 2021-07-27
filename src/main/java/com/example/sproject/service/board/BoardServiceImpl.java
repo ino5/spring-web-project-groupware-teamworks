@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.sproject.dao.board.BoardDao;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.Reply;
+import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.board.Board;
 
 
@@ -17,23 +18,24 @@ import com.example.sproject.model.board.Board;
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	private BoardDao postDao;
+	private BoardDao boardDao;
 	private List<Board> boardList;
 	private Object replyList;
+	private int rp_num;
 
 
 	@Override
 	public List<Post> listPost(Post post) {
 	List<Post> postList = null;
 	System.out.println("PostServiceImpl listPost Start...");
-	postList =postDao.listPost(post);
+	postList =boardDao.listPost(post);
 		return postList;
 	}
 
 	@Override
 	public int total() {
 		System.out.println("PostServiceImpl Start total...");
-		int totCnt = postDao.total();
+		int totCnt = boardDao.total();
 		System.out.println("PostServiceImpl total totCnt->"+totCnt);
 		return totCnt;
 	}
@@ -59,7 +61,7 @@ public class BoardServiceImpl implements BoardService {
         post.setP_name(p_name);
         post.setP_content(p_content);
         
-        return postDao.insert(post);
+        return boardDao.insert(post);
 
 }
 
@@ -67,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Post read(int p_num) {
 		System.out.println("PostServiceImpl Start read...");
-		return postDao.read(p_num);
+		return boardDao.read(p_num);
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class BoardServiceImpl implements BoardService {
         System.out.println("current_time - update_time: " + (current_time - update_time));
         if(current_time - update_time > 24*60*60*1000){
         	//조회수를 증가시키는 로직
-            postDao.increase_p_view(p_num);
+            boardDao.increase_p_view(p_num);
             // 세션에 시간을 저장 : "update_time_"+p_num는 다른변수와 중복되지 않게 명명한 것
             // 키 : update_time_{p_num}, 값 : {current_time}
             session.setAttribute("update_time_"+p_num, current_time);
@@ -100,7 +102,7 @@ public class BoardServiceImpl implements BoardService {
 	public int update(Post post) {
 		System.out.println("PostServiceImpl Start update...");
 		int result = 0;
-		result = postDao.update(post);
+		result = boardDao.update(post);
 		return result;
 	
 	}
@@ -110,23 +112,23 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("PostServiceImpl Start update...");
 		int result = 0;
 		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
-	    postDao.likeDelete(p_num);
+	    boardDao.likeDelete(p_num);
 	
-		result = postDao.delete(p_num);
+		result = boardDao.delete(p_num);
 		return result;
 	}
 
 	@Override
 	public List<Board> listBoard(Board board) {
 		System.out.println("PostServiceImpl listBoard Start...");
-		boardList = postDao.listBoard(board);
+		boardList = boardDao.listBoard(board);
 		return boardList;
 	}
 
 	@Override
 	public List<Reply> listReply(int p_num) {
 		System.out.println("PostServiceImpl listReply Start...");
-		List<Reply>replyList = postDao.listReply(p_num);
+		List<Reply>replyList = boardDao.listReply(p_num);
 		return replyList;
 	}
 
@@ -134,18 +136,53 @@ public class BoardServiceImpl implements BoardService {
 	public int insert(Reply reply) {
 		System.out.println("PostServiceImpl Start replyinsert");
 		System.out.println("reply: " + reply.toString());
-		int rp_num = 1 + postDao.selectOneMaxRp_num();
+		int rp_num = 1 + boardDao.selectOneMaxRp_num();
 		reply.setRp_num(rp_num);
-		return postDao.insert(reply);
+		return boardDao.insert(reply);
 	}
 	@Override
 	public int reply_delete(int rp_num) {
 		System.out.println("PostServiceImpl Start replydelete...");
 		int result = 0;
-		result = postDao.reply_delete(rp_num);
+		result = boardDao.reply_delete(rp_num);
 		return result;
 	}
 
+	@Override
+	public int rereply_insert(Reply reply, int p_num, int parent_rp_num) {
+	
+	reply.setP_num(p_num);
+	
+	reply.setRp_num(parent_rp_num);
+	Reply parentReply = boardDao.selectOneParentReply(reply);
+	reply.setParent_rp_ref(parentReply.getRp_ref());
+	reply.setRp_order(parentReply.getRp_order());
+	reply.setRp_depth(parentReply.getRp_depth());
+
+
+	
+	//tRp_ref, Rp_depth 값 설정
+	reply.setRp_ref(reply.getParent_rp_ref());
+	reply.setRp_depth(reply.getRp_depth() + 1);
+	
+	//삽입될 cg_num 찾기
+	int rp_num = boardDao.selectOneMaxRp_num(p_num) + 1;
+	reply.setRp_num(rp_num);
+	//삽입될 cg_order 값 찾기
+			int insertedRp_order = boardDao.selectOneInsertedRp_order(reply);
+			if (insertedRp_order < 0) { //해당 ref에서 사이에 삽입되는 것이 아닌 제일 뒤에 삽입되는 경우
+				insertedRp_order = boardDao.selectOneMaxRp_order(reply) + 1;
+			}
+			reply.setRp_order(insertedRp_order);
+	//기존 reply들 order 한칸씩 뒤로밀어버리기
+			boardDao.pushRp_order(reply);
+			//CommonGroup 삽입하기 전 null값 처리하기
+			if(reply.getM_id() ==null) reply.setM_id("");
+			if(reply.getRp_content() ==null) reply.setRp_content("");
+			
+			return boardDao.rereply_insert(reply);
+
+}
 }
 
         

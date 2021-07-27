@@ -64,7 +64,54 @@
    <select id="selectOneMaxRp_num" resultType="int">
    	SELECT MAX(rp_num) FROM reply
    </select>
+<!--    댓글 삭제하기 -->
  <delete id="Reply_DeleteOfBoard" parameterType="int">
     delete from reply where rp_num= #{rp_num}
     </delete>
+<!--     부모 댓글번호를 가지고 부모 댓글정보 가져오기(부모 댓글의 ref, order, depth)  -->
+	<select id="selectListParentOfBoard" parameterType="com.example.sproject.model.board.Reply" resultType="com.example.sproject.model.board.Reply">
+	<![CDATA[
+		SELECT * FROM reply WHERE p_num = #{p_num} AND rp_num = #{parent_rp_num} 
+ 	]]>	 
+	</select>
+<!-- 	삽입될 위치의 order값 찾기 -->
+	<select id="selectpushRp_orderOfBoard" parameterType="com.example.sproject.model.common.CommonGroup" resultType="int">
+	<![CDATA[
+		SELECT NVL(MIN(rp_order),-1) FROM reply 
+		WHERE	(p_num = #{p_num} AND rp_ref = #{rp_ref}) AND 
+				(rp_order > #{parent_rp_order} AND rp_depth <= #{parent_rp_depth})
+	]]>	
+	</select>
+<!-- 	삽입될 위치의 order값 앞에서 못찾았을 때 해당 ref에서의 최대 order값 찾기 -->
+	<select id="selectOneMaxRp_orderOfBoard" parameterType="com.example.sproject.model.common.CommonGroup" resultType="int">
+	<![CDATA[
+		SELECT MAX(rp_order) FROM reply WHERE (p_num = #{p_num} AND rp_ref = #{rp_ref})
+	]]>	
+	</select>
+	
+<!--      위에 2개가 삽입될 위치의 order값 찾는데 사용 -->
+	
+<!-- 	  삽입될 order값 찾은 뒤에 삽입될 댓글 뒤 댓글들의 order 값들 1칸씩 밀기  -->
+	<update id="pushRp_orderOfBoard" parameterType="com.example.sproject.model.common.CommonGroup">
+	<![CDATA[
+		UPDATE reply SET rp_order = rp_order + 1 WHERE (p_num = #{p_num} AND rp_ref = #{rp_ref}) AND rp_order >= #{rp_order}
+	]]>
+	</update>
+	
+<!-- 	삽입될 댓글의 댓글번호 찾기 -->
+	<select id="selectOneMaxRp_numOfBoard" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT MAX(rp_num) FROM reply 
+	]]>	
+	</select>
+	
+<!-- 	댓글 삽입하기 -->
+	<insert id="insertRereplyOfBoard" parameterType="com.example.sproject.model.common.CommonGroup">
+	<![CDATA[
+		INSERT INTO common_group
+		(p_num, rp_num, rp_content, m_id, rp_ref, rp_order, rp_depth)
+		VALUES
+		(#{p_num}, #{rp_num}, #{rp_content}, #{m_id}, #{m_id}, #{rp_ref}, #{rp_order}, #{rp_depth})
+	]]>
+	</insert>
  </mapper>

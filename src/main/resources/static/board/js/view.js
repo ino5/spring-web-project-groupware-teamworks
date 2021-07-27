@@ -58,6 +58,26 @@ function clickDelete(rpNum){
         
     });
 }
+//댓글삽입 아작스
+function clickinsert(rpNum2){
+	console.log(rpNum2);
+	
+	$.ajax({
+        type : "POST",
+        url : _contextPath+"/board/rereply_insert",   
+        data : {'rp_num':rpNum2},
+        success : function(result) {
+        	console.log(result);
+             $("#rp_"+rpNum2).remove();
+        },
+         error: function(err) {
+         
+			console.log(err);
+			
+		}
+        
+    });
+}
 $(document).ready(function() {
 	//여기 아래 부분					
 	////////////////////////

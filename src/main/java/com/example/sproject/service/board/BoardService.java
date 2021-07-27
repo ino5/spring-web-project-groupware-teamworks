@@ -22,6 +22,7 @@ public interface BoardService {
 	List<Reply> listReply(int p_num);
 	int insert(Reply reply);
 	int reply_delete(int rp_num);
+	int rereply_insert(Reply reply, int p_num, int parent_rp_num);
 
 
 	
