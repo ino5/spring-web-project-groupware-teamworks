@@ -28,7 +28,12 @@
 	        this.style.fontWeight = "bold";
 	        this.style.borderBottom = "2px solid black";
 	      })
-	    }
+	    }	    	
+	    
+	    // 달력 클릭 시 모달창 열기
+		$("#bbb").on("click", function () {
+			$('#myModal2').show();
+		});
 	    
 	    	// 달력 클릭 시 모달창 열기
 		$("#groupSet").on("click", function () {
@@ -99,13 +104,14 @@
 	}
 	
 	function selectAll(selectAll)  {
-		  const checkboxes 
+		const checkboxes 
 		       = document.getElementsByName('check');
 		  
-		  checkboxes.forEach((checkbox) => {
+		checkboxes.forEach((checkbox) => {
 		    checkbox.checked = selectAll.checked;
 		  })
 		}
+
 		
 		var globalResult;
 	function addressSearchList(start, end) {
@@ -213,3 +219,59 @@
 					}
 				});
 	}
+	
+	
+		function addressSearchListPersonal(start, end, num) {
+		var str = "";
+
+		$.ajax({
+				url : _contextPath + "/address/addressSearchListPersonal",
+				data : {
+					start_num : start,
+					end_num : end,
+					adg_num : num
+				},
+				dataType : 'json',
+				success : function(result) {
+					console.log("ajax success");
+					console.log(result);
+					var jsonResult = JSON.stringify(result);
+					$('#list_table > tbody').empty();
+					$('#pg').empty();
+					$.each(
+								result,
+									function(i) {
+										if (result[i].m_empnum == 0) {
+											str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>"
+													+ result[i].m_name
+													+ '</TD><TD>'
+													+ '</TD><TD>'
+													+ result[i].m_phone
+													+ '</TD><TD>'
+													+ result[i].m_email
+													+ '</TD><TD>'
+													+ result[i].dpt_name
+													+ '</TD><TD>'
+													+ result[i].pt_name;
+											str += '</TR>';
+										} else {
+											str += "<TR><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"check\" id=\"chk_1\"></td><TD>"
+													+ result[i].m_name
+													+ '</TD><TD>'
+													+ result[i].m_empnum
+													+ '</TD><TD>'
+													+ result[i].m_phone
+													+ '</TD><TD>'
+													+ result[i].m_email
+													+ '</TD><TD>'
+													+ result[i].dpt_name
+													+ '</TD><TD>'
+													+ result[i].pt_name;
+											str += '</TR>';
+										}
+									});
+					$("#list_table").append(str);
+					}
+				});
+	}
+	

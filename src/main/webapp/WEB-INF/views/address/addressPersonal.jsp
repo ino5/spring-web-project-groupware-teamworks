@@ -9,6 +9,28 @@
 	href="${pageContext.request.contextPath}/address/css/address.css">
 <script src="${pageContext.request.contextPath}/address/js/address.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+
+function addressDelete(adg_num) {
+    var delchk = []; // key 값을 담을 배열
+    
+    //삭제 key value
+    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+    // object들을 찾아서 delchk라는 배열에 담는다.
+    $('.chk:checked').each(function(){
+        delchk.push($(this).val());
+    });
+    
+	$.ajax({
+		type : 'POST',
+		url : _contextPath + "/address/memberDelete",
+		data : {checkArray : delchk, adg_num : adg_num},
+			success: function pageReload(){
+            	location.href= "${pageContext.request.contextPath}/address/personal?adg_num="+adg_num;
+        	}
+		});
+}
+</script>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -55,12 +77,10 @@
 						src="${pageContext.request.contextPath}/address/img/white.png"
 						style="width: 16px; height: 12px;" id="img2"></span> 공용 주소록</a>
 				<ol id="scroll" style="display: none; list-style: none;">
-					<li class="li">인사부</li>
-					<li class="li">총무부</li>
-					<li class="li">회계부</li>
-					<li class="li">기획부</li>
-					<li class="li">영업부</li>
-					<li class="li">개발부</li>
+					<c:forEach var="listDeptGroup" items="${listDeptGroup }">
+						<li class="li"><a
+							href="${pageContext.request.contextPath}/address/dept?dpt_code=${listDeptGroup.dpt_code}">${listDeptGroup.dpt_name}</a></li>
+					</c:forEach>
 				</ol>
 			</div>
 		</div>
@@ -110,7 +130,7 @@
 								src="${pageContext.request.contextPath}/address/img/group.png"
 								width="17px" height="17px">&nbsp;그룹지정
 						</button></li>
-					<li><button type="button" class="btn2">
+					<li><button type="button" class="btn2" id="bbb"onclick="javascript:addressDelete(${adg_num})">
 							<img alt=""
 								src="${pageContext.request.contextPath}/address/img/delete.png"
 								width="17px" height="17px">&nbsp;삭제
@@ -131,23 +151,23 @@
 		</div>
 		<div>
 			<ul class="search_ul">
-				<li><a href="javascript:addressSearchList(65, 55203);" class="click_a">전체</a></li>
-				<li><a href="javascript:addressSearchList(44032, 45207);" class="click_a">ㄱ</a></li>
-				<li><a href="javascript:addressSearchList(45208, 45795)" class="click_a">ㄴ</a></li>
-				<li><a href="javascript:addressSearchList(45796, 46971);" class="click_a">ㄷ</a></li>
-				<li><a href="javascript:addressSearchList(46972, 47559);" class="click_a">ㄹ</a></li>
-				<li><a href="javascript:addressSearchList(47560, 48147);" class="click_a">ㅁ</a></li>
-				<li><a href="javascript:addressSearchList(48148, 49323);" class="click_a">ㅂ</a></li>
-				<li><a href="javascript:addressSearchList(49324, 50499);" class="click_a">ㅅ</a></li>
-				<li><a href="javascript:addressSearchList(50500, 51087);" class="click_a">ㅇ</a></li>
-				<li><a href="javascript:addressSearchList(51088, 52263);" class="click_a">ㅈ</a></li>
-				<li><a href="javascript:addressSearchList(52264, 52851);" class="click_a">ㅊ</a></li>
-				<li><a href="javascript:addressSearchList(52852, 53439);" class="click_a">ㅋ</a></li>
-				<li><a href="javascript:addressSearchList(53440, 54027);" class="click_a">ㅌ</a></li>
-				<li><a href="javascript:addressSearchList(54028, 54615);" class="click_a">ㅍ</a></li>
-				<li><a href="javascript:addressSearchList(54616, 55203);" class="click_a">ㅎ</a></li>
-				<li><a href="javascript:addressSearchList(65, 90);" class="click_a">A-Z</a></li>
-				<li><a href="javascript:addressSearchList(97, 123);" class="click_a">a-z</a></li>
+				<li><a href="javascript:addressSearchListPersonal(65, 55203, ${adg_num});" class="click_a">전체</a></li>
+				<li><a href="javascript:addressSearchListPersonal(44032, 45207, ${adg_num});" class="click_a">ㄱ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(45208, 45795, ${adg_num})" class="click_a">ㄴ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(45796, 46971, ${adg_num});" class="click_a">ㄷ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(46972, 47559, ${adg_num});" class="click_a">ㄹ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(47560, 48147, ${adg_num});" class="click_a">ㅁ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(48148, 49323, ${adg_num});" class="click_a">ㅂ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(49324, 50499, ${adg_num});" class="click_a">ㅅ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(50500, 51087, ${adg_num});" class="click_a">ㅇ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(51088, 52263, ${adg_num});" class="click_a">ㅈ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(52264, 52851, ${adg_num});" class="click_a">ㅊ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(52852, 53439, ${adg_num});" class="click_a">ㅋ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(53440, 54027, ${adg_num});" class="click_a">ㅌ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(54028, 54615, ${adg_num});" class="click_a">ㅍ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(54616, 55203, ${adg_num});" class="click_a">ㅎ</a></li>
+				<li><a href="javascript:addressSearchListPersonal(65, 90, ${adg_num});" class="click_a">A-Z</a></li>
+				<li><a href="javascript:addressSearchListPersonal(97, 123, ${adg_num});" class="click_a">a-z</a></li>
 			</ul>
 		</div>
 
@@ -159,8 +179,8 @@
 					<tr>
 						<td
 							style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">
-							<input type="checkbox" name="check" id="chk_1"
-							onclick='selectAll(this)'> <label for="chk_1"></label>
+							<input type="checkbox" name="check" 
+							onclick='selectAll(this)'>
 						</td>
 						<td
 							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이름</td>
@@ -181,7 +201,7 @@
 					<c:forEach var="member" items="${listPersonalGroup }">
 						<tr>
 							<td style="text-align: center;"><input type="checkbox"
-								name="check" id="chk_1"></td>
+								name="check" value="${member.m_id }" class="chk"></td>
 							<td>${member.m_name }</td>
 							<c:if test="${member.m_empnum > 0}">
 								<td>${member.m_empnum }</td>
@@ -250,6 +270,10 @@
 			</form>
 		</div>
 	</div>
+	
+<!-- =============================================================== -->
+
+
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
 </html>

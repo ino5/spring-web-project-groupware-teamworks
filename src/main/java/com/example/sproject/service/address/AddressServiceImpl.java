@@ -1,5 +1,6 @@
 package com.example.sproject.service.address;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,16 @@ public class AddressServiceImpl implements AddressService {
 	public List<Member> addressSearchListDept(Member member) {
 		List<Member> addressSearchListDept = addDao.addressSearchListDept(member);
 		return addressSearchListDept;
+	}
+
+	@Override
+	public List<Member> addressSearchListPersonal(Member member) {
+		List<Member> addressSearchListPersonal = addDao.addressSearchListPersonal(member);
+		return addressSearchListPersonal;
+	}
+
+	@Override
+	public void memberDelete(ArrayList<String> deleteArray, int adg_num) {
+		addDao.memberDelete(deleteArray, adg_num);
 	}
 }

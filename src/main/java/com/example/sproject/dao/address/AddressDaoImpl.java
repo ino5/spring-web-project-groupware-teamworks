@@ -1,5 +1,7 @@
 package com.example.sproject.dao.address;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -145,5 +147,30 @@ public class AddressDaoImpl implements AddressDao {
 			System.out.println("addressDaoImpl addressSearchListDept Exception->"+e.getMessage());
 		}
 		return addressSearchListDept;
+	}
+
+	@Override
+	public List<Member> addressSearchListPersonal(Member member) {
+		List<Member> addressSearchListPersonal = null;
+		System.out.println("addressDaoImpl addressSearchListPersonal Start ..." );
+		try {
+			addressSearchListPersonal = session.selectList("searchListPersonalOfAddress", member);
+			System.out.println("after session.selectList");
+		} catch (Exception e) {
+			System.out.println("addressDaoImpl addressSearchListPersonal Exception->"+e.getMessage());
+		}
+		return addressSearchListPersonal;
+	}
+
+	@Override
+	public void memberDelete(ArrayList<String> deleteArray, int adg_num) {
+		System.out.println("addressDaoImpl memberDelete Start ..." );
+		for(int i = 0; i < deleteArray.size(); i++) {
+			String m_id = deleteArray.get(i);
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("m_id", m_id);
+			map.put("adg_num", adg_num);
+			session.delete("memberDeleteOfAddress", map);
+		}
 	}
 }

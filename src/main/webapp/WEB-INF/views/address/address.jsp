@@ -104,16 +104,11 @@
 								src="${pageContext.request.contextPath}/address/img/mail.png"
 								width="17px" height="17px">&nbsp;메일발송
 						</button></li>
-					<li><button type="button" class="btn2">
+					<li><button type="button" class="btn2" onclick="">
 							<img alt=""
 								src="${pageContext.request.contextPath}/address/img/group.png"
 								width="17px" height="17px">&nbsp;그룹지정
-						</button></li>
-					<li><button type="button" class="btn2">
-							<img alt=""
-								src="${pageContext.request.contextPath}/address/img/delete.png"
-								width="17px" height="17px">&nbsp;삭제
-						</button></li>
+						</button></li> 
 				</ul>
 			</section>
 		</div>
@@ -177,8 +172,8 @@
 					<tr>
 						<td
 							style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">
-							<input type="checkbox" name="check" id="chk_1"
-							onclick='selectAll(this)'> <label for="chk_1"></label>
+							<input type="checkbox" name="check"
+							onclick='selectAll(this)'>
 						</td>
 						<td
 							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이름</td>
@@ -199,7 +194,7 @@
 					<c:forEach var="member" items="${listMember }">
 						<tr>
 							<td style="text-align: center;"><input type="checkbox"
-								name="check" id="chk_1"></td>
+								name="check" value="${member.m_id }" class="chk"></td>
 							<td>${member.m_name }</td>
 							<c:if test="${member.m_empnum > 0}">
 								<td>${member.m_empnum }</td>

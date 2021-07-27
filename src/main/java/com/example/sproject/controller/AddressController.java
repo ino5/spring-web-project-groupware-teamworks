@@ -1,6 +1,7 @@
 package com.example.sproject.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.address.Address_Group;
@@ -52,9 +55,12 @@ public class AddressController {
 		member.setEnd(pg.getEnd());       // 시작시 10 
 		List<Member> listPersonalGroup = adds.listPersonalGroup(member);
 		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
+		List<Department> listDeptGroup = adds.listDeptGroup();
 		model.addAttribute("total", total); 
 		model.addAttribute("listPersonalGroup",listPersonalGroup); 
 		model.addAttribute("listAddressGroup",listAddressGroup); 
+		model.addAttribute("listDeptGroup",listDeptGroup); 
+		model.addAttribute("adg_num",adg_num);
 		model.addAttribute("pg",pg);
 		return "address/addressPersonal"; 
 	}
@@ -73,6 +79,14 @@ public class AddressController {
 		System.out.println("AddressController Start addressSearchListDept..." );
 		List<Member> addressSearchListDept = adds.addressSearchListDept(member);
 		return addressSearchListDept;
+	}
+	
+	@RequestMapping(value="addressSearchListPersonal")
+	@ResponseBody
+	public List<Member> addressSearchListPersonal(Member member){
+		System.out.println("AddressController Start addressSearchListPersonal..." );
+		List<Member> addressSearchListPersonal = adds.addressSearchListPersonal(member);
+		return addressSearchListPersonal;
 	}
 	
 	@RequestMapping(value="simpleAdd")
@@ -129,5 +143,16 @@ public class AddressController {
 		model.addAttribute("pg",pg);
 		model.addAttribute("dpt_code", dpt_code);
 		return "address/addressDept"; 
+	}
+	
+	@RequestMapping(value="memberDelete", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public void memberDelete(@RequestParam(value="checkArray[]") List<String> deleteList, Model model, int adg_num) {
+//	     Ajax를 통해 Array로 받은 "deleteList"를 하나씩 빼내어 ArrayList에 넣음 
+	    ArrayList<String> deleteArray = new ArrayList<String>();
+	    for(int i=0;i<deleteList.size();i++){
+	        deleteArray.add(deleteList.get(i));
+	    }
+	    adds.memberDelete(deleteArray, adg_num);
 	}
 }

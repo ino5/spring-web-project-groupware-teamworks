@@ -1,5 +1,6 @@
 package com.example.sproject.service.address;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.sproject.model.address.Address_Group;
@@ -37,5 +38,9 @@ public interface AddressService {
 	List<Member> listDeptGroup(Member member);
 
 	List<Member> addressSearchListDept(Member member);
+
+	List<Member> addressSearchListPersonal(Member member);
+
+	void memberDelete(ArrayList<String> deleteArray, int adg_num);
 
 }
