@@ -26,8 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.sproject.dao.board.BoardDao;
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 import com.example.sproject.service.board.Paging;
 import com.example.sproject.service.board.BoardService;
@@ -40,7 +42,10 @@ public class BoardController {
 	private BoardService boardService;
 //게시글 리스트, 페이징
 	@RequestMapping(value = "")
-	public String board(Post post, String currentPage, Model model) {
+	public String board(Post post, String currentPage, Model model, Board board) {
+		System.out.println("BoardController Start2 List..");
+		List<Board> boardListOfAll = boardService.listBoard(1);
+		List<Board> boardListOfDept = boardService.listBoard(2);
 		System.out.println("BoardController Start List..");
 		int total = boardService.total();
 		System.out.println("BoardController total=>"+total);
@@ -55,9 +60,10 @@ public class BoardController {
 		post.setStart(pg.getStart());
 		post.setEnd(pg.getEnd());
 		List<Post> listPost = boardService.listPost(post);
-		model.addAttribute("listPost", listPost);
 		model.addAttribute("total", total);
 		model.addAttribute("listPost", listPost);
+		model.addAttribute("boardListOfAll", boardListOfAll);
+		model.addAttribute("boardListOfDept", boardListOfDept);
 		model.addAttribute("pg",pg);
 //		model.addAttribute("p_num", p_num);
 		return "board/board";
@@ -66,15 +72,20 @@ public class BoardController {
 	//게시글 작성화면
 	//@RequestMapping(value = "write", method=RequestMethod.POST)
 	@GetMapping(value = "write")
-	public String write(Model model) {
+	public String write(Model model, Board board) {
+		List<Board> listBoard = boardService.listBoard(board);
+		List<Board> boardListOfAll = boardService.listBoard(1);
+		List<Board> boardListOfDept = boardService.listBoard(2);
+		model.addAttribute("listBoard", listBoard);
 		System.out.println("BoardController Start write..");
 		return "board/write";
 	}
-	//
-	
+
 	@PostMapping(value = "insert")
-	public String insert(Post post, Model model ) throws Exception {
+	public String insert(Post post, Model model, Board board ) throws Exception {
 		System.out.println("BoardController Start insert..");
+		List<Board> listBoard = boardService.listBoard(board);
+		model.addAttribute("listBoard", listBoard);
 		boardService.insert(post);
 		return "redirect:/board";
 	}
@@ -93,7 +104,7 @@ public class BoardController {
         modelandview.setViewName("board/view");
         // 뷰에 전달할 데이터
         Post post = boardService.read(p_num);
-        //String loginId = (String) session.getAttribute("m_id");
+       // String loginId = (String) session.getAttribute("m_id");
         if(principal != null) {
         	post.setLoginId(principal.getName());
         }
@@ -111,6 +122,14 @@ public class BoardController {
 //		model.addAttribute("p_num", p_num);
 //		System.out.println("in listReply: " + listReply.get(0).getRp_num());
 		
+		//좋아요 상태 가져오기
+		PostLike postLike = new PostLike();
+		if(principal != null) {
+			postLike.setM_id(principal.getName());
+			postLike.setP_num(p_num);
+			int statusOfLike = boardService.checkLike(postLike);
+			modelandview.addObject("statusOfLike", statusOfLike);
+		}
 
         
         return modelandview;
@@ -178,12 +197,11 @@ public class BoardController {
 			System.out.println("BoardController Start board_list..");		
 			List<Board> listBoard = boardService.listBoard(board);
 			model.addAttribute("listBoard", listBoard);
-			model.addAttribute("listBoard", listBoard);
-//			model.addAttribute("p_num", p_num);
 			System.out.println("in listBoard: " + listBoard.get(0).getBd_name());
 			return "board/board";
 		}
-		
+	
+
 		//댓글작성하기
 		@PostMapping(value ="reply_insert")
 		public String insert(Reply reply, Model model, Principal principal) throws Exception {
@@ -212,7 +230,7 @@ public class BoardController {
 			//postService.delete(p_num);
 			boardService.reply_delete(rp_num);
 			//여기서의 리턴값은  success : function(data) 여기서의 data -- > "!!!!!!!!!!!"
-			return  "왜안돼";
+			return  "이제된다";
 		}
 		//대댓글
 		@ResponseBody
@@ -226,10 +244,21 @@ public class BoardController {
 //			int rp_num = reply.getRp_num();
 			int p_num = reply.getP_num();
 			boardService.rereply_insert(reply, p_num, parent_rp_num );
-			return  "왜안돼";
+			return  "이제된다";
 		}	
 	
+		// 게시물 좋아요 기능
+		@RequestMapping(value = "recommend")
+		public String like(int p_num, Model model, PostLike postLike, Principal principal) {
+			
+		        if(principal != null) {
+		        	postLike.setM_id(principal.getName());
+		        	postLike.setP_num(p_num);
+		        	boardService.like(postLike);
+		        }
 
+		    return "redirect:/board/view?p_num=" + p_num;
+		}
 	
 }
 

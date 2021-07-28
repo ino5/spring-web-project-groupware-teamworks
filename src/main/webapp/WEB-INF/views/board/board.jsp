@@ -13,17 +13,32 @@
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 		<div id="side">
-		<button type="button" id="btn1">일정등록</button>
+		<button type="button" id="btn1">글쓰기</button>
 		<div>
 			<a id="button1" class="button1"><span id="span_hover"><img
 					alt="image"
 					src="${pageContext.request.contextPath}/images/right.png"
-					style="width: 16px; height: 12px; transition:0.5s;" id="img1"></span> <span
+					style="width: 16px; height: 12px; transition:0.5s;" id="img1"></span><span
 				id="span_none"><img alt="image"
 					src="${pageContext.request.contextPath}/images/white.png"
-					style="width: 16px; height: 12px;" id="img1"></span> 게시판</a>
+					style="width: 16px; height: 12px;" id="img1"></span>전사게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<c:forEach var="bs" items="${listBoard }">
+				<c:forEach var="bs" items="${boardListOfAll }">
+				<li class="li">${bs.bd_name}</li>
+				</c:forEach>
+
+			</ol>
+			</div>
+			<div>
+						<a id="button2" class="button1"><span id="span_hover"><img
+					alt="image"
+					src="${pageContext.request.contextPath}/images/right.png"
+					style="width: 16px; height: 12px; transition:0.5s;" id="img2"></span> <span
+				id="span_none"><img alt="image"
+					src="${pageContext.request.contextPath}/images/white.png"
+					style="width: 16px; height: 12px;" id="img2"></span>부서게시판</a>
+			<ol id="scroll" style="display: none; list-style: none;">
+				<c:forEach var="bs" items="${boardListOfDept }">
 				<li class="li">${bs.bd_name}</li>
 				</c:forEach>
 

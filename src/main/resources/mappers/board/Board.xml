@@ -45,8 +45,14 @@
 
 <select id="selectListBoardofBoard" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
 		select *
-		from board order by bd_ref, bd_order, bd_depth
+		from board
 </select>
+
+<select id="selectListTypedofBoard" parameterType="int" resultType="com.example.sproject.model.board.Board">
+		select *
+		from board where bd_type = #{bd_type}
+</select>
+
 <!--     댓글 리스트  -->
 <select id="ReplyListofBoard" parameterType="int" resultType="com.example.sproject.model.board.Reply">
 		select *
@@ -114,4 +120,14 @@
 		(#{p_num}, #{rp_num}, #{rp_content}, #{m_id}, #{m_id}, #{rp_ref}, #{rp_order}, #{rp_depth})
 	]]>
 	</insert>
+	
+	<select id="checkLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike" resultType="int">
+		SELECT COUNT(*) FROM post_like WHERE p_num = #{p_num} AND m_id = #{m_id}
+	</select>
+	<insert id="insertLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike">
+		insert into post_like(p_num, m_id ) values(#{p_num},#{m_id})
+	</insert>
+	<delete id="deleteLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike">
+	delete from post_like where p_num= #{p_num} and m_id=#{m_id}
+	</delete>
  </mapper>

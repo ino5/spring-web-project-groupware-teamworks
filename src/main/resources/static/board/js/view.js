@@ -78,24 +78,23 @@ function clickinsert(rpNum2){
         
     });
 }
-$(document).ready(function() {
-	//여기 아래 부분					
 	////////////////////////
+
 	var mid = $('#m_id').val();
 	var loginId = $('#loginId').val();
 	console.log("mid",mid);
 	console.log("loginId",loginId);
 	if(mid == loginId){
-		//alert(true);
+		alert('아이디로그인했음');
 		$('#summernote').summernote('enable');
 		
 	}else{
-		alert(false)
+	alert('아이디로그인안했음');
 		$('#summernote').summernote('disable');
 		$("#btnUpdete").remove();
 		$("#btnDelete").remove();
-
 	}
 	console.log($("#btnUpdete"));
 	
 });
+

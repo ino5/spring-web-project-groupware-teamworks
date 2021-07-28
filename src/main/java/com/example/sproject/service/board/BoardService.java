@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 
 
@@ -23,6 +24,10 @@ public interface BoardService {
 	int insert(Reply reply);
 	int reply_delete(int rp_num);
 	int rereply_insert(Reply reply, int p_num, int parent_rp_num);
+	List<Board> listBoard(int i);
+	void like(PostLike postLike);
+	int checkLike(PostLike postLike);
+	
 
 
 	

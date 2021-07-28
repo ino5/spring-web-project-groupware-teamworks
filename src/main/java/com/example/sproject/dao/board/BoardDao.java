@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 import com.example.sproject.model.common.CommonGroup;
 
@@ -15,7 +16,7 @@ public interface BoardDao {
 	int update(Post post);
 	int delete(int p_num);
 	
-	int likeDelete(int p_num);
+//	int likeDelete(int p_num);
 	List<Board>		listBoard(Board board);
 	List<Reply>      listReply(int p_num);
     int  insert(Reply reply);
@@ -28,6 +29,10 @@ public interface BoardDao {
 	int pushRp_order(Reply reply);
 	int rereply_insert(Reply reply);
 	Reply selectOneParentReply(Reply reply);
+	List<Board> listBoard(int bd_type);
+	int checkLike(PostLike postLike);
+	int insertLike(PostLike postLike);
+	int deleteLike(PostLike postLike);
 
 
 

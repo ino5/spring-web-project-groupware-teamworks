@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 
 @Repository
@@ -110,19 +111,19 @@ public class BoardDaoImpl implements BoardDao {
 		return result;
 	}
 	
-	@Override
-	public int likeDelete(int p_num) {
-		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
-		System.out.println("PostDaoImpl Start delete...");
-		int result = 0;
-		try {
-			result = session.delete("PostLikeDeleteOfBoard",p_num);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("PostDaoImpl LikeDelete Exception->"+e.getMessage());
-		}
-		return result;
-	}
+//	@Override
+//	public int likeDelete(int p_num) {
+//		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
+//		System.out.println("PostDaoImpl Start delete...");
+//		int result = 0;
+//		try {
+//			result = session.delete("PostLikeDeleteOfBoard",p_num);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("PostDaoImpl LikeDelete Exception->"+e.getMessage());
+//		}
+//		return result;
+//	}
 
 	@Override
 	public List<Board> listBoard(Board board) {
@@ -209,6 +210,30 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int selectOneMaxRp_order(Reply reply) {
 		return session.selectOne("selectOneMaxRp_orderOfBoard", reply);
+	}
+
+	@Override
+	public List<Board> listBoard(int bd_type) {
+	
+		return session.selectList("selectListTypedofBoard",bd_type);
+	}
+
+	@Override
+	public int checkLike(PostLike postLike) {
+
+		return session.selectOne("checkLikeOfBoard", postLike);
+	}
+
+	@Override
+	public int insertLike(PostLike postLike) {
+
+		return session.insert("insertLikeOfBoard", postLike);
+	}
+
+	@Override
+	public int deleteLike(PostLike postLike) {
+		
+		return session.delete("deleteLikeOfBoard", postLike);
 	}
 
 	}

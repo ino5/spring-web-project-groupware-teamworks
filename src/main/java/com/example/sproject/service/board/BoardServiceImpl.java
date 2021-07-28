@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.sproject.dao.board.BoardDao;
 import com.example.sproject.model.board.Post;
+import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.board.Board;
@@ -111,8 +112,8 @@ public class BoardServiceImpl implements BoardService {
 	public int delete(int p_num) {
 		System.out.println("PostServiceImpl Start update...");
 		int result = 0;
-		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
-	    boardDao.likeDelete(p_num);
+//		//해당 스크랩 제거 추후  postLikeDao 생성후 수정하게
+//	    boardDao.likeDelete(p_num);
 	
 		result = boardDao.delete(p_num);
 		return result;
@@ -183,6 +184,34 @@ public class BoardServiceImpl implements BoardService {
 			return boardDao.rereply_insert(reply);
 
 }
+
+	@Override
+	public List<Board> listBoard(int bd_type) {
+		List<Board>boardListOfAll = boardDao.listBoard(bd_type);
+		List<Board>boardListOfDept = boardDao.listBoard(bd_type);
+		return boardListOfAll;
+	}
+
+	@Override
+	public void like(PostLike postLike) {
+		//먼저 db에서 좋아요 등록이 되어있는지 확인
+		//등록이 안되어있으면 좋아요를 넣고
+		if(checkLike(postLike) == 0) {
+			boardDao.insertLike(postLike);
+		} else { //등록이 되어있으면 좋아요를 삭제하고
+			boardDao.deleteLike(postLike);
+		}
+		
+		
+	}
+
+	@Override
+	public int checkLike(PostLike postLike) {
+		return boardDao.checkLike(postLike);
+	}
+
+	
+
 }
 
         
