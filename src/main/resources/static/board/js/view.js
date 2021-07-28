@@ -1,4 +1,20 @@
-
+	var mid = $('#m_id').val();
+	var loginId = $('#loginId').val();
+	console.log("mid",mid);
+	console.log("loginId",loginId);
+	if(mid == loginId){
+		alert('아이디로그인했음');
+		$('#summernote').summernote('enable');
+		
+	}else{
+	alert('아이디로그인안했음');
+		$('#summernote').summernote('disable');
+		$("#btnUpdete").remove();
+		$("#btnDelete").remove();
+	}
+	console.log($("#btnUpdete"));
+	
+	
 $('#summernote').summernote({
 	height : 300, // 에디터 높이
 	minHeight : null, // 최소 높이
@@ -78,23 +94,4 @@ function clickinsert(rpNum2){
         
     });
 }
-	////////////////////////
-
-	var mid = $('#m_id').val();
-	var loginId = $('#loginId').val();
-	console.log("mid",mid);
-	console.log("loginId",loginId);
-	if(mid == loginId){
-		alert('아이디로그인했음');
-		$('#summernote').summernote('enable');
-		
-	}else{
-	alert('아이디로그인안했음');
-		$('#summernote').summernote('disable');
-		$("#btnUpdete").remove();
-		$("#btnDelete").remove();
-	}
-	console.log($("#btnUpdete"));
-	
-});
-
+	////////////////////////	

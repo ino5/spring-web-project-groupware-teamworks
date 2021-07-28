@@ -110,6 +110,7 @@ public class BoardController {
         }
         System.out.println("!!!!!!!"+ post.getLoginId());
         modelandview.addObject("view", post);
+        
         // toString
         
 //        System.out.println("post.bd_num: " + post.getBd_num());
@@ -130,6 +131,8 @@ public class BoardController {
 			int statusOfLike = boardService.checkLike(postLike);
 			modelandview.addObject("statusOfLike", statusOfLike);
 		}
+		
+
 
         
         return modelandview;

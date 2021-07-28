@@ -42,6 +42,8 @@
 	</div>
 
 	<div id="content">
+		<input type="hidden" id="m_id" value="${view.m_id}">
+		<input type="hidden" id="loginId" value="${view.loginId}">
 		<form
 			action="${pageContext.request.contextPath}/board/update?p_num=${view.p_num}&m_id=${view.m_id}&loginId=${view.loginId}"
 			method="post">
