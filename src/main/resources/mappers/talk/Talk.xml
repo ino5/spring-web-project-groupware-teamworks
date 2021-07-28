@@ -11,4 +11,8 @@
 	SELECT NVL(MAX(tk_num),0) FROM talk
 </select>
 
+<select id="selectChatOfTalk" parameterType="int" resultType="Talk">
+	SELECT tk_num, m_id, tk_content, tk_time_sent from talk where tkrm_num = #{tkrm_num} order by tk_num
+</select>
+
 </mapper>

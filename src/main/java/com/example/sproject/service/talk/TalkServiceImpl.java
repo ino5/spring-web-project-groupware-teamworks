@@ -1,5 +1,7 @@
 package com.example.sproject.service.talk;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class TalkServiceImpl implements TalkService {
 		int tk_num = 1 + talkDao.selectOneMaxTk_num();
 		talk.setTk_num(tk_num);
 		return talkDao.insertMsg(talk);
+	}
+
+	@Override
+	public List<Talk> selectChat(int roomNumber) {
+		return talkDao.selectChat(roomNumber);
 	}
 
 }

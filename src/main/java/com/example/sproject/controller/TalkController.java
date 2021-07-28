@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.sproject.model.talk.Room;
+import com.example.sproject.model.talk.Talk;
+import com.example.sproject.service.talk.TalkService;
 
 @Controller
 @RequestMapping("talk")
 public class TalkController {
+	@Autowired
+		TalkService talkService;
+	
 	@RequestMapping("")
 	public String index(Model model) {
 		return "index";
@@ -105,9 +111,8 @@ public class TalkController {
 			mv.addObject("roomName", params.get("roomName"));
 			mv.addObject("roomNumber", params.get("roomNumber"));
 			mv.addObject("m_id", m_id);
-			
-			//List<Talk> talkList 해서 해당 방번호에 대한 talk들을 List로 가져오는거야.
-			//그리고 이걸 addObject하는 거야
+			List<Talk> talkList = talkService.selectChat(roomNumber);
+			mv.addObject("talkList", talkList);
 			//그다음 jsp에서 그냥 뿌려주는거야. foreach로  보여주면서 c:if로 나와 나아닌거 구분
 			
 			mv.setViewName("talk/talk");

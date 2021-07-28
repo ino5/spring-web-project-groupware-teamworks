@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file = "/WEB-INF/views/header/header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -45,7 +46,21 @@
 		<input type="hidden" id="roomNumber" value="${roomNumber}">
 		<div id="meName"></div>
 		<div id="chating" class="chating">
-		<div id="chating2"></div>
+			<c:forEach var="list" items="${talkList }">
+				<c:if test="${m_id != list.m_id }">
+				<div id="memo">
+					<p class='others'> ${list.m_id} : ${list.tk_content}</p><br>
+					<p class='date2'> ${list.tk_time_sent} </p>
+				</div>
+				</c:if>
+				<c:if test="${m_id == list.m_id }">
+				<div id="memo">
+					<p class='me'> ${list.m_id} : ${list.tk_content}</p><br>
+					<p class='date'> ${list.tk_time_sent} </p>
+				</div>
+				</c:if>
+				<script type="text/javascript">console.log('${list.m_id}: ${list.tk_content} [${list.tk_time_sent}]' );</script>
+			</c:forEach>
 		</div>
 		
 		<div id="yourName">
