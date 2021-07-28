@@ -1,5 +1,6 @@
 package com.example.sproject.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,12 @@ public class SampleController {
 		System.out.println("data_content: " + data_content);
 		return "result value: test";
 	}
+	
+	@PostMapping("upload")
+	public String upload(Principal principal) throws Exception {
+		System.out.println("upload method in SampleController Starts");
+		System.out.println("principal.getName: " + principal.getName());
+	    return "redirect:/drive";
+	  }
 	
 }

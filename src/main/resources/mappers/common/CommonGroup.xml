@@ -2,10 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sproject.dao.common.CommonGroupDao">
-	<select id="selectListOfCommonGroup" parameterType="String" resultType="com.example.sproject.model.common.CommonGroup">
-	<![CDATA[
-		SELECT * FROM common_group WHERE tb_code = #{tb_code} ORDER BY cg_ref, cg_order
-	]]>	
+	<select id="selectListOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="com.example.sproject.model.common.CommonGroup">
+		SELECT * FROM common_group
+		<where>
+		<if test='tb_code != null'> AND tb_code = #{tb_code} </if>
+		<if test='cg_ref != 0'> AND cg_ref = #{cg_ref} </if>
+		<if test='cg_depth != 0'> AND cg_depth = #{cg_depth} </if> 
+		</where>
+		ORDER BY cg_ref, cg_order
 	</select>
 	
 	<select id="selectOneInsertedCg_orderOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="int">

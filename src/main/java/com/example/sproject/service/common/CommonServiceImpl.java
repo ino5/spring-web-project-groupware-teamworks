@@ -16,10 +16,17 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	//특정 tb_code에 해당하는 CommonGroup들을 순서에 맞게 리스트 형태로 저장하는 메소드
 	public List<CommonGroup> listCommonGroup(String tb_code) {
-		List<CommonGroup> CommonGroupList = commonGroupDao.selectList(tb_code);
-		return CommonGroupList;
+		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code);
+		return commonGroupList;
 	}
 
+	@Override
+	//tb_code, cg_ref, cg_depth를 가져와서 CommonGroup들을 리스트 형대로 가져오기
+	public List<CommonGroup> listCommonGroup(String tb_code, int cg_ref, int cg_depth) {
+		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code, cg_ref, cg_depth);
+		return commonGroupList;
+	}	
+	
 	@Override
 	public int addCommonGroup(String tb_code, CommonGroup commonGroup, int parent_cg_num) {
 		//tb_code 값 설정
@@ -58,5 +65,7 @@ public class CommonServiceImpl implements CommonService {
 		//CommonGroup 삽입하기
 		return commonGroupDao.insertCommonGroup(commonGroup);
 	}
+
+
 	
 }

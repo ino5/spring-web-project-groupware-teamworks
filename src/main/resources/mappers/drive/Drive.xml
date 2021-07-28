@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.drive.DriveDaoImpl">
+	<insert id="insertDriveFileOfDrive" parameterType="com.example.sproject.model.drive.DriveFile">
+		INSERT INTO drive(dv_id, m_id, dv_filename, dv_regdate, cg_num) 
+		VALUES (#{dv_id}, #{m_id}, #{dv_filename}, SYSDATE, #{cg_num})
+	</insert>
+	
+</mapper>
