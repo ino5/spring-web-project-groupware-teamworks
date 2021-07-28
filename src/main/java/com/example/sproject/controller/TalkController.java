@@ -113,7 +113,6 @@ public class TalkController {
 			mv.addObject("m_id", m_id);
 			List<Talk> talkList = talkService.selectChat(roomNumber);
 			mv.addObject("talkList", talkList);
-			//그다음 jsp에서 그냥 뿌려주는거야. foreach로  보여주면서 c:if로 나와 나아닌거 구분
 			
 			mv.setViewName("talk/talk");
 		}else {

@@ -48,11 +48,14 @@ public class SocketHandler extends TextWebSocketHandler {
 		System.out.println("m_id: " + m_id);
 		System.out.println("content: " + content);
 		
-		Talk talk = new Talk();
-		talk.setTkrm_num(Integer.parseInt(rN));
-		talk.setM_id(m_id);
-		talk.setTk_content(content);
-		talkService.insertMsg(talk);
+		if(msgType.equals("message")) {
+			Talk talk = new Talk();
+			talk.setTkrm_num(Integer.parseInt(rN));
+			talk.setM_id(m_id);
+			talk.setTk_content(content);
+			talkService.insertMsg(talk);
+		}
+
 		//TalkMsg = dto
 		//TalkMsg talkMsg = new TalkMsg();
 		//talkMsg.setM_id(m_id);
