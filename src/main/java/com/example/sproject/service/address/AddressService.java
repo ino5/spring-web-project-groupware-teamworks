@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.address.Department;
+import com.example.sproject.model.address.Position;
 import com.example.sproject.model.login.Member;
 
 public interface AddressService {
@@ -44,5 +45,9 @@ public interface AddressService {
 	void memberDelete(ArrayList<String> deleteArray, int adg_num);
 
 	void addressGroup(List<String> groupList, int adg_num);
+
+	List<Position> listPtGroup();
+
+	void addressAdd(Member member);
 
 }

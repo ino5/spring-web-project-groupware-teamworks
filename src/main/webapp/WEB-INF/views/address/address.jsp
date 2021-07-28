@@ -61,10 +61,12 @@ function addressGroup() {
 				<li class="li" id="group">
 					<form action="${pageContext.request.contextPath}/address/groupAdd">
 						<input type="text" name="adg_name" placeholder="그룹 명"
-							required="required" id="groupName"><input type="image" 
-							src="${pageContext.request.contextPath}/address/img/plus.png" name="Submit" value="Submit" id="groupAdd">
-							 <img alt="" src="${pageContext.request.contextPath}/address/img/gear.png"
-							width="19px" height="19px" style="margin-top: 2px;" class="groupAdd" id="groupSet">
+							required="required" id="groupName"><input type="image"
+							src="${pageContext.request.contextPath}/address/img/plus.png"
+							name="Submit" value="Submit" id="groupAdd"> <img alt=""
+							src="${pageContext.request.contextPath}/address/img/gear.png"
+							width="19px" height="19px" style="margin-top: 2px;"
+							class="groupAdd" id="groupSet">
 					</form>
 				</li>
 			</ol>
@@ -89,7 +91,8 @@ function addressGroup() {
 		<div style="height: 150px;">
 			<h2>
 				<span id="content1">전체 주소록</span><span
-					style="color: #8C8C8C; font-size: 15px;">&nbsp;&nbsp;&nbsp; (<span style="color: black">&nbsp${total}</span>&nbsp건&nbsp)
+					style="color: #8C8C8C; font-size: 15px;">&nbsp;&nbsp;&nbsp;
+					(<span style="color: black">&nbsp${total}</span>&nbsp건&nbsp)
 				</span>
 			</h2>
 
@@ -129,7 +132,7 @@ function addressGroup() {
 							<img alt=""
 								src="${pageContext.request.contextPath}/address/img/group.png"
 								width="17px" height="17px">&nbsp;그룹지정
-						</button></li> 
+						</button></li>
 				</ul>
 			</section>
 		</div>
@@ -193,8 +196,7 @@ function addressGroup() {
 					<tr>
 						<td
 							style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">
-							<input type="checkbox" name="check"
-							onclick='selectAll(this)'>
+							<input type="checkbox" name="check" onclick='selectAll(this)'>
 						</td>
 						<td
 							style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이름</td>
@@ -248,7 +250,7 @@ function addressGroup() {
 			<div id="pg1"></div>
 		</div>
 	</div>
-	
+
 	<div id="myModal" class="modal">
 
 		<!-- Modal content -->
@@ -257,7 +259,7 @@ function addressGroup() {
 				<span>그룹관리 <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
-					onclick="close_pop2();" id="x_icon" />
+					id="x_icon" />
 				</span>
 			</p>
 			<br>
@@ -266,13 +268,11 @@ function addressGroup() {
 				<table>
 					<tr>
 						<td>그룹선택</td>
-						<td>
-							<select name="adg_num">
+						<td><select name="adg_num">
 								<c:forEach var="listAddressGroup" items="${listAddressGroup}">
-									  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
+									<option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
 								</c:forEach>
-							</select>
-						</td>
+						</select></td>
 					</tr>
 					<tr>
 						<td>이름변경</td>
@@ -280,16 +280,19 @@ function addressGroup() {
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="이름변경" formaction="${pageContext.request.contextPath}/address/groupNameUpdate" class="modal_btn">
-						<input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete" class="modal_btn">
-						<input type="button" value="취소" id="close_btn" class="modal_btn"></td>
+						<td><input type="submit" value="이름변경"
+							formaction="${pageContext.request.contextPath}/address/groupNameUpdate"
+							class="modal_btn"> <input type="submit" value="그룹삭제"
+							formaction="${pageContext.request.contextPath}/address/groupDelete"
+							class="modal_btn"> <input type="button" value="취소"
+							id="close_btn" class="modal_btn"></td>
 				</table>
 			</form>
 		</div>
 	</div>
-	
+
 	<!-- =============================================================== -->
-		<div id="myModal3" class="modal3">
+	<div id="myModal3" class="modal3">
 
 		<!-- Modal content -->
 		<div class="modal-content3">
@@ -297,64 +300,81 @@ function addressGroup() {
 				<span> 연락처 추가 <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
-					onclick="close_pop2();" id="x_icon3" />
+					id="x_icon3" />
 				</span>
 			</p>
 			<br>
 			<p style="text-align: center; line-height: 1.5;"></p>
-			<form id="modal_form3" class="modal_form">
+			<form id="modal_form3" class="modal_form" name="modal_form3" method="post" action="${pageContext.request.contextPath}/address/addressAdd">
+				<sec:csrfInput/>
 				<table>
-				<tr>
-					<td>이름</td>
-					<td><input type="text" name="m_id" required="required"></td>
-				</tr>
-				<tr>
-					<td>사원번호</td>
-					<td><input type="text" name="m_empnum"></td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td><input type="text" name="m_phone" placeholder="000-0000-0000"></td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td><input type="email" name="m_email"></td>
-				</tr>
-				<tr>
-					<td>생일</td>
-					<td><input type="date" name="m_birth"></td>
-				</tr>
-				<tr>
-					<td>부서</td>
-					<td><input type="text" name="dpt_code"></td>
-				</tr>
-				<tr>
-					<td>직위</td>
-					<td><input type="text" name="pt_code"></td>
-				</tr>
-				<tr>
-					<td>그룹</td>
-					<td>
-						<select name="adg_num">
-							<c:forEach var="listAddressGroup" items="${listAddressGroup}">
-								  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="button" value="추가" onclick="javascript:addressDelete(${adg_num})" class="modal_btn">
-						<input type="button" value="취소" id="close_btn3" class="modal_btn">
-					</td>
-				</tr>
+					<tr>
+						<td>이름</td>
+						<td><input type="text" name="m_name" required="required"></td>
+					</tr>
+					<tr>
+						<td>사원번호</td>
+						<td><input type="text" name="m_empnum"></td>
+					</tr>
+					<tr>
+						<td>전화번호</td>
+						<td><input type="text" name="m_phone"
+							placeholder="000-0000-0000"></td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td><input type="email" name="m_email"></td>
+					</tr>
+					<tr>
+						<td>생일</td>
+						<td><input type="date" name="m_birth"></td>
+					</tr>
+					<tr>
+						<td>부서</td>
+						<td><select name="dpt_code"><c:forEach
+									var="listDeptGroup" items="${listDeptGroup}">
+									<c:if test="${listDeptGroup.dpt_code == 'none'}">
+										<option value="${listDeptGroup.dpt_code}">미지정</option>
+									</c:if>
+									<c:if test="${listDeptGroup.dpt_code != 'none'}">
+										<option value="${listDeptGroup.dpt_code}">${listDeptGroup.dpt_name}</option>
+									</c:if>
+								</c:forEach>
+						</select></td>
+					</tr>
+					<tr>
+						<td>직위</td>
+						<td><select name="pt_code">
+								<c:forEach var="listPtGroup" items="${listPtGroup}">
+									<c:if test="${listPtGroup.pt_code == 'none'}">
+										<option value="${listPtGroup.pt_code}">미지정</option>
+									</c:if>
+									<c:if test="${listPtGroup.pt_code != 'none'}">
+										<option value="${listPtGroup.pt_code}">${listPtGroup.pt_name}</option>
+									</c:if>
+								</c:forEach>
+						</select></td>
+					</tr>
+<!-- 					<tr> -->
+<!-- 						<td>그룹</td> -->
+<!-- 						<td><select name="adg_num"> -->
+<%-- 								<c:forEach var="listAddressGroup" items="${listAddressGroup}"> --%>
+<%-- 									<option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 						</select></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td colspan="2"><input type="submit" value="추가" class="modal_btn"> -->
+<!-- 							<input type="button" value="취소" id="close_btn3" class="modal_btn"> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
 				</table>
 			</form>
 		</div>
 	</div>
-	
+
 	<!-- =============================================================== -->
-		<div id="myModal4" class="modal4">
+	<div id="myModal4" class="modal4">
 
 		<!-- Modal content -->
 		<div class="modal-content4">
@@ -362,7 +382,7 @@ function addressGroup() {
 				<span>그룹관리 <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
-					onclick="close_pop2();" id="x_icon4" />
+					id="x_icon4" />
 				</span>
 			</p>
 			<br>
@@ -370,28 +390,23 @@ function addressGroup() {
 			<form id="modal_form4" class="modal_form" name="modal_form4">
 				<table>
 					<tr>
-						<td>그룹선택</td>
-						<td>
-							<select name="adg_num">
+						<td>그룹지정</td>
+						<td><select name="adg_num">
 								<c:forEach var="listAddressGroup" items="${listAddressGroup}">
-									  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
+									<option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
 								</c:forEach>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>이름변경</td>
-						<td colspan="3"><input type="text" name="adg_name"></td>
+						</select></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="button" value="추가" onclick="javascript:addressGroup()" class="modal_btn">
-						<input type="button" value="취소" id="close_btn4" class="modal_btn"></td>
+						<td><input type="button" value="추가"
+							onclick="javascript:addressGroup()" class="modal_btn"> <input
+							type="button" value="취소" id="close_btn4" class="modal_btn"></td>
 				</table>
 			</form>
 		</div>
 	</div>
-	
+
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
 </html>

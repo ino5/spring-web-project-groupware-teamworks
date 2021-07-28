@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.address.Department;
+import com.example.sproject.model.address.Position;
 import com.example.sproject.model.login.Member;
 
 @Repository
@@ -182,7 +183,20 @@ public class AddressDaoImpl implements AddressDao {
 			Map<String,Object> map = new HashMap<String,Object>();
 			map.put("m_id", m_id);
 			map.put("adg_num", adg_num);
-			session.delete("memberGroupOfAddress", map);
+			session.insert("memberGroupOfAddress", map);
 		}
+	}
+
+	@Override
+	public List<Position> listPtGroup() {
+		System.out.println("addressDaoImpl memberDelete Start ..." );
+		List<Position> listPtGroup = session.selectList("listPtGroupOfAddress");
+		return listPtGroup;
+	}
+
+	@Override
+	public void addressAdd(Member member) {
+		System.out.println("addressDaoImpl addressAdd Start ..." );
+		session.insert("addressAddOfAddress", member);
 	}
 }

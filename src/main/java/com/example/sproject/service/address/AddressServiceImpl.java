@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.sproject.dao.address.AddressDao;
 import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.address.Department;
+import com.example.sproject.model.address.Position;
 import com.example.sproject.model.login.Member;
 
 @Service
@@ -118,5 +119,17 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void addressGroup(List<String> groupList, int adg_num) {
 		addDao.addressGroup(groupList, adg_num);
+	}
+
+	@Override
+	public List<Position> listPtGroup() {
+		List<Position> listPtGroup = addDao.listPtGroup();
+		return listPtGroup;
+	}
+
+	@Override
+	public void addressAdd(Member member) {
+		addDao.addressAdd(member);
+		
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.address.Department;
+import com.example.sproject.model.address.Position;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.service.address.AddressService;
 import com.example.sproject.service.address.Paging;
@@ -37,10 +38,12 @@ public class AddressController {
 		List<Member> listMember = adds.listMember(member);
 		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
 		List<Department> listDeptGroup = adds.listDeptGroup();
+		List<Position> listPtGroup = adds.listPtGroup();
 		model.addAttribute("total", total); 
 		model.addAttribute("listMember",listMember); 
 		model.addAttribute("listAddressGroup",listAddressGroup); 
 		model.addAttribute("listDeptGroup",listDeptGroup); 
+		model.addAttribute("listPtGroup",listPtGroup); 
 		model.addAttribute("pg",pg);
 		return "address/address"; 
 	}
@@ -170,11 +173,21 @@ public class AddressController {
 	@RequestMapping(value="addressGroup", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void addressGroup(@RequestParam(value="checkArray[]") List<String> groupList, Model model, int adg_num) {
+		System.out.println("AddressController Start addressGroup..." );
 //	     Ajax를 통해 Array로 받은 "deleteList"를 하나씩 빼내어 ArrayList에 넣음 
 	    ArrayList<String> GroupArray = new ArrayList<String>();
 	    for(int i=0;i<groupList.size();i++){
 	    	GroupArray.add(groupList.get(i));
 	    }
 	    adds.addressGroup(groupList, adg_num);
+	}
+	
+	@RequestMapping(value="addressAdd", method = RequestMethod.POST)
+	public String addressAdd(Member member) {
+		System.out.println("AddressController Start addressAdd..." );
+		UUID uid = UUID.randomUUID();
+		member.setM_id(uid.toString());
+		adds.addressAdd(member);
+		return "redirect:/address";
 	}
 }
