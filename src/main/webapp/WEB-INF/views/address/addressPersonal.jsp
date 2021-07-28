@@ -23,7 +23,7 @@ function addressDelete(adg_num) {
     
 	$.ajax({
 		type : 'POST',
-		url : _contextPath + "/address/memberDelete",
+		url : _contextPath + "/address/addressDelete",
 		data : {checkArray : delchk, adg_num : adg_num},
 			success: function pageReload(){
             	location.href= "${pageContext.request.contextPath}/address/personal?adg_num="+adg_num;
@@ -88,9 +88,8 @@ function addressDelete(adg_num) {
 	<div id="content">
 		<div style="height: 150px;">
 			<h2>
-				<span id="content1">전체 주소록</span><span
-					style="color: #8C8C8C; font-size: 15px;">&nbsp;&nbsp;&nbsp;in
-					개인 주소록(총 <span style="color:black">${total}</span>&nbsp건)</span>
+				<span id="content1">개인 주소록</span><span
+					style="color: #8C8C8C; font-size: 15px;">&nbsp;&nbsp;&nbsp;(<span style="color:black">&nbsp${total}</span>&nbsp건)</span>
 			</h2>
 
 			<form action="">
@@ -130,7 +129,7 @@ function addressDelete(adg_num) {
 								src="${pageContext.request.contextPath}/address/img/group.png"
 								width="17px" height="17px">&nbsp;그룹지정
 						</button></li>
-					<li><button type="button" class="btn2" id="bbb"onclick="javascript:addressDelete(${adg_num})">
+					<li><button type="button" class="btn2" id="delete_modal">
 							<img alt=""
 								src="${pageContext.request.contextPath}/address/img/delete.png"
 								width="17px" height="17px">&nbsp;삭제
@@ -266,13 +265,95 @@ function addressDelete(adg_num) {
 						<td><input type="submit" value="이름변경" formaction="${pageContext.request.contextPath}/address/groupNameUpdate" class="modal_btn">
 						<input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete" class="modal_btn">
 						<input type="button" value="취소" id="close_btn" class="modal_btn"></td>
+					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
 	
 <!-- =============================================================== -->
+		<div id="myModal2" class="modal2">
 
+		<!-- Modal content -->
+		<div class="modal-content2">
+			<p>
+				<span> <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon2" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form">
+				<table>
+					<tr>
+						<td>선택하신 연락처를 삭제하시겠습니까 ?</td>
+					</tr>
+					<tr>
+						<td>
+						<input type="button" value="삭제" onclick="javascript:addressDelete(${adg_num})" class="modal_btn">
+						<input type="button" value="취소" id="close_btn2" class="modal_btn"></td>
+				</table>
+			</form>
+		</div>
+	</div>
+	
+		
+<!-- =============================================================== -->
+		<div id="myModal3" class="modal3">
+
+		<!-- Modal content -->
+		<div class="modal-content3">
+			<p>
+				<span> 연락처 추가 <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon3" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form">
+				<table>
+				<tr>
+					<td>이름</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>사원번호</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="email"></td>
+				</tr>
+				<tr>
+					<td>생일</td>
+					<td><input type="date"></td>
+				</tr>
+				<tr>
+					<td>부서</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>직위</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" value="추가" onclick="javascript:addressDelete(${adg_num})" class="modal_btn">
+						<input type="button" value="취소" id="close_btn3" class="modal_btn">
+					</td>
+				</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>

@@ -113,4 +113,8 @@
 	<delete id="memberDeleteOfAddress" parameterType="Map">
 		delete from address where m_id = #{m_id} and adg_num = #{adg_num}
 	</delete>
+	
+	<insert id="memberGroupOfAddress" parameterType="Map">
+		insert into address (adg_num, m_id) values (#{adg_num}, #{m_id})
+	</insert>
 </mapper>

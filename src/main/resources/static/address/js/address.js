@@ -28,14 +28,46 @@
 	        this.style.fontWeight = "bold";
 	        this.style.borderBottom = "2px solid black";
 	      })
-	    }	    	
-	    
-	    // 달력 클릭 시 모달창 열기
-		$("#bbb").on("click", function () {
+	    }
+	    // 모달창 열기 ( 그룹 지정 )
+		$("#btn2").on("click", function () {
+			$('#myModal4').show();
+		});
+		//모달창 Close 기능
+		$("#close_btn4").unbind('click').on('click', function() {
+			$('#myModal4').hide();
+		});
+		//모달창 Close 기능
+		$("#x_icon4").unbind('click').on('click', function() {
+			$('#myModal4').hide();
+		});
+	    	    	
+	    // 모달창 열기 ( 주소록 추가 )
+		$("#btn1").on("click", function () {
+			$('#myModal3').show();
+		});
+		//모달창 Close 기능
+		$("#close_btn3").unbind('click').on('click', function() {
+			$('#myModal3').hide();
+		});
+		//모달창 Close 기능
+		$("#x_icon3").unbind('click').on('click', function() {
+			$('#myModal3').hide();
+		});
+	    // 모달창 열기
+		$("#delete_modal").on("click", function () {
 			$('#myModal2').show();
 		});
-	    
-	    	// 달력 클릭 시 모달창 열기
+		//모달창 Close 기능
+		$("#close_btn2").unbind('click').on('click', function() {
+			$('#myModal2').hide();
+		});
+		//모달창 Close 기능
+		$("#x_icon2").unbind('click').on('click', function() {
+			$('#myModal2').hide();
+		});
+	   
+	   	// 모달창 열기
 		$("#groupSet").on("click", function () {
 			$('#myModal').show();
 		});

@@ -43,4 +43,6 @@ public interface AddressService {
 
 	void memberDelete(ArrayList<String> deleteArray, int adg_num);
 
+	void addressGroup(List<String> groupList, int adg_num);
+
 }

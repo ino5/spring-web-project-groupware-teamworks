@@ -10,6 +10,28 @@
 <script src="${pageContext.request.contextPath}/address/js/address.js"></script>
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+
+function addressGroup() {
+    var delchk = []; // key 값을 담을 배열
+    var adg_num = modal_form4.adg_num.value;
+    //삭제 key value
+    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+    // object들을 찾아서 delchk라는 배열에 담는다.
+    $('.chk:checked').each(function(){
+        delchk.push($(this).val());
+    });
+    
+	$.ajax({
+		type : 'POST',
+		url : _contextPath + "/address/addressGroup",
+		data : {checkArray : delchk, adg_num : adg_num},
+			success: function pageReload(){
+            	location.href= "${pageContext.request.contextPath}/address";
+        	}
+		});
+}
+</script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 	<div id="side">
@@ -67,8 +89,7 @@
 		<div style="height: 150px;">
 			<h2>
 				<span id="content1">전체 주소록</span><span
-					style="color: #8C8C8C; font-size: 15px;">&nbsp;&nbsp;&nbsp;in
-					개인 주소록(총 <span style="color: black">${total}</span>&nbsp건)
+					style="color: #8C8C8C; font-size: 15px;">&nbsp;&nbsp;&nbsp; (<span style="color: black">&nbsp${total}</span>&nbsp건&nbsp)
 				</span>
 			</h2>
 
@@ -104,7 +125,7 @@
 								src="${pageContext.request.contextPath}/address/img/mail.png"
 								width="17px" height="17px">&nbsp;메일발송
 						</button></li>
-					<li><button type="button" class="btn2" onclick="">
+					<li><button type="button" class="btn2" id="btn2">
 							<img alt=""
 								src="${pageContext.request.contextPath}/address/img/group.png"
 								width="17px" height="17px">&nbsp;그룹지정
@@ -241,7 +262,7 @@
 			</p>
 			<br>
 			<p style="text-align: center; line-height: 1.5;"></p>
-			<form id="modal_form">
+			<form id="modal_form" class="modal_form">
 				<table>
 					<tr>
 						<td>그룹선택</td>
@@ -266,6 +287,111 @@
 			</form>
 		</div>
 	</div>
+	
+	<!-- =============================================================== -->
+		<div id="myModal3" class="modal3">
+
+		<!-- Modal content -->
+		<div class="modal-content3">
+			<p>
+				<span> 연락처 추가 <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon3" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form3" class="modal_form">
+				<table>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="m_id" required="required"></td>
+				</tr>
+				<tr>
+					<td>사원번호</td>
+					<td><input type="text" name="m_empnum"></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text" name="m_phone" placeholder="000-0000-0000"></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="email" name="m_email"></td>
+				</tr>
+				<tr>
+					<td>생일</td>
+					<td><input type="date" name="m_birth"></td>
+				</tr>
+				<tr>
+					<td>부서</td>
+					<td><input type="text" name="dpt_code"></td>
+				</tr>
+				<tr>
+					<td>직위</td>
+					<td><input type="text" name="pt_code"></td>
+				</tr>
+				<tr>
+					<td>그룹</td>
+					<td>
+						<select name="adg_num">
+							<c:forEach var="listAddressGroup" items="${listAddressGroup}">
+								  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" value="추가" onclick="javascript:addressDelete(${adg_num})" class="modal_btn">
+						<input type="button" value="취소" id="close_btn3" class="modal_btn">
+					</td>
+				</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	
+	<!-- =============================================================== -->
+		<div id="myModal4" class="modal4">
+
+		<!-- Modal content -->
+		<div class="modal-content4">
+			<p>
+				<span>그룹관리 <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon4" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form4" class="modal_form" name="modal_form4">
+				<table>
+					<tr>
+						<td>그룹선택</td>
+						<td>
+							<select name="adg_num">
+								<c:forEach var="listAddressGroup" items="${listAddressGroup}">
+									  <option value="${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>이름변경</td>
+						<td colspan="3"><input type="text" name="adg_name"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="button" value="추가" onclick="javascript:addressGroup()" class="modal_btn">
+						<input type="button" value="취소" id="close_btn4" class="modal_btn"></td>
+				</table>
+			</form>
+		</div>
+	</div>
+	
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
 </html>

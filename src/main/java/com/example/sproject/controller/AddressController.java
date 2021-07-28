@@ -145,7 +145,7 @@ public class AddressController {
 		return "address/addressDept"; 
 	}
 	
-	@RequestMapping(value="memberDelete", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="addressDelete", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void memberDelete(@RequestParam(value="checkArray[]") List<String> deleteList, Model model, int adg_num) {
 //	     Ajax를 통해 Array로 받은 "deleteList"를 하나씩 빼내어 ArrayList에 넣음 
@@ -154,5 +154,27 @@ public class AddressController {
 	        deleteArray.add(deleteList.get(i));
 	    }
 	    adds.memberDelete(deleteArray, adg_num);
+	}
+	
+	@RequestMapping(value="addressInsert")
+	public String addressInsert(Principal principal, Member member, Model model) {
+		System.out.println("AddressController Start addressInsert..." );
+		String m_id = principal.getName();
+		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
+		List<Department> listDeptGroup = adds.listDeptGroup();
+		model.addAttribute("listAddressGroup",listAddressGroup); 
+		model.addAttribute("listDeptGroup",listDeptGroup); 
+		return "address/addressInsert";
+	}
+	
+	@RequestMapping(value="addressGroup", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public void addressGroup(@RequestParam(value="checkArray[]") List<String> groupList, Model model, int adg_num) {
+//	     Ajax를 통해 Array로 받은 "deleteList"를 하나씩 빼내어 ArrayList에 넣음 
+	    ArrayList<String> GroupArray = new ArrayList<String>();
+	    for(int i=0;i<groupList.size();i++){
+	    	GroupArray.add(groupList.get(i));
+	    }
+	    adds.addressGroup(groupList, adg_num);
 	}
 }

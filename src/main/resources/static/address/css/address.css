@@ -290,12 +290,12 @@ h2 {
     cursor: pointer;
 }
 
-#modal_form tr {
+.modal_form tr {
 	width: 70px;
 	line-height: 35px;
 }
 
-#modal_form tr td {
+.modal_form tr td {
 	padding: 8px;	
 }
 
@@ -322,3 +322,87 @@ h2 {
 	border-radius: 4px;
 	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
 }
+
+/* 삭제 모달창 */
+
+
+
+.modal2 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+/* Modal Content/Box */
+.modal-content2 {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 350px; /* Could be more or less, depending on screen size */
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}
+
+/* 연락처 등록 */
+
+.modal-content3 span {
+	font-size: 20px;
+}
+
+.modal3 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+/* Modal Content/Box */
+.modal-content3 {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 350px; /* Could be more or less, depending on screen size */
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}
+
+/* 그룹 지정 */
+
+
+.modal4 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+/* Modal Content/Box */
+.modal-content4 {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 350px; /* Could be more or less, depending on screen size */
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}
+
+

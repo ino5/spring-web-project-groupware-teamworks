@@ -173,4 +173,16 @@ public class AddressDaoImpl implements AddressDao {
 			session.delete("memberDeleteOfAddress", map);
 		}
 	}
+
+	@Override
+	public void addressGroup(List<String> groupList, int adg_num) {
+		System.out.println("addressDaoImpl memberDelete Start ..." );
+		for(int i = 0; i < groupList.size(); i++) {
+			String m_id = groupList.get(i);
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("m_id", m_id);
+			map.put("adg_num", adg_num);
+			session.delete("memberGroupOfAddress", map);
+		}
+	}
 }

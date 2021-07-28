@@ -114,4 +114,9 @@ public class AddressServiceImpl implements AddressService {
 	public void memberDelete(ArrayList<String> deleteArray, int adg_num) {
 		addDao.memberDelete(deleteArray, adg_num);
 	}
+
+	@Override
+	public void addressGroup(List<String> groupList, int adg_num) {
+		addDao.addressGroup(groupList, adg_num);
+	}
 }
