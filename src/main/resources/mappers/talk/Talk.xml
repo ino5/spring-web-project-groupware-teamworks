@@ -15,4 +15,29 @@
 	SELECT tk_num, m_id, tk_content, tk_time_sent from talk where tkrm_num = #{tkrm_num} order by tk_num
 </select>
 
+<select id="selectMemberListOfTalk" resultType="com.example.sproject.model.login.Member">
+	select m_id, m_name from member order by m_name
+</select>
+
+<insert id="insertTalkRoomOneByOneOfTalk">
+	insert into talk_room(tkrm_num, tkrm_name, tkrm_type) values( (SELECT NVL(MAX(tkrm_num) + 1, 1) from talk_room), '1:1 채팅방', 1)
+</insert>
+
+<select id="selectRnOfOneByOneOfTalk" parameterType="Map" resultType="com.example.sproject.model.talk.Room">
+	SELECT t1.tkrm_num FROM talker t1, talker t2, talk_room r WHERE (t1.tkrm_num = t2.tkrm_num AND t1.m_id = #{m_id} AND t2.m_id = #{m_id2}) AND t1.tkrm_num = r.tkrm_num AND r.tkrm_type = 1
+</select>
+
+<insert id="insertTalkerOfTalk" parameterType="com.example.sproject.model.talk.Talker">
+	INSERT into talker(tkrm_num, m_id) values(#{tkrm_num}, #{m_id})
+</insert>
+
+<select id="selectRoomOfTalk" resultType="com.example.sproject.model.talk.Room" parameterType="int">
+	select * from talk_room where tkrm_num=#{tkrm_num}
+</select>
+
+<select id="selectMaxRnOfTalk" resultType="int">
+	SELECT MAX(tkrm_num) FROM talk_room
+</select>
+
+
 </mapper>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
 import com.example.sproject.service.talk.TalkService;
@@ -54,6 +56,27 @@ public class TalkController {
 	// Model -> model.addAttribute를 사용하여 데이터만 저장
 	// ModelAndView -> 데이터와 이동하고자 하는 View Page를 같이 저장
 	
+	@RequestMapping("/MemberList")
+	public ModelAndView MemberList(@AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController MemberList Start...");
+		ModelAndView mv = new ModelAndView();
+		
+		String m_id = null;
+		String m_name = null;
+		if(sessionMember != null) {
+			System.out.println("sessionMember: " + sessionMember);
+			m_id = sessionMember.getM_id();
+			m_name = sessionMember.getM_name();
+			mv.addObject("m_id", m_id);
+			mv.addObject("m_name", m_name);
+		}
+
+
+		List<Member> memberList = talkService.selectMemberList();
+		mv.addObject("memberList", memberList);
+		mv.setViewName("talk/MemberList");
+		return mv;
+	}
 	/**
 	 * 방 생성하기
 	 * @param params
@@ -94,30 +117,46 @@ public class TalkController {
 	 * @return
 	 */
 	@RequestMapping("/moveChating")
-	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, Principal principal) {
+	public ModelAndView chating(String m_id2, @AuthenticationPrincipal Member sessionMember) {
 		System.out.println("SocketController moveChating Start...");
-		//세션 아이디 출력
+		ModelAndView mv = new ModelAndView();
+		
+		//세션 아이디 정보 가져오기
 		String m_id = null;
-		if(principal != null) {
-			m_id = principal.getName();
+		String m_name = null;
+		if(sessionMember != null) {
+			m_id = sessionMember.getM_id();
+			m_name = sessionMember.getM_name();
+			mv.addObject("m_id", m_id);
+			mv.addObject("m_name", m_name);
 		}
 		System.out.println("m_id: " + m_id);
 		
-		ModelAndView mv = new ModelAndView();
-		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
-		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
-		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
-		if(new_list != null && new_list.size() > 0) {
-			mv.addObject("roomName", params.get("roomName"));
-			mv.addObject("roomNumber", params.get("roomNumber"));
-			mv.addObject("m_id", m_id);
-			List<Talk> talkList = talkService.selectChat(roomNumber);
-			mv.addObject("talkList", talkList);
-			
-			mv.setViewName("talk/talk");
-		}else {
-			mv.setViewName("talk/room");
-		}
+		//일대일 채팅방 가져오기
+		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
+		System.out.println(room);
+		mv.addObject("roomName", room.getRoomName());
+		mv.addObject("roomNumber", room.getRoomNumber());
+		
+		//채팅 기록 가져오기
+		List<Talk> talkList = talkService.selectChat(room.getRoomNumber());
+		mv.addObject("talkList", talkList);
+		mv.setViewName("talk/talk");
+		
+//		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+//		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+//		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
+//		if(new_list != null && new_list.size() > 0) {
+//			mv.addObject("roomName", params.get("roomName"));
+//			mv.addObject("roomNumber", params.get("roomNumber"));
+//			mv.addObject("m_id", m_id);
+//			List<Talk> talkList = talkService.selectChat(roomNumber);
+//			mv.addObject("talkList", talkList);
+//			
+//			mv.setViewName("talk/talk");
+//		}else {
+//			mv.setViewName("talk/room");
+//		}
 		return mv;
 	}
 }
