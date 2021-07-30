@@ -54,7 +54,8 @@ function addressGroup() {
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="listAddressGroup" items="${listAddressGroup}">
 					<li class="li"><a
-						href="${pageContext.request.contextPath}/address/personal?adg_num=${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</a></li>
+						href="${pageContext.request.contextPath}/address/personal?adg_num=${listAddressGroup.adg_num}">${listAddressGroup.adg_name}</a>
+					</li>
 				</c:forEach>
 				<li class="li"><span class="groupAdd"
 					onclick="javascript:doShow3()">연락처 주소록 추가</span></li>

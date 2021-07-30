@@ -153,7 +153,7 @@
 				url : _contextPath + "/address/addressSearchList",
 				data : {
 					start_num : start,
-					end_num : end
+					end_num : end,
 				},
 				dataType : 'json',
 				success : function(result) {

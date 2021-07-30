@@ -3,5 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.sproject.dao.calendar.CalendarDao">
+
+	<insert id="scheduleAddOfCalendar" parameterType="com.example.sproject.model.calendar.Calendar">
+		insert into calendar (cl_num, m_id, cl_name, cl_content, cl_sdate, cl_edate) values 
+		((select nvl(max(cl_num),0) +1 from calendar), #{m_id}, #{cl_name}, #{cl_content}, #{cl_sdate}, #{cl_edate})	
+	</insert>
 	
+	<select id="calendarListOfCalendar" parameterType="java.lang.String" resultType="com.example.sproject.model.calendar.Calendar">
+		select cl_num, cl_name, cl_sdate, cl_edate from calendar where m_id = #{m_id} order by cl_sdate
+	</select>
 </mapper>
