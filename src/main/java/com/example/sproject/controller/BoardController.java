@@ -40,12 +40,12 @@ import com.google.gson.JsonObject;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	
 //게시글 리스트, 페이징
 	@RequestMapping(value = "")
 	public String board(Post post, String currentPage, Model model, Board board) {
 		System.out.println("BoardController Start2 List..");
-		List<Board> boardListOfAll = boardService.listBoard(1);
-		List<Board> boardListOfDept = boardService.listBoard(2);
+
 		System.out.println("BoardController Start List..");
 		int total = boardService.total();
 		System.out.println("BoardController total=>"+total);
@@ -54,21 +54,46 @@ public class BoardController {
 		if(currentPage == null || "".equals(currentPage)) {
 			currentPage = "1";
 		}
-		System.out.println("currentPage=>" + currentPage);
-
+	
 		Paging pg = new Paging(total, currentPage);
 		post.setStart(pg.getStart());
 		post.setEnd(pg.getEnd());
+		//모든글
 		List<Post> listPost = boardService.listPost(post);
+		//공지
+		List<Post> listNoticePost = boardService.listNoticePost(1);
+		//공지아닌글
+		List<Post> listNoneNoticePost = boardService.listNoticePost(2);
 		model.addAttribute("total", total);
 		model.addAttribute("listPost", listPost);
+		model.addAttribute("listNoticePost", listNoticePost);
+		model.addAttribute("pg",pg);
+//		model.addAttribute("p_num", p_num);
+		boardService.listSide(model);
+		return "board/board";
+	}
+	@RequestMapping(value = "sideboard_list")
+	public String board_list(Post post, String currentPage, Model model, Board board, int bd_num) {
+		
+		List<Board> boardListOfAll = boardService.listBoard(1);
+		List<Board> boardListOfDept = boardService.listBoard(2);
+		int total = boardService.board_list_total(bd_num);
+		if(currentPage == null || "".equals(currentPage)) {
+			currentPage = "1";
+		}
+		Paging pg = new Paging(total, currentPage);
+		post.setStart(pg.getStart());
+		post.setEnd(pg.getEnd());
+		List<Post> board_list = boardService.board_list(post);
+		model.addAttribute("total", total);
+		model.addAttribute("board_list", board_list);
 		model.addAttribute("boardListOfAll", boardListOfAll);
 		model.addAttribute("boardListOfDept", boardListOfDept);
 		model.addAttribute("pg",pg);
-//		model.addAttribute("p_num", p_num);
-		return "board/board";
+		boardService.listSide(model);
+		return "board/test";
 	}
-	
+
 	//게시글 작성화면
 	//@RequestMapping(value = "write", method=RequestMethod.POST)
 	@GetMapping(value = "write")
@@ -76,8 +101,10 @@ public class BoardController {
 		List<Board> listBoard = boardService.listBoard(board);
 		List<Board> boardListOfAll = boardService.listBoard(1);
 		List<Board> boardListOfDept = boardService.listBoard(2);
+	
 		model.addAttribute("listBoard", listBoard);
 		System.out.println("BoardController Start write..");
+		boardService.listSide(model);
 		return "board/write";
 	}
 
@@ -87,12 +114,10 @@ public class BoardController {
 		List<Board> listBoard = boardService.listBoard(board);
 		model.addAttribute("listBoard", listBoard);
 		boardService.insert(post);
+		boardService.listSide(model);
 		return "redirect:/board";
 	}
 	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
-    // @RequestParam : get/post방식으로 전달된 변수 1개
-    // HttpSession 세션객체
-	
     @RequestMapping(value="view", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView view(@RequestParam int p_num, HttpSession session, Principal principal, Reply reply) throws Exception{
@@ -132,9 +157,8 @@ public class BoardController {
 			modelandview.addObject("statusOfLike", statusOfLike);
 		}
 		
-
-
-        
+		
+		boardService.listSide(modelandview);	
         return modelandview;
     }
     
@@ -146,19 +170,13 @@ public class BoardController {
         boardService.update(post);
         return "redirect:/board";
     }
-    // 게시글 삭제
-    // 폼에서 입력한 내용들은 post로 전달됨
-//    @RequestMapping(value="delete")
-//    public String delete(@RequestParam int p_num)throws Exception{
-//    	System.out.println("BoardController delete start..");
-//        postService.delete(p_num);
-//        return "redirect:/board/board";
-//    }
+
 	@RequestMapping(value="delete")
 	public String delete(int p_num, Model model) {
 		System.out.println("EmpController Start delete...");
 		System.out.println("p_num"+p_num);
 		boardService.delete(p_num);
+		boardService.listSide(model);
 		return  "redirect:/board";
 	}
 	
@@ -192,8 +210,7 @@ public class BoardController {
 
 	        return jsonObject;
 	    }
-	   
-	   
+	
 	  //게시판 리스트 띄우기 
 		@RequestMapping(value = "board_list")
 		public String board(Board board, Model model) {
@@ -203,8 +220,6 @@ public class BoardController {
 			System.out.println("in listBoard: " + listBoard.get(0).getBd_name());
 			return "board/board";
 		}
-	
-
 		//댓글작성하기
 		@PostMapping(value ="reply_insert")
 		public String insert(Reply reply, Model model, Principal principal) throws Exception {
@@ -218,10 +233,7 @@ public class BoardController {
 			boardService.insert(reply);
 			return "redirect:/board/view?p_num=" + p_num;
 		}	
-	
-
-		//댓글 삭제하기
-		
+		//댓글 삭제하기		
 		//@ResponseBody
 		//@RequestParam
 		//@RequestBody
@@ -249,7 +261,6 @@ public class BoardController {
 			boardService.rereply_insert(reply, p_num, parent_rp_num );
 			return  "이제된다";
 		}	
-	
 		// 게시물 좋아요 기능
 		@RequestMapping(value = "recommend")
 		public String like(int p_num, Model model, PostLike postLike, Principal principal) {

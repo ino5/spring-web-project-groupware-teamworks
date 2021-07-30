@@ -236,6 +236,39 @@ public class BoardDaoImpl implements BoardDao {
 		return session.delete("deleteLikeOfBoard", postLike);
 	}
 
+	@Override
+	public int board_list_total(int bd_num) {
+		int tot = 0;
+		
+		try {
+			tot = session.selectOne("board_list_totalOfBoard",bd_num);
+			System.out.println("tot>>>>>>>>>>>>>"+tot);
+		} catch (Exception e) {
+			e.printStackTrace();
+	
+		}
+		return tot;
 	}
+
+	@Override
+	public List<Post> board_list(Post post) {
+	List<Post> board_list = null;
+		
+		try {
+			board_list = session.selectList("selectBoard_ListOfBoard",post);
+			System.out.println("boardList"+board_list);
+		} catch (Exception e) {
+			e.printStackTrace();
+	
+		}
+		return board_list;
+	}
+
+	@Override
+	public List<Post> listNoticePost(int p_type) {
+		
+		return session.selectList("selectListPost_ofBoard",p_type);
+	}
+}
 	
 	

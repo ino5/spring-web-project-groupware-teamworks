@@ -12,60 +12,52 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
-		<div id="side">
-		<button type="button" id="btn1">글쓰기</button>
+	<div id="side">
+		<button type="button" id="btn1"
+			onclick="location.href='${pageContext.request.contextPath}/board/write'">글쓰기</button>
 		<div>
+
 			<a id="button1" class="button1"><span id="span_hover"><img
 					alt="image"
-					src="${pageContext.request.contextPath}/images/right.png"
-					style="width: 16px; height: 12px; transition:0.5s;" id="img1"></span><span
-				id="span_none"><img alt="image"
-					src="${pageContext.request.contextPath}/images/white.png"
-					style="width: 16px; height: 12px;" id="img1"></span>전사게시판</a>
+					src="${pageContext.request.contextPath}/board/img/right.png"
+					style="width: 16px; height: 12px; transition: 0.5s;" id="img1"></span>
+				<span id="span_none"> <img alt="image"
+					src="${pageContext.request.contextPath}/board/img/white.png"
+					style="width: 16px; height: 12px;" id="img1">
+			</span>전사게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<c:forEach var="bs" items="${boardListOfAll }">
-				<li class="li">${bs.bd_name}</li>
+				<c:forEach var="as" items="${boardListOfAll }">
+					<li class="li"><a
+						href="${pageContext.request.contextPath}/board/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a></li>
 				</c:forEach>
 
 			</ol>
-			</div>
-			<div>
-						<a id="button2" class="button1"><span id="span_hover"><img
-					alt="image"
-					src="${pageContext.request.contextPath}/images/right.png"
-					style="width: 16px; height: 12px; transition:0.5s;" id="img2"></span> <span
-				id="span_none"><img alt="image"
-					src="${pageContext.request.contextPath}/images/white.png"
-					style="width: 16px; height: 12px;" id="img2"></span>부서게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<c:forEach var="bs" items="${boardListOfDept }">
-				<li class="li">${bs.bd_name}</li>
+				<c:forEach var="bs" items="${boardListOfAll }">
+					<li class="li">${bs.bd_name}</li>
 				</c:forEach>
 
 			</ol>
 		</div>
+		<div>
+			<a id="button2" class="button1"><span id="span_hover"><img
+					alt="image"
+					src="${pageContext.request.contextPath}/board/img/right.png"
+					style="width: 16px; height: 12px; transition: 0.5s;" id="img2"></span>
+				<span id="span_none"><img alt="image"
+					src="${pageContext.request.contextPath}/board/img/white.png"
+					style="width: 16px; height: 12px;" id="img2"></span>부서게시판</a>
+			<ol id="scroll" style="display: none; list-style: none;">
+				<c:forEach var="bs" items="${boardListOfDept }">
+					<li class="li"><a
+						href="${pageContext.request.contextPath}/board/sideboard_list?bd_num=${bs.bd_num}">${bs.bd_name}</a></li>
+				</c:forEach>
 
+			</ol>
+		</div>
 	</div>
 
 	<div id="content">
-	
-		<form action="${pageContext.request.contextPath}/searching.do">
-			<table id="searchBox">
-				<tr>
-					<td><select id="option" name="standard">
-							<option ${(param.standard == "clvalue1")?"selected":"" }
-								value='clvalue1'>게시판 <option ${(param.standard == "clvalue2")?"selected":"" }
-								value='clvalue2'>통합검색
-				
-					</select></td>
-				<td><input id="search" type="text" name="name"
-						value="${param.name}" placeholder="검색" size="100"></td>
-				<td><img
-						src="${pageContext.request.contextPath}/images/search.png"
-						width="14px" height="13px"></td>
-			</tr>
-		</table>
-	</form>
 			<div id="board_table">
 				<section class="tool_bar">
 					<ul class="tool_ul">
@@ -76,10 +68,10 @@
 						<li><button type="button" class="btn2">
 								이동
 							</button></li>
-						<li><button type="button" class="btn2">
+						<li><button type="button" class="btn2" onclick="location.href='${pageContext.request.contextPath}/board/delete?p_num=${view.p_num}'">
 								삭제
 							</button></li>
-						<li><button type="button" class="btn2">
+						<li><button type="button" class="btn2" onclick="form_insert.p_type.value = 1;">
 								공지로 등록
 							</button></li>
 					</ul>
@@ -99,21 +91,34 @@
 						<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">조회</td>
 					
 					</tr>
-					<c:forEach var="ps" items="${listPost }">
+						<c:forEach var="ps_notice" items="${listNoticePost}" begin="0" end="2">			
+					<tr style="background-color: #F6F6F6;">
+						<td style="text-align: center;">
+							<input type="checkbox" name="check" id="chk_1">
+						</td>
+						<td><img style=" width: 50px; height: 50px;" alt="image" src="${pageContext.request.contextPath}/board/img/공지1.png"></td>
+						<td ><a style="color:#0f91e6; font-weight: bold; font-size: 20px;" href='${pageContext.request.contextPath}/board/view?p_num=${ps_notice.p_num}'>${ps_notice.p_name}</a></td>
+						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;">${ps_notice.m_id}</td>
+						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;"><fmt:formatDate value="${ps_notice.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;">${ps_notice.p_view}</td>		
+					</tr>
+						</c:forEach>					
+					<c:forEach var="ps" items="${listPost}">
 					<form >
 						
 					</form>
 					<tr>
-						<td style="text-align: center;">
+						<td style="text-align: center; ">
 							<input type="checkbox" name="check" id="chk_1">
 						</td>
 						<td>${ps.p_num}</td>
 						<td><a href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
 						<td>${ps.m_id}</td>
-						<td>${ps.p_regdate}</td>
+						<td><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ps.p_view}</td>		
 					</tr>
 						</c:forEach>
+
 				</table>
 			</div>
 			<div class="pageNum">
@@ -126,6 +131,7 @@
 		<c:if test="${pg.endPage < pg.totalPage }">
 			<a href="?currentPage=${pg.startPage+pg.pageBlock}"></a>
 		</c:if>
+		
 		</div>
 	</div>
 	

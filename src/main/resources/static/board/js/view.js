@@ -1,13 +1,46 @@
+	$(document).ready(function() {
+	
+		
+		$("#button1").click(function() {
+			var submenu = $(this).next("#scroll");
+			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+			if (submenu.is(":visible")) {
+				$('#img1').css({
+					'transform' : 'rotate(0deg)'
+				});
+				submenu.slideUp("fast");
+			} else {
+				$('#img1').css({
+					'transform' : 'rotate(90deg)'
+				});
+				submenu.slideDown("fast");
+			}
+		})
+		
+		$("#button2").click(function() {
+			var submenu = $(this).next("#scroll");
+			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+			if (submenu.is(":visible")) {
+				$('#img2').css({
+					'transform' : 'rotate(0deg)'
+				});
+				submenu.slideUp("fast");
+			} else {
+				$('#img2').css({
+					'transform' : 'rotate(90deg)'
+				});
+				submenu.slideDown("fast");
+			}
+		})
+	});
 	var mid = $('#m_id').val();
 	var loginId = $('#loginId').val();
 	console.log("mid",mid);
 	console.log("loginId",loginId);
 	if(mid == loginId){
-		alert('아이디로그인했음');
 		$('#summernote').summernote('enable');
 		
 	}else{
-	alert('아이디로그인안했음');
 		$('#summernote').summernote('disable');
 		$("#btnUpdete").remove();
 		$("#btnDelete").remove();
@@ -15,25 +48,7 @@
 	console.log($("#btnUpdete"));
 	
 	
-$('#summernote').summernote({
-	height : 300, // 에디터 높이
-	minHeight : null, // 최소 높이
-	maxHeight : null, // 최대 높이
-	focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-	lang : "ko-KR", // 한글 설정
-	placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-	callbacks: {	//이미지 첨부하는 부분
-               onImageUpload : function(files) {
-               		var maxImageSize = 10 * 1024 * 1024;
-                    uploadSummernoteImageFile(files[0],this);
-                }
-            }
 
-});
-$('.summernote').summernote({
-	height : 300,
-	lang : "ko-KR"
-});
 function uploadSummernoteImageFile(file, editor) {
     data = new FormData();
     data.append("file", file);
@@ -94,4 +109,4 @@ function clickinsert(rpNum2){
         
     });
 }
-	////////////////////////	
+

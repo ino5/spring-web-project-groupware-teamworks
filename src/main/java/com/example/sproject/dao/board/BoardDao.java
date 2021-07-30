@@ -33,7 +33,9 @@ public interface BoardDao {
 	int checkLike(PostLike postLike);
 	int insertLike(PostLike postLike);
 	int deleteLike(PostLike postLike);
-
+	int board_list_total(int bd_num);
+	List<Post> board_list(Post post);
+	List<Post> listNoticePost(int p_type);
 
 
 }

@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.sproject.dao.board.BoardDao;
 import com.example.sproject.model.board.Post;
@@ -21,8 +23,6 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	private List<Board> boardList;
-	private Object replyList;
-	private int rp_num;
 
 
 	@Override
@@ -61,7 +61,7 @@ public class BoardServiceImpl implements BoardService {
         post.setM_id(m_id);
         post.setP_name(p_name);
         post.setP_content(p_content);
-        
+        System.out.println("post: " + post);
         return boardDao.insert(post);
 
 }
@@ -201,8 +201,6 @@ public class BoardServiceImpl implements BoardService {
 		} else { //등록이 되어있으면 좋아요를 삭제하고
 			boardDao.deleteLike(postLike);
 		}
-		
-		
 	}
 
 	@Override
@@ -210,8 +208,45 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.checkLike(postLike);
 	}
 
-	
+	@Override
+	public int board_list_total(int bd_num) {
+		int totCnt = boardDao.board_list_total(bd_num);
+		return totCnt;
+	}
 
+	@Override
+	public List<Post> board_list(Post post) {
+		List<Post> board_list = null;
+		System.out.println("PostServiceImpl board_list Start...");
+		board_list =boardDao.board_list(post);
+			return board_list;
+		}
+
+	@Override
+	public List<Post> listNoticePost(int p_type) {
+		List<Post>listType = boardDao.listNoticePost(p_type);
+		List<Post>listOfType = boardDao.listNoticePost(p_type);
+		return listType;
+	}
+
+	@Override
+	public int listSide(Model model) {
+		List<Board> boardListOfAll = listBoard(1);
+		List<Board> boardListOfDept = listBoard(2);
+		model.addAttribute("boardListOfAll", boardListOfAll);
+		model.addAttribute("boardListOfDept", boardListOfDept);
+		return 1;
+	}
+
+	@Override
+	public int listSide(ModelAndView modelAndView) {
+		List<Board> boardListOfAll = listBoard(1);
+		List<Board> boardListOfDept = listBoard(2);
+		modelAndView.addObject("boardListOfAll", boardListOfAll);
+		modelAndView.addObject("boardListOfDept", boardListOfDept);
+		return 1;
+	}
 }
+
 
         

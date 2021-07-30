@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
@@ -27,7 +30,11 @@ public interface BoardService {
 	List<Board> listBoard(int i);
 	void like(PostLike postLike);
 	int checkLike(PostLike postLike);
-	
+	int board_list_total(int bd_num);
+	List<Post> board_list(Post post);
+	List<Post> listNoticePost(int i);
+	int listSide(Model model);
+	int listSide(ModelAndView modelAndView);
 
 
 	

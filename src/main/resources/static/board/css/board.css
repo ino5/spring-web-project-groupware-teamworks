@@ -182,6 +182,7 @@ h2 {
 	background-color: #5D5D5D;
 	
 }
+a { text-decoration:none; } 
 .menu_hover
 {
 	font-size:50;
@@ -190,6 +191,7 @@ h2 {
 	width: 290px;
 	position: relative;
 }
+
 
 #wrap {
 	margin-top:5%;
@@ -286,7 +288,20 @@ input[type="checkbox"]:checked {
 	text-align: center;
 	height: 50px;
 }
+ .li{
+ width:100%;
+ height: 30px;
+}
+ .li:hover {
+	background-color: #F6F6F6;
 
+}
+ .button1{	
+  	margin-left: 3%;
+  	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+  	font-size: 20px;
+  	cursor: pointer;
+ }
 .btn2:hover {
 	background-color: #EAEAEA;
 

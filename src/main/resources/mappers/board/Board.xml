@@ -6,7 +6,7 @@
 	<![CDATA[
 		select *
 		from (select rownum rn, a.*
-			  from (select * from post order by p_num) a) where rn >= #{start} and rn <= #{end}
+			  from (select * from post order by p_num desc) a) where rn >= #{start} and rn <= #{end}
 	]]>	
 </select>
 
@@ -14,8 +14,8 @@
 		select Count(*) FROM post	
 	</select>
   <insert id="PostInsertOfBoard" parameterType="com.example.sproject.model.board.Post">
-	INSERT INTO post (p_num, m_id, p_name, p_content,p_view) VALUES (
-	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content},0)
+	INSERT INTO post (p_num, m_id, p_name, p_content,p_view, p_type, p_regdate) VALUES (
+	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content}, 0, #{p_type}, SYSDATE)
    </insert>
 <!--  게시물 상세조회 -->
     <select id="PostReadOfBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
@@ -130,4 +130,21 @@
 	<delete id="deleteLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike">
 	delete from post_like where p_num= #{p_num} and m_id=#{m_id}
 	</delete>
+	
+	<select id="board_list_totalOfBoard" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM post where bd_num = #{bd_num}
+	</select>
+	
+ 	<select id="selectBoard_ListOfBoard" parameterType="com.example.sproject.model.board.Post" resultType="com.example.sproject.model.board.Post"> 
+	<![CDATA[
+		select * 
+		from (select rownum rn, a.*  
+ 			  from (select * from post where bd_num=#{bd_num} order by p_num) a) where rn >= #{start} and rn <= #{end}  
+ 	]]>	  
+ </select> 
+	
+	<select id="selectListPost_ofBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
+		select *
+		from post where p_type = #{p_type} order by p_num desc
+</select>
  </mapper>
