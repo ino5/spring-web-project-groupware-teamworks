@@ -33,7 +33,7 @@
 						<c:forEach var="list" items="${memberList}">
 							<c:if test="${list.m_id != m_id }">
 							<tr>
-								<td><input type="hidden" id="m_id2" value="${list.m_id }"><input type="button" onclick="'goRoom(\""+roomNumber+"\", \""+rn+"\")'" id="m_id2" value="${list.m_name }"></td>
+								<td><input type="hidden" id="m_id2" value="${list.m_id }"><button type="button"  onclick="location.href='${pageContext.request.contextPath}/talk/moveChating?m_id2=${list.m_id}'">${list.m_name }</button></td>
 							</tr>
 							</c:if>
 						</c:forEach>
