@@ -89,22 +89,27 @@ function clickDelete(rpNum){
         
     });
 }
-//댓글삽입 아작스
-function clickinsert(rpNum2){
-	console.log(rpNum2);
+
+function clickInsert(pNum ,rpNum , parent_rp_num){
+	console.log(pNum + ":"+ rpNum+ ":"+ parent_rp_num);
 	
 	$.ajax({
         type : "POST",
         url : _contextPath+"/board/rereply_insert",   
-        data : {'rp_num':rpNum2},
+        data : {'p_num':pNum, 'rp_num':rpNum, 'parent_rp_num':parent_rp_num},
         success : function(result) {
         	console.log(result);
-             $("#rp_"+rpNum2).remove();
-        },
+                },
          error: function(err) {
          
+	        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+	        //서버로 가는 경로를 못찾아서 404가 나는게 아니라
+			//서버로는 정상적으로 찾아 갔는데 success function(data) 여기로 들어오지를 않음
 			console.log(err);
 			
+			//현재 통신후 404 에러가 나서 임의로 구현
+			// 아이디가 rp_num td를 찾아서 remove
+	      //  $("#"+rpNum).remove();
 		}
         
     });

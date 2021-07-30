@@ -138,12 +138,17 @@
 				<form action="${pageContext.request.contextPath}/board/reply_insert?p_num=${view.p_num}&loginId=${view.loginId}"
 			method="post">
 					<sec:csrfInput />
-					<table class="table_rp"style="width: 1000px; height:30px;  "><tr><td><input  type="text" id = "rp_content" name = "rp_content"><button type="submit" id="replyUpdete"onclick="location.href='${pageContext.request.contextPath}/board/view'">댓글등록</button></td></tr></table>
-					
+					<table class="table_rp"style="width: 1000px; height:30px;  ">
+						<tr><td>
+								<input  type="text" id = "rp_content" name = "rp_content">
+								<button type="submit" id="replyUpdete"onclick="location.href='${pageContext.request.contextPath}/board/view'">댓글등록</button>
+						</td></tr>
+					</table>
+				</form>	
 					<table id="list_table" style=" margin-top: 4%; border-top: 2px solid #EAEAEA;">
 						<c:forEach var="reply" items="${listReply}">
 							<tr id="rp_${reply.rp_num}">								
-								<td width="1300px">
+								<td>
 									<c:if test="${reply.rp_depth > 1}">
 										<c:forEach begin="3" end="${reply.rp_depth}" step="1">
 											&nbsp;&nbsp;&nbsp;
@@ -153,23 +158,26 @@
 									<span style="margin-left: 100px">${reply.rp_content}</span>
 								
 								</td>
-								<td><button type="button" id="btnUpdete"onclick="clickDelete(${reply.rp_num})">댓글삭제</button></td>
+								<td><button type="button" id="btnUpdete" onclick="clickDelete(${reply.rp_num})">댓글삭제</button></td>
 							</tr>
-<!-- 							<li class="li"><span class="groupAdd" -->
-<!-- 					onclick="javascript:doShow3()">연락처 주소록 추가</span></li> -->
-<!-- 				<li class="li" id="group"> -->
-<%-- 					<form action="${pageContext.request.contextPath}/address/groupAdd"> --%>
-<!-- 						<input type="text" name="adg_name" placeholder="그룹 명" -->
-<!-- 							required="required" id="groupName"><input type="image"  -->
-<%-- 							src="${pageContext.request.contextPath}/address/img/plus.png" name="Submit" value="Submit" id="groupAdd"> --%>
-<%-- 							 <img alt="" src="${pageContext.request.contextPath}/address/img/gear.png" --%>
-<!-- 							width="19px" height="19px" style="margin-top: 2px;" class="groupAdd" id="groupSet"> -->
-<!-- 					</form> -->
-<!-- 				</li> -->
+							<tr>
+								
+	                           <form action="${pageContext.request.contextPath}/board/rereply_insert" method="post">
+									<sec:csrfInput/>
+									<input type="hidden" name="p_num" value="${reply.p_num}">
+									<input type="hidden" name="parent_rp_num" value="${reply.rp_num}">
+									<td><input type="text" id = "rp_content" name = "rp_content"></td>
+									<td><button type="submit">대댓글등록</button></td>
+								</form>							
+ 							
+<%--  								<td><button type="button" id="btnInsert" onclick="clickInsert(${reply.p_num},${reply.rp_num}">대댓글등록</button></td> --%>
+ 
+ 
+ 
+                           </tr>
 						</c:forEach>
-						
 					</table>
-				</form>
+				
 	</div>
 	</div>
 

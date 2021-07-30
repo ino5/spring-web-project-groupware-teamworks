@@ -183,8 +183,8 @@ public class BoardDaoImpl implements BoardDao {
 
 
 	@Override
-	public int pushRp_order(Reply reply) {
-		return session.selectOne("selectpushRp_orderOfBoard",reply);
+	public int pushRp_order(Reply reply) {	
+		return session.insert("pushRp_orderOfBoard", reply);
 	}
 
 	@Override
@@ -199,12 +199,12 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int selectOneInsertedRp_order(Reply reply) {
-		return session.insert("pushRp_orderOfBoard", reply);
+		return session.selectOne("selectpushRp_orderOfBoard",reply);
 	}
 
 	@Override
 	public Reply selectOneParentReply(Reply reply) {
-		return session.selectOne("selectListParentOfBoard", reply);
+		return session.selectOne("selectOneParentOfBoard", reply);
 	}
 
 	@Override

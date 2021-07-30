@@ -247,8 +247,7 @@ public class BoardController {
 			//여기서의 리턴값은  success : function(data) 여기서의 data -- > "!!!!!!!!!!!"
 			return  "이제된다";
 		}
-		//대댓글
-		@ResponseBody
+		//대댓글	
 		@PostMapping(value = "rereply_insert")
 		public String rereply_insert(Reply reply, Model model, Principal principal, int parent_rp_num ) throws Exception {
 			System.out.println("BoardController Start Rereplyinsert..");
@@ -256,11 +255,26 @@ public class BoardController {
 			if(principal != null) {
 				reply.setM_id(principal.getName());
 			}
-//			int rp_num = reply.getRp_num();
 			int p_num = reply.getP_num();
 			boardService.rereply_insert(reply, p_num, parent_rp_num );
-			return  "이제된다";
+			return  "redirect:/board/view?p_num=" + p_num;
 		}	
+//		//대댓글
+//		@ResponseBody
+//		@PostMapping(value = "rereply_insert")
+//		public String rereply_insert(int p_num, int rp_num, Model model, Principal principal ) throws Exception {
+//			System.out.println("BoardController Start Rereplyinsert..");
+//			Reply reply = null;
+//
+//			if(principal != null) {
+//				reply.setM_id(principal.getName());
+//			}
+//			reply.setP_num(p_num);
+//			reply.setRp_num(rp_num);
+//			reply.setParent_rp_num(rp_num);
+//			boardService.rereply_insert(reply, p_num);
+//			return  "성공" ;
+//		}	
 		// 게시물 좋아요 기능
 		@RequestMapping(value = "recommend")
 		public String like(int p_num, Model model, PostLike postLike, Principal principal) {
