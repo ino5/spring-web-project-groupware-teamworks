@@ -33,23 +33,20 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
+	//1대1 채팅방 가져오기
 	public Room getRoomOfOneByOne(String m_id, String m_id2) {
 		System.out.println("getRoomOfOneByOne");
 		int roomNumber = 0;
+		//DB에서 특정 두 멤버 간의 1대1 채팅방 번호 가져오기 
 		roomNumber = talkDao.selectRnOfOneByOne(m_id, m_id2);
 		System.out.println("before if, roomNumber: " + roomNumber);
-			if(roomNumber > 0) {
+			if(roomNumber > 0) { //DB에 해당 1대1 채팅방이 있다면 그대로 해당 방 리턴
 				return talkDao.selectRoom(roomNumber);
-			} else {
+			} else { //DB에 해당 1대1 채팅방이 없다면
 				System.out.println("else");
-				makeRoomOfOneByOne(m_id, m_id2);
-				roomNumber = talkDao.selectMaxRn();
-				return talkDao.selectRoom(roomNumber);
+				makeRoomOfOneByOne(m_id, m_id2); //1대1 채팅방 만들기
+				return getRoomOfOneByOne(m_id, m_id2); //1대1 채팅방 가져오기
 			}
-		
-		//1대1방 있는지 확인
-		//있으면 그 방 리턴
-		//없으면 방만들고 그 방 리턴 (방에 대한 DB(TALK_ROOM)도 넣고, 참가자에 대한 DB도 넣고(TALKER)
 	}
 
 	@Override
