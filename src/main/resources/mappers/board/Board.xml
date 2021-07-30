@@ -81,7 +81,7 @@
  	]]>	 
 	</select>
 <!-- 	삽입될 위치의 order값 찾기 -->
-	<select id="selectpushRp_orderOfBoard" parameterType="com.example.sproject.model.board.Reply" resultType="int">
+	<select id="selectOneInsertedRp_orderOfBoard" parameterType="com.example.sproject.model.board.Reply" resultType="int">
 	<![CDATA[
 		SELECT NVL(MIN(rp_order),-1) FROM reply 
 		WHERE	(p_num = #{p_num} AND rp_ref = #{rp_ref}) AND 

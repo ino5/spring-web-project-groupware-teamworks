@@ -157,14 +157,14 @@ public class BoardServiceImpl implements BoardService {
 	reply.setRp_num(parent_rp_num);
 	Reply parentReply = boardDao.selectOneParentReply(reply);
 	reply.setParent_rp_ref(parentReply.getRp_ref());
-	reply.setRp_order(parentReply.getRp_order());
-	reply.setRp_depth(parentReply.getRp_depth());
+	reply.setParent_rp_order(parentReply.getRp_order());
+	reply.setParent_rp_depth(parentReply.getRp_depth());
 
 
 	
 	//tRp_ref, Rp_depth 값 설정
 	reply.setRp_ref(reply.getParent_rp_ref());
-	reply.setRp_depth(reply.getRp_depth() + 1);
+	reply.setRp_depth(reply.getParent_rp_depth() + 1);
 	
 	//삽입될 cg_num 찾기
 	int rp_num = boardDao.selectOneMaxRp_num(p_num) + 1;

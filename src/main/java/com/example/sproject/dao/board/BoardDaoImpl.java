@@ -199,7 +199,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int selectOneInsertedRp_order(Reply reply) {
-		return session.selectOne("selectpushRp_orderOfBoard",reply);
+		return session.selectOne("selectOneInsertedRp_orderOfBoard",reply);
 	}
 
 	@Override
