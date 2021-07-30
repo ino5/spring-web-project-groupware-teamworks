@@ -51,7 +51,7 @@ public class TalkDaoImpl implements TalkDao {
 		map.put("m_id", m_id);
 		map.put("m_id2", m_id2);
 		Room room = session.selectOne("selectRnOfOneByOneOfTalk", map);
-		if(room!= null) roomNumber = room.getRoomNumber();
+		if(room!= null) roomNumber = room.getTkrm_num();
 		return roomNumber;
 	}
 	

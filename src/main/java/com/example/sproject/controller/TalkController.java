@@ -90,8 +90,8 @@ public class TalkController {
 		String roomName = (String) params.get("roomName");
 		if(roomName != null && !roomName.trim().equals("")) {
 			Room room = new Room();
-			room.setRoomNumber(++roomNumber);
-			room.setRoomName(roomName);
+			room.setTkrm_num(++roomNumber);
+			room.setTkrm_name(roomName);
 			roomList.add(room);
 		}
 		//이건 확실하지 않지만, TALK_ROOM테이블과 TALKER테이블에 값 입력을 이 때 해야될 것 같습니다. 정민희 토크팀 팀장님
@@ -135,13 +135,13 @@ public class TalkController {
 		//일대일 채팅방 가져오기
 		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
 		System.out.println(room);
-		mv.addObject("roomName", room.getRoomName());
-		mv.addObject("roomNumber", room.getRoomNumber());
+		mv.addObject("roomName", room.getTkrm_name());
+		mv.addObject("roomNumber", room.getTkrm_num());
 		
 		//채팅 기록 가져오기
-		List<Talk> talkList = talkService.selectChat(room.getRoomNumber());
+		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
 		mv.addObject("talkList", talkList);
-		mv.setViewName("talk/talk");
+		mv.setViewName("talk/MemberList");
 		
 //		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
 //		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
