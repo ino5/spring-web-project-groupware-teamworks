@@ -1,9 +1,17 @@
 package com.example.sproject.dao.drive;
 
-import com.example.sproject.model.drive.DriveFile;
+import java.util.List;
+
+import com.example.sproject.model.drive.DriveFileInfo;
 
 public interface DriveDao {
 
-	int insertDriveFile(DriveFile driveFile);
+	int insertDriveFileInfo(DriveFileInfo driveFile);
+
+	DriveFileInfo selectOneDriveFileInfo(String dv_id);
+
+	List<DriveFileInfo> selectListDriveFileInfo(DriveFileInfo driveFileInfo);
+
+	int deleteFileInfo(DriveFileInfo driveFileInfo);
 
 }

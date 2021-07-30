@@ -13,13 +13,14 @@
 
 	</div>
 	<div id="content">
-	<h1>memberInfo.jsp</h1>
-	${pageContext.request.contextPath}<br>
-	m_id : ${m_id}
-	<form action="${pageContext.request.contextPath}/login/logout" method="POST">
-		<sec:csrfInput/>
-		<input type="submit" value="logout">
-	</form>
+		<h1>memberInfo.jsp</h1>
+		${pageContext.request.contextPath}<br>
+		m_id : ${m_id}<br>
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/login/memberInfo';">memberInfo</button>
+		<form action="${pageContext.request.contextPath}/login/logout" method="POST">
+			<sec:csrfInput/>
+			<input type="submit" value="logout">
+		</form>
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

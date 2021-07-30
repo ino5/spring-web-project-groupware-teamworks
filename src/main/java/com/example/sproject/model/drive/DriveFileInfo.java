@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriveFile {
+public class DriveFileInfo {
 	String dv_id;
 	String m_id;
 	String dv_filename;

@@ -22,7 +22,6 @@ public class Member implements UserDetails{
 	private String m_name;
 	private int m_empnum;
 	private String m_birth;
-	private String m_exnum;
 	private String m_phone;
 	private String m_email;
 	private String dpt_code;

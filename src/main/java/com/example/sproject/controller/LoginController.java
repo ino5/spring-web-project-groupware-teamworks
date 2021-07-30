@@ -3,6 +3,7 @@ package com.example.sproject.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,12 +43,12 @@ public class LoginController {
 	public String memberInfo(Principal principal, Model model) {
 		System.out.println("--Method memberInfo in Class LoginController");
 		if (null == principal) {
-			return "login/memberInfo";
+			return "login/login";
 		}
 		String m_id = principal.getName();
 		System.out.println("m_id: " + m_id);
 		model.addAttribute("m_id", m_id);
-		return "main/main";
+		return "main/sampleMain";
 	}
 	
 	@GetMapping("denied")
@@ -70,4 +71,10 @@ public class LoginController {
 		return "login/passwordCheckResult";
 	}
 	
+	@RequestMapping("memberInfo")
+	public String memberInfo(@AuthenticationPrincipal Member member, Model model) {
+		model.addAttribute("member", member);
+//		System.out.println(member.getM_id());
+		return "login/memberInfo";
+	}
 }

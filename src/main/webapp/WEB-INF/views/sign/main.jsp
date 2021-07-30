@@ -10,17 +10,10 @@
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-		<%@include file = "/WEB-INF/views/drive/side.jsp" %>
+
 	</div>
 	<div id="content">
-		drive/uploadForm.jsp <br>
-		<form id="form1" action="${pageContext.request.contextPath}/drive/upload" method="post" enctype="multipart/form-data" target="myBatisFrame">
-			<sec:csrfInput/>
-			<input type="file" name="file1"> <p>
-			<input type="text" name="title"> <p>
-		    <input type="hidden" name="path" value="${pageContext.request.contextPath}/resources/image/"> 
-			<input type="submit">
-		</form>
+		전자결재 홈
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

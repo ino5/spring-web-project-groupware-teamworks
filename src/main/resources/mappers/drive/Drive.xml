@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.sproject.dao.drive.DriveDaoImpl">
-	<insert id="insertDriveFileOfDrive" parameterType="com.example.sproject.model.drive.DriveFile">
+<mapper namespace="com.example.sproject.dao.drive.DriveDao">
+	<insert id="insertDriveFileOfDrive" parameterType="com.example.sproject.model.drive.DriveFileInfo">
 		INSERT INTO drive(dv_id, m_id, dv_filename, dv_regdate, cg_num) 
 		VALUES (#{dv_id}, #{m_id}, #{dv_filename}, SYSDATE, #{cg_num})
 	</insert>
 	
+	<select id="selectOneDriveFileInfoOfDrive" parameterType="String" resultType="com.example.sproject.model.drive.DriveFileInfo">
+		SELECT * FROM drive WHERE dv_id = #{dv_id}
+	</select>
+	
+	<select id="selectListDriveFileInfoOfDrive" parameterType="com.example.sproject.model.drive.DriveFileInfo" resultType="com.example.sproject.model.drive.DriveFileInfo">
+		SELECT * FROM drive 
+		<where>
+		<if test='cg_num != 0'>
+		AND cg_num = #{cg_num}
+		</if>
+		<if test='m_id != null and m_id != ""'>
+		AND m_id = #{m_id}
+		</if>
+		</where>
+	</select>
+	
+	<delete id="deleteFileInfoOfDrive" parameterType="com.example.sproject.model.drive.DriveFileInfo">
+		DELETE FROM drive WHERE dv_id = #{dv_id}
+	</delete>
 </mapper>

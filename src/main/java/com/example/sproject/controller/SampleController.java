@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.sproject.model.common.CommonGroup;
+import com.example.sproject.model.globals.GlobalsOfTb_code;
 import com.example.sproject.model.sample.Sample;
 import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.sample.SampleService;
@@ -22,7 +25,7 @@ public class SampleController {
 	private SampleService sampleService;
 	
 	@Autowired
-	private CommonService CommonGroupService;
+	private CommonService commonService;
 	
 	@RequestMapping("")
 	public String sample(Model model) {
@@ -69,5 +72,28 @@ public class SampleController {
 		System.out.println("principal.getName: " + principal.getName());
 	    return "redirect:/drive";
 	  }
+	
+	//common_group 테스트 페이지
+	@RequestMapping(value = "test/cg", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public List<CommonGroup> cg(Model model) {
+		String tb_code = GlobalsOfTb_code.POST;
+		return commonService.listCommonGroup(tb_code);
+	}
+	
+	@RequestMapping(value = "test/cg2", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public List<CommonGroup> cg2(Model model) {
+		String tb_code = GlobalsOfTb_code.POST;
+		return commonService.listCommonGroup(tb_code, 2, 2);
+	}
+	
+	@RequestMapping(value = "test/cg/insert", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public List<CommonGroup> cgInsert(CommonGroup commonGroup, Model model, int parent_cg_num) {
+		String tb_code = GlobalsOfTb_code.POST;
+		commonService.addCommonGroup(tb_code, commonGroup, parent_cg_num);
+		return commonService.listCommonGroup(tb_code);
+	}
 	
 }
