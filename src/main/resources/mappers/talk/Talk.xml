@@ -12,7 +12,7 @@
 </select>
 
 <select id="selectChatOfTalk" parameterType="int" resultType="Talk">
-	SELECT tk_num, m_id, tk_content, tk_time_sent from talk where tkrm_num = #{tkrm_num} order by tk_num
+	SELECT m.m_name, t.tk_num, t.m_id, t.tk_content, t.tk_time_sent from member m, talk t where t.m_id=m.m_id and tkrm_num = #{tkrm_num} order by tk_num
 </select>
 
 <select id="selectMemberListOfTalk" resultType="com.example.sproject.model.login.Member">

@@ -52,7 +52,7 @@
 			<c:forEach var="list" items="${talkList}">
 				<c:if test="${m_id != list.m_id }">
 				<div id="memo">
-					<p class='others'> ${list.m_id} : ${list.tk_content}</p>
+					<p class='others'> ${list.m_name} : ${list.tk_content}</p>
 					<p class='date2'>
 					<fmt:formatDate value="${list.tk_time_sent}" pattern="yy-MM-dd"/><br>
 					<fmt:formatDate value="${list.tk_time_sent}" pattern="HH:mm"/></p>
@@ -60,7 +60,7 @@
 				</c:if>
 				<c:if test="${m_id == list.m_id }">
 				<div id="memo">
-					<p class='me'> ${list.m_id} : ${list.tk_content}</p>
+					<p class='me'> 나 : ${list.tk_content}</p>
 					<p class='date'>
 					<fmt:formatDate value="${list.tk_time_sent}" pattern="yy-MM-dd"/><br>
 					<fmt:formatDate value="${list.tk_time_sent}" pattern="HH:mm"/></p>

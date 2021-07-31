@@ -43,8 +43,7 @@ public class TalkServiceImpl implements TalkService {
 			} else {
 				System.out.println("else");
 				makeRoomOfOneByOne(m_id, m_id2);
-				roomNumber = talkDao.selectMaxRn();
-				return talkDao.selectRoom(roomNumber);
+				return getRoomOfOneByOne(m_id, m_id2);
 			}
 		
 		//1대1방 있는지 확인

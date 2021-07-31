@@ -1,0 +1,116 @@
+@charset "UTF-8";
+		*{
+			margin:0;
+			padding:0;
+		}
+		.wrap {
+		    height: 1000px;
+   			margin-left: 400px;
+    		margin-top: 70px;
+		}
+		#content1 {
+			width: 600px;
+    		float: left;
+    		position: relative;
+		}
+		.container{
+			width: 600px;
+			padding: 25px;
+			display: block;
+			float: left;
+			margin-top: 10px;
+		}
+		.container h1{
+			text-align: left;
+			padding: 5px 5px 5px 15px;
+			color: black;
+			border-left: 3px solid black;
+			margin-bottom: 20px;
+		}		
+		#room1 {
+			margin-top: 50px;
+		}
+		#logo {
+			background: white;
+			/* border-right: 3px solid #0F91E6; */
+    		/* border-left: 3px solid #0F91E6; */
+    		/* border-top: 3px solid #0F91E6; */
+    		height: 70px;
+    		width: 501px;
+		}
+		#logo .img{
+			width: 40px;
+			position: relative;
+			float: left;
+		}
+		#logo img {
+			height: 40px;
+    		margin-left: 20px;
+    		margin-top: 13px;
+		}
+		#logo .h5 {
+			width: 80px;
+			float: left;
+			position: relative;
+			font-family: 'talk/img/서울 남산체.ttf';
+			font-size: 25px;
+			color: #0F91E6;
+			margin-left: 30px;
+   			margin-top: 18px;
+		}
+		#logo .h6 {
+			width: 60px;
+			float: left;
+			font-family: 'talk/img/서울 남산체.ttf';
+			font-size: 20px;
+			color: #5DAEF0;
+			opacity: 50%;
+			margin-top: 22px;
+		}
+		.roomContainer{
+			background-color: white;
+			width: 501px;
+			height: 500px;
+			overflow: auto;
+			/* border-right: 3px solid #0F91E6; */
+    		/* border-left: 3px solid #0F91E6; */
+		}
+		.roomList{
+			border: none;
+		}
+		.roomList th{
+			background-color: white;
+			color: #0F91E6;
+			font-size: 16px;
+			border-bottom: 1px solid #0F91E6;
+    		padding-bottom: 10px;
+    		text-align: center;	
+		}
+		.roomList td{
+			background-color: white;
+			text-align: center;
+			color: black;
+			font-weight: bold;
+			font-size: 16px;
+			height: 50px
+		}
+		.roomList .num{
+			width: 75px;
+			text-align: center;
+		}
+		.roomList .room{
+			width: 350px;
+		}
+		.roomList .go{
+			width: 71px;
+			text-align: center;
+		}
+		.button {
+			background-color: #0F91E6;
+			font-size: 15px;
+			color: white;
+			border-radius: 10px;
+			padding: 5px;
+			font-weight: bold;
+			margin: 3px;
+		}

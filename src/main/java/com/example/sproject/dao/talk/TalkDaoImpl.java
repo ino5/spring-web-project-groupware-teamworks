@@ -38,7 +38,6 @@ public class TalkDaoImpl implements TalkDao {
 		return session.selectList("selectMemberListOfTalk");
 	}
 
-	////////////////////////////////////////////////////////////////
 	@Override
 	public int insertTalkRoomOneByOne() {
 		return session.insert("insertTalkRoomOneByOneOfTalk");

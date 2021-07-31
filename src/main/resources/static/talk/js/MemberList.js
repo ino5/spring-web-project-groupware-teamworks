@@ -148,7 +148,7 @@
 			type: "message",
 			roomNumber : $("#roomNumber").val(),  
 			sessionId : $("#sessionId").val(),
-			userName : $("#userName").val(),
+			userName : $("#m_name").val(),
 			msg : $("#chatting").val(),
 			m_id : $("#m_id").val()
 		}  //roomNumber는 방의 번호를 보내줌으로써 소켓서버는 어느방에서 메시지를 보냈는지 구분
@@ -168,7 +168,7 @@
 				roomNumber: $("#roomNumber").val(),
 				sessionId: $("#sessionId").val(),
 				msg: $("#chatting").val(),
-				userName : $("#userName").val()
+				userName : $("#m_name").val()
 			}
 			ws.send(JSON.stringify(param)); // 파일 보내기전 메시지를 보내서 파일을 보냄을 명시
 			$('chatting').val("");

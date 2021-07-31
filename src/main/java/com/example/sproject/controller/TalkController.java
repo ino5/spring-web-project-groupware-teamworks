@@ -55,6 +55,28 @@ public class TalkController {
 	}
 	// Model -> model.addAttribute를 사용하여 데이터만 저장
 	// ModelAndView -> 데이터와 이동하고자 하는 View Page를 같이 저장
+
+	@RequestMapping("/Member")
+	public ModelAndView Member(@AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController MemberList Start...");
+		ModelAndView mv = new ModelAndView();
+		
+		String m_id = null;
+		String m_name = null;
+		if(sessionMember != null) {
+			System.out.println("sessionMember: " + sessionMember);
+			m_id = sessionMember.getM_id();
+			m_name = sessionMember.getM_name();
+			mv.addObject("m_id", m_id);
+			mv.addObject("m_name", m_name);
+		}
+
+
+		List<Member> memberList = talkService.selectMemberList();
+		mv.addObject("memberList", memberList);
+		mv.setViewName("talk/Member");
+		return mv;
+	}
 	
 	@RequestMapping("/MemberList")
 	public ModelAndView MemberList(@AuthenticationPrincipal Member sessionMember) {
@@ -131,6 +153,10 @@ public class TalkController {
 			mv.addObject("m_name", m_name);
 		}
 		System.out.println("m_id: " + m_id);
+		
+		//멤버리스트 가져오기
+		List<Member> memberList = talkService.selectMemberList();
+		mv.addObject("memberList", memberList);
 		
 		//일대일 채팅방 가져오기
 		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
