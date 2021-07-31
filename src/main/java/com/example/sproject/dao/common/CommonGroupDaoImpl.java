@@ -61,6 +61,21 @@ public class CommonGroupDaoImpl implements CommonGroupDao {
 		return session.selectOne("selectOneParentOfCommonGroup", commonGroup);
 	}
 
+	@Override
+	public int deleteCommonGroup(CommonGroup commonGroup) {
+		return session.delete("deleteCommonGroupOfCommonGroup", commonGroup);
+	}
+
+	@Override
+	public int updateCommonGroup(CommonGroup commonGroup) {
+		return session.update("updateCommonGroupOfCommonGroup", commonGroup);
+	}
+
+	@Override
+	public CommonGroup selectOneCommonGroup(CommonGroup commonGroup) {
+		return session.selectOne("selectOneCommonGroupOfCommonGroup", commonGroup);
+	}
+
 
 
 }

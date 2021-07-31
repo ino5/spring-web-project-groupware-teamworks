@@ -66,6 +66,39 @@ public class CommonServiceImpl implements CommonService {
 		return commonGroupDao.insertCommonGroup(commonGroup);
 	}
 
+	@Override
+	public int deleteCommonGroup(String tb_code, int cg_num) {
+		System.out.println("-- Mehthod deleteCommonGroup in Class CommonService");
+		int result = 0;
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_num(cg_num);
+		result = commonGroupDao.deleteCommonGroup(commonGroup);
+		System.out.println("CommonGroup 삭제 결과: " + result);
+		return result;
+	}
+
+	@Override
+	public int updateCommonGroup(String tb_code, int cg_num, String cg_name) {
+		System.out.println("-- Mehthod updateCommonGroup in Class CommonService");
+		int result = 0;
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_num(cg_num);
+		commonGroup.setCg_name(cg_name);
+		result = commonGroupDao.updateCommonGroup(commonGroup);
+		System.out.println("CommonGroup update 결과: " + result);
+		return result;
+	}
+
+	@Override
+	public CommonGroup selectOneCommonGroup(String tb_code, int cg_num) {
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_num(cg_num);
+		return commonGroupDao.selectOneCommonGroup(commonGroup);
+	}
+
 
 	
 }

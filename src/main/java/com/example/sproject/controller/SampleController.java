@@ -73,27 +73,64 @@ public class SampleController {
 	    return "redirect:/drive";
 	  }
 	
+	////
 	//common_group 테스트 페이지
+	////
+	
+	//테이블 관련 그룹 리스트 가져오기
 	@RequestMapping(value = "test/cg", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public List<CommonGroup> cg(Model model) {
-		String tb_code = GlobalsOfTb_code.POST;
+	//필요한 parameter: tb_code
+	public List<CommonGroup> cg(String tb_code, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		return commonService.listCommonGroup(tb_code);
 	}
 	
+	//테이블 관련 그룹에서 자식 그룹 리스트 가져오기 (cg_depth까지 지정)
 	@RequestMapping(value = "test/cg2", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public List<CommonGroup> cg2(Model model) {
-		String tb_code = GlobalsOfTb_code.POST;
-		return commonService.listCommonGroup(tb_code, 2, 2);
+	//필요한 parameter: tb_code, cg_ref, cg_depth
+	public List<CommonGroup> cg2(String tb_code, int cg_ref, int cg_depth, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
+		return commonService.listCommonGroup(tb_code, cg_ref, cg_depth);
 	}
 	
+	//자식 그룹 추가하기
 	@RequestMapping(value = "test/cg/insert", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public List<CommonGroup> cgInsert(CommonGroup commonGroup, Model model, int parent_cg_num) {
-		String tb_code = GlobalsOfTb_code.POST;
+	//필요한 parameter: tb_code, cg_name, parent_cg_num(부모 그룹의 cg_num)
+	public List<CommonGroup> cgInsert(String tb_code, CommonGroup commonGroup, int parent_cg_num, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		commonService.addCommonGroup(tb_code, commonGroup, parent_cg_num);
 		return commonService.listCommonGroup(tb_code);
 	}
 	
+	//자식 그룹 삭제하기
+	@RequestMapping(value = "test/cg/delete", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	//필요한 parameter: tb_code, cg_num
+	public List<CommonGroup> cgDelete(String tb_code, int cg_num, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
+		commonService.deleteCommonGroup(tb_code, cg_num);
+		return commonService.listCommonGroup(tb_code);
+	}
+	
+	//그룹명 변경하기
+	@RequestMapping(value = "test/cg/update", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	//필요한 parameter: tb_code, cg_num, cg_name
+	public List<CommonGroup> cgUpdate(String tb_code, int cg_num, String cg_name, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
+		commonService.updateCommonGroup(tb_code, cg_num, cg_name);
+		return commonService.listCommonGroup(tb_code);
+	}
+	
+	//그룹 1개 정보 가져오기
+	@RequestMapping(value = "test/cg/selectOne", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	//필요한 parameter: tb_code, cg_num
+	public CommonGroup cgSelectOne(String tb_code, int cg_num, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
+		return commonService.selectOneCommonGroup(tb_code, cg_num);
+	}
 }

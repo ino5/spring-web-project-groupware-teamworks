@@ -20,4 +20,10 @@ public interface CommonGroupDao {
 	CommonGroup selectOneParentCommonGroup(CommonGroup commonGroup);
 
 	List<CommonGroup> selectList(String tb_code, int cg_ref, int cg_depth);
+
+	int deleteCommonGroup(CommonGroup commonGroup);
+
+	int updateCommonGroup(CommonGroup commonGroup);
+
+	CommonGroup selectOneCommonGroup(CommonGroup commonGroup);
 }

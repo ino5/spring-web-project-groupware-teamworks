@@ -52,4 +52,16 @@
 		SELECT * FROM common_group WHERE tb_code = #{tb_code} AND cg_num = #{parent_cg_num}
 	]]>	
 	</select>
+	
+	<delete id="deleteCommonGroupOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup">
+		DELETE FROM common_group WHERE tb_code = #{tb_code} AND cg_num = #{cg_num}
+	</delete>
+	
+	<update id="updateCommonGroupOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup">
+		UPDATE common_group SET cg_name = #{cg_name} WHERE tb_code = #{tb_code} AND cg_num = #{cg_num}
+	</update>
+	
+	<select id="selectOneCommonGroupOfCommonGroup" parameterType="com.example.sproject.model.common.CommonGroup" resultType="com.example.sproject.model.common.CommonGroup">
+		SELECT * FROM common_group WHERE tb_code = #{tb_code} AND cg_num = #{cg_num}
+	</select>
 </mapper>
