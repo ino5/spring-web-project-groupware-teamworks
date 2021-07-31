@@ -41,3 +41,4 @@
 		    checkbox.checked = selectAll.checked;
 		  })
 		}
+

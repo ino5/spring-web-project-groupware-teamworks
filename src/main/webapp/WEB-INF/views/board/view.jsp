@@ -43,11 +43,10 @@
 									</script>
 <body>
 <%@include file="/WEB-INF/views/header/headerBody.jsp"%>
-	
 	<div id="side">
 		<button type="button" id="btn1"
 			onclick="location.href='${pageContext.request.contextPath}/board/write'">글쓰기</button>
-		<div id="side_text">
+		<div>
 
 			<a id="button1" class="button1"><span id="span_hover"><img
 					alt="image"
@@ -59,8 +58,14 @@
 			</span>전사게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="as" items="${boardListOfAll }">
-					<li class="li"><a id="side" style="color: black; font-size:17px;"
+					<li class="li"><a
 						href="${pageContext.request.contextPath}/board/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a></li>
+				</c:forEach>
+
+			</ol>
+			<ol id="scroll" style="display: none; list-style: none;">
+				<c:forEach var="bs" items="${boardListOfAll }">
+					<li class="li">${bs.bd_name}</li>
 				</c:forEach>
 
 			</ol>
@@ -75,9 +80,10 @@
 					style="width: 16px; height: 12px;" id="img2"></span>부서게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="bs" items="${boardListOfDept }">
-					<li class="li"><a style="color: black; font-size:17px;"
+					<li class="li"><a
 						href="${pageContext.request.contextPath}/board/sideboard_list?bd_num=${bs.bd_num}">${bs.bd_name}</a></li>
 				</c:forEach>
+
 			</ol>
 		</div>
 	</div>
@@ -107,12 +113,12 @@
 
 									<c:if test="${statusOfLike == 0}">
 										<img alt="image"
-											src="${pageContext.request.contextPath}/board/img/checkedheart.png"
+										src="${pageContext.request.contextPath}/board/img/heart.png"
 											style="width: 30px; height: 30px;">
 									</c:if>
 									<c:if test="${statusOfLike == 1}">
 										<img alt="image"
-											src="${pageContext.request.contextPath}/board/img/heart.png"
+											src="${pageContext.request.contextPath}/board/img/checkedheart.png"
 											style="width: 30px; height: 30px;">
 									</c:if>
 								</button></td>
@@ -131,8 +137,6 @@
 			<button type="submit" id="btnUpdete" >수정</button>
 			<button type="button" id="btnDelete" 
 				onclick="location.href='${pageContext.request.contextPath}/board/delete?p_num=${view.p_num}'">삭제</button>
-<!-- 				수정하는데 등록이 왜 있는지 모르겠어서  등록 버튼 삭제 -->
-<%-- 					<button type="submit" id="btnUpdete"onclick="location.href='${pageContext.request.contextPath}/board'">등록</button> --%>
 					</form>
 				<div>
 				<form action="${pageContext.request.contextPath}/board/reply_insert?p_num=${view.p_num}&loginId=${view.loginId}"
@@ -140,14 +144,16 @@
 					<sec:csrfInput />
 					<table class="table_rp"style="width: 1000px; height:30px;  ">
 						<tr><td>
-								<input  type="text" id = "rp_content" name = "rp_content">
+					    <input  type="text" id = "rp_content" name = "rp_content">
 								<button type="submit" id="replyUpdete"onclick="location.href='${pageContext.request.contextPath}/board/view'">댓글등록</button>
 						</td></tr>
+						
 					</table>
 				</form>	
 					<table id="list_table" style=" margin-top: 4%; border-top: 2px solid #EAEAEA;">
 						<c:forEach var="reply" items="${listReply}">
-							<tr id="rp_${reply.rp_num}">								
+							<tr class="rp_${reply.rp_num}">			
+								<td>${reply.m_id}</td>				
 								<td>
 									<c:if test="${reply.rp_depth > 1}">
 										<c:forEach begin="3" end="${reply.rp_depth}" step="1">
@@ -156,11 +162,10 @@
 										ㄴ
 									</c:if>
 									<span style="margin-left: 100px">${reply.rp_content}</span>
-								
 								</td>
 								<td><button type="button" id="btnUpdete" onclick="clickDelete(${reply.rp_num})">댓글삭제</button></td>
 							</tr>
-							<tr>
+							<tr class="rp_${reply.rp_num}">
 								
 	                           <form action="${pageContext.request.contextPath}/board/rereply_insert" method="post">
 									<sec:csrfInput/>

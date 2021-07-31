@@ -10,6 +10,77 @@
 <script src="${pageContext.request.contextPath}/board/js/board.js"></script>
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+function boardGroup() {
+    var delchk = []; // key 값을 담을 배열
+     var bd_num = modal_form.bd_num.value;
+    //삭제 key value
+    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+    // object들을 찾아서 delchk라는 배열에 담는다.
+    $('.chk_1:checked').each(function(){
+        delchk.push($(this).val());
+    });
+    
+   $.ajax({
+      type : 'POST',
+      url : _contextPath + "/board/boardGroup",
+      data : {checkArray : delchk, bd_num : bd_num},
+         success: function pageReload(){
+               location.href= "${pageContext.request.contextPath}/board";
+           }
+      });
+}
+function boardDeleteGroup() {
+    var delchk = []; // key 값을 담을 배열
+    //삭제 key value
+    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+    // object들을 찾아서 delchk라는 배열에 담는다.
+    $('.chk_1:checked').each(function(){
+        delchk.push($(this).val());
+    });
+    
+   $.ajax({
+      type : 'POST',
+      url : _contextPath + "/board/boardDeleteGroup",
+      data : {checkArray : delchk},
+         success: function pageReload(){
+               location.href= "${pageContext.request.contextPath}/board";
+           }
+      });
+}
+function boardNoticeGroup() {
+    var delchk = []; // key 값을 담을 배열
+    //삭제 key value
+    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+    // object들을 찾아서 delchk라는 배열에 담는다.
+    $('.chk_1:checked').each(function(){
+        delchk.push($(this).val());
+    });
+    
+   $.ajax({
+      type : 'POST',
+      url : _contextPath + "/board/boardNoticeGroup",
+      data : {checkArray : delchk},
+         success: function pageReload(){
+               location.href= "${pageContext.request.contextPath}/board";
+           }
+      });
+}
+$(document).ready(function() {
+	// 달력 클릭 시 모달창 열기
+$("#boardSet").on("click", function () {
+	$('#myModal').show();
+});
+//모달창 Close 기능
+	$("#close_btn").unbind('click').on('click', function() {
+		$('#myModal').hide();
+	});
+//모달창 Close 기능
+	$("#x_icon").unbind('click').on('click', function() {
+		$('#myModal').hide();
+	});
+});
+</script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 	<div id="side">
@@ -47,9 +118,9 @@
 				<span id="span_none"><img alt="image"
 					src="${pageContext.request.contextPath}/board/img/white.png"
 					style="width: 16px; height: 12px;" id="img2"></span>부서게시판</a>
-			<ol id="scroll" style="display: none; list-style: none;">
+			<ol id="scroll" style="display: none; list-style: none; ">
 				<c:forEach var="bs" items="${boardListOfDept }">
-					<li class="li"><a
+					<li class="li"><a style="color: black;"
 						href="${pageContext.request.contextPath}/board/sideboard_list?bd_num=${bs.bd_num}">${bs.bd_name}</a></li>
 				</c:forEach>
 
@@ -62,27 +133,28 @@
 				<section class="tool_bar">
 					<ul class="tool_ul">
 						<li><button type="button" class="btn2"onclick="location.href='${pageContext.request.contextPath}/board/write'">
-								새글쓰기
+								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/pencil.png"><span style="font-weight: bold;"> 새글쓰기</span>
 							</button></li>
-
-						<li><button type="button" class="btn2">
-								이동
+			<c:if test="${sessionId =='admin'}">
+						<li><button type="button" id="boardSet" class="btn2 btn_admin" >
+								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
 							</button></li>
-						<li><button type="button" class="btn2" onclick="location.href='${pageContext.request.contextPath}/board/delete?p_num=${view.p_num}'">
-								삭제
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
+								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
 							</button></li>
-						<li><button type="button" class="btn2" onclick="form_insert.p_type.value = 1;">
-								공지로 등록
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
+									<img style=" width: 25px; height: 25px;" alt="image" src="${pageContext.request.contextPath}/board/img/megaphone.png"><span style="font-weight: bold;"> 공지로 등록</span>
 							</button></li>
+							  </c:if>
 					</ul>
 				</section>
+
 				<table id="list_table" style="margin-top: 4%; border-top: 2px solid #EAEAEA;">
 					<tr>
 						<td
 							style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;"
 						>
-							<input type="checkbox" name="check" id="chk_1" onclick='selectAll(this)'>
-							<label for="chk_1"></label>
+							<input type="checkbox" name="check" onclick='selectAll(this)'>
 						</td>
 						<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">번호</td>
 						<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">제목</td>
@@ -94,7 +166,7 @@
 						<c:forEach var="ps_notice" items="${listNoticePost}" begin="0" end="2">			
 					<tr style="background-color: #F6F6F6;">
 						<td style="text-align: center;">
-							<input type="checkbox" name="check" id="chk_1">
+							<input type="checkbox" name="check" class="chk_1" value="${ps.ps_notice}">
 						</td>
 						<td><img style=" width: 50px; height: 50px;" alt="image" src="${pageContext.request.contextPath}/board/img/공지1.png"></td>
 						<td ><a style="color:#0f91e6; font-weight: bold; font-size: 20px;" href='${pageContext.request.contextPath}/board/view?p_num=${ps_notice.p_num}'>${ps_notice.p_name}</a></td>
@@ -109,7 +181,7 @@
 					</form>
 					<tr>
 						<td style="text-align: center; ">
-							<input type="checkbox" name="check" id="chk_1">
+							<input type="checkbox" name="check" id="chk_1" class="chk_1" value="${ps.p_num}">
 						</td>
 						<td>${ps.p_num}</td>
 						<td><a href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
@@ -134,7 +206,49 @@
 		
 		</div>
 	</div>
-	
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<p>
+				<span>게시판 관리 <img
+					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					onclick="close_pop2();" id="x_icon" />
+				</span>
+			</p>
+			<br>
+			<p style="text-align: center; line-height: 1.5;"></p>
+			<form id="modal_form" name="modal_form">
+			<sec:csrfInput/>
+				<table>
+					<tr>
+						<td>게시판선택</td>
+						<td colspan="3">
+							<select name="bd_num">
+								<c:forEach var="boardListOfAll" items="${boardListOfAll}">
+									  <option value="${boardListOfAll.bd_num}">${boardListOfAll.bd_name}</option>
+								</c:forEach>
+								<c:forEach var="boardListOfDept" items="${boardListOfDept}">
+									  <option value="${boardListOfDept.bd_num}">${boardListOfDept.bd_name}</option>
+								</c:forEach>								
+							</select>
+						</td>
+							
+
+					<tr>
+						<td>이름변경</td>
+						<td colspan="3"><input type="text" name="adg_name"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
+						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete"></td>
+						<td><input type="button" value="취소" id="close_btn"></td>
+				</table>
+			</form>
+		</div>
+	</div>
 
 
 </body>

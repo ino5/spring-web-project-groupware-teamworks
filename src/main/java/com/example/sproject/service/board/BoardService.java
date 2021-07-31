@@ -35,6 +35,9 @@ public interface BoardService {
 	List<Post> listNoticePost(int i);
 	int listSide(Model model);
 	int listSide(ModelAndView modelAndView);
+	void boardGroup(List<String> groupList, int bd_num);
+	void boardDeleteGroup(List<String> groupList);
+	void boardNoticeGroup(List<String> groupList);
 
 
 	

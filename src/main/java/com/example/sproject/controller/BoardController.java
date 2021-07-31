@@ -4,17 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.sproject.dao.board.BoardDao;
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
@@ -43,7 +39,7 @@ public class BoardController {
 	
 //게시글 리스트, 페이징
 	@RequestMapping(value = "")
-	public String board(Post post, String currentPage, Model model, Board board) {
+	public String board(Post post, String currentPage, Model model, Board board, Principal principal) {
 		System.out.println("BoardController Start2 List..");
 
 		System.out.println("BoardController Start List..");
@@ -54,7 +50,7 @@ public class BoardController {
 		if(currentPage == null || "".equals(currentPage)) {
 			currentPage = "1";
 		}
-	
+	    model.addAttribute("sessionId", principal.getName());
 		Paging pg = new Paging(total, currentPage);
 		post.setStart(pg.getStart());
 		post.setEnd(pg.getEnd());
@@ -73,7 +69,7 @@ public class BoardController {
 		return "board/board";
 	}
 	@RequestMapping(value = "sideboard_list")
-	public String board_list(Post post, String currentPage, Model model, Board board, int bd_num) {
+	public String board_list(Post post, String currentPage, Model model, Board board, int bd_num, Principal principal) {
 		
 		List<Board> boardListOfAll = boardService.listBoard(1);
 		List<Board> boardListOfDept = boardService.listBoard(2);
@@ -81,6 +77,7 @@ public class BoardController {
 		if(currentPage == null || "".equals(currentPage)) {
 			currentPage = "1";
 		}
+		model.addAttribute("sessionId",principal.getName());
 		Paging pg = new Paging(total, currentPage);
 		post.setStart(pg.getStart());
 		post.setEnd(pg.getEnd());
@@ -259,22 +256,7 @@ public class BoardController {
 			boardService.rereply_insert(reply, p_num, parent_rp_num );
 			return  "redirect:/board/view?p_num=" + p_num;
 		}	
-//		//대댓글
-//		@ResponseBody
-//		@PostMapping(value = "rereply_insert")
-//		public String rereply_insert(int p_num, int rp_num, Model model, Principal principal ) throws Exception {
-//			System.out.println("BoardController Start Rereplyinsert..");
-//			Reply reply = null;
-//
-//			if(principal != null) {
-//				reply.setM_id(principal.getName());
-//			}
-//			reply.setP_num(p_num);
-//			reply.setRp_num(rp_num);
-//			reply.setParent_rp_num(rp_num);
-//			boardService.rereply_insert(reply, p_num);
-//			return  "성공" ;
-//		}	
+
 		// 게시물 좋아요 기능
 		@RequestMapping(value = "recommend")
 		public String like(int p_num, Model model, PostLike postLike, Principal principal) {
@@ -287,7 +269,40 @@ public class BoardController {
 
 		    return "redirect:/board/view?p_num=" + p_num;
 		}
-	
+		
+		// 이동하기
+		   @RequestMapping(value="boardGroup", method= {RequestMethod.GET, RequestMethod.POST})
+		   @ResponseBody
+		   public void boardGroup(@RequestParam(value="checkArray[]", required=false) List<String> groupList, Model model, int bd_num) {
+//		        Ajax를 통해 Array로 받은 "deleteList"를 하나씩 빼내어 ArrayList에 넣음 
+		       ArrayList<String> GroupArray = new ArrayList<String>();
+		       for(int i=0;i<groupList.size();i++){
+		          GroupArray.add(groupList.get(i));
+		       }
+		       boardService.boardGroup(groupList, bd_num);
+		   }
+			// 삭제
+		   @RequestMapping(value="boardDeleteGroup", method= {RequestMethod.GET, RequestMethod.POST})
+		   @ResponseBody
+		   public void boardDeleteGroup(@RequestParam(value="checkArray[]", required=false) List<String> groupList, Model model) {
+		       ArrayList<String> GroupArray = new ArrayList<String>();
+		       for(int i=0;i<groupList.size();i++){
+		          GroupArray.add(groupList.get(i));
+		       }
+		       boardService.boardDeleteGroup(groupList);
+		   }
+			// 공지로등록
+		   @RequestMapping(value="boardNoticeGroup", method= {RequestMethod.GET, RequestMethod.POST})
+		   @ResponseBody
+		   public void boardNoticeGroup(@RequestParam(value="checkArray[]", required=false) List<String> groupList, Model model) {
+			   System.out.println("boardNoticeGroup Start");
+		       ArrayList<String> GroupArray = new ArrayList<String>();
+		       for(int i=0;i<groupList.size();i++){
+		          GroupArray.add(groupList.get(i));
+		       }
+		       boardService.boardNoticeGroup(groupList);
+		   }
+		   
 }
 
 

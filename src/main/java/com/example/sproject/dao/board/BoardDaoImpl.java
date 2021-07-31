@@ -1,6 +1,8 @@
 package com.example.sproject.dao.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,7 @@ public class BoardDaoImpl implements BoardDao {
 		try {
 			tot = session.insert("PostInsertOfBoard", post);
 			System.out.println("PostDaoImpl Start insert...");
+			System.out.println("post: " + post);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("PostDaoImpl insert Exception->" + e.getMessage());
@@ -268,6 +271,36 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Post> listNoticePost(int p_type) {
 		
 		return session.selectList("selectListPost_ofBoard",p_type);
+	}
+
+	@Override
+	public void boardGroup(List<String> groupList, int bd_num ) {
+		for(int i = 0; i < groupList.size(); i++) {
+			String p_num = groupList.get(i);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("p_num", Integer.parseInt(p_num));
+			map.put("bd_num", bd_num);
+			session.update("selectBoardGroupOfBoard", map);
+		}
+	}
+
+	@Override
+	public void boardDeleteGroup(List<String> groupList) {
+		
+
+		for(int i = 0; i < groupList.size(); i++) {
+			String p_num = groupList.get(i);
+			session.delete("DeleteBoardGroupOfBoard", Integer.parseInt(p_num));
+	}
+	}
+
+	@Override
+	public void boardNoticeGroup(List<String> groupList) {
+		for(int i = 0; i < groupList.size(); i++) {
+			String p_num = groupList.get(i);
+			session.update("boardNoticeGroupOfBoard", Integer.parseInt(p_num));
+		
+	}
 	}
 }
 	

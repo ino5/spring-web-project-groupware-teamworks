@@ -36,6 +36,9 @@ public interface BoardDao {
 	int board_list_total(int bd_num);
 	List<Post> board_list(Post post);
 	List<Post> listNoticePost(int p_type);
+	void boardGroup(List<String> groupList, int bd_num);
+	void boardDeleteGroup(List<String> groupList);
+	void boardNoticeGroup(List<String> groupList);
 
 
 }

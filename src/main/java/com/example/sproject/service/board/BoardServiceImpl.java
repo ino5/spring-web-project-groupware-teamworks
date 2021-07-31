@@ -136,9 +136,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int insert(Reply reply) {
 		System.out.println("PostServiceImpl Start replyinsert");
-		System.out.println("reply: " + reply.toString());
 		int rp_num = 1 + boardDao.selectOneMaxRp_num();
 		reply.setRp_num(rp_num);
+		System.out.println("reply: " + reply.toString());
 		return boardDao.insert(reply);
 	}
 	@Override
@@ -245,6 +245,26 @@ public class BoardServiceImpl implements BoardService {
 		modelAndView.addObject("boardListOfAll", boardListOfAll);
 		modelAndView.addObject("boardListOfDept", boardListOfDept);
 		return 1;
+	}
+
+	@Override
+	public void boardGroup(List<String> groupList, int bd_num) {
+	
+		boardDao.boardGroup(groupList, bd_num);
+		return;
+		
+	}
+
+	@Override
+	public void boardDeleteGroup(List<String> groupList) {
+		boardDao.boardDeleteGroup(groupList);
+		
+	}
+
+	@Override
+	public void boardNoticeGroup(List<String> groupList) {
+		boardDao.boardNoticeGroup(groupList);
+		
 	}
 }
 

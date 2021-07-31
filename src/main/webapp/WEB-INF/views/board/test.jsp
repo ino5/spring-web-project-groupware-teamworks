@@ -25,7 +25,7 @@
 				<span id="span_none"> <img alt="image"
 					src="${pageContext.request.contextPath}/board/img/white.png"
 					style="width: 16px; height: 12px;" id="img1">
-			</span></a>
+			</span>전사게시판</a>
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="as" items="${boardListOfAll }">
 					<li class="li"><a
@@ -51,19 +51,28 @@
 			</ol>
 		</div>
 	</div>
-	<div id="content">
-		<div id="board_table">
-			<section class="tool_bar">
-				<ul class="tool_ul">
-					<li><button type="button" class="btn2"
-							onclick="location.href='${pageContext.request.contextPath}/board/write'">
-							새글쓰기</button></li>
 
-					<li><button type="button" class="btn2">이동</button></li>
-					<li><button type="button" class="btn2">삭제</button></li>
-					<li><button type="button" class="btn2">공지로 등록</button></li>
-				</ul>
-			</section>
+	<div id="content">
+			<div id="board_table">
+				<section class="tool_bar">
+					<ul class="tool_ul">
+						<li><button type="button" class="btn2"onclick="location.href='${pageContext.request.contextPath}/board/write'">
+								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/pencil.png"><span style="font-weight: bold;"> 새글쓰기</span>
+							</button></li>
+			<c:if test="${sessionId =='admin'}">
+						<li><button type="button" id="boardSet" class="btn2 btn_admin" >
+								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
+							</button></li>
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
+								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
+							</button></li>
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
+									<img style=" width: 25px; height: 25px;" alt="image" src="${pageContext.request.contextPath}/board/img/megaphone.png"><span style="font-weight: bold;"> 공지로 등록</span>
+							</button></li>
+							  </c:if>
+					</ul>
+				</section>
+
 			<table id="list_table"
 				style="margin-top: 4%; border-top: 2px solid #EAEAEA;">
 				<tr>

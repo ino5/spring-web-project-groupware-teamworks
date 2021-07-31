@@ -70,6 +70,22 @@
 				<input type="hidden" name="m_id" value="">
 				<section id="point">
 					<article class="pt pt1">
+						<table>
+					<tr>
+						<td>게시판선택</td>
+						<td colspan="3">
+							<select name="bd_num">
+								<c:forEach var="boardListOfAll" items="${boardListOfAll}">
+									  <option value="${boardListOfAll.bd_num}">${boardListOfAll.bd_name}</option>
+								</c:forEach>
+									<c:forEach var="boardListOfDept" items="${boardListOfDept}">
+									  <option value="${boardListOfDept.bd_num}">${boardListOfDept.bd_name}</option>
+								</c:forEach>
+
+							</select>
+							</td>
+							</tr>
+							</table>
 						<table class="pt_tb">
 							<tr>
 								<td id="td_title">글 작성하기</td>

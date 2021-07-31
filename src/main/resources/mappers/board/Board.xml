@@ -14,8 +14,8 @@
 		select Count(*) FROM post	
 	</select>
   <insert id="PostInsertOfBoard" parameterType="com.example.sproject.model.board.Post">
-	INSERT INTO post (p_num, m_id, p_name, p_content,p_view, p_type, p_regdate) VALUES (
-	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{m_id}, #{p_name}, #{p_content}, 0, #{p_type}, SYSDATE)
+	INSERT INTO post (p_num, bd_num, m_id, p_name, p_content,p_view, p_type, p_regdate) VALUES (
+	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{bd_num}, #{m_id}, #{p_name}, #{p_content}, 0, #{p_type}, SYSDATE)
    </insert>
 <!--  게시물 상세조회 -->
     <select id="PostReadOfBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
@@ -63,7 +63,7 @@
 <!-- 댓글 추가 -->
   <insert id="ReplyInsertOfBoard" parameterType="com.example.sproject.model.board.Reply">
 	INSERT INTO REPLY (p_num, rp_num, m_id, rp_content, rp_ref, rp_order, rp_depth )
-	VALUES (#{p_num}, #{rp_num}, #{m_id}, #{rp_content}, #{rp_ref},#{rp_order}, #{rp_depth})
+	VALUES (#{p_num}, #{rp_num}, #{m_id}, #{rp_content}, #{rp_num}, 1, 1)
    </insert>
    
 <!--    댓글 추가를 위해 가장 큰 댓글 번호 가져오기 -->
@@ -120,7 +120,7 @@
 		(#{p_num}, #{rp_num}, #{rp_content}, #{m_id}, #{rp_ref}, #{rp_order}, #{rp_depth})
 	]]>
 	</insert>
-	
+<!-- 	좋아요 기능 -->
 	<select id="checkLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike" resultType="int">
 		SELECT COUNT(*) FROM post_like WHERE p_num = #{p_num} AND m_id = #{m_id}
 	</select>
@@ -146,5 +146,15 @@
 	<select id="selectListPost_ofBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
 		select *
 		from post where p_type = #{p_type} order by p_num desc
-</select>
+</select> 
+	<update id="selectBoardGroupOfBoard" parameterType="Map">
+		UPDATE post SET bd_num = #{bd_num}  WHERE p_num = #{p_num}
+	</update>
+	<delete id="DeleteBoardGroupOfBoard" parameterType="int">
+		delete from post where p_num= #{p_num}
+	</delete>
+	
+		<update id="boardNoticeGroupOfBoard" parameterType="int">
+		UPDATE post SET p_type = 1  WHERE p_num = #{p_num}
+	</update>
  </mapper>
