@@ -1,17 +1,16 @@
-package com.example.sproject.controller;
+	package com.example.sproject.controller;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.sproject.model.address.AddressGroup;
+import com.example.sproject.model.address.Address_Group;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.service.address.AddressService;
 import com.example.sproject.service.address.Paging;
@@ -32,7 +31,7 @@ public class AddressController {
 		member.setStart(pg.getStart());   // 시작시 1
 		member.setEnd(pg.getEnd());       // 시작시 10 
 		List<Member> listMember = adds.listMember(member);
-		List<AddressGroup> listAddressGroup = adds.listAddressGroup(m_id);
+		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
 		model.addAttribute("total", total); 
 		model.addAttribute("listMember",listMember); 
 		model.addAttribute("listAddressGroup",listAddressGroup); 
@@ -49,25 +48,59 @@ public class AddressController {
 		member.setStart(pg.getStart());   // 시작시 1
 		member.setEnd(pg.getEnd());       // 시작시 10 
 		List<Member> listPersonalGroup = adds.listPersonalGroup(member);
-		List<AddressGroup> listAddressGroup = adds.listAddressGroup(m_id);
+		List<Address_Group> listAddressGroup = adds.listAddressGroup(m_id);
 		model.addAttribute("total", total); 
 		model.addAttribute("listPersonalGroup",listPersonalGroup); 
 		model.addAttribute("listAddressGroup",listAddressGroup); 
 		model.addAttribute("pg",pg);
 		return "address/addressPersonal"; 
 	}
-//	@RequestMapping(value = "search.do", produces = "application/json")
-//	@ResponseBody
-//	public ResponseEntity<HashMap<String, Object>> testListDo(Member member, Model model) throws Exception {
-//
-//		HashMap<String, Object> result = new HashMap<>();
-//		// 검색
-//		member.pageInfo(listCnt);
-//		// 페이징
-//		result.put("pagination", search);
-//		// 게시글 화면 출력
-//		result.put("list", testServiceImpl.selectTest(search));
-//
-//		return ResponseEntity.ok(result);
+
+	@RequestMapping(value="addressSearchList")
+	@ResponseBody
+	public List<Member> addressSearchList(Member member, String currentPage) {
+		System.out.println("AddressController Start addressSearchList..." );
+		int total = adds.searchTotal(member);
+		Paging pg = new Paging(total, currentPage);
+		member.setStart(pg.getStart());   // 시작시 1
+		member.setEnd(pg.getEnd());       // 시작시 10 
+		List<Member> listSearch = adds.listSearch(member);
+		return listSearch;
+	}
 	
+	@RequestMapping(value="simpleAdd")
+	public String simpleAdd(Member member) {
+		System.out.println("AddressController Start simpleAdd..." );
+		UUID uid = UUID.randomUUID();
+		member.setM_id(uid.toString());
+		adds.simpleAdd(member);
+		return "redirect:/address";
+	}
+	
+	@RequestMapping(value="groupAdd")
+	public String groupAdd(Principal principal, Address_Group addressGroup) {
+		System.out.println("AddressController Start groupAdd..." );
+		String m_id = principal.getName();
+		addressGroup.setM_id(m_id);
+		adds.groupAdd(addressGroup);
+		return "redirect:/address";
+	}
+	
+	@RequestMapping(value="groupDelete")
+	public String groupDelete(Principal principal, Address_Group addressGroup) {
+		System.out.println("AddressController Start groupDelete..." );
+		String m_id = principal.getName();
+		addressGroup.setM_id(m_id);
+		adds.groupDelete(addressGroup);
+		return "redirect:/address";
+	}
+	
+	@RequestMapping(value="groupNameUpdate")
+	public String groupNameUpdate(Principal principal, Address_Group addressGroup) {
+		System.out.println("AddressController Start groupNameUpdate..." );
+		String m_id = principal.getName();
+		addressGroup.setM_id(m_id);
+		adds.groupNameUpdate(addressGroup);
+		return "redirect:/address";
+	}
 }
