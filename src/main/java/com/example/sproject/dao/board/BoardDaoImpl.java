@@ -12,6 +12,7 @@ import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
+import com.example.sproject.model.login.Member;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -302,6 +303,24 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 	}
-}
+
+	@Override
+	public List<Post> listAll(String searchOption, String keyword) {
+		  Map<String, String> map = new HashMap<String, String>();
+		    map.put("searchOption", searchOption);
+		    map.put("keyword", keyword);
+		    return session.selectList("boardlistAllOfBoard", map);
+	}
+	//  게시글 레코드 갯수
+	@Override
+	public int countArticle(String searchOption, String keyword) {
+	    // 검색옵션, 키워드 맵에 저장
+	    Map<String, String> map = new HashMap<String, String>();
+	    map.put("searchOption", searchOption);
+	    map.put("keyword", keyword);
+	    return session.selectOne("boardcountArticleOfBoard", map);
+	}
+	}
+
 	
 	

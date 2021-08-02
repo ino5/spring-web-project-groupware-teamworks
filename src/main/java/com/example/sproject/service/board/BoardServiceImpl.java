@@ -14,6 +14,7 @@ import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 import com.example.sproject.model.common.CommonGroup;
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.board.Board;
 
 
@@ -266,7 +267,23 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.boardNoticeGroup(groupList);
 		
 	}
-}
+
+	@Override
+	public List<Post> listAll(String searchOption, String keyword) {
+		System.out.println("listAll in BoardService");
+		return boardDao.listAll(searchOption, keyword);
+	
+	}
+
+	@Override
+	public int countArticle(String searchOption, String keyword) {
+		  return boardDao.countArticle(searchOption, keyword);
+	
+	}
+
+	
+	}
+
 
 
         

@@ -11,6 +11,7 @@ import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
+import com.example.sproject.model.login.Member;
 
 
 public interface BoardService {
@@ -38,6 +39,9 @@ public interface BoardService {
 	void boardGroup(List<String> groupList, int bd_num);
 	void boardDeleteGroup(List<String> groupList);
 	void boardNoticeGroup(List<String> groupList);
+	List<Post> listAll(String searchOption, String keyword);
+	int countArticle(String searchOption, String keyword);
+
 
 
 	
