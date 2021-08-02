@@ -2,6 +2,6 @@
 
 <configuration>
 	<typeAliases>
-<!-- 		don't use -->
+		<typeAlias alias="Talk"  type="com.example.sproject.model.talk.Talk"/>
 	</typeAliases>
 </configuration>

@@ -6,6 +6,7 @@
 		console.log("window.onload start...");
 		getRoom();
 		createRoom();
+		chatName();
 	}
 
 	function getRoom(){
@@ -134,25 +135,20 @@
 	}
 
 	function chatName(){
-		var userName = $("#userName").val();
+		var userName = $("#m_name").val();
 		console.log("chatName userName: " + userName);
-		if(userName == null || userName.trim() == ""){
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		}else{
-			wsOpen();
-			$("#meName").append('나의이름:'+userName); 
-			$("#yourName").hide();
-			$("#yourMsg").show();
+		wsOpen();
+		$("#meName").append('나의이름:'+userName); 
+		$("#yourName").hide();
+		$("#yourMsg").show();
 		}
-	}
 
 	function send() {
 		var option ={
 			type: "message",
 			roomNumber : $("#roomNumber").val(),  
 			sessionId : $("#sessionId").val(),
-			userName : $("#userName").val(),
+			userName : $("#m_name").val(),
 			msg : $("#chatting").val(),
 			m_id : $("#m_id").val()
 		}  //roomNumber는 방의 번호를 보내줌으로써 소켓서버는 어느방에서 메시지를 보냈는지 구분
@@ -172,7 +168,7 @@
 				roomNumber: $("#roomNumber").val(),
 				sessionId: $("#sessionId").val(),
 				msg: $("#chatting").val(),
-				userName : $("#userName").val()
+				userName : $("#m_name").val()
 			}
 			ws.send(JSON.stringify(param)); // 파일 보내기전 메시지를 보내서 파일을 보냄을 명시
 			$('chatting').val("");
