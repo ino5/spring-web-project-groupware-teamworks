@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class TalkController {
 		}
 
 
-		List<Member> memberList = talkService.selectMemberList();
+		List<Member> memberList = talkService.selectMemberList(m_id);
 		mv.addObject("memberList", memberList);
 		mv.setViewName("talk/Member");
 		return mv;
@@ -94,7 +95,7 @@ public class TalkController {
 		}
 
 
-		List<Member> memberList = talkService.selectMemberList();
+		List<Member> memberList = talkService.selectMemberList(m_id);
 		mv.addObject("memberList", memberList);
 		mv.setViewName("talk/MemberList");
 		return mv;
@@ -125,14 +126,14 @@ public class TalkController {
 	 * @param params
 	 * @return
 	 */
-	@RequestMapping("/getRoom")
-	public 
-	@ResponseBody
-	List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
-		System.out.println("SocketController getRoom Start...");
-		System.out.println("roomList: " + roomList);
-		return roomList;
-	}
+//	@RequestMapping("/getRoom")
+//	public 
+//	@ResponseBody
+//	List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
+//		System.out.println("SocketController getRoom Start...");
+//		System.out.println("roomList: " + roomList);
+//		return roomList;
+//	}
 	
 	/**
 	 * 채팅방
@@ -155,7 +156,7 @@ public class TalkController {
 		System.out.println("m_id: " + m_id);
 		
 		//멤버리스트 가져오기
-		List<Member> memberList = talkService.selectMemberList();
+		List<Member> memberList = talkService.selectMemberList(m_id);
 		mv.addObject("memberList", memberList);
 		
 		//일대일 채팅방 가져오기
@@ -184,5 +185,57 @@ public class TalkController {
 //			mv.setViewName("talk/room");
 //		}
 		return mv;
+	}
+	
+	@RequestMapping("/getMemberList")
+	@ResponseBody
+	public Map<String, Object> getMemberList(@AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = sessionMember.getM_id();
+		List<Member> memberList = talkService.selectMemberList(m_id);
+		map.put("m_id", m_id);
+		map.put("m_name", sessionMember.getM_name());
+		map.put("memberList", memberList);
+		System.out.println("memberList");
+		for(Member member : memberList) System.out.println(member);
+		return map;
+	}
+	
+	@RequestMapping("/Test")
+	public ModelAndView Test(@AuthenticationPrincipal Member sessionMember) {
+		String m_id = null;
+		if(sessionMember != null) {
+			m_id = sessionMember.getM_id();			
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("talk/TestPage");
+		return mv;
+	}
+	
+	@RequestMapping("/getRoomOfApi")
+	@ResponseBody
+	public Map<String, Object> getroomNumber(String m_id2, @AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = null;
+		if(sessionMember != null) {
+			m_id = sessionMember.getM_id();			
+		}
+		
+		//일대일 채팅방 가져오기
+		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
+		System.out.println(room);
+		
+		//채팅 기록 가져오기
+		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
+		System.out.println("talkList");
+		for(Talk talk : talkList) System.out.println(talk);
+		
+		//맵에 넣기
+		map.put("room", room);
+		map.put("talkList", talkList);
+
+		return map;
 	}
 }

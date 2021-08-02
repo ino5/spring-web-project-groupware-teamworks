@@ -28,8 +28,8 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
-	public List<Member> selectMemberList() {
-		return talkDao.selectMemberList();
+	public List<Member> selectMemberList(String m_id) {
+		return talkDao.selectMemberList(m_id);
 	}
 
 	@Override

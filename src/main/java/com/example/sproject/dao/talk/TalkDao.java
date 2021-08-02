@@ -14,7 +14,7 @@ public interface TalkDao {
 
 	List<Talk> selectChat(int roomNumber);
 
-	List<Member> selectMemberList();
+	List<Member> selectMemberList(String m_id);
 
 	int insertTalkRoomOneByOne();
 	

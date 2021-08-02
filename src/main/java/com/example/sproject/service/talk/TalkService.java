@@ -12,7 +12,7 @@ public interface TalkService {
 
 	List<Talk> selectChat(int roomNumber);
 
-	List<Member> selectMemberList();
+	List<Member> selectMemberList(String m_id);
 
 	Room getRoomOfOneByOne(String m_id, String m_id2);
 	

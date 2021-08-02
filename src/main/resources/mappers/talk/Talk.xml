@@ -16,7 +16,7 @@
 </select>
 
 <select id="selectMemberListOfTalk" resultType="com.example.sproject.model.login.Member">
-	select m_id, m_name from member order by m_name
+	select m_id, m_name from member where m_id != #{m_id} order by m_name
 </select>
 
 <insert id="insertTalkRoomOneByOneOfTalk">

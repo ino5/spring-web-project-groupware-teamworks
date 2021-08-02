@@ -34,8 +34,8 @@ public class TalkDaoImpl implements TalkDao {
 	}
 
 	@Override
-	public List<Member> selectMemberList() {
-		return session.selectList("selectMemberListOfTalk");
+	public List<Member> selectMemberList(String m_id) {
+		return session.selectList("selectMemberListOfTalk", m_id);
 	}
 
 	@Override
