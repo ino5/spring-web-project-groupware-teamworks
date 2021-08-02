@@ -60,6 +60,7 @@
              //1일부터 마지막 일까지 돌림
                   cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
                   cell.innerHTML = i;//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+                  cell.dataset.day = i; 
                   cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
               if (cnt % 7 == 1) {/*일요일 계산*/
                   //1주일이 7일 이므로 일요일 구하기
@@ -81,6 +82,15 @@
                   //달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
                 cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
                }
+              /*일정 등록된 날짜에 제목 띄우기*/
+              <c:forEach items="calendarList" var="item">
+              if (today.getFullYear().substr(2,3) == ${cl_sdate}.substr(0,1)
+                 && today.getMonth() == ${cl_sdate}.substr(3,4)
+                 && i == ${cl_sdate}.substr(6,7)) {
+                  //달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
+                cell.innerHTML = "<div>123</div>";//셀의 배경색을 노랑으로 
+               } 
+              </c:forEach>
              }
         }
         
@@ -134,10 +144,20 @@
 			// 달력 클릭 시 모달창 열기
 	   $("#calendar").on("click", "td", function () {
 		   var td = $(this);
+		   //alert(today.getMonth()+1);
+		   //alert(td.context.dataset.day);
+		   var year = today.getFullYear();
+		   var month = today.getMonth()+1;
+		   var day = td.context.dataset.day;
+		   if(month < 10){
+		   		month = "0" + month;
+		   }
+		   if(day <10) {
+		   		day = "0" + day;
+		   }
+		   
+		   $("input[type=date]").val(year+"-"+month+"-"+day);
 			$('#myModal').show();
-// 			$('input[id=dd]').attr('value',cdate);
-			alert(today.getMonth()+1);
-			alert(td.text());
        });
 		//모달창 Close 기능
 			$("#close_btn").unbind('click').on('click', function() {
