@@ -25,6 +25,7 @@ $(document).ready(function() {
    					 ); 
 					}					
 				$('.modal').show();
+				$('#chatting_wrap').hide();
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -46,18 +47,34 @@ function getRoomOfApi(m_id2) {
 		//서버에서 방 정보와 이전 채팅 기록 가져오기
 		global_res = res; //콘솔 확인용
 		let room = res.room;
+		let m_id = res.m_id;
 		let talkList = res.talkList;
+		let day = new Date();
 		
 		//소켓열기
 		wsOpen(room.tkrm_num);
 		$('#roomNumber').val(room.tkrm_num);
 		
-		
+		for(var i = 0; i < talkList.length; i++) {
+			if(talkList[i].m_id != m_id){				
+   					 $('#chating').append(
+   					 	'<div id="memo"><p class="others">'
+   					 	+ talkList[i].m_name + ':' + talkList[i].tk_content
+   					 	+'</p>'
+   					 ); 
+				}
+			else if(talkList[i].m_id == m_id){
+					$('#chating').append(
+   					 	'<div id="memo"><p class="me">'
+   					 	+ '나:' + talkList[i].tk_content
+   					 	+'</p>'
+   					 );
+   				}
+   			} 					
 		
 		//멤버리스트창 끄고 채팅창 보여주기
 		$('#content1').hide();
 		$('#chatting_wrap').show();
-		
 
 	},
 	err: function(err){}

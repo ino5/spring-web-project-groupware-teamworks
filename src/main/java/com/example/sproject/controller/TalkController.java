@@ -233,6 +233,7 @@ public class TalkController {
 		for(Talk talk : talkList) System.out.println(talk);
 		
 		//맵에 넣기
+		map.put("m_id", m_id);
 		map.put("room", room);
 		map.put("talkList", talkList);
 
