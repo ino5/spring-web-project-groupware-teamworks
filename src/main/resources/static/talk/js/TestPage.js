@@ -1,6 +1,7 @@
 let global_res;
 let global_room;
 let isMyMessage = 0;
+let is_clicked_groupchat = false;
 
 $(document).ready(function() {
  	//멤버리스트 보이기
@@ -25,6 +26,7 @@ $(document).ready(function() {
    					 ); 
 					}					
 				$('.modal').show();
+				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				
 				//input에 m_id, m_name 정보 넣기
@@ -38,6 +40,45 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function() {
+// 그룹채팅멤버보이기
+	$(".groupchat").on("click", function () {
+   		$.ajax({
+			url: _contextPath + '/talk/getMemberList',
+			type: 'get',
+			success: function (res) {
+				//멤버리스트 가져오기
+				let memberList = res.memberList;
+				
+				if(!is_clicked_groupchat) {
+					for(var i = 0; i<memberList.length; i++) { 
+	   					 $('#makegroup').append(
+	   					 	'<input type="hidden" id="m_id2" value="'
+	   					 	+ memberList[i].m_id
+	   					 	+ '"><input type="checkbox"  id="group" value="'
+	   					 	+ memberList[i].m_name
+	   					 	+ '">'
+	   					 	+ memberList[i].m_name
+	   					 ); 
+					}
+					is_clicked_groupchat = true;			
+				}	
+				$('.modal').show();
+				$('#content2').show();
+				$('#chatting_wrap').hide();
+				
+				//input에 m_id, m_name 정보 넣기
+				$('#m_id').val(res.m_id);
+				$('#m_name').val(res.m_name);
+			},
+			error : function(err){
+				console.log('error');
+			}
+		});
+	});
+});
+
+
 function getRoomOfApi(m_id2) {
 	$.ajax({
 	url : _contextPath + '/talk/getRoomOfApi',
@@ -49,25 +90,28 @@ function getRoomOfApi(m_id2) {
 		let room = res.room;
 		let m_id = res.m_id;
 		let talkList = res.talkList;
-		let day = new Date();
+		let Tkrm_name = res.Tkrm_name;
 		
 		//소켓열기
 		wsOpen(room.tkrm_num);
 		$('#roomNumber').val(room.tkrm_num);
-		
 		for(var i = 0; i < talkList.length; i++) {
 			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
    					 	'<div id="memo"><p class="others">'
    					 	+ talkList[i].m_name + ':' + talkList[i].tk_content
-   					 	+'</p>'
+   					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+   					 	+'</p></div>'
    					 ); 
 				}
 			else if(talkList[i].m_id == m_id){
 					$('#chating').append(
    					 	'<div id="memo"><p class="me">'
    					 	+ '나:' + talkList[i].tk_content
-   					 	+'</p>'
+   					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+   					 	+'</p></div>'
    					 );
    				}
    			} 					
@@ -75,12 +119,49 @@ function getRoomOfApi(m_id2) {
 		//멤버리스트창 끄고 채팅창 보여주기
 		$('#content1').hide();
 		$('#chatting_wrap').show();
+		$('#content2').hide();
 
 	},
 	err: function(err){}
 	});
 
 }
+
+$(document).ready(function() {
+// 돌아오기
+	$("#back").on("click", function () {
+   		$.ajax({
+			url: _contextPath + '/talk/getMemberList',
+			type: 'get',
+			success: function (res) {
+				//멤버리스트 가져오기
+				let memberList = res.memberList;
+				for(var i = 0; i<memberList.length; i++) {
+   					 $('#memberlist').append(
+   					 	'<tr><td><input type="hidden" id="m_id2" value="'
+   					 	+ memberList[i].m_id
+   					 	+ '"><button type="button"  id="chat" onclick="getRoomOfApi('
+   					 	+ '\''
+   					 	+ memberList[i].m_id
+   					 	+ '\''
+   					 	+ ')">'
+   					 	+ memberList[i].m_name
+   					 	+ '</button></td></tr>'
+   					 ); 
+					}					
+				$('#content1').show();
+				$('#chatting_wrap').hide();
+				
+				//input에 m_id, m_name 정보 넣기
+				$('#m_id').val(res.m_id);
+				$('#m_name').val(res.m_name);
+			},
+			error : function(err){
+				console.log('error');
+			}
+		});
+	});
+});
 
 //웹소켓 열기
 function wsOpen(roomNumber) {
@@ -104,8 +185,6 @@ function wsEvt() {
 		
 		var msg = data.data;
 		var date = new Date();
-		var dateInfo = date.getHours() + ":" + date.getMinutes();
-		var $chat = $("<div class='chat-box'><div class='chat'>" + "</div><div class='chat-info chat-box'>" + dateInfo + "</div></div>");
 		//alert("ws.onmessage->"+msg)
 		if(msg != null && msg.type != ''){
 			// 파일 업로드가 아닌 경우 메시지 뿌려준다
@@ -125,10 +204,12 @@ function wsEvt() {
             // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
 				if(jsonMsg.sessionId == $("#sessionId").val()){
 					isMyMessage = 1;
-					$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + dateInfo + "</p></div>");
+					$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + moment(date).format("HH:mm") + "</p></div>");
+					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}else{
 					isMyMessage = 0;
-					$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + dateInfo + "</p></div>");
+					$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + moment(date).format("HH:mm") + "</p></div>");
+					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}						
 			}else{
 				console.warn("unknown type!")
@@ -137,9 +218,11 @@ function wsEvt() {
 			// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
 			var url = URL.createObjectURL(new Blob([msg]));
 			if(isMyMessage == 1){
-				$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");	
+				$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
+				$("#chating").scrollTop($("#chating")[0].scrollHeight);
 			} else{
 				$("#chating").append("<div class='img2'><img class='msgImg2' src="+url+"></div><div class='clearBoth'></div>");
+				$("#chating").scrollTop($("#chating")[0].scrollHeight);
 			}	
 		}			
 	}

@@ -23,7 +23,7 @@
 		.container h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
-			color: black;
+			color: white;
 			border-left: 3px solid black;
 			margin-bottom: 20px;
 		}		
@@ -170,6 +170,7 @@
 			float: right;
 			font-size: 12px;
 			padding-right: 7.5px;
+			text-align: right;
 		}
 		.chating .others{
 			color: black;

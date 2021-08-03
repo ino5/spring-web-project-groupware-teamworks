@@ -7,14 +7,14 @@
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <link rel="styleSheet" href="${pageContext.request.contextPath}/talk/css/TestPage.css">
 <script src="${pageContext.request.contextPath}/talk/js/TestPage.js"></script>
+<script src="${pageContext.request.contextPath}/talk/js/moment.js"></script>
 <title>Insert title here</title>
 <link rel="styleSheet" href="${pageContext.request.contextPath}/talk/css/MemberList.css">
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-	</div>
-	
+	</div>	
 	<div id="TestCircle">
 		<button type="button" id="Test"></button>
 	</div>
@@ -31,47 +31,23 @@
 				</div>
 				<div id="roomContainer" class="roomContainer">
 					<table id="memberlist" class="memberlist">
-						<tr>
-							<th>이름</th>
-						</tr>
-						<c:forEach var="list" items="${memberList}">
-							<c:if test="${list.m_id != m_id }">
-							<tr>
-								<td><input type="hidden" id="m_id2" value="${list.m_id }"><button type="button"  onclick="location.href='${pageContext.request.contextPath}/talk/moveChating?m_id2=${list.m_id}'">${list.m_name }</button></td>
-							</tr>
-							</c:if>
-						</c:forEach>
 					</table>
 				</div>
 			</div>
+			<button type="button" class="groupchat">그룹채팅</button>
+		</div>
+		<div id="content2">
+			<div id="makegroup"></div>
 		</div>
 		<div id="chatting_wrap">
 			<div class="container">
-				<h1>${roomName}</h1>
+				<h1 id="roomName">1:1 채팅방</h1>
 				<input type="hidden" id="sessionId" value="">
-				<input type="hidden" id="m_id" value="${m_id}">
-				<input type="hidden" id="m_name" value="${m_name}">
-				<input type="hidden" id="roomNumber" value="${roomNumber}">
+				<input type="hidden" id="m_id">
+				<input type="hidden" id="m_name">
+				<input type="hidden" id="roomNumber">
 				<div id="meName"></div>
 				<div id="chating" class="chating">
-					<c:forEach var="list" items="${talkList}">
-						<c:if test="${m_id != list.m_id }">
-						<div id="memo">
-							<p class='others'> ${list.m_name} : ${list.tk_content}</p>
-							<p class='date2'>
-							<fmt:formatDate value="${list.tk_time_sent}" pattern="yy-MM-dd"/><br>
-							<fmt:formatDate value="${list.tk_time_sent}" pattern="HH:mm"/></p>
-						</div>
-						</c:if>
-						<c:if test="${m_id == list.m_id }">
-						<div id="memo">
-							<p class='me'> 나 : ${list.tk_content}</p>
-							<p class='date'>
-							<fmt:formatDate value="${list.tk_time_sent}" pattern="yy-MM-dd"/><br>
-							<fmt:formatDate value="${list.tk_time_sent}" pattern="HH:mm"/></p>
-						</div>
-						</c:if>
-					</c:forEach>
 				</div>
 				<div id="yourMsg">
 					<table class="inputTable">
@@ -87,6 +63,7 @@
 						</tr>
 					</table>
 				</div>
+				<button type="button" id="back" value="돌아가기">돌아가기</button>
 			</div>
 		</div>
 	</div>
