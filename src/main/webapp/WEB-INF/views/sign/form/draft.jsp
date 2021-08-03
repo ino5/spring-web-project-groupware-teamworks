@@ -39,21 +39,39 @@
 	<div id="side">
 		<%@include file = "/WEB-INF/views/sign/signSide.jsp" %>
 	</div>
+<form method="post">
+	<sec:csrfInput/>
 	<div id="content">
-		<div id="content_top">content_top</div>
+	
+		<div id="content_top">
+			<div id="sign_line">
+				<h3>결재라인</h3>
+				m_id: <input type="text" name="sgl_m_id">
+				sgl_type: <input type="text" name="sgl_type">
+				<br>
+				m_id: <input type="text" name="sgl_m_id">
+				sgl_type: <input type="text" name="sgl_type">
+				<br>
+				m_id: <input type="text" name="sgl_m_id">
+				sgl_type: <input type="text" name="sgl_type">
+				<br>
+				
+				<br><br>
+			</div>
+		</div>
 		<div id="content_middle">
-			<form action="${pageContext.request.contextPath}/sign/insert" method="post">
-				<sec:csrfInput/>
-				<input type="hidden" name="sgf_id" value="draft">
-				<input type="text" name="title">
-				<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
-					text test
-				</textarea>
-				<input type="submit">
-			</form>
+			<h3>문서 양식 : 업무 기안</h3>
+			<input type="hidden" name="sgf_id" value="draft">
+			제목: <input type="text" name="title">
+			<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
+				text test
+			</textarea>
+			<input type="submit" formaction="${pageContext.request.contextPath}/sign/insert">
+			
 		</div>
 		<div id="content_bottom">content_bottom</div>
 	</div>
+</form>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 <!-- 썸머노트 -->
 <script>

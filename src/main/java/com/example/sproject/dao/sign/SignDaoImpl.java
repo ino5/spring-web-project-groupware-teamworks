@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignLine;
 
 @Repository
 public class SignDaoImpl implements SignDao {
@@ -26,7 +27,7 @@ public class SignDaoImpl implements SignDao {
 	public int insertSignContents(List<SignContent> signContentList) {
 		System.out.println("-- com.example.sproject.dao.sign.SignDaoImpl.insertSignContents(List<SignContent>)");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("signContentList",signContentList);
+		map.put("signContentList", signContentList);
 		return session.insert("insertSignContentsOfSign", map);
 	}
 
@@ -39,6 +40,13 @@ public class SignDaoImpl implements SignDao {
 	public int insertSign(int sg_num, String m_id, String sgf_id) {
 		Sign sign = new Sign(sg_num, m_id, sgf_id);
 		return session.insert("insertSignOfSign", sign);
+	}
+
+	@Override
+	public int insertSignLines(List<SignLine> listOfSignLine) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("listOfSignLine", listOfSignLine);
+		return session.insert("insertSignLinesOfSign", map);
 	}
 	
 	

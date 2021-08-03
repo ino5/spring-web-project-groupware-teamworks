@@ -3,6 +3,7 @@ package com.example.sproject.dao.sign;
 import java.util.List;
 
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignLine;
 
 public interface SignDao {
 
@@ -13,5 +14,7 @@ public interface SignDao {
 	int selectOneMaxSg_numOfSign();
 
 	int insertSign(int sg_num, String m_id, String sgf_id);
+
+	int insertSignLines(List<SignLine> listOfSignLine);
 
 }
