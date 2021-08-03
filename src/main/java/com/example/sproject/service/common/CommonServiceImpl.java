@@ -21,6 +21,12 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
+	public List<CommonGroup> listCommonGroup(String tb_code, int cg_ref) {
+		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code, cg_ref);
+		return commonGroupList;
+	}	
+	
+	@Override
 	//tb_code, cg_ref, cg_depth를 가져와서 CommonGroup들을 리스트 형대로 가져오기
 	public List<CommonGroup> listCommonGroup(String tb_code, int cg_ref, int cg_depth) {
 		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code, cg_ref, cg_depth);
@@ -98,6 +104,8 @@ public class CommonServiceImpl implements CommonService {
 		commonGroup.setCg_num(cg_num);
 		return commonGroupDao.selectOneCommonGroup(commonGroup);
 	}
+
+
 
 
 	

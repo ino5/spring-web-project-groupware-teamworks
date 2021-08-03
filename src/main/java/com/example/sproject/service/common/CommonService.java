@@ -11,4 +11,5 @@ public interface CommonService {
 	int deleteCommonGroup(String tb_code, int cg_num);
 	int updateCommonGroup(String tb_code, int cg_num, String cg_name);
 	CommonGroup selectOneCommonGroup(String tb_code, int cg_num);
+	List<CommonGroup> listCommonGroup(String tb_code, int cg_ref);
 }

@@ -21,6 +21,14 @@ public class CommonGroupDaoImpl implements CommonGroupDao {
 		commonGroup.setTb_code(tb_code);
 		return session.selectList("selectListOfCommonGroup", commonGroup);
 	}
+
+	@Override
+	public List<CommonGroup> selectList(String tb_code, int cg_ref) {
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_ref(cg_ref);
+		return session.selectList("selectListOfCommonGroup", commonGroup);
+	}	
 	
 	@Override
 	public List<CommonGroup> selectList(String tb_code, int cg_ref, int cg_depth) {
@@ -75,6 +83,8 @@ public class CommonGroupDaoImpl implements CommonGroupDao {
 	public CommonGroup selectOneCommonGroup(CommonGroup commonGroup) {
 		return session.selectOne("selectOneCommonGroupOfCommonGroup", commonGroup);
 	}
+
+
 
 
 

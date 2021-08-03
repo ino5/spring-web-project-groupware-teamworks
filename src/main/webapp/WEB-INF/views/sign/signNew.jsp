@@ -10,10 +10,14 @@
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-
+		<%@include file = "/WEB-INF/views/sign/signSide.jsp" %>
 	</div>
 	<div id="content">
-		전자결재 홈
+		<div id="content_top">content_top</div>
+		<div id="content_middle">
+			<%@include file = "/WEB-INF/views/sign/form/draft.jsp" %>		
+		</div>
+		<div id="content_bottom">content_bottom</div>
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

@@ -77,28 +77,37 @@ public class SampleController {
 	//common_group 테스트 페이지
 	////
 	
-	//테이블 관련 그룹 리스트 가져오기
+	//특정 테이블 관련 그룹 리스트 가져오기
+	//필요한 parameter: tb_code
 	@RequestMapping(value = "test/cg", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	//필요한 parameter: tb_code
 	public List<CommonGroup> cg(String tb_code, Model model) {
 		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		return commonService.listCommonGroup(tb_code);
 	}
-	
-	//테이블 관련 그룹에서 자식 그룹 리스트 가져오기 (cg_depth까지 지정)
+
+	//특정 테이블 관련 그룹에서 특정cg_ref에 대한 자식 그룹 리스트 가져오기
+	//필요한 parameter: tb_code, cg_ref
 	@RequestMapping(value = "test/cg2", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
+	public List<CommonGroup> cg2(String tb_code, int cg_ref, Model model) {
+		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
+		return commonService.listCommonGroup(tb_code, cg_ref);
+	}
+	
+	//특정 테이블 관련 그룹에서 특정cg_ref, 특정 depth에 대한 자식 그룹 리스트 가져오기 (cg_depth까지 지정)
 	//필요한 parameter: tb_code, cg_ref, cg_depth
-	public List<CommonGroup> cg2(String tb_code, int cg_ref, int cg_depth, Model model) {
+	@RequestMapping(value = "test/cg3", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public List<CommonGroup> cg3(String tb_code, int cg_ref, int cg_depth, Model model) {
 		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		return commonService.listCommonGroup(tb_code, cg_ref, cg_depth);
 	}
 	
 	//자식 그룹 추가하기
+	//필요한 parameter: tb_code, cg_name, parent_cg_num(부모 그룹의 cg_num)
 	@RequestMapping(value = "test/cg/insert", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	//필요한 parameter: tb_code, cg_name, parent_cg_num(부모 그룹의 cg_num)
 	public List<CommonGroup> cgInsert(String tb_code, CommonGroup commonGroup, int parent_cg_num, Model model) {
 		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		commonService.addCommonGroup(tb_code, commonGroup, parent_cg_num);
@@ -106,9 +115,9 @@ public class SampleController {
 	}
 	
 	//자식 그룹 삭제하기
+	//필요한 parameter: tb_code, cg_num
 	@RequestMapping(value = "test/cg/delete", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	//필요한 parameter: tb_code, cg_num
 	public List<CommonGroup> cgDelete(String tb_code, int cg_num, Model model) {
 		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		commonService.deleteCommonGroup(tb_code, cg_num);
@@ -126,9 +135,9 @@ public class SampleController {
 	}
 	
 	//그룹 1개 정보 가져오기
+	//필요한 parameter: tb_code, cg_num
 	@RequestMapping(value = "test/cg/selectOne", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	//필요한 parameter: tb_code, cg_num
 	public CommonGroup cgSelectOne(String tb_code, int cg_num, Model model) {
 		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		return commonService.selectOneCommonGroup(tb_code, cg_num);

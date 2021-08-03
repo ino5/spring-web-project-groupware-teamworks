@@ -26,4 +26,6 @@ public interface CommonGroupDao {
 	int updateCommonGroup(CommonGroup commonGroup);
 
 	CommonGroup selectOneCommonGroup(CommonGroup commonGroup);
+
+	List<CommonGroup> selectList(String tb_code, int cg_ref);
 }

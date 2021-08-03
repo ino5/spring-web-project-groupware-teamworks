@@ -28,7 +28,7 @@ $(document).on(
 			});
 		});
 		
-//업로드 버튼 클릭 시 이벤트
+//업로드 버튼 클릭 시 이벤트 (모달창 띄우기)
 $(document).on(
 		"click", 
 		"#button_upload_file", 
@@ -37,7 +37,7 @@ $(document).on(
 			$('#modal_wrap_upload_file').css('display', 'block');
 		});
 
-//업로드 모달창 x 버튼 클릭 시 이벤트
+//업로드 모달창 닫기 버튼 클릭 시 이벤트
 $(document).on(
 		"click", 
 		"#modal_close_upload_file", 
