@@ -40,7 +40,21 @@
 
 										});
 									});
+									
+								
 									</script>
+<!-- <script type="text/javascript"> -->
+<!-- function doShow4() {  -->
+<!--     if ($('#scroll3').is(":visible")) {  -->
+<!--         $('#scroll3').hide();  -->
+      
+<!--     } else {  -->
+<!--         $('#scroll3').show();  -->
+
+<!--     }  -->
+<!-- }  -->
+<!-- </script> -->
+
 <body>
 <%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 	<div id="side">
@@ -159,26 +173,26 @@
 										<c:forEach begin="3" end="${reply.rp_depth}" step="1">
 											&nbsp;&nbsp;&nbsp;
 										</c:forEach>
-										ㄴ
+										<img alt="image" src="${pageContext.request.contextPath}/board/img/arrow.png" style="width: 16px; height: 12px;">
 									</c:if>
-									<span style="margin-left: 100px">${reply.rp_content}</span>
+<%-- 									<span style="margin-left: 100px;">${reply.rp_content}</span> --%>
+									${reply.rp_content}</span>
 								</td>
-								<td><button type="button" id="btnUpdete" onclick="clickDelete(${reply.rp_num})">댓글삭제</button></td>
+								<td><button type="button" id="btnUpdete" onclick="clickDelete(${reply.rp_num})"><img alt="image" src="${pageContext.request.contextPath}/board/img/delete.png" style="width: 16px; height: 12px;">댓글삭제</button></td>
 							</tr>
-							<tr class="rp_${reply.rp_num}">
-								
-	                           <form action="${pageContext.request.contextPath}/board/rereply_insert" method="post">
+							<tr class="rp_${reply.rp_num}" id="scroll3">
+<!-- 								<a class="button3" onclick="javascript:doShow4()"  style=" margin-left: 1000px;">댓글</a> -->
+	                           <form  action="${pageContext.request.contextPath}/board/rereply_insert" method="post">
 									<sec:csrfInput/>
+						
 									<input type="hidden" name="p_num" value="${reply.p_num}">
 									<input type="hidden" name="parent_rp_num" value="${reply.rp_num}">
+									
 									<td><input type="text" id = "rp_content" name = "rp_content"></td>
-									<td><button type="submit">대댓글등록</button></td>
-								</form>							
- 							
-<%--  								<td><button type="button" id="btnInsert" onclick="clickInsert(${reply.p_num},${reply.rp_num}">대댓글등록</button></td> --%>
- 
- 
- 
+								
+									<td><button type="submit"><img alt="image" src="${pageContext.request.contextPath}/board/img/pencil.png" style="width: 16px; height: 12px;">대댓글등록</button></td>
+							
+								</form>				
                            </tr>
 						</c:forEach>
 					</table>

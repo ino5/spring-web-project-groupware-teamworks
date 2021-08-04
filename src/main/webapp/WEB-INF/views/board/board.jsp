@@ -131,6 +131,34 @@ $("#boardSet").on("click", function () {
 	<div id="content">
 			<div id="board_table">
 				<section class="tool_bar">
+				 <h2>게시글 목록</h2>
+<form action="${pageContext.request.contextPath}/board/BoardSearchList" method="post">
+<sec:csrfInput/>
+
+
+				<table id="searchBox">
+					<tr>
+						<td>
+		<select name="searchOption">
+            <!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
+          			  <option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/> >제목+이름+제목</option>
+           			 <option value="m_id" <c:out value="${map.searchOption == 'm_id'?'selected':''}"/> >이름</option>
+           			  <option value="p_content" <c:out value="${map.searchOption == 'p_content'?'selected':''}"/> >내용</option>
+          			 <option value="p_name" <c:out value="${map.searchOption == 'p_name'?'selected':''}"/> >제목</option>
+          			 <option value="m_id">진짜이름</option>
+       	</select></td>
+						<td><input id="search" type="text" name="keyword"
+							value="${map.p_name}" placeholder="검색" size="20"><button type="submit" onclick="location.href='${pageContext.request.contextPath}/board/BoardSearchList'">버튼</button></td>
+						<td><img
+							src="${pageContext.request.contextPath}/board/img/search.png"
+							width="14px" height="13px"></td>
+					</tr>
+				</table>
+				 
+				 
+        </select>
+        			</form>
+</table>
 					<ul class="tool_ul">
 						<li><button type="button" class="btn2"onclick="location.href='${pageContext.request.contextPath}/board/write'">
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/pencil.png"><span style="font-weight: bold;"> 새글쓰기</span>
@@ -176,9 +204,7 @@ $("#boardSet").on("click", function () {
 					</tr>
 						</c:forEach>					
 					<c:forEach var="ps" items="${listPost}">
-					<form >
-						
-					</form>
+				
 					<tr>
 						<td style="text-align: center; ">
 							<input type="checkbox" name="check" id="chk_1" class="chk_1" value="${ps.p_num}">
@@ -198,7 +224,9 @@ $("#boardSet").on("click", function () {
 			<a href="?currentPage=${pg.startPage-pg.pageBlock}"></a>
 		</c:if>
 		<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
-			<a href="?currentPage=${i}">[${i}]</a>
+			<c:if test="${i > 0 }">
+				<a href="?currentPage=${i}">[${i}]</a>
+			</c:if>
 		</c:forEach>
 		<c:if test="${pg.endPage < pg.totalPage }">
 			<a href="?currentPage=${pg.startPage+pg.pageBlock}"></a>

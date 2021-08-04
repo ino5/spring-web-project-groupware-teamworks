@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +29,7 @@ import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
+import com.example.sproject.model.login.Member;
 import com.example.sproject.service.board.Paging;
 import com.example.sproject.service.board.BoardService;
 import com.google.gson.JsonObject;
@@ -106,10 +109,12 @@ public class BoardController {
 	}
 
 	@PostMapping(value = "insert")
-	public String insert(Post post, Model model, Board board ) throws Exception {
+	public String insert(Post post, Model model, Board board, Principal principal ) throws Exception {
 		System.out.println("BoardController Start insert..");
 		List<Board> listBoard = boardService.listBoard(board);
 		model.addAttribute("listBoard", listBoard);
+//		model.addAttribute("sessionId", principal.getName());
+		post.setM_id(principal.getName());
 		boardService.insert(post);
 		boardService.listSide(model);
 		return "redirect:/board";
@@ -167,7 +172,7 @@ public class BoardController {
         boardService.update(post);
         return "redirect:/board";
     }
-
+//게시글삭제
 	@RequestMapping(value="delete")
 	public String delete(int p_num, Model model) {
 		System.out.println("EmpController Start delete...");
@@ -302,7 +307,37 @@ public class BoardController {
 		       }
 		       boardService.boardNoticeGroup(groupList);
 		   }
-		   
+		   //검색하기 
+		   @RequestMapping("BoardSearchList")
+		 //@RequestParam(defaultValue="") ==> 기본값 할당
+		 public ModelAndView BoardSearchList(@RequestParam(defaultValue="m_id") String searchOption,
+		                      @RequestParam(defaultValue="") String keyword) throws Exception{
+			   System.out.println("board/BoardSearchList");
+			   System.out.println("searchOption: " + searchOption);
+			   System.out.println("keyword: " + keyword);
+			  List<Post> list = boardService.listAll(searchOption, keyword);
+			  System.out.println("list.size: "+ list.size());
+			  // 레코드의 갯수
+			  int count = boardService.countArticle(searchOption, keyword);
+			  System.out.println("count: " + count);
+			  // ModelAndView - 모델과 뷰
+			  ModelAndView mav = new ModelAndView();
+			  /*mav.addObject("list", list); // 데이터를 저장
+			  mav.addObject("count", count);
+			  mav.addObject("searchOption", searchOption);
+			  mav.addObject("keyword", keyword);*/
+			  // 데이터를 맵에 저장
+			  Map<String, Object> map = new HashMap<String, Object>();
+			  map.put("list", list); // list
+			  map.put("count", count); // 레코드의 갯수
+			  map.put("searchOption", searchOption); // 검색옵션
+			  map.put("keyword", keyword); // 검색키워드
+			  mav.addObject("map", map); // 맵에 저장된 데이터를 mav에 저장
+			  mav.addObject("listPost", list); // 맵에 저장된 데이터를 mav에 저장
+			  mav.setViewName("board/board");
+			  return mav; 
+			}
 }
+
 
 

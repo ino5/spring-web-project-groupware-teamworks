@@ -67,7 +67,6 @@
 	<div id="content">
 			<form name="form_insert" action="${pageContext.request.contextPath}/board/insert" method="post" enctype="multipart/form-data">
 				<sec:csrfInput/>
-				<input type="hidden" name="m_id" value="">
 				<section id="point">
 					<article class="pt pt1">
 						<table>

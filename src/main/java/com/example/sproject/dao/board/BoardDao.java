@@ -39,6 +39,9 @@ public interface BoardDao {
 	void boardGroup(List<String> groupList, int bd_num);
 	void boardDeleteGroup(List<String> groupList);
 	void boardNoticeGroup(List<String> groupList);
+	List<Post> listAll(String searchOption, String keyword);
+	int countArticle(String searchOption, String keyword);
+
 
 
 }

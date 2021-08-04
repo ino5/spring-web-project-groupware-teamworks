@@ -21,7 +21,9 @@
 a {
 	text-decoration: none
 }
-
+list_table td {
+	width: 30px;
+}
 #btn1:hover {
 	transition: all 0.2s linear;
 	transform: translate(0, -5%);
