@@ -34,6 +34,7 @@ public class SignController {
 	public String form(int cg_num, Model model) {
 		System.out.println("cg_num: " + cg_num);
 		String sgf_id = "draft";
+		model.addAttribute("jspType", "w");
 		return "sign/form/" + sgf_id;
 	}
 
@@ -41,9 +42,8 @@ public class SignController {
 	@RequestMapping(value = "insert", method = { RequestMethod.GET, RequestMethod.POST })
 	public String insert(@RequestParam(value = "sgl_m_id", required = false) String[] listOfm_idOfSignLine,
 			String sgf_id, HttpServletRequest req, @AuthenticationPrincipal Member sessionMember, Model model) {
-		System.out.println(
-				"-- com.example.sproject.controller.SignController.insert(String, HttpServletRequest, Member, Model)");
-
+		System.out.println("-- com.example.sproject.controller.SignController.insert(String, HttpServletRequest, Member, Model)");
+		
 		// 전자결재문서(SIGN 테이블) insert 하고 해당 sg_num 가져오기
 		int sg_num = signService.getSg_numOfNewSign(sessionMember.getM_id(), sgf_id); // 임시 테스트용
 

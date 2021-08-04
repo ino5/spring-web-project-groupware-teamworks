@@ -32,7 +32,21 @@
 		});
 	});
 </script>
-<!-- -->
+<!-- end of 썸머노트 -->
+
+<!-- jquery-ui sortable -->
+ <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+ </script>
+ <!-- end of jquery-ui sortable  -->
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
@@ -42,34 +56,48 @@
 <form method="post">
 	<sec:csrfInput/>
 	<div id="content">
-	
 		<div id="content_top">
+			<h1>content_top</h1>
+			<h1>${jspType}</h1>
+			<h1><c:if test="${jspType == 'w' }"> true</c:if></h1>
 			<div id="sign_line">
 				<h3>결재라인</h3>
-				m_id: <input type="text" name="sgl_m_id">
-				sgl_type: <input type="text" name="sgl_type">
-				<br>
-				m_id: <input type="text" name="sgl_m_id">
-				sgl_type: <input type="text" name="sgl_type">
-				<br>
-				m_id: <input type="text" name="sgl_m_id">
-				sgl_type: <input type="text" name="sgl_type">
-				<br>
-				
+				<ul id="sortable">
+					<li class="ui-state-default">
+						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						m_id: <input type="text" name="sgl_m_id">
+						sgl_type: <input type="text" name="sgl_type">						
+					</li>
+					<li class="ui-state-default">
+						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						m_id: <input type="text" name="sgl_m_id">
+						sgl_type: <input type="text" name="sgl_type">						
+					</li>
+					<li class="ui-state-default">
+						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						m_id: <input type="text" name="sgl_m_id">
+						sgl_type: <input type="text" name="sgl_type">						
+					</li>					
+				</ul>
 				<br><br>
 			</div>
 		</div>
+		
 		<div id="content_middle">
+			<h1>content_middle</h1>
 			<h3>문서 양식 : 업무 기안</h3>
 			<input type="hidden" name="sgf_id" value="draft">
 			제목: <input type="text" name="title">
 			<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
 				text test
-			</textarea>
-			<input type="submit" formaction="${pageContext.request.contextPath}/sign/insert">
-			
+			</textarea>			
 		</div>
-		<div id="content_bottom">content_bottom</div>
+		
+		<div id="content_bottom">
+			<br><br>
+			<h1>content_bottom</h1>
+			<input type="submit" formaction="${pageContext.request.contextPath}/sign/insert">
+		</div>
 	</div>
 </form>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
