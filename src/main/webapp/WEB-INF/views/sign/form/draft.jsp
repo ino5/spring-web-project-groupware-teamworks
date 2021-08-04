@@ -6,47 +6,27 @@
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <title>Insert title here</title>
-<!-- 썸머노트 -->
+<!-- 썸머노트  라이브러리-->
 <script src="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/board/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
-<script type="text/javascript">
-	$(document).ready(function() {
-		//여기 아래 부분
-		$('#summernote').summernote({
-			height : 600, // 에디터 높이
-			width:1200,
-
-			minHeight : null, // 최소 높이
-			maxHeight : null, // 최대 높이
-			focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-			lang : "ko-KR", // 한글 설정
-			placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-			callbacks: {	//이미지 첨부하는 부분
-		               onImageUpload : function(files) {
-		            	   	alert("onImageUpload : function");
-		                    uploadSummernoteImageFile(files[0],this);
-		                }
-		            }
-
-		});
-	});
-</script>
 <!-- end of 썸머노트 -->
+<!-- 썸머노트 관련 js -->
+<script src="${pageContext.request.contextPath}/sign/js/scriptForSummernote"></script>
 
 <!-- jquery-ui sortable -->
- <style>
-  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-  #sortable li span { position: absolute; margin-left: -1.3em; }
-  </style>
-  <script>
-  $( function() {
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
-  } );
- </script>
- <!-- end of jquery-ui sortable  -->
+<style>
+  	#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  	#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; position: relative; }
+	#sortable li span { position: absolute; margin-left: -1.3em; }
+ </style>
+<script>
+	$(function() {
+		$( "#sortable" ).sortable();
+	    $( "#sortable" ).disableSelection();
+	});
+</script>
+<!-- end of jquery-ui sortable  -->
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
@@ -59,22 +39,26 @@
 		<div id="content_top">
 			<h1>content_top</h1>
 			<h1>${jspType}</h1>
+			<h2>${mapOfsignContent.title}</h2>
+			<h2>${mapOfsignContent.dv_id}</h2>
 			<h1><c:if test="${jspType == 'w' }"> true</c:if></h1>
 			<div id="sign_line">
 				<h3>결재라인</h3>
+				<span class="ic ic_drag"></span>11
+				<span class="ic"></span>22
 				<ul id="sortable">
 					<li class="ui-state-default">
-						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						<span class="ic ic_drag"></span>
 						m_id: <input type="text" name="sgl_m_id">
 						sgl_type: <input type="text" name="sgl_type">						
 					</li>
 					<li class="ui-state-default">
-						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						<span class="ic ic_drag"></span>
 						m_id: <input type="text" name="sgl_m_id">
 						sgl_type: <input type="text" name="sgl_type">						
 					</li>
 					<li class="ui-state-default">
-						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						<span class="ic ic_drag"></span>
 						m_id: <input type="text" name="sgl_m_id">
 						sgl_type: <input type="text" name="sgl_type">						
 					</li>					
@@ -87,10 +71,24 @@
 			<h1>content_middle</h1>
 			<h3>문서 양식 : 업무 기안</h3>
 			<input type="hidden" name="sgf_id" value="draft">
-			제목: <input type="text" name="title">
-			<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
-				text test
-			</textarea>			
+			<div id="div_title">
+				<c:if test="${jspType == 'r'}">
+					${mapOfsignContent.title }
+				</c:if>			
+				<c:if test="${jspType == 'w'}">
+					제목: <input type="text" name="title">
+				</c:if>
+			</div>
+			<div id="div_content">
+				<c:if test="${jspType == 'r'}">
+					${mapOfsignContent.content}
+				</c:if>
+				<c:if test="${jspType == 'w'}">
+					<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
+						text test
+					</textarea>
+				</c:if>
+			</div>					
 		</div>
 		
 		<div id="content_bottom">
@@ -103,6 +101,22 @@
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 <!-- 썸머노트 -->
 <script>
+	$('#summernote').summernote({
+		height : 600, // 에디터 높이
+		width:1200,
+	
+		minHeight : null, // 최소 높이
+		maxHeight : null, // 최대 높이
+		focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+		lang : "ko-KR", // 한글 설정
+		placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
+		callbacks: {	//이미지 첨부하는 부분
+	               onImageUpload : function(files) {
+	                    uploadSummernoteImageFile(files[0],this);
+	                }
+	            }
+	
+	});
 	function uploadSummernoteImageFile(file, editor) {
 	    data = new FormData();
 	    data.append("file", file);
@@ -118,9 +132,7 @@
 	        }
 	    });
 	}
-	//$('#summernote').summernote('enable');
-	//$('#summernote').summernote('disable');
 </script>
-<!--  -->
+<!-- end of 썸머노트  -->
 </body>
 </html>

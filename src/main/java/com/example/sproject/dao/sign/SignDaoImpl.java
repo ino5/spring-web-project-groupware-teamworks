@@ -48,6 +48,21 @@ public class SignDaoImpl implements SignDao {
 		map.put("listOfSignLine", listOfSignLine);
 		return session.insert("insertSignLinesOfSign", map);
 	}
+
+	@Override
+	public List<Sign> selectListSignOfProposalProcessing(String m_id) {
+		return session.selectList("selectListSignOfProposalProcessing", m_id);
+	}
+
+	@Override
+	public List<SignContent> selectListSignContent(int sg_num) {
+		return session.selectList("selectListSignContentOfSign", sg_num);
+	}
+
+	@Override
+	public Sign selectOneSign(int sg_num) {
+		return session.selectOne("selectOneSignOfSign", sg_num);
+	}
 	
 	
 }

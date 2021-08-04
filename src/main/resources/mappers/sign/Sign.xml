@@ -51,5 +51,17 @@
 				SYSDATE
 			)
 		</foreach>
-	</insert>	
+	</insert>
+	
+	<select id="selectListSignOfProposalProcessing" parameterType="String" resultType="com.example.sproject.model.sign.Sign">
+		SELECT s.*, sc.sgc_content title FROM sign s, sign_content sc WHERE s.sg_num = sc.sg_num AND sc.sgfc_id = 'title' 
+	</select>
+	
+	<select id="selectListSignContentOfSign" parameterType="int" resultType="com.example.sproject.model.sign.SignContent">
+		SELECT * FROM sign_content WHERE sg_num = #{sg_num}
+	</select>
+
+	<select id="selectOneSignOfSign" parameterType="int" resultType="com.example.sproject.model.sign.Sign">
+		SELECT * FROM sign WHERE sg_num = #{sg_num}
+	</select>
 </mapper>

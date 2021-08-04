@@ -1,7 +1,9 @@
 package com.example.sproject.service.sign;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sproject.dao.sign.SignDao;
+import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
 import com.example.sproject.model.sign.SignLine;
 
@@ -79,6 +82,31 @@ public class SignServiceImpl implements SignService {
 			listOfSignLine.add(signLine);
 		}
 		return listOfSignLine;
+	}
+
+
+	@Override
+	public List<Sign> listSignOfProposalProcessing(String m_id) {
+		List<Sign> listOfSignOfProposalProcessing = signDao.selectListSignOfProposalProcessing(m_id);
+		return listOfSignOfProposalProcessing;
+	}
+
+
+	@Override
+	public Map<String, Object> findMapOfSignContent(int sg_num) {
+		Map<String, Object> mapOfSignContent = new HashMap<String, Object>();
+		List<SignContent> ListOfSignContent = signDao.selectListSignContent(sg_num);
+		for(SignContent signContent : ListOfSignContent) {
+			mapOfSignContent.put(signContent.getSgfc_id(), signContent.getSgc_content());
+		}
+		return mapOfSignContent;
+	}
+
+
+	@Override
+	public Sign selectOneSign(int sg_num) {
+		Sign sign = signDao.selectOneSign(sg_num);
+		return sign;
 	}
 
 }

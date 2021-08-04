@@ -1,9 +1,12 @@
 package com.example.sproject.service.sign;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.sproject.model.sign.Sign;
+import com.example.sproject.model.sign.SignContent;
 import com.example.sproject.model.sign.SignLine;
 
 public interface SignService {
@@ -15,5 +18,11 @@ public interface SignService {
 	int insertSignLines(List<SignLine> listOfSignLine);
 
 	List<SignLine> convertToListOfSignLine(int sg_num, String[] listOfm_idOfSignLine);
+
+	List<Sign> listSignOfProposalProcessing(String m_id);
+
+	Map<String, Object> findMapOfSignContent(int sg_num);
+
+	Sign selectOneSign(int sg_num);
 
 }
