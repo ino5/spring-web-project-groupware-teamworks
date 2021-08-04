@@ -10,7 +10,7 @@
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-
+		<%@include file = "/WEB-INF/views/drive/side.jsp" %>
 	</div>
 	<div id="content">
 		drive/uploadForm.jsp <br>

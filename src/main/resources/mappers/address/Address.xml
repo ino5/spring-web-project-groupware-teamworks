@@ -6,35 +6,124 @@
 
 <!-- 	전체 -->
 
-	<select id="memberCnt" resultType="int">
-		SELECT COUNT(*) FROM MEMBER WHERE M_STATUS = 1
+	<select id="memberCntOfAddress" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE m_status IN (1,11)
 	</select>
 	
 	<select id="memberListOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
     <![CDATA[
-         select * from (select rownum rn, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
-		 (select * from member where m_status = 1 order by m_name) a, position p, department d 
+         select * from (select rownum rn, a.m_id, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		 (select * from member where m_status IN (1,11) order by m_name) a, position p, department d 
 		 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code) 
     	 where rn >= #{start} and rn <= #{end} 
      ]]>	 
     </select>
     
-    <select id="addressGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.address.AddressGroup">
+    <select id="addressGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.address.Address_Group">
     	select * from address_Group where m_id = #{m_id}
     </select>
     
 <!--     그룹 -->
     
-    <select id="personalCnt" resultType="int">
-		select count(*) from address ad, address_group ag where ad.adg_num = ag.adg_num and ad.adg_num = ${adg_num}
+    <select id="personalCntOfAddress" resultType="int">
+		select count(*) from address ad, address_group ag where ad.adg_num = ag.adg_num and ad.adg_num = #{adg_num}
 	</select>
     
     <select id="personalGroupListOfAddress" parameterType="java.lang.String" resultType="com.example.sproject.model.login.Member">
     <![CDATA[
-                select * from (select rownum rn, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
-		 (select * from member where m_status = 1 and m_id IN (select ad.m_id from address ad, address_group ag where ad.adg_num = ag.adg_num and ad.adg_num = ${adg_num}) order by m_name) a, position p, department d
+    	select * from (select rownum rn, a.m_id, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		 (select * from member where m_status IN (1,11) and m_id IN (select ad.m_id from address ad, address_group ag 
+		 where ad.adg_num = ag.adg_num and ad.adg_num = #{adg_num}) order by m_name) a, position p, department d
 		 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code) 
     	 where rn >= #{start} and rn <= #{end} 
      ]]>	 
     </select>
+    
+<!--    초성 자음 검색 -->
+	<select id="searchListOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+	<![CDATA[
+		select * from (select a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		(select * from member where m_status IN (1,11) and m_id IN (select m_id from member 
+		where m_name > nchr(#{start_num}) and  m_name < nchr(#{end_num})) order by m_name) a, position p, department d
+		where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code)
+	]]>	 
+	</select>
+	
+	<select id="searchListDeptOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+	<![CDATA[
+		select * from (select a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		(select * from member where m_status IN (1,11) and m_id IN (select m_id from member 
+		where m_name > nchr(#{start_num}) and  m_name < nchr(#{end_num})) order by m_name) a, position p, department d
+		where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code and a.dpt_code = #{dpt_code})
+	]]>	 
+	</select>
+	
+		<select id="searchListPersonalOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+	<![CDATA[
+		select * from (select a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		(select * from member where m_status IN (1,11) and m_id IN (select ad.m_id from address ad, address_group ag
+		where ad.adg_num = ag.adg_num and ad.adg_num = #{adg_num}) order by m_name) a, position p, department d
+		where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code and a.m_name > nchr(#{start_num}) and  a.m_name < nchr(#{end_num}))
+	]]>	 
+	</select>
+	
+	<select id="searchTotalOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="int">
+	<![CDATA[
+		select count(*) from member where m_name >= nchr(#{start_num}) and  m_name < nchr(#{end_num}) and m_status IN (1,11)
+	]]>
+	</select>
+	
+	<insert id="simpleAddOfAddess" parameterType="com.example.sproject.model.login.Member">
+		insert into member (m_id, m_name, m_email, m_phone, dpt_code, pt_code, m_status) values (#{m_id}, #{m_name}, #{m_email}, #{m_phone}, 'none', 'none', 11)
+	</insert>
+	
+	<insert id="groupAddOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		insert into address_group (adg_num, m_id, adg_name) values ((select nvl(max(adg_num),0) +1 from address_group) , #{m_id}, #{adg_name})
+	</insert>
+	
+	<delete id="addressDelOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		delete from address where adg_num = #{adg_num}
+	</delete>
+	
+	<delete id="groupDelOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		delete from address_group where adg_num = #{adg_num} and m_id = #{m_id}
+	</delete>
+	
+	<update id="groupNameUpdateOfAddress" parameterType="com.example.sproject.model.address.Address_Group">
+		update address_group set adg_name = #{adg_name} where adg_num = #{adg_num} and m_id = #{m_id}
+	</update>
+	
+	<select id="listDeptGroupOfAddress" resultType="com.example.sproject.model.address.Department">
+		select * from department
+	</select>
+	
+	<select id="deptCntOfAddress" parameterType="java.lang.String" resultType="int">
+		select count(*) from member where dpt_code = #{dpt_code}
+	</select>
+	
+ 	<select id="DeptGroupListOfAddress" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+	<![CDATA[
+		 select * from (select rownum rn, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		 (select * from member where m_status IN (1,11) order by m_name) a, position p, department d 
+		 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code and a.dpt_code = #{dpt_code}) 
+    	 where rn >= #{start} and rn <= #{end} 
+   	]]>	 
+	</select>
+	
+	<delete id="memberDeleteOfAddress" parameterType="Map">
+		delete from address where m_id = #{m_id} and adg_num = #{adg_num}
+	</delete>
+	
+	<insert id="memberGroupOfAddress" parameterType="Map">
+		insert into address (adg_num, m_id) values (#{adg_num}, #{m_id})
+	</insert>
+	
+	<select id="listPtGroupOfAddress" resultType="com.example.sproject.model.address.Position">
+		select * from position
+	</select>
+	
+	<insert id="addressAddOfAddress" parameterType="com.example.sproject.model.login.Member">
+		insert into member (m_id, m_name, m_empnum, m_birth, m_phone, m_email, dpt_code, pt_code, m_status) values 
+		(#{m_id}, #{m_name}, #{m_empnum}, #{m_birth}, #{m_phone}, #{m_email}, #{dpt_code}, #{pt_code}, 11)
+	</insert>
 </mapper>

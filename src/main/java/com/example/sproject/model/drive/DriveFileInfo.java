@@ -2,10 +2,14 @@ package com.example.sproject.model.drive;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class DriveFile {
+@NoArgsConstructor
+@AllArgsConstructor
+public class DriveFileInfo {
 	String dv_id;
 	String m_id;
 	String dv_filename;

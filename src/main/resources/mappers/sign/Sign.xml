@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.sign.SignDao">
+	<select id="selectListSignFormComponentOfSign" parameterType="String" resultType="com.example.sproject.model.sign.SignContent">
+		SELECT * FROM sign_form_component WHERE sgf_id = #{sgf_id}
+	</select>
+	
+	<insert id="insertSignContentsOfSign" parameterType="Map">
+		<foreach collection="signContentList" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO sign_content(
+				sg_num,
+				sgf_id,
+				sgfc_id,
+				sgc_content
+			) VALUES (
+				#{item.sg_num},
+				#{item.sgf_id},
+				#{item.sgfc_id}, 
+				#{item.sgc_content, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	
+	<select id="selectOneMaxSg_numOfSignOfSign" resultType="int">
+		SELECT NVL(MAX(sg_num), 0) FROM sign
+	</select>
+	
+	<insert id="insertSignOfSign" parameterType="com.example.sproject.model.sign.Sign">
+		INSERT INTO sign(sg_num, m_id, sgf_id, sg_regdate)
+		VALUES (#{sg_num}, #{m_id}, #{sgf_id}, SYSDATE)
+	</insert>
+	
+	<insert id="insertSignLinesOfSign" parameterType="Map">
+		<foreach collection="listOfSignLine" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO sign_line(
+				sg_num,
+				m_id,
+				sgl_type,
+				sgl_status,
+				sgl_order,
+				
+				sgl_regdate
+			) VALUES (
+				#{item.sg_num},
+				#{item.m_id},
+				#{item.sgl_type}, 
+				#{item.sgl_status},
+				#{item.sgl_order},
+				
+				SYSDATE
+			)
+		</foreach>
+	</insert>	
+</mapper>

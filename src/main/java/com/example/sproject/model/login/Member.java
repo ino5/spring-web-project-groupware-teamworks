@@ -22,7 +22,6 @@ public class Member implements UserDetails{
 	private String m_name;
 	private int m_empnum;
 	private String m_birth;
-	private String m_exnum;
 	private String m_phone;
 	private String m_email;
 	private String dpt_code;
@@ -36,7 +35,10 @@ public class Member implements UserDetails{
 	private String dpt_name;
 //  address
 	private int adg_num;
-	// 조회용
+//  address 검색
+	private int start_num;
+	private int end_num;
+//  조회용
 	private String search;   private String keyword;
 	private String pageNum;  
 	private int start; 		 private int end;	

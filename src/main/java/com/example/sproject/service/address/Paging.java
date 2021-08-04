@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Paging {
-	private int currentPage = 1;	private int rowPage   = 10;
-	private int pageBlock = 10;		
+	private int currentPage = 1;	private int rowPage   = 20;
+	private int pageBlock = 20;		
 	private int start;				private int end;
 	private int startPage;			private int endPage;
 	private int total;				private int totalPage;

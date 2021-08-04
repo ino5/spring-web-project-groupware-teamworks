@@ -1,6 +1,8 @@
 package com.example.sproject.dao.common;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,26 @@ public class CommonGroupDaoImpl implements CommonGroupDao {
 	
 	@Override
 	public List<CommonGroup> selectList(String tb_code) {
-		return session.selectList("selectListOfCommonGroup", tb_code);
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		return session.selectList("selectListOfCommonGroup", commonGroup);
+	}
+
+	@Override
+	public List<CommonGroup> selectList(String tb_code, int cg_ref) {
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_ref(cg_ref);
+		return session.selectList("selectListOfCommonGroup", commonGroup);
+	}	
+	
+	@Override
+	public List<CommonGroup> selectList(String tb_code, int cg_ref, int cg_depth) {
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_ref(cg_ref);
+		commonGroup.setCg_depth(cg_depth);
+		return session.selectList("selectListOfCommonGroup", commonGroup);
 	}
 
 	@Override
@@ -47,5 +68,24 @@ public class CommonGroupDaoImpl implements CommonGroupDao {
 	public CommonGroup selectOneParentCommonGroup(CommonGroup commonGroup) {
 		return session.selectOne("selectOneParentOfCommonGroup", commonGroup);
 	}
+
+	@Override
+	public int deleteCommonGroup(CommonGroup commonGroup) {
+		return session.delete("deleteCommonGroupOfCommonGroup", commonGroup);
+	}
+
+	@Override
+	public int updateCommonGroup(CommonGroup commonGroup) {
+		return session.update("updateCommonGroupOfCommonGroup", commonGroup);
+	}
+
+	@Override
+	public CommonGroup selectOneCommonGroup(CommonGroup commonGroup) {
+		return session.selectOne("selectOneCommonGroupOfCommonGroup", commonGroup);
+	}
+
+
+
+
 
 }

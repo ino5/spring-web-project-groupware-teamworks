@@ -33,7 +33,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**/css/**", "/**/js/**", "/**/img/**", "/**/lib/**", "/**/upload/**", "/summernoteImage/**", "/resource/**");
+		web.ignoring().antMatchers("/**/css/**", "/**/js/**", "/**/img/**", "/**/lib/**", "/upload/**", "/summernoteImage/**", "/resource/**");
 	}
 	
 	
@@ -42,6 +42,8 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
         //URL 권한 체크
 		http.authorizeRequests()
 //	        .antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/drive/**").authenticated()
+			.antMatchers("/sign/**").authenticated()
 	        .antMatchers("/**/test/**").permitAll()
 	        .antMatchers("/talk/**").authenticated()
 	        .antMatchers("/**").permitAll();
