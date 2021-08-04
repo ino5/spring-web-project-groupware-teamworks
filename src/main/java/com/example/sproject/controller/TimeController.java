@@ -25,7 +25,11 @@ public class TimeController {
 		System.out.println("TimeController Start index..." );
 		String m_id = principal.getName();
 		Time mainTime = times.mainTime(m_id);
+		List<Time> timeList_sdate = times.timeList_sdate(m_id);
+		List<Time> timeList_edate = times.timeList_edate(m_id);
 		model.addAttribute("mainTime", mainTime);
+		model.addAttribute("timeList_sdate", timeList_sdate);
+		model.addAttribute("timeList_edate", timeList_edate);
 		return "time/time";
 	}
 	@RequestMapping("123")

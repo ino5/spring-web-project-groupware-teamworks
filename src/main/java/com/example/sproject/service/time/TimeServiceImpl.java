@@ -31,4 +31,15 @@ public class TimeServiceImpl implements TimeService {
 		
 	}
 
+	@Override
+	public List<Time> timeList_sdate(String m_id) {
+		List<Time> timeList_sdate = timeDao.timeList_sdate(m_id);
+		return timeList_sdate;
+	}
+
+	@Override
+	public List<Time> timeList_edate(String m_id) {
+		List<Time> timeList_edate = timeDao.timeList_edate(m_id);
+		return timeList_edate;
+	}
 }

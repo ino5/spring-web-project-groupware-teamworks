@@ -197,10 +197,13 @@
 	font-size: 15px;
 }
 
-.div_day {
+.div_week table {
 	font-size: 15px;
 	margin-top: 40px;
 	display: none;
-	width: 100%;
+}
+
+.div_week table td {
+	width: 300px;
 }
 

@@ -128,39 +128,52 @@
               cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
          }
 		var row_num = 1;
+		var m = (today.getMonth() + 1 > 9 ? today.getMonth() + 1 : '0'+ Number(today.getMonth() + 1));
 		for (i=1; i<=(lastDate.getDate()+cnt) /7 + 1; i++){
-			$('#calendar').append("<div id='week_"+ row_num + "' class='div_week'><img id='week_img" + row_num + "' class='week_img' src='${pageContext.request.contextPath}/time/img/down.png' onclick='javascript:dayShow(day_"+ row_num + ")'> &nbsp&nbsp&nbsp" + row_num + "주차</div>");
+			$('#calendar').append("<div id='week_"+ row_num + "' class='div_week'><img id='week_img" + row_num + "' class='week_img' src='${pageContext.request.contextPath}/time/img/down.png' onclick='javascript:dayShow("+ row_num + ")'> &nbsp&nbsp&nbsp" + row_num + "주차</div>");
 			row_num++;
 		}
 		for(i=1; i<=row_num; i++){
-			$('#week_'+i).append("<table id = 'day_"+ i + "' class='tb_title'><tr><td>일자</td><td>업무시작</td><td>업무종료</td><td>총근무시간</td></tr></table>");
+			$('#week_'+i).append("<table class = 'day_"+ i + "' class='tb_title'><tr><td>일자</td><td>업무시작</td><td>업무종료</td><td>총근무시간</td></tr></table>");
 		}
 		for(i=1; i<=lastDate.getDate(); i++){
 			if(cnt + i <= 7){
-				$('#week_1').append("<div id = 'day_1' class='div_day'>" + i + "일</div>");
+				$('#week_1').append("<table id = '"+today.getFullYear() + "-" + m + "-" + "0" + i + "' class='day_1'><tr><td>" + i + "일</td></tr></table>");
 			}
 			else if(cnt + i <= 14){
-				$('#week_2').append("<div id = 'day_2' class='div_day'>" + i + "일</div>");
+				if(i < 10){
+					$('#week_2').append("<table id = '"+today.getFullYear() + "-" + m + "-" + "0" + i + "' class='day_2'><tr><td>" + i + "일</td></tr></table>");
+				}
+				else {
+					$('#week_2').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_2'><tr><td>" + i + "일</td></tr></table>");
+				}
 			}
 			else if(cnt + i <= 21){
-				$('#week_3').append("<div id = 'day_3' class='div_day'>" + i + "일</div>");
+				$('#week_3').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_3'><tr><td>" + i + "일</td></tr></table>");
 			}
 			else if(cnt + i <= 28){
-				$('#week_4').append("<div id = 'day_4' class='div_day'>" + i + "일</div>");
+				$('#week_4').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_4'><tr><td>" + i + "일</td></tr></table>");
 			}
 			else if(cnt + i <= 35){
-				$('#week_5').append("<div id = 'day_5' class='div_day'>" + i + "일</div>");
+				$('#week_5').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_5'><tr><td>" + i + "일</td></tr></table>");
 			}
 		}
+			<c:forEach items="${timeList_sdate}" var="start">
+			$('#${start.tm_sdate } > tbody > tr:last').append('<td>${start.tm_sdate_time}</td>'); 
+			</c:forEach>
+			<c:forEach items="${timeList_edate}" var="end">
+			$('#${end.tm_edate } > tbody > tr:last').append('<td>${end.tm_edate_time}</td>'); 
+			</c:forEach>
+
 
     }
 	
 	
 	function dayShow(i) {
-		if ($(i).is(":visible")) {
-			$(i).hide();
+		if ($('.day_' + i).is(":visible")) {
+			$('.day_' + i).hide();
 		} else {
-			$(i).show();
+			$('.day_' + i).show();
 		}
 	}
 </script>
@@ -252,6 +265,7 @@
 			buildCalendar();
 		</script>
 		<br>
+
 	</div>
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>

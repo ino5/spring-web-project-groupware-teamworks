@@ -31,4 +31,16 @@ public class TimeDaoImpl implements TimeDao {
 		
 	}
 
+	@Override
+	public List<Time> timeList_sdate(String m_id) {
+		List<Time> timeList_sdate = session.selectList("timeList_sdateOfTime", m_id);
+		return timeList_sdate;
+	}
+	
+	@Override
+	public List<Time> timeList_edate(String m_id) {
+		List<Time> timeList_edate = session.selectList("timeList_edateOfTime", m_id);
+		return timeList_edate;
+	}
+
 }
