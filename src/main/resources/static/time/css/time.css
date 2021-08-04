@@ -164,7 +164,6 @@
 	font-weight: bold;
 	font-size: 26px;
 	display: block;
-	margin-top: 100px;
 	margin-left: 45%;
 }
 
@@ -175,3 +174,33 @@
 	width: 80%;
 	border-collapse : collapse;
 }
+
+.div_week {
+	width: 100%;
+	font-size: 20px;	
+	margin: 50px 0px;
+}
+
+.week_img {
+	width: 14px; 
+	height: 14px;
+	cursor: pointer;
+}
+
+.tb_title {
+	display: none;
+	margin-top: 40px;
+}
+
+.tb_title td {
+	width: 300px;
+	font-size: 15px;
+}
+
+.div_day {
+	font-size: 15px;
+	margin-top: 40px;
+	display: none;
+	width: 100%;
+}
+
