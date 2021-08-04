@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.sproject.dao.address.TimeDao">
+	<insert id="startTimeOfTime" parameterType="com.example.sproject.model.time.Time">
+		insert into time (tm_num, m_id, tm_type, tm_sdate) values((select nvl(max(tm_num),0) +1 from time), #{m_id}, 
+		1, to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'))
+	</insert>
+	<select id="mainTimeOfTime" parameterType="java.lang.String" resultType="com.example.sproject.model.time.Time">
+		select substr(tm_sdate,12,8) tm_sdate, substr(tm_edate,12,8) tm_edate from time where m_id = #{m_id} and substr(tm_sdate,1,10) = to_char(sysdate,'yyyy-mm-dd')
+	</select>
+	<update id="endTimeOfTime" parameterType="com.example.sproject.model.time.Time">
+		update time set tm_type = 2, tm_edate = to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where m_id = #{m_id} and tm_type= 1
+		and substr(tm_sdate,1,10) = to_char(sysdate,'yyyy-mm-dd')
+	</update>
+</mapper>
