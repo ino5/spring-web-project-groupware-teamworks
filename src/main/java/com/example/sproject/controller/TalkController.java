@@ -35,71 +35,71 @@ public class TalkController {
 	List<Room> roomList = new ArrayList<Room>();
 	static int roomNumber = 0; // 메모리에 한번 할당되어 프로그램이 종료될 때 해제되는 것을 의미
 	
-	@RequestMapping("/talker")
-	public ModelAndView chat() {
-		System.out.println("SocketController talker Start...");
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("talk/talk");
-		return mv;
-	}
+//	@RequestMapping("/talker")
+//	public ModelAndView chat() {
+//		System.out.println("SocketController talker Start...");
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("talk/talk");
+//		return mv;
+//	}
 	
 	/**
 	 * 방 페이지
 	 * @return
 	 */
-	@RequestMapping("/room")
-	public ModelAndView room() {
-		System.out.println("SocketController room Start...");
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("talk/room");
-		return mv;
-	}
+//	@RequestMapping("/room")
+//	public ModelAndView room() {
+//		System.out.println("SocketController room Start...");
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("talk/room");
+//		return mv;
+//	}
 	// Model -> model.addAttribute를 사용하여 데이터만 저장
 	// ModelAndView -> 데이터와 이동하고자 하는 View Page를 같이 저장
 
-	@RequestMapping("/Member")
-	public ModelAndView Member(@AuthenticationPrincipal Member sessionMember) {
-		System.out.println("SocketController MemberList Start...");
-		ModelAndView mv = new ModelAndView();
-		
-		String m_id = null;
-		String m_name = null;
-		if(sessionMember != null) {
-			System.out.println("sessionMember: " + sessionMember);
-			m_id = sessionMember.getM_id();
-			m_name = sessionMember.getM_name();
-			mv.addObject("m_id", m_id);
-			mv.addObject("m_name", m_name);
-		}
-
-
-		List<Member> memberList = talkService.selectMemberList(m_id);
-		mv.addObject("memberList", memberList);
-		mv.setViewName("talk/Member");
-		return mv;
-	}
+//	@RequestMapping("/Member")
+//	public ModelAndView Member(@AuthenticationPrincipal Member sessionMember) {
+//		System.out.println("SocketController MemberList Start...");
+//		ModelAndView mv = new ModelAndView();
+//		
+//		String m_id = null;
+//		String m_name = null;
+//		if(sessionMember != null) {
+//			System.out.println("sessionMember: " + sessionMember);
+//			m_id = sessionMember.getM_id();
+//			m_name = sessionMember.getM_name();
+//			mv.addObject("m_id", m_id);
+//			mv.addObject("m_name", m_name);
+//		}
+//
+//
+//		List<Member> memberList = talkService.selectMemberList(m_id);
+//		mv.addObject("memberList", memberList);
+//		mv.setViewName("talk/Member");
+//		return mv;
+//	}
 	
-	@RequestMapping("/MemberList")
-	public ModelAndView MemberList(@AuthenticationPrincipal Member sessionMember) {
-		System.out.println("SocketController MemberList Start...");
-		ModelAndView mv = new ModelAndView();
-		
-		String m_id = null;
-		String m_name = null;
-		if(sessionMember != null) {
-			System.out.println("sessionMember: " + sessionMember);
-			m_id = sessionMember.getM_id();
-			m_name = sessionMember.getM_name();
-			mv.addObject("m_id", m_id);
-			mv.addObject("m_name", m_name);
-		}
-
-
-		List<Member> memberList = talkService.selectMemberList(m_id);
-		mv.addObject("memberList", memberList);
-		mv.setViewName("talk/MemberList");
-		return mv;
-	}
+//	@RequestMapping("/MemberList")
+//	public ModelAndView MemberList(@AuthenticationPrincipal Member sessionMember) {
+//		System.out.println("SocketController MemberList Start...");
+//		ModelAndView mv = new ModelAndView();
+//		
+//		String m_id = null;
+//		String m_name = null;
+//		if(sessionMember != null) {
+//			System.out.println("sessionMember: " + sessionMember);
+//			m_id = sessionMember.getM_id();
+//			m_name = sessionMember.getM_name();
+//			mv.addObject("m_id", m_id);
+//			mv.addObject("m_name", m_name);
+//		}
+//
+//
+//		List<Member> memberList = talkService.selectMemberList(m_id);
+//		mv.addObject("memberList", memberList);
+//		mv.setViewName("talk/MemberList");
+//		return mv;
+//	}
 	/**
 	 * 방 생성하기
 	 * @param params
@@ -135,57 +135,57 @@ public class TalkController {
 //		return roomList;
 //	}
 	
-	/**
-	 * 채팅방
-	 * @return
-	 */
-	@RequestMapping("/moveChating")
-	public ModelAndView chating(String m_id2, @AuthenticationPrincipal Member sessionMember) {
-		System.out.println("SocketController moveChating Start...");
-		ModelAndView mv = new ModelAndView();
-		
-		//세션 아이디 정보 가져오기
-		String m_id = null;
-		String m_name = null;
-		if(sessionMember != null) {
-			m_id = sessionMember.getM_id();
-			m_name = sessionMember.getM_name();
-			mv.addObject("m_id", m_id);
-			mv.addObject("m_name", m_name);
-		}
-		System.out.println("m_id: " + m_id);
-		
-		//멤버리스트 가져오기
-		List<Member> memberList = talkService.selectMemberList(m_id);
-		mv.addObject("memberList", memberList);
-		
-		//일대일 채팅방 가져오기
-		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
-		System.out.println(room);
-		mv.addObject("roomName", room.getTkrm_name());
-		mv.addObject("roomNumber", room.getTkrm_num());
-		
-		//채팅 기록 가져오기
-		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
-		mv.addObject("talkList", talkList);
-		mv.setViewName("talk/MemberList");
-		
-//		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
-//		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
-//		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
-//		if(new_list != null && new_list.size() > 0) {
-//			mv.addObject("roomName", params.get("roomName"));
-//			mv.addObject("roomNumber", params.get("roomNumber"));
+//	/**
+//	 * 채팅방
+//	 * @return
+//	 */
+//	@RequestMapping("/moveChating")
+//	public ModelAndView chating(String m_id2, @AuthenticationPrincipal Member sessionMember) {
+//		System.out.println("SocketController moveChating Start...");
+//		ModelAndView mv = new ModelAndView();
+//		
+//		//세션 아이디 정보 가져오기
+//		String m_id = null;
+//		String m_name = null;
+//		if(sessionMember != null) {
+//			m_id = sessionMember.getM_id();
+//			m_name = sessionMember.getM_name();
 //			mv.addObject("m_id", m_id);
-//			List<Talk> talkList = talkService.selectChat(roomNumber);
-//			mv.addObject("talkList", talkList);
-//			
-//			mv.setViewName("talk/talk");
-//		}else {
-//			mv.setViewName("talk/room");
+//			mv.addObject("m_name", m_name);
 //		}
-		return mv;
-	}
+//		System.out.println("m_id: " + m_id);
+//		
+//		//멤버리스트 가져오기
+//		List<Member> memberList = talkService.selectMemberList(m_id);
+//		mv.addObject("memberList", memberList);
+//		
+//		//일대일 채팅방 가져오기
+//		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
+//		System.out.println(room);
+//		mv.addObject("roomName", room.getTkrm_name());
+//		mv.addObject("roomNumber", room.getTkrm_num());
+//		
+//		//채팅 기록 가져오기
+//		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
+//		mv.addObject("talkList", talkList);
+//		mv.setViewName("talk/MemberList");
+//		
+////		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+////		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+////		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
+////		if(new_list != null && new_list.size() > 0) {
+////			mv.addObject("roomName", params.get("roomName"));
+////			mv.addObject("roomNumber", params.get("roomNumber"));
+////			mv.addObject("m_id", m_id);
+////			List<Talk> talkList = talkService.selectChat(roomNumber);
+////			mv.addObject("talkList", talkList);
+////			
+////			mv.setViewName("talk/talk");
+////		}else {
+////			mv.setViewName("talk/room");
+////		}
+//		return mv;
+//	}
 	
 	@RequestMapping("/getMemberList")
 	@ResponseBody

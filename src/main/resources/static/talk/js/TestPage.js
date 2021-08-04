@@ -1,8 +1,8 @@
 let global_res;
 let global_room;
 let isMyMessage = 0;
-let is_clicked_groupchat = false;
-
+let isClickedGroupchat = false;
+let isClickEventKeypressEnter = false;
 $(document).ready(function() {
  	//멤버리스트 보이기
 	$("#Test").on("click", function () {
@@ -50,7 +50,7 @@ $(document).ready(function() {
 				//멤버리스트 가져오기
 				let memberList = res.memberList;
 				
-				if(!is_clicked_groupchat) {
+				if(!isClickedGroupchat) {
 					for(var i = 0; i<memberList.length; i++) { 
 	   					 $('#makegroup').append(
 	   					 	'<input type="hidden" id="m_id2" value="'
@@ -61,7 +61,7 @@ $(document).ready(function() {
 	   					 	+ memberList[i].m_name
 	   					 ); 
 					}
-					is_clicked_groupchat = true;			
+					isClickedGroupchat = true;			
 				}	
 				$('.modal').show();
 				$('#content2').show();
@@ -134,6 +134,7 @@ $(document).ready(function() {
 			url: _contextPath + '/talk/getMemberList',
 			type: 'get',
 			success: function (res) {
+				ws.close();
 				//멤버리스트 가져오기
 				let memberList = res.memberList;
 				for(var i = 0; i<memberList.length; i++) {
@@ -226,11 +227,16 @@ function wsEvt() {
 			}	
 		}			
 	}
-	document.addEventListener("keypress", function(e){
-		if(e.keyCode == 13){ //enter press
-			send();
-		}
-	});
+	if(!isClickEventKeypressEnter) {
+		document.addEventListener("keypress", function(e){
+			if(e.keyCode == 13){ //enter press
+				send();
+			}
+		});
+		isClickEventKeypressEnter = true;
+	}
+	
+
 }
 
 function send() {
