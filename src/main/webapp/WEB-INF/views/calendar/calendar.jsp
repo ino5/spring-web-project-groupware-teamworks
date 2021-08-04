@@ -13,9 +13,9 @@
 	var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
 	var date = new Date();//today의 Date를 세어주는 역할
 	function prevCalendar() {//이전 달
-	// 이전 달을 today에 값을 저장하고 달력에 today를 넣어줌
-	//today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-	//getMonth()는 현재 달을 받아 오므로 이전달을 출력하려면 -1을 해줘야함
+		// 이전 달을 today에 값을 저장하고 달력에 today를 넣어줌
+		//today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+		//getMonth()는 현재 달을 받아 오므로 이전달을 출력하려면 -1을 해줘야함
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today
 				.getDate());
 		buildCalendar(); //달력 cell 만들어 출력 
@@ -63,6 +63,7 @@
 		}
 		var row = null;
 		row = tbCalendar.insertRow();
+		row2 = tbCalendar.insertRow();
 		//테이블에 새로운 열 삽입//즉, 초기화
 		var cnt = 0;// count, 셀의 갯수를 세어주는 역할
 		// 1일이 시작되는 칸을 맞추어 줌
@@ -72,31 +73,58 @@
 			cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
 		}
 		/*달력 출력*/
-		for (i = 1; i <= lastDate.getDate(); i++) {
+		var weekend = 1;
+		var i_day = 1;
+		var i_today = -1;
+		for (i = 1; i <= 245; i++) {
 			//1일부터 마지막 일까지 돌림
 			cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
-			cell.innerHTML = "<span id='date'>"+i+"</span>";//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
-			cell.dataset.day = i;
+			cell.id = "cell_" + i;
+			cell.dataset.cell = i;
 			cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
-			if (cnt % 7 == 1) {/*일요일 계산*/
-				//1주일이 7일 이므로 일요일 구하기
-				//월화수목금토일을 7로 나눴을때 나머지가 1이면 cnt가 1번째에 위치함을 의미한다
-				cell.innerHTML = "<font color=red>";
-				cell.innerHTML = "<span id='date2'>" +i+"</span>";
-				//1번째의 cell에만 색칠
-			}
-			if (cnt % 7 == 0) {/* 1주일이 7일 이므로 토요일 구하기*/
-				//월화수목금토일을 7로 나눴을때 나머지가 0이면 cnt가 7번째에 위치함을 의미한다
-				cell.innerHTML = "<font color=blue>";
-				cell.innerHTML = "<span id='date3'>" +i+"</span>";
-				//7번째의 cell에만 색칠
+			if (cnt % 7 == 0) {
 				row = calendar.insertRow();
 				//토요일 다음에 올 셀을 추가
+				++weekend;
+			}
+			row.id = "row_" + weekend;
+			if ((weekend % 7 == 1 && cnt % 7 !== 0)
+					|| ((weekend - 1) % 7 == 1 && cnt % 7 == 0)) {
+				if (i_day <= lastDate.getDate()) {
+					cell.innerHTML = "<span id='date'>" + i_day + "</span>";//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+					if (cnt % 7 == 1) {/*일요일 계산*/
+						//1주일이 7일 이므로 일요일 구하기
+						//월화수목금토일을 7로 나눴을때 나머지가 1이면 cnt가 1번째에 위치함을 의미한다
+						cell.innerHTML = "<font color=red>";
+						cell.innerHTML = "<span id='date2'>" + i_day
+								+ "</span>";
+						//1번째의 cell에만 색칠
+					}
+					if (cnt % 7 == 0) {/* 1주일이 7일 이므로 토요일 구하기*/
+						//월화수목금토일을 7로 나눴을때 나머지가 0이면 cnt가 7번째에 위치함을 의미한다
+						cell.innerHTML = "<font color=blue>";
+						cell.innerHTML = "<span id='date3'>" + i_day
+								+ "</span>";
+						//7번째의 cell에만 색칠
+						//row = calendar.insertRow();
+						//토요일 다음에 올 셀을 추가
+						//++weekend;
+					}
+					cell.dataset.day = i_day;
+					++i_day;
+				}
 			}
 			/*오늘의 날짜에 노란색 칠하기*/
 			if (today.getFullYear() == date.getFullYear()
 					&& today.getMonth() == date.getMonth()
-					&& i == date.getDate()) {
+					&& i_day - 1 == date.getDate()) {
+				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
+				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
+				i_today = i;
+			}
+
+			if (i_today > 0 && (i - i_today) % 7 == 0 && i > i_today
+					&& i < i_today + 7 * 7) {
 				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
 				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
 			}
@@ -130,37 +158,7 @@
 				submenu.slideDown("fast");
 			}
 		})
-	});
-	// div side 없애기
-	function doShow() {
-		if ($('#side').is(":visible")) {
-			$('#side').hide();
-			$('#content').css({
-				"width" : "100%"
-			});
 
-			$('#img11').css({
-				"display" : "none"
-			});
-			$('#img22').css({
-				"display" : "inline"
-			});
-		} else {
-			$('#side').show();
-			$('#content').css({
-				"width" : "84%"
-			});
-			$('#img11').css({
-				"display" : "inline"
-			});
-
-			$('#img22').css({
-				"display" : "none"
-			});
-		}
-	}
-
-	$(document).ready(function() {
 		// 달력 클릭 시 모달창 열기
 		$("#calendar").on("click", "td", function() {
 			var td = $(this);
@@ -197,6 +195,34 @@
 			$('#myModal2').hide();
 		});
 	});
+	// div side 없애기
+	function doShow() {
+		if ($('#side').is(":visible")) {
+			$('#side').hide();
+			$('#content').css({
+				"width" : "100%"
+			});
+
+			$('#img11').css({
+				"display" : "none"
+			});
+			$('#img22').css({
+				"display" : "inline"
+			});
+		} else {
+			$('#side').show();
+			$('#content').css({
+				"width" : "84%"
+			});
+			$('#img11').css({
+				"display" : "inline"
+			});
+
+			$('#img22').css({
+				"display" : "none"
+			});
+		}
+	}
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -251,7 +277,7 @@
 			<a align="center" id="tbCalendarYM" style="padding-right: 20px;">yyyy년
 				m월</a> <label onclick="nextCalendar()">> </label>
 		</div>
-		<table id="calendar">
+		<table id="calendar" style="position: absolute;">
 			<tr>
 				<th><font color="red">일</font></th>
 				<th>월</th>
@@ -265,6 +291,26 @@
 		<script type="text/javascript">
 			buildCalendar();
 		</script>
+		<!-- 		<table id="calendar2" style="background-color: #CC9999; width: 100%"> -->
+		<!-- 			<tr> -->
+		<!-- 				<th><font color="red">일</font></th> -->
+		<!-- 				<th>월</th> -->
+		<!-- 				<th>화</th> -->
+		<!-- 				<th>수</th> -->
+		<!-- 				<th>목</th> -->
+		<!-- 				<th>금</th> -->
+		<!-- 				<th><font color="blue">토</font></th> -->
+		<!-- 			</tr> -->
+		<!-- 			<tr> -->
+		<!-- 				<td id="day_1" data-set="01"><span id='date2'>1</span></td> -->
+		<!-- 				<td id="day_2"><span id='date'>2</span></td> -->
+		<!-- 				<td id="day_3"><span id='date'>3</span></td> -->
+		<!-- 				<td id="day_4"><span id='date'>4</span></td> -->
+		<!-- 				<td id="day_5"><span id='date'>5</span></td> -->
+		<!-- 				<td id="day_6"><span id='date'>6</span></td> -->
+		<!-- 				<td id="day_7"><span id='date'>7</span></td> -->
+		<!-- 			</tr> -->
+		<!-- 		</table> -->
 
 	</div>
 	<div id="myModal" class="modal">
@@ -314,17 +360,20 @@
 		<!-- Modal content -->
 		<div class="modal-content2">
 			<p>
-				<span>일정등록 <img
+				<span>일정상세 <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
-					style="width: 35px; height: 25px; float: right; cursor: pointer;" id="x_icon2" />
+					style="width: 35px; height: 25px; float: right; cursor: pointer;"
+					id="x_icon2" />
 				</span>
 			</p>
 			<br>
 			<p style="text-align: center; line-height: 1.5;"></p>
-			<form id="modal_form"
-				action="${pageContext.request.contextPath}/calendar/scheduleAdd">
+			<form id="modal_form" action="">
 				<table style="font-size: 17px;">
-
+					<tr>
+						<td>제목</td>
+						<td>${calendarSelect.cl_name}</td>
+					</tr>
 				</table>
 				<br>
 				<div style="margin-left: 500px;">

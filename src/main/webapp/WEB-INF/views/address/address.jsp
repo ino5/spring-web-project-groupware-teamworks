@@ -364,11 +364,11 @@ function addressGroup() {
 <%-- 								</c:forEach> --%>
 <!-- 						</select></td> -->
 <!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<td colspan="2"><input type="submit" value="추가" class="modal_btn"> -->
-<!-- 							<input type="button" value="취소" id="close_btn3" class="modal_btn"> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
+					<tr>
+						<td colspan="2"><input type="submit" value="추가" class="modal_btn">
+							<input type="button" value="취소" id="close_btn3" class="modal_btn">
+						</td>
+					</tr>
 				</table>
 			</form>
 		</div>

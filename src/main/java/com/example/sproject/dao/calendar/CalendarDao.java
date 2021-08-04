@@ -10,5 +10,7 @@ public interface CalendarDao {
 
 	List<Calendar> calendarList(String m_id);
 
+	List<Calendar> calendarSelect(int cl_num);
+
 
 }

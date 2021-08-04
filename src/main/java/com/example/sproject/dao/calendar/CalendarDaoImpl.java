@@ -24,6 +24,14 @@ public class CalendarDaoImpl implements CalendarDao {
 		List<Calendar> calendarList = session.selectList("calendarListOfCalendar", m_id);
 		return calendarList;
 	}
+
+	@Override
+	public List<Calendar> calendarSelect(int cl_num) {
+		System.out.println("CalendarDaoImpl calendarSelect Start...");
+		List<Calendar> calendarSelect = session.selectList("calendarSelectOfCalendar", cl_num);
+		System.out.println("calendarSelect >>>" + calendarSelect);
+		return calendarSelect;
+	}
 	
 
 }

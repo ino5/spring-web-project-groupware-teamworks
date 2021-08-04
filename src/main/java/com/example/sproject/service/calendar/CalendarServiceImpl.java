@@ -25,4 +25,10 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarList;
 	}
 
+	@Override
+	public List<Calendar> calendarSelect(int cl_num) {
+		List<Calendar> calendarSelect = calDao.calendarSelect(cl_num);
+		return calendarSelect;
+	}
+
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.calendar.Calendar;
 import com.example.sproject.service.calendar.CalendarService;
@@ -31,6 +32,15 @@ public class CalendarController {
 		String m_id = principal.getName();
 		calendar.setM_id(m_id);
 		cals.scheduleAdd(calendar);
+		return "redirect:/calendar";
+	}
+	
+	@RequestMapping("calendarSelect")
+	public String calendarSelect(Principal principal,Calendar calendar, Model model, int cl_num) {
+		String m_id = principal.getName();
+		calendar.setM_id(m_id);
+		List<Calendar> calendarSelect = cals.calendarSelect(cl_num);
+		model.addAttribute("calendarSelect", calendarSelect);
 		return "redirect:/calendar";
 	}
 }

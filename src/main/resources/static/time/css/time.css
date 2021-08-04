@@ -5,7 +5,7 @@
 }
 /* ======================== Div Side ============================= */
 
-#btn1 {
+.btn1 {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	background-color : white;
 	border-style: solid;
@@ -13,16 +13,52 @@
 	border-width : 2px;
 	box-shadow: none;
 	border-color : #D5D5D5;
-/* 	margin-top: 10%; */
-/* 	margin-left: 10%; */
-/* 	margin-bottom: 10%; */
-	margin : 10% 10%;
-	padding : 5% 0%;
-	width: 80%;
-	font-size: 21px;   
+	padding : 5% 5%;
+	margin-left : 5%;
+	width: 42%;
+	font-size: 16px;   
 }
 
-#btn1:hover{
+.btn1:hover{
+     transition: all 0.2s linear;
+     transform: translate(0, -5%);
+       box-shadow: 2px 2px 2px 2px #BDBDBD; 
+       border: 2px solid gray;
+  
+ }
+ 
+ .btn3 {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	background-color : white;
+	border-style: solid;
+	border-radius : 10px;
+	border-width : 2px;
+	box-shadow: none;
+	border-color : #D5D5D5;
+	padding : 5% 5%;
+	margin-left : 5%;
+	width: 42%;
+	font-size: 16px;   
+	color : #CFCFCF;
+}
+ 
+ 
+ .btn2 {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	background-color : white;
+	border-style: solid;
+	border-radius : 10px;
+	border-width : 2px;
+	box-shadow: none;
+	border-color : #D5D5D5;
+	padding : 5% 5%;
+	margin-left : 10%;
+	margin-top : 5%;
+	width: 80%;
+	font-size: 16px;   
+}
+
+.btn2:hover{
      transition: all 0.2s linear;
      transform: translate(0, -5%);
        box-shadow: 2px 2px 2px 2px #BDBDBD; 
@@ -124,12 +160,47 @@
 	font-size: 24px;
 }
 
-#month1 {
-	padding: 20px 20px;
-	font-size: 24px;
+#calendar_head {
+	font-weight: bold;
+	font-size: 26px;
+	display: block;
+	margin-left: 45%;
 }
 
-.btn_month {
-	padding: 20px 20px;
-	font-size: 24px;
+#calendar {
+	border-top:1px solid #ddd;
+	margin-top: 50px;
+	margin-left: 50px;
+	width: 80%;
+	border-collapse : collapse;
 }
+
+.div_week {
+	width: 100%;
+	font-size: 20px;	
+	margin: 50px 0px;
+}
+
+.week_img {
+	width: 14px; 
+	height: 14px;
+	cursor: pointer;
+}
+
+.tb_title {
+	display: none;
+	margin-top: 40px;
+}
+
+.tb_title td {
+	width: 300px;
+	font-size: 15px;
+}
+
+.div_day {
+	font-size: 15px;
+	margin-top: 40px;
+	display: none;
+	width: 100%;
+}
+

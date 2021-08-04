@@ -175,7 +175,7 @@ h2 {
 #calendar {
 	border-top:1px solid #ddd;
 	margin-top: 50px;
-	width: 100%;
+	width: 84%;
 	border-collapse : collapse;
 }
 
@@ -191,15 +191,13 @@ h2 {
 }
 
 #calendar tr td{
-	border-top : 1px solid #F6F6F6;
    	width: 170px;
-   	height: 120px;
+   	height: 20px;
    	text-align: center;
    	font-size: 14px;
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
     text-align: left;
     vertical-align : top;
-    padding: 10px 0px;
 }
 
 
@@ -212,6 +210,45 @@ h2 {
   background-color : #B2CCFF;
 }
 
+#date{
+	padding : 0px 10px;
+}
+#date2{
+	padding : 0px 10px;
+	color: red;
+}
+#date3{
+	padding : 0px 10px;
+	color: blue;	
+}
+#calendar2 {
+	border-top:1px solid #ddd;
+	margin-top: 50px;
+	width: 84%;
+	border-collapse : collapse;
+}
+
+#calendar2 tr{
+	border-top: 1px;
+	border-color: #F6F6F6;
+}
+
+#calendar2 tr th{
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	text-align: center;
+	font-weight: normal;
+}
+
+#calendar2 tr td{
+	border-top : 1px solid #F6F6F6;
+   	width: 170px;
+   	height: 140px;
+   	text-align: center;
+   	font-size: 14px;
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+    text-align: left;
+    vertical-align : top;
+}
 
 
 /* =========================== Modal ===================================== */

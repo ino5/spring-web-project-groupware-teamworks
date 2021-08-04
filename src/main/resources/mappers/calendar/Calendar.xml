@@ -12,4 +12,8 @@
 	<select id="calendarListOfCalendar" parameterType="java.lang.String" resultType="com.example.sproject.model.calendar.Calendar">
 		select cl_num, cl_name, cl_sdate, cl_edate from calendar where m_id = #{m_id} order by cl_sdate
 	</select>
+	
+	<select id="calendarSelectOfCalendar" parameterType="int" resultType="com.example.sproject.model.calendar.Calendar">
+		select cl_name, cl_content, cl_sdate, cl_edate from calendar where cl_num = #{cl_num}
+	</select>
 </mapper>
