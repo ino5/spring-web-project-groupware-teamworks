@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
 <!-- end of 썸머노트 -->
 <!-- 썸머노트 관련 js -->
-<script src="${pageContext.request.contextPath}/sign/js/scriptForSummernote"></script>
+<script src="${pageContext.request.contextPath}/sign/js/scriptForSummernoteInSign.js"></script>
 
 <!-- jquery-ui sortable -->
 <style>

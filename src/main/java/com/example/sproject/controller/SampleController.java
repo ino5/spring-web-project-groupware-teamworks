@@ -3,7 +3,11 @@ package com.example.sproject.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.globals.GlobalsOfTb_code;
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sample.Sample;
 import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.sample.SampleService;
@@ -26,6 +31,9 @@ public class SampleController {
 	
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private SessionRegistry sessionRegistry;
 	
 	@RequestMapping("")
 	public String sample(Model model) {
@@ -141,5 +149,26 @@ public class SampleController {
 	public CommonGroup cgSelectOne(String tb_code, int cg_num, Model model) {
 		if(tb_code == null) tb_code = GlobalsOfTb_code.POST;
 		return commonService.selectOneCommonGroup(tb_code, cg_num);
+	}
+	
+	
+	
+	
+	//세션 유저 리스트 가져오기 테스트
+	@RequestMapping(value ="test/sessionList", method = {RequestMethod.GET, RequestMethod.POST})
+	public String sessionList(HttpServletRequest req, HttpSession session, Principal principal) {
+		List<Object> list = sessionRegistry.getAllPrincipals();
+		System.out.println(list);
+		for (Object member : list ) {
+			if(member instanceof Member) {
+				System.out.println("Member");
+				System.out.println(((Member) member).getM_id());
+			}
+			System.out.println(member.getClass());
+			System.out.println("session");
+			System.out.println(req.getSession().getId());
+			System.out.println(session.getId());
+		}
+		return null;
 	}
 }

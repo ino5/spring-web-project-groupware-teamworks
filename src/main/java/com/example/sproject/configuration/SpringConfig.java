@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -22,6 +24,9 @@ import com.example.sproject.model.login.Member;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private SessionRegistry sessionRegistry;
+	
 	public SpringConfig() {
 		System.out.println("Method SpringConfig in Class SpringConfig");
 	}
@@ -30,6 +35,13 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	//세센 관리
+	@Bean
+	public SessionRegistry sessionRegistry() {
+		return new SessionRegistryImpl();
+	}
+	
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -66,5 +78,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		
 		//csrf 예외 처리
 		http.csrf().ignoringAntMatchers("/**/test/**");
+		
+		//세션 관리
+		http.sessionManagement()
+				.maximumSessions(1)
+				.maxSessionsPreventsLogin(false)
+				.expiredUrl("/duplicated-login")
+				.sessionRegistry(sessionRegistry);
 	}
 }

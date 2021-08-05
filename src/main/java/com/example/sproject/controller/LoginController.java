@@ -1,9 +1,11 @@
 package com.example.sproject.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private SessionRegistry sessionRegistry;
 	
 	@GetMapping("login")
 	public String login() {
@@ -76,5 +81,11 @@ public class LoginController {
 		model.addAttribute("member", member);
 //		System.out.println(member.getM_id());
 		return "login/memberInfo";
+	}
+	
+	@RequestMapping("api/getSessionMembers")
+	@ResponseBody
+	public List<Member> getSessionMembers() {
+		return loginService.getSessionMembers();
 	}
 }
