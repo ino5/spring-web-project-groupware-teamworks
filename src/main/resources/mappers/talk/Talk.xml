@@ -39,5 +39,11 @@
 	SELECT MAX(tkrm_num) FROM talk_room
 </select>
 
+<select id="selectGroupRoomListOfTalk" resultType="com.example.sproject.model.talk.Room" parameterType="String">
+	SELECT tr.tkrm_num, te.m_id, tr.tkrm_name from talker te, talk_room tr where tr.tkrm_num = te.tkrm_num and te.m_id=#{m_id} and tr.tkrm_type=2
+</select>
 
+<select id="selectroomTypeNameOfTalk" resultType="com.example.sproject.model.talk.Room" parameterType="int">
+	select tkrm_type from talk_room where tkrm_num=#{tkrm_num}
+</select>
 </mapper>

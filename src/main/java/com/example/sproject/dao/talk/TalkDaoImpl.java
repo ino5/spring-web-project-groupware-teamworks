@@ -75,4 +75,8 @@ public class TalkDaoImpl implements TalkDao {
 		return session.selectOne("selectMaxRnOfTalk");
 	}
 
+	@Override
+	public List<Room> selectgetGroupRoomList(String m_id) {
+		return session.selectList("selectGroupRoomListOfTalk", m_id);
+	}
 }

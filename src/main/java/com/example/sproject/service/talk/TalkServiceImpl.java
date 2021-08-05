@@ -59,4 +59,14 @@ public class TalkServiceImpl implements TalkService {
 		talkDao.insertTalker(roomNumber, m_id2);
 		return 1;
 	}
+
+	@Override
+	public List<Room> selectgetGroupRoomList(String m_id) {
+		return talkDao.selectgetGroupRoomList(m_id);
+	}
+
+	@Override
+	public Room getRoom(int tkrm_num) {
+		return talkDao.selectRoom(tkrm_num);
+	}
 }

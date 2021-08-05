@@ -98,4 +98,12 @@
     		height: 500px;
     		overflow: auto;
 }
-		}
+.onebyone {
+	width: 50px;
+	height: 20px;
+}
+
+.group {
+	width: 50px;
+	height: 20px;
+}

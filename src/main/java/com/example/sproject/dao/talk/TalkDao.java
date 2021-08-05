@@ -26,4 +26,7 @@ public interface TalkDao {
 
 	int selectMaxRn();
 
+	List<Room> selectgetGroupRoomList(String m_id);
+
+
 }

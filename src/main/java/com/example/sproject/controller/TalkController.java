@@ -47,13 +47,13 @@ public class TalkController {
 	 * 방 페이지
 	 * @return
 	 */
-//	@RequestMapping("/room")
-//	public ModelAndView room() {
-//		System.out.println("SocketController room Start...");
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("talk/room");
-//		return mv;
-//	}
+	@RequestMapping("/room")
+	public ModelAndView room() {
+		System.out.println("SocketController room Start...");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("talk/room");
+		return mv;
+	}
 	// Model -> model.addAttribute를 사용하여 데이터만 저장
 	// ModelAndView -> 데이터와 이동하고자 하는 View Page를 같이 저장
 
@@ -215,7 +215,7 @@ public class TalkController {
 	
 	@RequestMapping("/getRoomOfApi")
 	@ResponseBody
-	public Map<String, Object> getroomNumber(String m_id2, @AuthenticationPrincipal Member sessionMember) {
+	public Map<String, Object> getroomNumber(String m_id2, Integer tkrm_num, @AuthenticationPrincipal Member sessionMember) {
 		System.out.println("SocketController getMemberList Start...");
 		Map<String, Object> map = new HashMap<String, Object>();
 		String m_id = null;
@@ -223,10 +223,17 @@ public class TalkController {
 			m_id = sessionMember.getM_id();			
 		}
 		
-		//일대일 채팅방 가져오기
-		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
-		System.out.println(room);
-		
+		//
+		Room room = null;
+		if(tkrm_num == null) {
+			//일대일 채팅방 가져오기 
+			room = talkService.getRoomOfOneByOne(m_id, m_id2);
+			System.out.println(room);
+		} else {
+			//그룹채팅방  가져오기
+			room = talkService.getRoom(tkrm_num);
+		}
+
 		//채팅 기록 가져오기
 		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
 		System.out.println("talkList");
@@ -239,4 +246,20 @@ public class TalkController {
 
 		return map;
 	}
+	
+	@RequestMapping("/getGroupRoomList")
+	@ResponseBody
+	public Map<String, Object> getGroupRoomList(@AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = sessionMember.getM_id();
+		List<Room> roomList = talkService.selectgetGroupRoomList(m_id);
+		map.put("m_id", m_id);
+		map.put("m_name", sessionMember.getM_name());
+		map.put("roomList", roomList);
+		System.out.println("roomList");
+		for(Room room : roomList) System.out.println(room);
+		return map;
+	}	
+	
 }

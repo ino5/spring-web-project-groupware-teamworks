@@ -17,6 +17,10 @@ public interface TalkService {
 	Room getRoomOfOneByOne(String m_id, String m_id2);
 	
 	int makeRoomOfOneByOne(String m_id, String m_id2);
+
+	List<Room> selectgetGroupRoomList(String m_id);
+
+	Room getRoom(int tkrm_num);
 	
 }
 

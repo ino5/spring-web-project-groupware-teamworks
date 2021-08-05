@@ -31,10 +31,16 @@
 				</div>
 				<div id="roomContainer" class="roomContainer">
 					<table id="memberlist" class="memberlist">
+					<tr><th>이름</th></tr>
+					</table>
+					<table id="groupRoomlist">
+					<tr><th>방 이름</th></tr>
 					</table>
 				</div>
+				<button type="button" class="onebyone">1:1</button>
+				<button type="button" class="group">그룹</button>
 			</div>
-			<button type="button" class="groupchat">그룹채팅</button>
+			<button type="button" class="groupchat">그룹 방만들기</button>
 		</div>
 		<div id="content2">
 			<div id="makegroup"></div>
