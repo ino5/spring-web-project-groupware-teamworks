@@ -23,9 +23,6 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	@Autowired
-	private SessionRegistry sessionRegistry;
-	
 	@GetMapping("login")
 	public String login() {
 		return "login/login";
