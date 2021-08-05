@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -41,6 +42,9 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private AuthenticationFailureHandler authenticationFailureHandler;
+	
+	@Autowired
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -86,11 +90,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		//로그인 관련
 		http.formLogin()
 	        .loginPage("/login/login")
-	        .defaultSuccessUrl("/login")
+//	        .defaultSuccessUrl("/login")
 	        .permitAll()
 	        .usernameParameter(Member.usernameParameter)
 	        .passwordParameter(Member.passwordParameter)
-			.failureHandler(authenticationFailureHandler);
+			.failureHandler(authenticationFailureHandler)
+			.successHandler(authenticationSuccessHandler);
 		
 		http.logout()
 	        .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))

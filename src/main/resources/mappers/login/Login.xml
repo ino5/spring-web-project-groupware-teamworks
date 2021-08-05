@@ -15,4 +15,8 @@
 		SELECT at_id FROM MEMBER_AUTHORITIES WHERE m_id = #{m_id}
 	</select>
 	
+	<update id="updateLastdateOfMember" parameterType="String">
+		UPDATE member SET m_lastdate = SYSDATE WHERE m_id = #{m_id}
+	</update>
+	
 </mapper>

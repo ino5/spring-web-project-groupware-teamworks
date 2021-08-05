@@ -29,8 +29,12 @@ public class LoginDaoImpl implements LoginDao {
 
 	@Override
 	public List<String> listAuthorities(String m_id) {
-		List<String> Authorities = session.selectList("selectListAuthoritiesOfLogin", m_id);
-		return Authorities;
+		return session.selectList("selectListAuthoritiesOfLogin", m_id);
+	}
+
+	@Override
+	public int updateLastdateOfMember(String m_id) {
+		return session.update("updateLastdateOfMember", m_id);
 	}
 
 }

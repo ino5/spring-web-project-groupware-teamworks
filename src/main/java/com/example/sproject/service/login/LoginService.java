@@ -11,4 +11,5 @@ public interface LoginService extends UserDetailsService {
 	int join(Member member);
 	int passwordCheck(Member member);
 	List<Member> getSessionMembers();
+	int welcomeLogin(String m_id);
 }

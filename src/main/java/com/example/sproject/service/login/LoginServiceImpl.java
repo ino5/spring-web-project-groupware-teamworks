@@ -82,4 +82,11 @@ public class LoginServiceImpl implements LoginService {
 		
 		return list;
 	}
+
+	@Override
+	public int welcomeLogin(String m_id) {
+		int result;
+		result = loginDao.updateLastdateOfMember(m_id);
+		return result;
+	}
 }
