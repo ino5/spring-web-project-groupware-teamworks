@@ -1,5 +1,7 @@
 package com.example.sproject.configuration;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,13 +29,23 @@ import com.example.sproject.model.login.Member;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private SessionRegistry sessionRegistry;
-	
 	public SpringConfig() {
 		System.out.println("Method SpringConfig in Class SpringConfig");
 	}
+	
+	@Autowired
+	private SessionRegistry sessionRegistry;
+	
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
+	private AuthenticationFailureHandler authenticationFailureHandler;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -41,6 +57,17 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	public SessionRegistry sessionRegistry() {
 		return new SessionRegistryImpl();
 	}
+	
+	//자동로그인관련
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		System.out.println("-- Bean persistentTokenRepository");
+		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+		repo.setDataSource(dataSource);
+		System.out.println("dataSource: " + dataSource);
+		return repo;
+	}
+	
 	
 	
 	@Override
@@ -54,11 +81,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
         //URL 권한 체크
 		http.authorizeRequests()
 //	        .antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/drive/**").authenticated()
-			.antMatchers("/sign/**").authenticated()
-	        .antMatchers("/**/test/**").permitAll()
-	        .antMatchers("/**").permitAll();
-//	        .antMatchers("/**").authenticated();
+	        .antMatchers("/**").authenticated();
 		
 		//로그인 관련
 		http.formLogin()
@@ -66,12 +89,14 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 	        .defaultSuccessUrl("/login")
 	        .permitAll()
 	        .usernameParameter(Member.usernameParameter)
-	        .passwordParameter(Member.passwordParameter);
+	        .passwordParameter(Member.passwordParameter)
+			.failureHandler(authenticationFailureHandler);
 		
 		http.logout()
 	        .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
 	        .logoutSuccessUrl("/login/login")
-	        .invalidateHttpSession(true);
+	        .invalidateHttpSession(true)
+			.deleteCookies("remember-me", "JSESSIONID"); // 자동로그인 쿠키 삭제
 		
 		http.exceptionHandling()
 	        .accessDeniedPage("/login/denied");
@@ -85,5 +110,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 				.maxSessionsPreventsLogin(false)
 				.expiredUrl("/duplicated-login")
 				.sessionRegistry(sessionRegistry);
+		
+		/* 자동 로그인 설정 */
+		http.rememberMe()
+		  .key("twkey")
+		  .tokenRepository(persistentTokenRepository())
+		  .tokenValiditySeconds(604800) //1주일
+		  .userDetailsService(userDetailsService);		  
 	}
 }
