@@ -18,8 +18,7 @@ public class CustomFailureHandler implements AuthenticationFailureHandler {
 			AuthenticationException exception) throws IOException, ServletException {
 		System.out.println("--com.example.sproject.handler.CustomFailureHandler");
 		exception.printStackTrace();
-		request.getRequestDispatcher(request.getContextPath() + "/login");
-		response.sendRedirect(request.getContextPath() + "/login");
+		request.getRequestDispatcher("/login/login").forward(request, response);
 	}
 
 }
