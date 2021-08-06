@@ -271,7 +271,7 @@ $("#boardSet").on("click", function () {
 					<tr>
 						<td></td>
 						<td><input type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
-						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete"></td>
+						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/board/groupDelete"></td>
 						<td><input type="button" value="취소" id="close_btn"></td>
 				</table>
 			</form>

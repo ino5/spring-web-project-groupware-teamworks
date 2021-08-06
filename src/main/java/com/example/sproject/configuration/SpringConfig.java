@@ -42,6 +42,8 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
         //URL 권한 체크
 		http.authorizeRequests()
 //	        .antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/board/**").authenticated()
+			.antMatchers("/community/**").authenticated()
 	        .antMatchers("/**/test/**").permitAll()
 	        .antMatchers("/**").permitAll();
 //	        .antMatchers("/**").authenticated();

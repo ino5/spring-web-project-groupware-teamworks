@@ -29,7 +29,6 @@ import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
-import com.example.sproject.model.login.Member;
 import com.example.sproject.service.board.Paging;
 import com.example.sproject.service.board.BoardService;
 import com.google.gson.JsonObject;
@@ -61,18 +60,21 @@ public class BoardController {
 		List<Post> listPost = boardService.listPost(post);
 		//공지
 		List<Post> listNoticePost = boardService.listNoticePost(1);
-		//공지아닌글
-		List<Post> listNoneNoticePost = boardService.listNoticePost(2);
+	
 		model.addAttribute("total", total);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("listNoticePost", listNoticePost);
 		model.addAttribute("pg",pg);
 //		model.addAttribute("p_num", p_num);
+		//사이드바 리스트 
 		boardService.listSide(model);
 		return "board/board";
 	}
 	@RequestMapping(value = "sideboard_list")
 	public String board_list(Post post, String currentPage, Model model, Board board, int bd_num, Principal principal) {
+		//bd_num jsp에 넘기기
+		model.addAttribute("bd_num", bd_num);
+		
 		
 		List<Board> boardListOfAll = boardService.listBoard(1);
 		List<Board> boardListOfDept = boardService.listBoard(2);
@@ -99,11 +101,7 @@ public class BoardController {
 	@GetMapping(value = "write")
 	public String write(Model model, Board board) {
 		List<Board> listBoard = boardService.listBoard(board);
-		List<Board> boardListOfAll = boardService.listBoard(1);
-		List<Board> boardListOfDept = boardService.listBoard(2);
-	
 		model.addAttribute("listBoard", listBoard);
-		System.out.println("BoardController Start write..");
 		boardService.listSide(model);
 		return "board/write";
 	}
@@ -177,10 +175,13 @@ public class BoardController {
 	public String delete(int p_num, Model model) {
 		System.out.println("EmpController Start delete...");
 		System.out.println("p_num"+p_num);
+		boardService.PostLike_Delete(p_num);
+		boardService.post_replydelete(p_num);
 		boardService.delete(p_num);
 		boardService.listSide(model);
 		return  "redirect:/board";
 	}
+
 	
 	//파일 업로드
 	   @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")

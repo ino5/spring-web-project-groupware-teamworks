@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class Post {
-
 	private int p_num;
 	private int bd_num;
 	private String m_id;

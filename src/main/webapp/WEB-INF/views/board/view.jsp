@@ -14,14 +14,12 @@
 	src="${pageContext.request.contextPath}/board/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
-	<script defer src="${pageContext.request.contextPath}/board/js/view.js"></script>
+	<script defer src="${pageContext.request.contextPath}/community/js/view.js"></script>
 <link rel="styleSheet" href="${pageContext.request.contextPath}/board/css/view.css">
 
 <title>Insert title here</title>
 </head>
 		<script type="text/javascript">
-									$(document).ready(function() {
-										//여기 아래 부분
 										$('#summernote').summernote({
 											height : 600, // 에디터 높이
 											width:1200,
@@ -39,21 +37,9 @@
 										            }
 
 										});
-									});
-									
-								
+						
 									</script>
-<!-- <script type="text/javascript"> -->
-<!-- function doShow4() {  -->
-<!--     if ($('#scroll3').is(":visible")) {  -->
-<!--         $('#scroll3').hide();  -->
-      
-<!--     } else {  -->
-<!--         $('#scroll3').show();  -->
 
-<!--     }  -->
-<!-- }  -->
-<!-- </script> -->
 
 <body>
 <%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -118,7 +104,7 @@
 						<th style="padding-left: 100px;">제목</th>
 							<td class="td_subject"><input id="subject" type="text"
 								name="p_name" value="${view.p_name}" placeholder="글 제목"
-								class="form_box" disabled style="border: none; background-color: white"></td>
+								class="form_box" readonly="readonly" style="border: none; background-color: white"></td>
 
 							<td><button
 									style="background-color: white; border: none; width: 30px; height: 30px;"

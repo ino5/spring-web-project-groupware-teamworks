@@ -6,7 +6,8 @@
 	<![CDATA[
 		select *
 		from (select rownum rn, a.*
-			  from (select * from post order by p_num desc) a) where rn >= #{start} and rn <= #{end}
+			  from (select p.* FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (1,2) order by p_num desc) 
+			  a) where rn >= #{start} and rn <= #{end}
 	]]>	
 </select>
 
@@ -28,23 +29,29 @@
         WHERE p_num = #{p_num}
     </update>
       <!-- 05. 게시글 수정처리 -->
-    <update id="PostUpdateOfBoard">
+    <update id="PostUpdateOfBoard"  parameterType="com.example.sproject.model.board.Post">
         UPDATE post SET
             p_name = #{p_name},
             p_content = #{p_content},
             m_id = #{m_id}
         WHERE p_num = #{p_num}
     </update>
-    <delete id="PostDeleteOfBoard">
+    <delete id="PostDeleteOfBoard" parameterType="int">
     delete from post where p_num = #{p_num}
     </delete>
-     <delete id="PostLikeDeleteOfBoard">
+     <delete id="PostLikeDeleteOfBoard" parameterType="int">
     delete from post_like where p_num = #{p_num}
     </delete>
 <!--     게시판 리스트  -->
 
-<select id="selectListBoardofBoard" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
+<select id="selectListBoardOfBoard" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
 		select *
+		from board 
+</select>
+
+
+<select id="maxBoardType" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
+		select max(bd_type)
 		from board
 </select>
 
@@ -139,7 +146,7 @@
 	<![CDATA[
 		select * 
 		from (select rownum rn, a.*  
- 			  from (select * from post where bd_num=#{bd_num} order by p_num) a) where rn >= #{start} and rn <= #{end}  
+ 			  from (select * from post where bd_num=#{bd_num} order by p_num desc) a) where rn >= #{start} and rn <= #{end}  
  	]]>	  
  </select> 
 	
@@ -176,7 +183,15 @@
     <include refid="search"></include>
     ORDER BY p_num desc, p_regdate desc
 </select>
- 
+<!-- 댓글삭제 후 게시글 삭제-->
+ 	<delete id="Post_ReplydeleteOfBoard" parameterType="int">
+		delete from reply where p_num= #{p_num}
+	</delete>
+<!-- 	좋아요삭제 후 게시글 삭제 -->
+	<delete id="PostLike_DeleteOfBoard" parameterType="int">
+		delete from post_like where p_num= #{p_num}
+	</delete>
+	
 <!-- 01_02. 게시글 레코드 갯수 -->
 <select id="boardcountArticleOfBoard" resultType="int">
     SELECT COUNT(*) FROM post
@@ -200,6 +215,6 @@
         </otherwise>
     </choose>
 </sql>
- 
+
 	
  </mapper>
