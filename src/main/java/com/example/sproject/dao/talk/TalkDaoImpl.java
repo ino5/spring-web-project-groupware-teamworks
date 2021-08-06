@@ -85,4 +85,9 @@ public class TalkDaoImpl implements TalkDao {
 		session.insert("insertMakeGroupRoomOfTalk");
 		return;
 	}
+
+	@Override
+	public List<Member> selectJoinGroupMemberList(int tkrm_num) {
+		return session.selectList("selectJoinGroupMemberListOfTalk", tkrm_num);
+	}
 }

@@ -286,4 +286,19 @@ public class TalkController {
 
 		return map;
 	}
+	
+	@RequestMapping("/joinGroupMemberList")
+	@ResponseBody
+	public Map<String, Object> joinGroupMemberList(@AuthenticationPrincipal Member sessionMember, int tkrm_num) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = sessionMember.getM_id();
+		List<Member> memberList = talkService.selectJoinGroupMemberList(tkrm_num);
+		map.put("m_id", m_id);
+		map.put("m_name", sessionMember.getM_name());
+		map.put("memberList", memberList);
+		System.out.println("joinGroupMemberList");
+		for(Member member : memberList) System.out.println(member);
+		return map;
+	}
 }

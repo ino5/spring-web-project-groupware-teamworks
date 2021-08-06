@@ -6,6 +6,7 @@ let isClickEventKeypressEnter = false;
 let isClickedOnebyOneChat = false;
 let isClickedGroupRoomList = false;
 let isClickedOnebyOneTalkList = false;
+let isClickedJoinGroupMember = false;
 
 
 $(document).ready(function() {
@@ -349,6 +350,40 @@ $(document).ready(function() {
 		});
 	});
 });
+
+//그룹 참여하는 사람 이름 보이기
+function join_member(tkrm_num) {
+   		$.ajax({
+			url: _contextPath + '/talk/joinGroupMemberList',
+			data: {'tkrm_num' : tkrm_num},
+			type: 'get',
+			success: function (res) {
+				//참여 멤버리스트 가져오기
+				let memberList = res.memberList;
+				if(!isClickedJoinGroupMember) {
+					for(var i = 0; i<memberList.length; i++) {
+					$('#join_member_list').append(
+   					 	'<tr><td><input type="hidden" id="m_id2" value="'
+   					 	+ memberList[i].m_id
+   					 	+ '">'
+   					 	+ memberList[i].m_name
+   					 	+ '</td></tr>'
+   					 ); 
+					} isClickedJoinGroupMember = true;
+				}						
+				$('#content1').hide();
+				$('#chatting_wrap').show();
+				
+				//input에 m_id, m_name 정보 넣기
+				$('#m_id').val(m_id);
+				$('#m_name').val(m_name);
+			},
+			error : function(err){
+				console.log('error');
+			}
+		});
+}
+
 
 //웹소켓 열기
 function wsOpen(roomNumber) {

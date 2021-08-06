@@ -30,4 +30,6 @@ public interface TalkDao {
 
 	void insertTalkRoomGroup();
 
+	List<Member> selectJoinGroupMemberList(int tkrm_num);
+
 }

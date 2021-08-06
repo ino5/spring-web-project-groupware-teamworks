@@ -71,7 +71,8 @@
 					</table>
 				</div>
 				<button type="button" id="back" value="돌아가기">돌아가기</button>
-				<button type="button" id="join_member" value="참여자">참여자</button>
+				<button type="button" id="join_member" onclick="join_member($('#roomNumber').val())">참여자</button>
+				<table id="join_member_list"></table>
 			</div>
 		</div>
 	</div>

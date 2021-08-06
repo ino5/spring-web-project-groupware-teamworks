@@ -24,6 +24,8 @@ public interface TalkService {
 
 	Room MakeGroupGetRoom(List<String> groupList, String m_id);
 
+	List<Member> selectJoinGroupMemberList(int tkrm_num);
+
 	
 	
 }

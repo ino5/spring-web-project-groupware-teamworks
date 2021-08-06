@@ -80,4 +80,9 @@ public class TalkServiceImpl implements TalkService {
 		}
 		return talkDao.selectRoom(roomNumber);
 	}
+
+	@Override
+	public List<Member> selectJoinGroupMemberList(int tkrm_num) {
+		return talkDao.selectJoinGroupMemberList(tkrm_num);
+	}
 }
