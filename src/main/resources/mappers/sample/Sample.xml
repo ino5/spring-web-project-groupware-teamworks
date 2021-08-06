@@ -12,7 +12,7 @@
 	<select id="selectSample" resultType="com.example.sproject.model.sample.Sample">
 		SELECT * FROM sample
 	</select>
-	<insert id="insertSample" parameterType="com.example.sproject.model.sample.Sample">
-		INSERT into sample values (#{num},#{name})
+	<insert id="insertSample" parameterType="Map">
+		INSERT into sample values (#{map.sample.num},#{map.sample.name})
 	</insert>
 </mapper>

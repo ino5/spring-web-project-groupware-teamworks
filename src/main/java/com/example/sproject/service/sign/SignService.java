@@ -19,10 +19,20 @@ public interface SignService {
 
 	List<SignLine> convertToListOfSignLine(int sg_num, String[] listOfm_idOfSignLine);
 
+	//리스트 가져오기
 	List<Sign> listSignOfProposalProcessing(String m_id);
-
+	List<Sign> listSignOfApprovalWaited(String m_id);
+	List<Sign> listSignOfProposalCompleted(String m_id);
+	List<Sign> listSignOfApprovalCompleted(String m_id);
+	
 	Map<String, Object> findMapOfSignContent(int sg_num);
 
 	Sign selectOneSign(int sg_num);
+
+
+
+	
+
+	
 
 }

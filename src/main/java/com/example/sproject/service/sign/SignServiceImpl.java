@@ -34,6 +34,13 @@ public class SignServiceImpl implements SignService {
 			signContent.setSg_num(sg_num);
 			signContent.setSgf_id(sgf_id);
 			signContent.setSgc_content(req.getParameter(signContent.getSgfc_id()) != null ? req.getParameter(signContent.getSgfc_id()) : "");
+			
+			//파일 저장하기
+			if (signContent.getSgf_id() == "dv_id") {
+				String dv_id = (String) req.getAttribute("dv_id");
+				signContent.setSgc_content(dv_id != null ? dv_id : "");
+			}
+			
 			System.out.println(signContent); //콘솔 확인
 		}
 		
@@ -84,13 +91,32 @@ public class SignServiceImpl implements SignService {
 		return listOfSignLine;
 	}
 
-
+//리스트 가져오기
 	@Override
 	public List<Sign> listSignOfProposalProcessing(String m_id) {
 		List<Sign> listOfSignOfProposalProcessing = signDao.selectListSignOfProposalProcessing(m_id);
 		return listOfSignOfProposalProcessing;
 	}
+	
+	@Override
+	public List<Sign> listSignOfProposalCompleted(String m_id) {
+		List<Sign> listOfSignOfProposalCompleted = signDao.selectListSignOfProposalCompleted(m_id);
+		return listOfSignOfProposalCompleted;
+	}
+	
+	@Override
+	public List<Sign> listSignOfApprovalWaited(String m_id) {
+		List<Sign> listOfSignOfApprovalWaited = signDao.selectListSignOfApprovalWaited(m_id);
+		return listOfSignOfApprovalWaited;
+	}
 
+	@Override
+	public List<Sign> listSignOfApprovalCompleted(String m_id) {
+		List<Sign> listOfSignOfApprovalCompleted = signDao.selectListSignOfApprovalCompleted(m_id);
+		return listOfSignOfApprovalCompleted;
+	}
+	
+	
 
 	@Override
 	public Map<String, Object> findMapOfSignContent(int sg_num) {
@@ -108,5 +134,13 @@ public class SignServiceImpl implements SignService {
 		Sign sign = signDao.selectOneSign(sg_num);
 		return sign;
 	}
+
+
+
+
+
+
+
+
 
 }

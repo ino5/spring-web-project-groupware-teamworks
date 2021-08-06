@@ -48,12 +48,28 @@ public class SignDaoImpl implements SignDao {
 		map.put("listOfSignLine", listOfSignLine);
 		return session.insert("insertSignLinesOfSign", map);
 	}
-
+	
+//리스트 보기
 	@Override
 	public List<Sign> selectListSignOfProposalProcessing(String m_id) {
 		return session.selectList("selectListSignOfProposalProcessing", m_id);
 	}
 
+	@Override
+	public List<Sign> selectListSignOfProposalCompleted(String m_id) {
+		return session.selectList("selectListSignOfProposalCompleted", m_id);
+	}	
+	
+	@Override
+	public List<Sign> selectListSignOfApprovalWaited(String m_id) {
+		return session.selectList("selectListSignOfApprovalWaited", m_id);
+	}	
+
+	@Override
+	public List<Sign> selectListSignOfApprovalCompleted(String m_id) {
+		return session.selectList("selectListSignOfApprovalCompleted", m_id);
+	}
+	
 	@Override
 	public List<SignContent> selectListSignContent(int sg_num) {
 		return session.selectList("selectListSignContentOfSign", sg_num);
@@ -63,6 +79,12 @@ public class SignDaoImpl implements SignDao {
 	public Sign selectOneSign(int sg_num) {
 		return session.selectOne("selectOneSignOfSign", sg_num);
 	}
+
+
+
+
+
+
 	
 	
 }

@@ -33,7 +33,7 @@
 	<div id="side">
 		<%@include file = "/WEB-INF/views/sign/signSide.jsp" %>
 	</div>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	<sec:csrfInput/>
 	<div id="content">
 		<div id="content_top">
@@ -52,16 +52,16 @@
 						m_id: <input type="text" name="sgl_m_id">
 						sgl_type: <input type="text" name="sgl_type">						
 					</li>
-					<li class="ui-state-default">
-						<span class="ic ic_drag"></span>
-						m_id: <input type="text" name="sgl_m_id">
-						sgl_type: <input type="text" name="sgl_type">						
-					</li>
-					<li class="ui-state-default">
-						<span class="ic ic_drag"></span>
-						m_id: <input type="text" name="sgl_m_id">
-						sgl_type: <input type="text" name="sgl_type">						
-					</li>					
+<!-- 					<li class="ui-state-default"> -->
+<!-- 						<span class="ic ic_drag"></span> -->
+<!-- 						m_id: <input type="text" name="sgl_m_id"> -->
+<!-- 						sgl_type: <input type="text" name="sgl_type">						 -->
+<!-- 					</li> -->
+<!-- 					<li class="ui-state-default"> -->
+<!-- 						<span class="ic ic_drag"></span> -->
+<!-- 						m_id: <input type="text" name="sgl_m_id"> -->
+<!-- 						sgl_type: <input type="text" name="sgl_type">						 -->
+<!-- 					</li>					 -->
 				</ul>
 				<br><br>
 			</div>
@@ -88,7 +88,12 @@
 						text test
 					</textarea>
 				</c:if>
-			</div>					
+			</div>
+			<div id="div_file">
+				<c:if test="${jspType == 'w'}">
+					<input type="file" name="file1"> <br>
+				</c:if>			
+			</div>				
 		</div>
 		
 		<div id="content_bottom">

@@ -17,7 +17,9 @@
 	</div>
 	<div id="content">
 		<h1>전자결재 홈</h1>
-		<h1>기안 진행 문서(proposal)</h1>
+		
+		<!-- 기안 진행 문서 -->
+		<h1>기안 진행 문서</h1>
 		<table>
 			<thead>
 				<tr>
@@ -28,16 +30,90 @@
 					<td>Link</td>
 				</tr>
 			</thead>
-		<c:forEach var= "SignOfProposalProcessing" items="${listOfSignOfProposalProcessing}">
+		<c:forEach var= "sign" items="${listOfSignOfProposalProcessing}">
 			<tr>
-				<td>${SignOfProposalProcessing.sg_num}</td>
-				<td>${SignOfProposalProcessing.m_id}</td>
-				<td>${SignOfProposalProcessing.sgf_id}</td>
-				<td>${SignOfProposalProcessing.title}</td>
-				<td><a href="${pageContext.request.contextPath}/sign/view/${SignOfProposalProcessing.sgf_id}/${SignOfProposalProcessing.sg_num}">view</a></td>
+				<td>${sign.sg_num}</td>
+				<td>${sign.m_id}</td>
+				<td>${sign.sgf_id}</td>
+				<td>${sign.title}</td>
+				<td><a href="${pageContext.request.contextPath}/sign/view/${sign.sgf_id}/${sign.sg_num}">view</a></td>
 			</tr>
 		</c:forEach>
 		</table>
+		<!-- end of 기안 진행 문서 -->
+
+		<!-- 기안 완료 문서 -->
+		<h1>기안 완료 문서</h1>
+		<table>
+			<thead>
+				<tr>
+					<td>sg_num</td>
+					<td>m_id</td>
+					<td>sgf_id</td>
+					<td>title</td>
+					<td>Link</td>
+				</tr>
+			</thead>
+		<c:forEach var= "sign" items="${listOfSignOfProposalCompleted}">
+			<tr>
+				<td>${sign.sg_num}</td>
+				<td>${sign.m_id}</td>
+				<td>${sign.sgf_id}</td>
+				<td>${sign.title}</td>
+				<td><a href="${pageContext.request.contextPath}/sign/view/${sign.sgf_id}/${sign.sg_num}">view</a></td>
+			</tr>
+		</c:forEach>
+		</table>
+		<!-- end of 기안 완료 문서 -->
+
+		<!-- 결재 대기 문서 -->
+		<h1>결재 대기 문서</h1>
+		<table>
+			<thead>
+				<tr>
+					<td>sg_num</td>
+					<td>m_id</td>
+					<td>sgf_id</td>
+					<td>title</td>
+					<td>Link</td>
+				</tr>
+			</thead>
+		<c:forEach var= "sign" items="${listOfSignOfApprovalWaited}">
+			<tr>
+				<td>${sign.sg_num}</td>
+				<td>${sign.m_id}</td>
+				<td>${sign.sgf_id}</td>
+				<td>${sign.title}</td>
+				<td><a href="${pageContext.request.contextPath}/sign/view/${sign.sgf_id}/${sign.sg_num}">view</a></td>
+			</tr>
+		</c:forEach>
+		</table>
+		<!-- end of 결재 대기 문서 -->
+
+		<!-- 결재 처리 문서 -->
+		<h1>결재 처리 문서</h1>
+		<table>
+			<thead>
+				<tr>
+					<td>sg_num</td>
+					<td>m_id</td>
+					<td>sgf_id</td>
+					<td>title</td>
+					<td>Link</td>
+				</tr>
+			</thead>
+		<c:forEach var= "sign" items="${listOfSignOfApprovalCompleted}">
+			<tr>
+				<td>${sign.sg_num}</td>
+				<td>${sign.m_id}</td>
+				<td>${sign.sgf_id}</td>
+				<td>${sign.title}</td>
+				<td><a href="${pageContext.request.contextPath}/sign/view/${sign.sgf_id}/${sign.sg_num}">view</a></td>
+			</tr>
+		</c:forEach>
+		</table>
+		<!-- end of 결재 처리 문서 -->
+		
 	</div>
 	<!-- 새 결제 진행 모달창 -->
 	<div id="modal_wrap_new_sign">

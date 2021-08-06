@@ -20,6 +20,7 @@ import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.globals.GlobalsOfTb_code;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sample.Sample;
+import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.sample.SampleService;
 
@@ -170,5 +171,14 @@ public class SampleController {
 			System.out.println(session.getId());
 		}
 		return null;
+	}
+	
+	//페이징 테스트
+	@RequestMapping(value ="test/paging", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String testPaging(int total, Integer currentPage) {
+		CommonPaging commonPaging = new CommonPaging(total, currentPage);
+		System.out.println(commonPaging);
+		return commonPaging.toString();
 	}
 }

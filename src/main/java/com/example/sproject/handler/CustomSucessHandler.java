@@ -24,6 +24,8 @@ public class CustomSucessHandler implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 		System.out.println("--com.example.sproject.handler.CustomSucessHandler");
 		System.out.println("Member successed login: " + authentication.getPrincipal());
+		
+		//Member 테이블에 최근접속일 db입력
 		loginService.welcomeLogin(authentication.getName());
 		
 		

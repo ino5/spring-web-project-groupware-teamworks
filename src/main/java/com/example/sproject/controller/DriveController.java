@@ -132,6 +132,7 @@ public class DriveController {
         //삭제할 파일 경로 관련 변수 설정
         String filePath = WebMvcConfig.RESOURCE_PATH + "/drive";
         String fileNameWithPath = filePath + "/" + dv_id;
+        System.out.println("fileNameWithPath: " + fileNameWithPath);
         
 		//DB에서 해당 파일 정보 가져오기
 		DriveFileInfo driveFileInfo = driveService.selectOneDriveFileInfo(dv_id);
