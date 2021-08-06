@@ -54,6 +54,7 @@ $(document).ready(function() {
 			url: _contextPath + '/talk/getMemberList',
 			type: 'get',
 			success: function (res) {
+/*
 				//멤버리스트 가져오기
 				let memberList = res.memberList;
 				
@@ -72,7 +73,8 @@ $(document).ready(function() {
    					 ); 
 					} 
 					isClickedOnebyOneChat = true;
-				}					
+				}
+*/					
 				$('.modal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
@@ -107,6 +109,7 @@ function getRoomOfApi(m_id2) {
 		//소켓열기
 		wsOpen(room.tkrm_num);
 		$('#roomNumber').val(room.tkrm_num);
+		$('#roomName').text(room.tkrm_name);
 		for(var i = 0; i < talkList.length; i++) {
 			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
@@ -132,6 +135,7 @@ function getRoomOfApi(m_id2) {
 		$('#content1').hide();
 		$('#chatting_wrap').show();
 		$('#content2').hide();
+		$('#back2').hide();
 
 	},
 	err: function(err){}
@@ -199,6 +203,7 @@ function getRoomOfApi2(tkrm_num) {
 		//소켓열기
 		wsOpen(room.tkrm_num);
 		$('#roomNumber').val(room.tkrm_num);
+		$('#roomName').text(room.tkrm_name);
 		for(var i = 0; i < talkList.length; i++) {
 			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
@@ -224,6 +229,7 @@ function getRoomOfApi2(tkrm_num) {
 		$('#content1').hide();
 		$('#chatting_wrap').show();
 		$('#content2').hide();
+		$('#bakc1').hide();
 
 	},
 	err: function(err){}
@@ -245,10 +251,10 @@ $(document).ready(function() {
 				if(!isClickedGroupchat) {
 					for(var i = 0; i<memberList.length; i++) { 
 	   					 $('#makegroup').append(
-	   					 	'<input type="hidden" id="m_id2" value="'
+	   					 	'<input type="hidden" class="m_id2" value="'
 	   					 	+ memberList[i].m_id
-	   					 	+ '"><input type="checkbox"  id="group" value="'
-	   					 	+ memberList[i].m_name
+	   					 	+ '"><input type="checkbox" name="group" class="group" value="'
+	   					 	+ memberList[i].m_id
 	   					 	+ '">'
 	   					 	+ memberList[i].m_name
 	   					 ); 
@@ -270,6 +276,36 @@ $(document).ready(function() {
 	});
 });
 
+// 체크박스 저장
+function talkGroup() {
+    var chk = []; // key 값을 담을 배열
+    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+    // object들을 찾아서 delchk라는 배열에 담는다.
+    $('.group:checked').each(function(){
+        chk.push($(this).val());
+    });
+    
+	$.ajax({
+		type : 'get',
+		url : _contextPath + "/talk/MakeGroupGetRoom",
+		data : {checkArray : chk},
+			success: function (res){
+					global_res = res; //콘솔 확인용
+					let room = res.room;
+					let m_id = res.m_id;
+		
+		//소켓열기
+		wsOpen(room.tkrm_num);
+		$('#roomNumber').val(room.tkrm_num);
+		$('#roomName').text(room.tkrm_name);
+			
+				$('#content1').hide();
+				$('#content2').hide();
+				$('#chatting_wrap').show();
+				$('#back1').hide();
+        	}
+		});
+	}
 
 
 $(document).ready(function() {
@@ -304,6 +340,8 @@ $(document).ready(function() {
 				
 				//채팅 기록 지우기(변경됨)
 				$('#chating').html('');
+				$('#roomName').html('');
+				$('.group').removeAttr('checked');
 			},
 			error : function(err){
 				console.log('error');

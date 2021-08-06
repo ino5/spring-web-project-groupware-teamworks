@@ -28,5 +28,6 @@ public interface TalkDao {
 
 	List<Room> selectgetGroupRoomList(String m_id);
 
+	void insertTalkRoomGroup();
 
 }

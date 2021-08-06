@@ -43,7 +43,8 @@
 	SELECT tr.tkrm_num, te.m_id, tr.tkrm_name from talker te, talk_room tr where tr.tkrm_num = te.tkrm_num and te.m_id=#{m_id} and tr.tkrm_type=2
 </select>
 
-<select id="selectroomTypeNameOfTalk" resultType="com.example.sproject.model.talk.Room" parameterType="int">
-	select tkrm_type from talk_room where tkrm_num=#{tkrm_num}
-</select>
+<insert id="insertMakeGroupRoomOfTalk">
+	insert into talk_room(tkrm_num, tkrm_name, tkrm_type) values( (SELECT NVL(MAX(tkrm_num) + 1, 1) from talk_room), '그룹채팅방', 2)
+</insert>
+
 </mapper>

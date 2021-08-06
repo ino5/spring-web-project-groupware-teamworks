@@ -21,6 +21,10 @@ public interface TalkService {
 	List<Room> selectgetGroupRoomList(String m_id);
 
 	Room getRoom(int tkrm_num);
+
+	Room MakeGroupGetRoom(List<String> groupList, String m_id);
+
+	
 	
 }
 

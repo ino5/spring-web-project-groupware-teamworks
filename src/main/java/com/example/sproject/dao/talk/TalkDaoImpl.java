@@ -79,4 +79,10 @@ public class TalkDaoImpl implements TalkDao {
 	public List<Room> selectgetGroupRoomList(String m_id) {
 		return session.selectList("selectGroupRoomListOfTalk", m_id);
 	}
+
+	@Override
+	public void insertTalkRoomGroup() {
+		session.insert("insertMakeGroupRoomOfTalk");
+		return;
+	}
 }

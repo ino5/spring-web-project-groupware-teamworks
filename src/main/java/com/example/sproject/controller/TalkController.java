@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -260,6 +261,29 @@ public class TalkController {
 		System.out.println("roomList");
 		for(Room room : roomList) System.out.println(room);
 		return map;
-	}	
+	}
 	
+	@RequestMapping(value="MakeGroupGetRoom", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> getGrouproomNumber(String m_id2, @AuthenticationPrincipal Member sessionMember, @RequestParam(value="checkArray[]") List<String> groupList) {
+		System.out.println("TalkController Start MakeGroupRoom..." );
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = null;
+		if(sessionMember != null) {
+			m_id = sessionMember.getM_id();			
+		}
+		
+		  ArrayList<String> GroupArray = new ArrayList<String>();
+		    for(int i=0;i<groupList.size();i++){
+		    	GroupArray.add(groupList.get(i));
+		    }
+		
+		Room room = talkService.MakeGroupGetRoom(groupList, m_id);
+				
+		//맵에 넣기
+		map.put("m_id", m_id);
+		map.put("room", room);
+
+		return map;
+	}
 }

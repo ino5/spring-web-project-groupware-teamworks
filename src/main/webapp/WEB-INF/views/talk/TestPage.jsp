@@ -44,10 +44,11 @@
 		</div>
 		<div id="content2">
 			<div id="makegroup"></div>
+			<button type="button" onclick="javascript:talkGroup()" class="insertroom">방만들기</button>
 		</div>
 		<div id="chatting_wrap">
 			<div class="container">
-				<h1 id="roomName">1:1 채팅방</h1>
+				<h1 id="roomName"></h1>
 				<input type="hidden" id="sessionId" value="">
 				<input type="hidden" id="m_id">
 				<input type="hidden" id="m_name">
@@ -70,6 +71,7 @@
 					</table>
 				</div>
 				<button type="button" id="back" value="돌아가기">돌아가기</button>
+				<button type="button" id="join_member" value="참여자">참여자</button>
 			</div>
 		</div>
 	</div>
