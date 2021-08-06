@@ -168,7 +168,6 @@
 }
 
 #calendar {
-	border-top:1px solid #ddd;
 	margin-top: 50px;
 	margin-left: 50px;
 	width: 80%;
@@ -176,9 +175,11 @@
 }
 
 .div_week {
+	border-bottom : 1px solid #E7E7E7;
 	width: 100%;
 	font-size: 20px;	
-	margin: 50px 0px;
+	margin-top: 30px;
+	padding-bottom: 20px;
 }
 
 .week_img {
@@ -187,23 +188,52 @@
 	cursor: pointer;
 }
 
-.tb_title {
+#tb_title {
+	border-top : 1px solid #E7E7E7;
+	border-bottom : 1px solid #E7E7E7;
 	display: none;
-	margin-top: 40px;
+	margin-top: 20px;
 }
 
-.tb_title td {
-	width: 300px;
+#tb_title td {
 	font-size: 15px;
 }
 
 .div_week table {
 	font-size: 15px;
-	margin-top: 40px;
+	padding : 10px 0;
 	display: none;
 }
 
-.div_week table td {
-	width: 300px;
+.div_week table:hover {
+	background-color: #EBF7FF;
 }
+
+.div_week table td {
+	width: 376px;
+}
+
+.week_time {
+	font-size: 15px;	
+	float: right;
+	margin-right: 50px;
+}
+
+.div_head {
+	float: left;
+	width: 25%;
+	padding: 30px 0;
+}
+
+.div_p1 {
+	text-align: center;
+}
+
+.div_p2 {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 10px;
+	color : #6799FF;
+}
+
 

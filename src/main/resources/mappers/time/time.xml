@@ -16,11 +16,11 @@
 	</update>
 	
 	<select id="timeList_sdateOfTime" parameterType="java.lang.String" resultType="com.example.sproject.model.time.Time">
-		select substr(tm_sdate,1,10) tm_sdate, substr(tm_sdate,12,8) tm_sdate_time from time where m_id = #{m_id}
+		select substr(tm_sdate,1,10) tm_sdate_date, substr(tm_sdate,12,8) tm_sdate_time from time where m_id = #{m_id}
 	</select>
 	
 	<select id="timeList_edateOfTime" parameterType="java.lang.String" resultType="com.example.sproject.model.time.Time">
-		select tm_num, m_id, tm_type, substr(tm_sdate,1,10) tm_sdate, substr(tm_edate,12,8) tm_sdate_time, substr(tm_edate,12,8) tm_edate_time,
-		substr(tm_edate,1,10) tm_edate from time where m_id = #{m_id}
+		select tm_num, m_id, tm_type, tm_sdate, substr(tm_edate,12,8) tm_sdate_time, tm_edate, substr(tm_edate,12,8) tm_edate_time,
+		substr(tm_edate,1,10) tm_edate_date, substr(tm_edate,9,2) tm_edate_day from time where m_id = #{m_id}
 	</select>
 </mapper>

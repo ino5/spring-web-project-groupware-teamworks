@@ -13,5 +13,8 @@ public class Time {
 	private String tm_edate;
 	private String tm_sdate_time;
 	private String tm_edate_time;
+	private String tm_sdate_date;
+	private String tm_edate_date;
+	private String tm_edate_day;
 	
 }
