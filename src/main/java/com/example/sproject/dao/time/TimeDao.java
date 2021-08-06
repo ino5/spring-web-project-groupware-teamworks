@@ -12,4 +12,8 @@ public interface TimeDao {
 
 	void endTime(Time time);
 
+	List<Time> timeList_sdate(String m_id);
+
+	List<Time> timeList_edate(String m_id);
+
 }

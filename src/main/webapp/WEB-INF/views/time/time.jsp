@@ -12,6 +12,7 @@
 </head>
 <script type="text/javascript">
 	var global_now;
+	var global_date;
 	var global_nowTime;
 	function printTime() {
 		var now = new Date(); // 현재시간
@@ -25,6 +26,7 @@
 		var nowDate = now.getFullYear() + "-" + month + "-" + day;
 		var nowTime = hour + ":" + minute + ":" + second;
 		global_now = nowDate + " " + nowTime;
+		global_date = now.getFullYear() + "-" + month + "-" + day;
 		global_nowTime = nowTime;
 		clock1.innerHTML = nowDate; // 현재시간을 출력
 		clock2.innerHTML = nowTime;
@@ -34,6 +36,11 @@
 		printTime();
 	}
 
+	var start_text;
+	var HHH;
+	var MMM;
+	var SSS;
+	
 	function start() {
 
 		$
@@ -46,11 +53,14 @@
 					success : function(result) {
 						// 				debugger;
 						document.getElementById('startTime').innerHTML = global_nowTime;
+						start_text = new Date(global_now);
+						document.getElementById(global_date).rows[0].insertCell(-1).innerText=global_nowTime;
 						document.getElementById('btn1').style.color = '#CFCFCF';
 						document.getElementById('btn1').style.pointerEvents = 'none';
 					}
 				});
 	}
+	
 
 	function end() {
 
@@ -62,7 +72,14 @@
 			},
 			success : function(result) {
 				// 				debugger;
+				var end_text = new Date(global_now);
+				var end_start = end_text - start_text;
+				HHH = Math.floor((end_start % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				MMM = Math.floor((end_start % (1000 * 60 * 60)) / (1000 * 60));				
+				SSS = Math.floor((end_start % (1000 * 60)) / 1000);		
 				document.getElementById('endTime').innerHTML = global_nowTime;
+				document.getElementById(global_date).rows[0].insertCell(-1).innerText=global_nowTime;
+				document.getElementById(global_date).rows[0].insertCell(-1).innerText= HHH + "h " + MMM + "m " + SSS + "s";
 				document.getElementById('btn2').style.color = '#CFCFCF';
 				document.getElementById('btn2').style.pointerEvents = 'none';
 			}
@@ -128,39 +145,349 @@
               cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
          }
 		var row_num = 1;
+		var m = (today.getMonth() + 1 > 9 ? today.getMonth() + 1 : '0'+ Number(today.getMonth() + 1));
 		for (i=1; i<=(lastDate.getDate()+cnt) /7 + 1; i++){
-			$('#calendar').append("<div id='week_"+ row_num + "' class='div_week'><img id='week_img" + row_num + "' class='week_img' src='${pageContext.request.contextPath}/time/img/down.png' onclick='javascript:dayShow(day_"+ row_num + ")'> &nbsp&nbsp&nbsp" + row_num + "주차</div>");
+			$('#calendar').append("<div id='week_"+ row_num + "' class='div_week'><img id='week_img" + row_num + "' class='week_img' src='${pageContext.request.contextPath}/time/img/down.png' onclick='javascript:dayShow("+ row_num + ")'> &nbsp&nbsp&nbsp" + row_num + "주차<span id='week_time" + row_num + "' class='week_time'></span></div>");
 			row_num++;
 		}
 		for(i=1; i<=row_num; i++){
-			$('#week_'+i).append("<table id = 'day_"+ i + "' class='tb_title'><tr><td>일자</td><td>업무시작</td><td>업무종료</td><td>총근무시간</td></tr></table>");
+			$('#week_'+i).append("<table class = 'day_"+ i + "' id='tb_title'><tr><td>일자</td><td>업무시작</td><td>업무종료</td><td>총근무시간</td></tr></table>");
 		}
 		for(i=1; i<=lastDate.getDate(); i++){
 			if(cnt + i <= 7){
-				$('#week_1').append("<div id = 'day_1' class='div_day'>" + i + "일</div>");
+				$('#week_1').append("<table id = '"+today.getFullYear() + "-" + m + "-" + "0" + i + "' class='day_1'><tr><td>" + i + "일</td></tr></table>");
 			}
 			else if(cnt + i <= 14){
-				$('#week_2').append("<div id = 'day_2' class='div_day'>" + i + "일</div>");
+				if(i < 10){
+					$('#week_2').append("<table id = '"+today.getFullYear() + "-" + m + "-" + "0" + i + "' class='day_2'><tr><td>" + i + "일</td></tr></table>");
+				}
+				else {
+					$('#week_2').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_2'><tr><td>" + i + "일</td></tr></table>");
+				}
 			}
 			else if(cnt + i <= 21){
-				$('#week_3').append("<div id = 'day_3' class='div_day'>" + i + "일</div>");
+				$('#week_3').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_3'><tr><td>" + i + "일</td></tr></table>");
 			}
 			else if(cnt + i <= 28){
-				$('#week_4').append("<div id = 'day_4' class='div_day'>" + i + "일</div>");
+				$('#week_4').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_4'><tr><td>" + i + "일</td></tr></table>");
 			}
 			else if(cnt + i <= 35){
-				$('#week_5').append("<div id = 'day_5' class='div_day'>" + i + "일</div>");
+				$('#week_5').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_5'><tr><td>" + i + "일</td></tr></table>");
+			}
+			else if(cnt + i <= 42){
+				$('#week_6').append("<table id = '"+today.getFullYear() + "-" + m + "-" + i + "' class='day_6'><tr><td>" + i + "일</td></tr></table>");
 			}
 		}
+		var time1;
+		var time2;
+		var time3;
+// 		var work_time_All = 0;
+		var work_time;
+		var work_day;
+			<c:forEach items="${timeList_sdate}" var="start">
+			$('#${start.tm_sdate_date } > tbody > tr:last').append('<td>${start.tm_sdate_time}</td>'); 
+			</c:forEach>
+			<c:forEach items="${timeList_edate}" var="end">
+				time1 = new Date("${end.tm_sdate}");  // 시작시간
+				time2 = new Date("${end.tm_edate}");  // 종료시간
+				time3 = time2 - time1;				  // 간격
+				HHH = Math.floor((time3 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+				MMM = Math.floor((time3 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+				SSS = Math.floor((time3 % (1000 * 60)) / 1000);							// 초
+				work_time = HHH +"h "+ MMM+"m "+ SSS +"s";								// 총 근무시간
+				work_day = Number(${end.tm_edate_day });
+				$('#${end.tm_edate_date } > tbody > tr:last').append('<td>${end.tm_edate_time}</td>'); 
+				$('#${end.tm_edate_date } > tbody > tr:last').append("<td><input type='hidden' id='"+ work_day +"' value='"+ time3 +"'>" + work_time + "</td>"); 
+			</c:forEach>		
+			 
+			
+			// 주간 누적 근무시간 구하기
+			var week_time1;
+			var week_time2;
+			var week_time3;
+			var week_time4;
+			var week_time5;
+			var week_time6;
+			var work_week_val1 = 0;
+			var work_week_val2 = 0;
+			var work_week_val3 = 0;
+			var work_week_val4 = 0;
+			var work_week_val5 = 0;
+			var work_week_val6 = 0;
+			
+			var cnt2 = 0;
+			
+			cnt2 = cnt + 1;
+			for(cnt2; cnt2 <= 7; cnt2++){
+			    if($('#'+cnt2).length > 0){
+			    	work_week_val1 += Number($('#'+cnt2).val());
+			    }
+			}
+			HHH = Math.floor((work_week_val1 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val1 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val1 % (1000 * 60)) / 1000);							// 초
+			week_time1 = HHH + "h " + MMM + "m " + SSS + "s"
+			$('#week_time1').text("누적 근무시간 " + week_time1);
+			
+			for(cnt2 = 7; cnt2 <= 14; cnt2++){
+			    if($('#'+cnt2).length > 0){
+			    	work_week_val2 += Number($('#'+cnt2).val());
+			    }
+			}
+			HHH = Math.floor((work_week_val2 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val2 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val2 % (1000 * 60)) / 1000);							// 초
+			week_time2 = HHH + "h " + MMM + "m " + SSS + "s"
+			$('#week_time2').text("누적 근무시간 " + week_time2);
+			
+			for(cnt2 = 14; cnt2 <= 21; cnt2++){
+			    if($('#'+cnt2).length > 0){
+			    	work_week_val3 += Number($('#'+cnt2).val());
+			    }
+			}
+			HHH = Math.floor((work_week_val3 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val3 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val3 % (1000 * 60)) / 1000);							// 초
+			week_time3 = HHH + "h " + MMM + "m " + SSS + "s"
+			$('#week_time3').text("누적 근무시간 " + week_time3);
+			
+			for(cnt2 = 21; cnt2 <= 28; cnt2++){
+			    if($('#'+cnt2).length > 0){
+			    	work_week_val4 += Number($('#'+cnt2).val());
+			    }
+			}
+			HHH = Math.floor((work_week_val4 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val4 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val4 % (1000 * 60)) / 1000);							// 초
+			week_time4 = HHH + "h " + MMM + "m " + SSS + "s"
+			$('#week_time4').text("누적 근무시간 " + week_time4);
+			
+			for(cnt2= 28; cnt2 <= 35; cnt2++){
+			    if($('#'+cnt2).length > 0){
+			    	work_week_val5 += Number($('#'+cnt2).val());
+			    }
+			}
+			HHH = Math.floor((work_week_val5 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val5 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val5 % (1000 * 60)) / 1000);							// 초
+			week_time5 = HHH + "h " + MMM + "m " + SSS + "s"
+			$('#week_time5').text("누적 근무시간 " + week_time5);
+			
+			for(cnt2=35; cnt2 <= 42; cnt2++){
+			    if($('#'+cnt2).length > 0){
+			    	work_week_val6 += Number($('#'+cnt2).val());
+			    }
+			}
+			HHH = Math.floor((work_week_val6 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val6 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val6 % (1000 * 60)) / 1000);							// 초
+			week_time6 = HHH + "h " + MMM + "m " + SSS + "s"
+			$('#week_time6').text("누적 근무시간 " + week_time6);
+			
+			// 이번 달 누적
+			var work_week_val_month = work_week_val1 + work_week_val2 + work_week_val3 + work_week_val4 + work_week_val5 + work_week_val6;
+			
+			HHH = Math.floor((work_week_val_month % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((work_week_val_month % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((work_week_val_month % (1000 * 60)) / 1000);							// 초
+			var week_time_month = HHH + "h " + MMM + "m " + SSS + "s"			
+			$('#div_p2_month').text(week_time_month);
+			
+			var week_remain1 = 144000000 - work_week_val1;
+			var week_remain2 = 144000000 - work_week_val2;
+			var week_remain3 = 144000000 - work_week_val3;
+			var week_remain4 = 144000000 - work_week_val4;
+			var week_remain5 = 144000000 - work_week_val5;
+			var week_remain6 = 144000000 - work_week_val6;
+			
+			var week_over1 = work_week_val1 - 144000000;
+			var week_over2 = work_week_val2 - 144000000;
+			var week_over3 = work_week_val3 - 144000000;
+			var week_over4 = work_week_val4 - 144000000;
+			var week_over5 = work_week_val5 - 144000000;
+			var week_over6 = work_week_val6 - 144000000;
+			
+			HHH = Math.floor((week_over1 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_over1 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_over1 % (1000 * 60)) / 1000);							// 초
+			var week_time_over1 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_over2 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_over2 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_over2 % (1000 * 60)) / 1000);							// 초
+			var week_time_over2 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			
+			HHH = Math.floor((week_over3 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_over3 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_over3 % (1000 * 60)) / 1000);							// 초
+			var week_time_over3 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_over4 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_over4 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_over4 % (1000 * 60)) / 1000);							// 초
+			var week_time_over4 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_over5 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_over5 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_over5 % (1000 * 60)) / 1000);							// 초
+			var week_time_over5 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_over6 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_over6 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_over6 % (1000 * 60)) / 1000);							// 초
+			var week_time_over6 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_remain1 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시 
+			MMM = Math.floor((week_remain1 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_remain1 % (1000 * 60)) / 1000);							// 초
+			var week_time_remain1 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_remain2 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((week_remain2 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_remain2 % (1000 * 60)) / 1000);							// 초
+			var week_time_remain2 = HHH + "h " + MMM + "m " + SSS + "s";
 
+			HHH = Math.floor((week_remain3 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((week_remain3 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_remain3 % (1000 * 60)) / 1000);							// 초
+			var week_time_remain3 = HHH + "h " + MMM + "m " + SSS + "s";
+
+			HHH = Math.floor((week_remain4 % (1000 * 60 * 60 * 100)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((week_remain4 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_remain4 % (1000 * 60)) / 1000);							// 초
+			var week_time_remain4 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_remain5 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((week_remain5 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_remain5 % (1000 * 60)) / 1000);							// 초
+			var week_time_remain5 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			HHH = Math.floor((week_remain6 % (1000 * 60 * 60 * 1000)) / (1000 * 60 * 60));	// 시
+			MMM = Math.floor((week_remain6 % (1000 * 60 * 60)) / (1000 * 60));				// 분
+			SSS = Math.floor((week_remain6 % (1000 * 60)) / 1000);							// 초
+			var week_time_remain6 = HHH + "h " + MMM + "m " + SSS + "s";
+			
+			// 현재 날짜 테이블 펼치기
+			if(today.getDate() + cnt <= 7){
+				$('.day_1').css('display', 'table');
+				$('#week_img1').css({
+					'transform' : 'rotate(180deg)'
+				});
+				$('#week_clock').text(week_time1);
+				$('#div_p2_week').text(week_time1);
+				if(week_remain1 > 0) {
+					$('#div_p2_remain').text(week_time_remain1);
+				}else {
+					$('#div_p2_remain').text("0h 0m 0s");
+				}
+				
+				if(week_over1 > 0) {
+					$('#div_p2_over').text(week_time_over1);
+				}else {
+					$('#div_p2_over').text("0h 0m 0s");
+				}
+			} else if(today.getDate() + cnt <= 14){
+				$('.day_2').css('display', 'table');
+				$('#week_img2').css({
+					'transform' : 'rotate(180deg)'
+				});
+				$('#week_clock').text(week_time2);
+				$('#div_p2_week').text(week_time2);
+				if(week_remain2 > 0) {
+					$('#div_p2_remain').text(week_time_remain2);
+				}else {
+					$('#div_p2_remain').text("0h 0m 0s");
+				}
+				if(week_over2 > 0) {
+					$('#div_p2_over').text(week_time_over2);
+				}else {
+					$('#div_p2_over').text("0h 0m 0s");
+				}
+			} else if(today.getDate() + cnt <= 21){
+				$('.day_3').css('display', 'table');
+				$('#week_img3').css({
+					'transform' : 'rotate(180deg)'
+				});
+				$('#week_clock').text(week_time3);
+				$('#div_p2_week').text(week_time3);
+				if(week_remain3 > 0) {
+					$('#div_p2_remain').text(week_time_remain3);
+				}else {
+					$('#div_p2_remain').text("0h 0m 0s");
+				}
+				if(week_over3 > 0) {
+					$('#div_p2_over').text(week_time_over3);
+				}else {
+					$('#div_p2_over').text("0h 0m 0s");
+				}
+			} else if(today.getDate() + cnt <= 28){
+				$('.day_4').css('display', 'table');
+				$('#week_img4').css({
+					'transform' : 'rotate(180deg)'
+				});
+				$('#week_clock').text(week_time4);
+				$('#div_p2_week').text(week_time4);
+				if(week_remain4 > 0) {
+					$('#div_p2_remain').text(week_time_remain4);
+				}else {
+					$('#div_p2_remain').text("0h 0m 0s");
+				}
+				if(week_over4 > 0) {
+					$('#div_p2_over').text(week_time_over4);
+				}else {
+					$('#div_p2_over').text("0h 0m 0s");
+				}
+			} else if(today.getDate() + cnt <= 35){
+				$('.day_5').css('display', 'table');
+				$('#week_img5').css({
+					'transform' : 'rotate(180deg)'
+				});
+				$('#week_clock').text(week_time5);
+				$('#div_p2_week').text(week_time5);
+				if(week_remain5 > 0) {
+					$('#div_p2_remain').text(week_time_remain5);
+				}else {
+					$('#div_p2_remain').text("0h 0m 0s");
+				}
+				if(week_over5 > 0) {
+					$('#div_p2_over').text(week_time_over5);
+				}else {
+					$('#div_p2_over').text("0h 0m 0s");
+				}
+			} else if(today.getDate() + cnt <= 42){
+				$('.day_6').css('display', 'table');
+				$('#week_img6').css({
+					'transform' : 'rotate(180deg)'
+				});
+				$('#week_clock').text(week_time6);
+				$('#div_p2_week').text(week_time6);
+				if(week_remain6 > 0) {
+					$('#div_p2_remain').text(week_time_remain6);
+				}else {
+					$('#div_p2_remain').text("0h 0m 0s");
+				}
+				if(week_over6 > 0) {
+					$('#div_p2_over').text(week_time_over6);
+				}else {
+					$('#div_p2_over').text("0h 0m 0s");
+				}
+			}
+			
     }
 	
 	
 	function dayShow(i) {
-		if ($(i).is(":visible")) {
-			$(i).hide();
+		if ($('.day_' + i).is(":visible")) {
+			$('#week_img' + i).css({
+				'transform' : 'rotate(0deg)'
+			});
+			$('.day_' + i).hide();
 		} else {
-			$(i).show();
+			$('#week_img' + i).css({
+				'transform' : 'rotate(180deg)'
+			});
+			$('.day_' + i).show();
 		}
 	}
 </script>
@@ -184,7 +511,7 @@
 				${mainTime.tm_edate}
 			</c:if>
 			</span> <br> <span class="clock3">주간 누적 근무시간</span> <span
-				class="clock4">0h 29m 0s</span>
+				id="week_clock" class="clock4">0h 0m 0s</span>
 		</section>
 		<section style="margin-left: 20px;">
 			<hr
@@ -240,18 +567,38 @@
 
 	</div>
 	<div id="content" style="height: 1000px;">
-		<p id="content1">근태현황</p>
+		<p id="content1">근태현황</p>	
 		<div id="calendar_head">
 			<!-- label은 마우스로 클릭을 편하게 해줌 -->
 			<label onclick="prevCalendar()" style="padding-right: 20px;"><</label>
 			<a align="center" id="tbCalendarYM" style="padding-right: 20px;">yyyy년
 				m월</a> <label onclick="nextCalendar()">> </label>
 		</div>
+		<p style="margin-left: 30px; font-size: 18px">(기본근태) B형 자유출퇴근</p>
+		<div style="width: 95%; height: 150px; border: 1px solid #E7E7E7; margin-left: 30px; margin-top: 30px;">
+			<div class="div_head">
+				<p class="div_p1">이번주 누적</p>
+				<p id="div_p2_week" class="div_p2">0h 0m 0s</p>
+			</div>
+			<div class="div_head">
+				<p class="div_p1">이번주 초과</p>
+				<p id="div_p2_over" class="div_p2">0h 0m 0s</p>
+			</div>
+			<div class="div_head">
+				<p class="div_p1">이번주 잔여</p>
+				<p id="div_p2_remain" class="div_p2">40h 0m 0s</p>
+			</div>
+			<div class="div_head">
+				<p class="div_p1">이번달 누적</p>
+				<p id="div_p2_month" class="div_p2">0h 0m 0s</p>
+			</div>
+		</div>
 		<div id="calendar" style="position: absolute;"></div>
 		<script type="text/javascript">
 			buildCalendar();
 		</script>
 		<br>
+
 	</div>
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
