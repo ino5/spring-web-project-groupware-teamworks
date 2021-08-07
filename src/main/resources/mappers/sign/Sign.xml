@@ -60,6 +60,7 @@
 						SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
 						WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
 						)
+		ORDER BY s.sg_num desc
 	</select>
 
 	<select id="selectListSignOfProposalCompleted" parameterType="String" resultType="com.example.sproject.model.sign.Sign">
@@ -71,6 +72,7 @@
 		                                    WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
 		                                    )                
 		                )
+		ORDER BY s.sg_num desc                
 	</select>
 
 	<select id="selectListSignOfApprovalWaited" parameterType="String" resultType="com.example.sproject.model.sign.Sign">
@@ -80,6 +82,7 @@
 						SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
 						WHERE s.sg_num = sl.sg_num AND (sl.m_id = #{m_id} AND sl.sgl_type = 1 AND sl.sgl_status = 0)
 						)
+		ORDER BY s.sg_num desc				
 	</select>	
 
 	<select id="selectListSignOfApprovalCompleted" parameterType="String" resultType="com.example.sproject.model.sign.Sign">
@@ -89,6 +92,7 @@
 						SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
 						WHERE s.sg_num = sl.sg_num AND (sl.m_id = #{m_id} AND sl.sgl_type = 1 AND sl.sgl_status = 1)
 						)
+		ORDER BY s.sg_num desc				
 	</select>	
 	
 	<select id="selectListSignContentOfSign" parameterType="int" resultType="com.example.sproject.model.sign.SignContent">
@@ -97,5 +101,10 @@
 
 	<select id="selectOneSignOfSign" parameterType="int" resultType="com.example.sproject.model.sign.Sign">
 		SELECT * FROM sign WHERE sg_num = #{sg_num}
+	</select>
+	
+	<select id="selectListMemberOfSign" resultType="com.example.sproject.model.login.Member">
+		SELECT m.m_id, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM member m, department d, position p
+		WHERE m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code ORDER BY d.dpt_name, p.pt_order
 	</select>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sproject.dao.sign.SignDao;
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
 import com.example.sproject.model.sign.SignLine;
@@ -73,16 +74,17 @@ public class SignServiceImpl implements SignService {
 		result = signDao.insertSignLines(listOfSignLine);
 		return result;
 	}
-
+	
+	// 결재선 받은 input 리스트들 하나의 SignLine 객체 리스트로 바꾸기
 	@Override
-	public List<SignLine> convertToListOfSignLine(int sg_num, String[] listOfm_idOfSignLine) {
+	public List<SignLine> convertToListOfSignLine(int sg_num, String[] listOfm_idOfSignLine, int[] listOfSgl_typeOfSignLine) {
 		List<SignLine> listOfSignLine = new ArrayList<SignLine>();
-		int sgl_order = 1;
+		int sgl_order = 1; // iterator + 1
 		for (String m_idInList : listOfm_idOfSignLine) {
 			SignLine signLine = new SignLine();
 			signLine.setSg_num(sg_num);
 			signLine.setM_id(m_idInList);
-			signLine.setSgl_type(1); // 임시
+			signLine.setSgl_type(listOfSgl_typeOfSignLine[sgl_order - 1]); // input에서 받은 sgl_type
 			signLine.setSgl_status(0); // 결재대기중
 			signLine.setSgl_order(sgl_order);
 			++sgl_order;
@@ -133,6 +135,13 @@ public class SignServiceImpl implements SignService {
 	public Sign selectOneSign(int sg_num) {
 		Sign sign = signDao.selectOneSign(sg_num);
 		return sign;
+	}
+
+
+	@Override
+	public List<Member> listMember() {
+		List<Member> listOfMember = signDao.selectListMember();
+		return listOfMember;
 	}
 
 

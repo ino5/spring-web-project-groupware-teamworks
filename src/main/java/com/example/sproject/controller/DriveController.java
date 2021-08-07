@@ -150,26 +150,10 @@ public class DriveController {
         
         return result;
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	//admin 권한 테스트 페이지
 	@RequestMapping("admin")
 	public String admin(Model model) {
 		return "drive/admin";
 	}
-	
-
-	
-	
-
 }

@@ -2,6 +2,7 @@ package com.example.sproject.dao.sign;
 
 import java.util.List;
 
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
 import com.example.sproject.model.sign.SignLine;
@@ -27,6 +28,8 @@ public interface SignDao {
 	List<SignContent> selectListSignContent(int sg_num);
 
 	Sign selectOneSign(int sg_num);
+
+	List<Member> selectListMember();
 
 
 

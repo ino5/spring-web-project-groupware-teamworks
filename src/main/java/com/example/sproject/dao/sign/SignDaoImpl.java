@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
 import com.example.sproject.model.sign.SignLine;
@@ -78,6 +79,11 @@ public class SignDaoImpl implements SignDao {
 	@Override
 	public Sign selectOneSign(int sg_num) {
 		return session.selectOne("selectOneSignOfSign", sg_num);
+	}
+
+	@Override
+	public List<Member> selectListMember() {
+		return session.selectList("selectListMemberOfSign");
 	}
 
 

@@ -14,12 +14,15 @@
 <!-- 썸머노트 관련 js -->
 <script src="${pageContext.request.contextPath}/sign/js/scriptForSummernoteInSign.js"></script>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signFormDraft.css">
+<script src="${pageContext.request.contextPath}/sign/js/signFormDraft.js"></script>
+
 <!-- jquery-ui sortable -->
 <style>
   	#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
   	#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; position: relative; }
 	#sortable li span { position: absolute; margin-left: -1.3em; }
- </style>
+</style>
 <script>
 	$(function() {
 		$( "#sortable" ).sortable();
@@ -30,6 +33,7 @@
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
+	<div class="black_bg"></div>
 	<div id="side">
 		<%@include file = "/WEB-INF/views/sign/signSide.jsp" %>
 	</div>
@@ -44,27 +48,28 @@
 			<h1><c:if test="${jspType == 'w' }"> true</c:if></h1>
 			<div id="sign_line">
 				<h3>결재라인</h3>
-				<span class="ic ic_drag"></span>11
-				<span class="ic"></span>22
+				<button type="button" id="button_new_sign_line">결재라인 추가</button>
 				<ul id="sortable">
-					<li class="ui-state-default">
-						<span class="ic ic_drag"></span>
-						m_id: <input type="text" name="sgl_m_id">
-						sgl_type: <input type="text" name="sgl_type">						
-					</li>
+					이름 부서 직위
+						<!-- 샘플 -->
 <!-- 					<li class="ui-state-default"> -->
 <!-- 						<span class="ic ic_drag"></span> -->
-<!-- 						m_id: <input type="text" name="sgl_m_id"> -->
-<!-- 						sgl_type: <input type="text" name="sgl_type">						 -->
+<!-- 						<input type="hidden" name="sgl_m_id" value= "iin140"> -->
+<!-- 						<input type="hidden" name="sgl_type" value= "1">														 -->
 <!-- 					</li> -->
-<!-- 					<li class="ui-state-default"> -->
-<!-- 						<span class="ic ic_drag"></span> -->
-<!-- 						m_id: <input type="text" name="sgl_m_id"> -->
-<!-- 						sgl_type: <input type="text" name="sgl_type">						 -->
-<!-- 					</li>					 -->
 				</ul>
 				<br><br>
 			</div>
+			
+			<!-- 결재라인 추가 모달창 -->
+			<div id="modal_wrap_new_sign_line">
+				<button type="button" id="modal_close_new_sign_line">x</button>
+				<div>
+					<c:forEach var= "member" items="${listOfMember}">
+						<button type="button" onclick="addSignLine('${member.m_id}', '${member.m_name}', '${member.dpt_name}', '${member.pt_name}'); closeModalOfNewSignLine();">${member.m_name}</button><br>
+					</c:forEach>
+				</div>
+			</div>			
 		</div>
 		
 		<div id="content_middle">
@@ -139,5 +144,7 @@
 	}
 </script>
 <!-- end of 썸머노트  -->
+
+
 </body>
 </html>

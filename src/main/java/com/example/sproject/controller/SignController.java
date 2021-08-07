@@ -52,17 +52,24 @@ public class SignController {
 		return "sign/signMain";
 	}
 
+	//전자결재문서 입력창
 	@RequestMapping(value = "form", method = { RequestMethod.GET, RequestMethod.POST })
 	public String form(int cg_num, Model model) {
+		System.out.println("-- com.example.sproject.controller.SignController.form(int, Model)");
 		System.out.println("cg_num: " + cg_num);
 		String sgf_id = "draft";
 		model.addAttribute("jspType", "w");
+		
+		//멤버 목록 가져오기
+		List<Member> listOfMember = signService.listMember();
+		System.out.println("listOfMember.size(): "+ listOfMember.size());
+		model.addAttribute("listOfMember", listOfMember);
 		return "sign/form/" + sgf_id;
 	}
 
 	//전자결재문서 내용 DB에 등록하기
 	@RequestMapping(value = "insert", method = { RequestMethod.GET, RequestMethod.POST })
-	public String insert(@RequestParam(value = "sgl_m_id", required = false) String[] listOfM_idOfSignLine, String sgf_id, MultipartFile file1, 
+	public String insert(@RequestParam(value = "sgl_m_id") String[] listOfM_idOfSignLine, @RequestParam(value = "sgl_type") int[] listOfSgl_typeOfSignLine, String sgf_id, MultipartFile file1, 
 			HttpServletRequest req, @AuthenticationPrincipal Member sessionMember, Model model) {
 		System.out.println("-- com.example.sproject.controller.SignController.insert(String, HttpServletRequest, Member, Model)");
 		
@@ -83,7 +90,7 @@ public class SignController {
 		signService.insertSignContents(sg_num, sgf_id, req);
 
 		//결재라인(SIGN_LINE) insert
-		List<SignLine> listOfSignLine = signService.convertToListOfSignLine(sg_num, listOfM_idOfSignLine);
+		List<SignLine> listOfSignLine = signService.convertToListOfSignLine(sg_num, listOfM_idOfSignLine, listOfSgl_typeOfSignLine);
 		signService.insertSignLines(listOfSignLine);
 		return "redirect:/sign";
 	}
