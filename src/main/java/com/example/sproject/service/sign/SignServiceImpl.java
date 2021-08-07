@@ -21,7 +21,7 @@ public class SignServiceImpl implements SignService {
 	@Autowired
 	private SignDao signDao;
 	
-	
+	// 전자결재문서내용(SIGN_CONTENT 테이블) insert
 	@Override
 	public int insertSignContents(int sg_num, String sgf_id, HttpServletRequest req) {
 		System.out.println("--Method insertSignContents in Class SignServiceImpl");
@@ -36,8 +36,8 @@ public class SignServiceImpl implements SignService {
 			signContent.setSgf_id(sgf_id);
 			signContent.setSgc_content(req.getParameter(signContent.getSgfc_id()) != null ? req.getParameter(signContent.getSgfc_id()) : "");
 			
-			//파일 저장하기
-			if (signContent.getSgf_id() == "dv_id") {
+			//파일 dv_id 넣기
+			if (signContent.getSgfc_id().equals("dv_id")) {
 				String dv_id = (String) req.getAttribute("dv_id");
 				signContent.setSgc_content(dv_id != null ? dv_id : "");
 			}
@@ -142,6 +142,12 @@ public class SignServiceImpl implements SignService {
 	public List<Member> listMember() {
 		List<Member> listOfMember = signDao.selectListMember();
 		return listOfMember;
+	}
+
+
+	@Override
+	public List<SignLine> findListOfSignLine(int sg_num) {
+		return signDao.selectListSignLine(sg_num);
 	}
 
 

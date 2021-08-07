@@ -33,6 +33,8 @@ public interface SignService {
 
 	List<Member> listMember();
 
+	List<SignLine> findListOfSignLine(int sg_num);
+
 
 
 	

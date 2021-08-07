@@ -5,4 +5,5 @@ public class GlobalsOfCg_num {
 	public static final int DRIVE_ENTERPRISE = 1;
 	public static final int DRIVE_DEPARTMENT = 2;
 	public static final int DRIVE_PERSONAL = 3;
+	public static final int DRIVE_SIGN = 77;
 }

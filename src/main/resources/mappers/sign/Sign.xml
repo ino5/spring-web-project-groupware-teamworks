@@ -107,4 +107,10 @@
 		SELECT m.m_id, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM member m, department d, position p
 		WHERE m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code ORDER BY d.dpt_name, p.pt_order
 	</select>
+	
+	<select id="selectListSignLineOfSign" parameterType="int" resultType="com.example.sproject.model.sign.SignLine">
+		SELECT sl.*, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM sign_line sl, member m, department d, position p 
+		WHERE sg_num = #{sg_num}
+		AND (sl.m_id = m.m_id AND m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code)
+	</select>
 </mapper>

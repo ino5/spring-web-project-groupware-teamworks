@@ -136,12 +136,10 @@ public class DriveController {
         
 		//DB에서 해당 파일 정보 가져오기
 		DriveFileInfo driveFileInfo = driveService.selectOneDriveFileInfo(dv_id);
-		String m_id = driveFileInfo.getM_id();
-		String dv_filename = driveFileInfo.getDv_filename();
-		int cg_num = driveFileInfo.getCg_num();
 		
 		//서버에서 파일 삭제
         int resultOfDeleteFile = driveService.deleteFile(fileNameWithPath);
+        
         //DB에서 파일 정보 삭제
         int resultOfDeleteFileInfo = driveService.deleteFileInfo(driveFileInfo);
         

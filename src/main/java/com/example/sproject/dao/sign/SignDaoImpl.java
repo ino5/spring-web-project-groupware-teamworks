@@ -86,6 +86,11 @@ public class SignDaoImpl implements SignDao {
 		return session.selectList("selectListMemberOfSign");
 	}
 
+	@Override
+	public List<SignLine> selectListSignLine(int sg_num) {
+		return session.selectList("selectListSignLineOfSign", sg_num);
+	}
+
 
 
 

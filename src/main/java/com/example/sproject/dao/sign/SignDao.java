@@ -31,6 +31,8 @@ public interface SignDao {
 
 	List<Member> selectListMember();
 
+	List<SignLine> selectListSignLine(int sg_num);
+
 
 
 
