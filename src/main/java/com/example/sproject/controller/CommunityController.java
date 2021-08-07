@@ -68,7 +68,7 @@ public class CommunityController {
 		
 		//사이드바 리스트 
 		communityService.listSide(principal.getName(), model);
-		return "community/community_main";
+		return "community/board";
 	}
 	//게시글 작성화면
 	@GetMapping(value = "write")

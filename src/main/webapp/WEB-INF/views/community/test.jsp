@@ -180,7 +180,7 @@ $(document).ready(function() {
 				</tr>
 				<c:forEach var="ps" items="${board_list}">
 					<tr>
-						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.ps_notice}"></td>
+						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.p_type}"></td>
 						<td>${ps.p_num}</td>
 						<td><a
 							href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
