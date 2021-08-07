@@ -153,14 +153,24 @@
 			  from (select * from board order by bd_num desc) a) where rn >= #{start} and rn <= #{end}
 	]]>		
 	</select>
+	<insert id="CommunityInsertOfCommunity" parameterType="com.example.sproject.model.board.Board">
+	      INSERT INTO BOARD (bd_num, bd_name, bd_content, m_id, bd_type, bd_is_anon) 
+			          VALUES ( (SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{bd_name},#{bd_content}, #{m_id}, 3, #{bd_is_anon})
+	   </insert>
+
 	<insert id="BoardMemberOfCommunity" parameterType="com.example.sproject.model.community.BoardMember">
 	INSERT INTO BOARD_MEMBER (bd_num, m_id, cmm_type) VALUES (
 	#{bd_num}, #{m_id}, 1)
    </insert>
-   
    <select id="getCommunitiesJoinedOfCommunity" parameterType="String" resultType="com.example.sproject.model.board.Board">
    		SELECT * FROM board b, board_member bm WHERE b.bd_num = bm.bd_num AND bm.m_id = #{m_id}
    </select>
    
- 
+   <select id="selectOneBoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board">
+   		SELECT * FROM board WHERE bd_num = #{bd_num}
+   </select>
+   <select id="selecList_BoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board" >
+   		SELECT * FROM board_member  WHERE bd_num = #{bd_num}
+   	</select>
+ 		
  </mapper>

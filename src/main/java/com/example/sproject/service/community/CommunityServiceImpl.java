@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.sproject.dao.board.BoardDao;
+
 import com.example.sproject.dao.community.CommunityDao;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
@@ -254,8 +254,18 @@ public class CommunityServiceImpl implements CommunityService {
 	public int insert(BoardMember boardMember) {
 		return communityDao.insert(boardMember);
 	}
+	
+	@Override
+	public Board findBoard(int bd_num) {
+		return communityDao.selectOneBoard(bd_num);
+	}
+	@Override
+	public List<BoardMember> list_board(int bd_num) {
+		return communityDao.list_board(bd_num);
 
 	}
+
+}
 
 
 

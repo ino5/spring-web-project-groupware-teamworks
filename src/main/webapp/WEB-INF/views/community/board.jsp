@@ -89,7 +89,7 @@ $("#boardSet").on("click", function () {
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 	<div id="side">
 		<button type="button" id="btn1"
-			onclick="location.href='${pageContext.request.contextPath}/community/write_Community'">글쓰기</button>
+			onclick="location.href='${pageContext.request.contextPath}/community/write_Community'">커뮤니티 만들기</button>
 		<div id="side_text">
 			<a id="button1" class="button1"><span id="span_hover"><img
 					alt="image"
@@ -102,10 +102,14 @@ $("#boardSet").on("click", function () {
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="as" items="${boardListOfCommunity }">
 					<li class="li">
-						<a href="${pageContext.request.contextPath}/community/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a>
+						<c:if test="${as.is_joined != '0'}">
+							<a href="${pageContext.request.contextPath}/community/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a>
+						</c:if>
 						
 						<c:if test="${as.is_joined == '0'}">
-							<button id="boardSet2_${as.bd_num}">버튼</button>
+						    <a href="${pageContext.request.contextPath}/community/sideboard_list?bd_num=${as.bd_num}" style="color: #BDBDBD;">${as.bd_name}</a>     
+							<button  style="padding: 4px 4px 4px;color: #fff; font-weight: normal; border:none; font-size: 11px; line-height: 12px; background: #aeb2ba; letter-spacing: -1px;" 
+							           id="boardSet2_${as.bd_num}">가입하기</button>
 						</c:if>
 					</li>
 				</c:forEach>

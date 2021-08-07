@@ -7,11 +7,12 @@
 <head>
 <%@include file="/WEB-INF/views/header/headerHead.jsp"%>
 <link rel="styleSheet"
-	href="${pageContext.request.contextPath}/board/css/board.css">
-<script src="${pageContext.request.contextPath}/board/js/board.js"></script>
+	href="${pageContext.request.contextPath}/community/css/test.css">
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
+
+	
 function communityGroup() {
     var delchk = []; // key 값을 담을 배열
      var bd_num = modal_form.bd_num.value;
@@ -82,13 +83,34 @@ $("#boardSet").on("click", function () {
 	});
 });
 
+
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#button1").click(function() {
+		var submenu = $(this).next("#scroll");
+		// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+		if (submenu.is(":visible")) {
+			$('#img1').css({
+				'transform' : 'rotate(0deg)'
+			});
+			submenu.slideUp("fast");
+		} else {
+			$('#img1').css({
+				'transform' : 'rotate(90deg)'
+			});
+			submenu.slideDown("fast");
+		}
+	});
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 
 	<div id="side">
 		<button type="button" id="btn1"
-			onclick="location.href='${pageContext.request.contextPath}/community/communityCreate'">글쓰기</button>
+			onclick="location.href='${pageContext.request.contextPath}/community/write'">글쓰기</button>
+		
+	
 		<div id="side_text">
 			<a id="button1" class="button1"><span id="span_hover"><img
 					alt="image"
@@ -97,19 +119,25 @@ $("#boardSet").on("click", function () {
 				<span id="span_none"> <img alt="image"
 					src="${pageContext.request.contextPath}/board/img/white.png"
 					style="width: 16px; height: 12px;" id="img1">
-			</span>커뮤니티게시판</a>
-			<ol id="scroll" style="display: none; list-style: none;">
-				<c:forEach var="as" items="${boardListOfCommunity }">
-					<li class="li">
-					
-					<a 
-						href="${pageContext.request.contextPath}/community/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a></li>
+			</span>가입 멤버</a>
+<!-- 			<ol id="scroll" style="display: none; list-style: none;"> -->
+				<c:forEach var="bc" items="${boardListOfJoinedCommunity }">
+					<li class="li">${bc.m_id}</li>
 				</c:forEach>
 
-			</ol>
+<!-- 			</ol> -->
 		</div>
 	</div>
 	<div id="content">
+<div id="content_wrap">
+	<h3><span style="color: #BDBDBD;">■</span> 커뮤니티명 :<span style="font-size: 15px; font-weight: normal;"> ${community.bd_name}</span></h3>	
+	<br>
+		<table>
+		<tr><td><h3><span style="color: #BDBDBD;">■</span> 소개 :<span style="font-size: 15px; font-weight: normal;"> ${community.bd_content}</span></h3></td>
+		<tr>
+
+		</table>
+		</div>
 			<div id="board_table">
 				<section class="tool_bar">
 					<ul class="tool_ul">
@@ -152,7 +180,7 @@ $("#boardSet").on("click", function () {
 				</tr>
 				<c:forEach var="ps" items="${board_list}">
 					<tr>
-						<td style="text-align: center;">	<input type="checkbox" name="check" class="chk_1" value="${ps.ps_notice}"></td>
+						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.ps_notice}"></td>
 						<td>${ps.p_num}</td>
 						<td><a
 							href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>

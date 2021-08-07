@@ -40,6 +40,10 @@ public interface CommunityDao {
 	int insert(Board board);
 	int insert(BoardMember boardMember);
 	List<Board> getCommunitiesJoined(String m_id);
+	Board selectOneBoard(int bd_num);
+	List<BoardMember> list_board(BoardMember boardMember);
+	List<BoardMember> list_board(int bd_num);
+	
 
 
 

@@ -39,7 +39,7 @@ public class CommunityController {
 	
 	//게시글 리스트 페이징
 	@RequestMapping(value = "", method = {RequestMethod.GET, RequestMethod.POST})
-	public String board(Model model, Post post, String currentPage, Board board,  Principal principal) {
+	public String board(Model model, Post post, String currentPage, Board board,  Principal principal,BoardMember boardMember) {
 		System.out.println("CommunityController Start List");
 		int total = communityService.total();
 		System.out.println("CommunityController total=>"+total);
@@ -56,9 +56,11 @@ public class CommunityController {
 		for(Post post2 : listPost) {
 			System.out.println(post2);
 		}
+		//커뮤니티 멤버 보여주기
+		List<Board> boardListOfCommunity = communityService.listBoard(3);
 		//공지
 		List<Post> listNoticePost = communityService.listNoticePost(1);
-		
+		model.addAttribute("boardListOfCommunity", boardListOfCommunity);
 		model.addAttribute("total", total);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("listNoticePost", listNoticePost);
@@ -66,7 +68,7 @@ public class CommunityController {
 		
 		//사이드바 리스트 
 		communityService.listSide(principal.getName(), model);
-		return "community/board";
+		return "community/community_main";
 	}
 	//게시글 작성화면
 	@GetMapping(value = "write")
@@ -207,7 +209,7 @@ public class CommunityController {
   				}
   				int p_num = reply.getP_num();
   				communityService.rereply_insert(reply, p_num, parent_rp_num );
-  				return  "redirect:/board/view?p_num=" + p_num;
+  				return  "redirect:/community/view?p_num=" + p_num;
   			}	
 //게시물 좋아요 기능
   			@RequestMapping(value = "recommend")
@@ -260,9 +262,12 @@ public class CommunityController {
 			}	
 //사이드
 			@RequestMapping(value = "sideboard_list")
-			public String board_list(Post post, String currentPage, Model model, Board board, int bd_num, Principal principal) {
-				//bd_num jsp에 넘기기
+			public String board_list(Post post, String currentPage, Model model, int bd_num, Principal principal,BoardMember boardMember) {
+				//bd_num, 커뮤니티 정보 jsp에 넘기기
 				model.addAttribute("bd_num", bd_num);
+				Board community = communityService.findBoard(bd_num);
+				model.addAttribute("community", community);
+				
 				// borad type 3번인 리스트만 가져옴
 				int total = communityService.board_list_total(bd_num);
 				if(currentPage == null || "".equals(currentPage)) {
@@ -273,7 +278,12 @@ public class CommunityController {
 				post.setStart(pg.getStart());
 				post.setEnd(pg.getEnd());
 				List<Post> board_list = communityService.board_list(post);
+			
 				List<Board> boardListOfCommunity = communityService.listBoard(3);
+				List<BoardMember> boardListOfJoinedCommunity = communityService.list_board(bd_num);
+				
+				
+				model.addAttribute("boardListOfJoinedCommunity", boardListOfJoinedCommunity);
 				model.addAttribute("total", total);
 				model.addAttribute("board_list", board_list);
 				model.addAttribute("boardListOfCommunity", boardListOfCommunity);

@@ -270,7 +270,7 @@ public class CommunityDaoImpl implements CommunityDao {
 	public int insert(Board board) {
 		int tot = 0;
 		try {
-			tot = session.insert("Community_InsertOfCommunity",board);
+			tot = session.insert("CommunityInsertOfCommunity",board);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -296,6 +296,23 @@ public class CommunityDaoImpl implements CommunityDao {
 	public List<Board> getCommunitiesJoined(String m_id) {
 		return session.selectList("getCommunitiesJoinedOfCommunity", m_id);
 	}
+
+	@Override
+	public Board selectOneBoard(int bd_num) {
+		return session.selectOne("selectOneBoardOfCommunity", bd_num);
+	}
+
+	@Override
+	public List<BoardMember> list_board(BoardMember boardMember) {
+		return session.selectList("selecList_BoardOfCommunity", boardMember);
+	}
+
+	@Override
+	public List<BoardMember> list_board(int bd_num) {
+		return session.selectList("selecList_BoardOfCommunity", bd_num);
+
+	}
+
 }
 
 

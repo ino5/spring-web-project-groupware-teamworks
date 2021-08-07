@@ -14,10 +14,7 @@ header {
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
-table{
-	border-collapse:collapse;
-	border-spacing:0;
-	
+
 }
 .head_nav ul li {
 	display: inline;
@@ -196,62 +193,6 @@ a { text-decoration:none;
 }
 
 
-#wrap {
-	margin-top:5%;
-	margin-left:2%;
-	padding-top:30px;
-	padding-bottom:30px;
-	padding-left: 20px;
-	border-radius:10px;
-	width: 95%;
-	height: 100px;
-	background-color: white;
-}
-#wrap tr, #wrap td{
-	height: 50px;
-	width: 90%;
-	font-size: 22px;
-	font-weight: bold;
-}
-#board_table{
-	
-	width: 95%;
-position:relative;
-	margin-top:2%;
-/* 	margin-left:1%; */
-	padding-top:30px;
-	padding-bottom:30px;
-	padding-left: 40px;
-/* margin-right:20px; */
-
-	background-color: white;
-	
-}
-
-#list_table{
-
-    border-bottom: 2px solid #EAEAEA;
-    border-top:2px solid #EAEAEA;
-}
-#table_btn{
-	position: relative;
-	float: left;
-	margin-right: 2%;			
-}
-#board_table input{
-	padding: 30px;
-	zoom: 1.7;	
-}
-#board_table tr:hover{
-		background-color: #F6F6F6;
-}
-#board_table tr, #board_table td{
-/* 	margin-left:5%; */
-	height: 60px;
-	width: 300px;
-	font-size:18px;
-	border-collapse: collapse;
-}
 
 #arrow2{
 	position: relative;
@@ -351,6 +292,32 @@ select {
 	background: url('images/right4.png') no-repeat 97% 50%/15px auto;
 
 }
+
+#main_Text {
+	width:100%
+	height:50px;
+	padding-bottom:30px;
+	border-bottom: 3px solid #eee;
+}
+#community_list ul{
+	width:100%;
+	height:110px;
+	padding-left: 30px;
+border-bottom: 3px solid #eee;
+border-right: 3px solid #eee;
+list-style:none;
+color: #8C8C8C;
+}
+#community_list:hover{
+		background-color: #F6F6F6;
+		
+		
+}
+/* 무한스크롤 */
+.pageTitle {position: fixed;}
+article {padding: 52px 3% 0;}
+article .block:nth-child(2n+1)
+article .block:nth-child(2n)
 /* =========================== Modal ===================================== */
 
 .modal-content {

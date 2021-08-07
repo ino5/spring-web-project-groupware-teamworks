@@ -19,6 +19,7 @@ import com.example.sproject.model.community.BoardMember;
 
 public interface CommunityService {
 
+
 	int total();
 	List<Post> listPost(Post post);
 	List<Board> listBoard(Board board);
@@ -47,6 +48,9 @@ public interface CommunityService {
 	void listSide(String m_id, ModelAndView modelandview);
 	int insert(Board board);
 	int insert(BoardMember boardMember);
+	Board findBoard(int bd_num);
+	List<BoardMember> list_board(int bd_num);
+	
 
 
 
