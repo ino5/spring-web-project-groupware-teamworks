@@ -76,6 +76,7 @@
 		var weekend = 1;
 		var i_day = 1;
 		var i_today = -1;
+		var isColoredYellowFirst = false;
 		for (i = 1; i <= 245; i++) {
 			//1일부터 마지막 일까지 돌림
 			cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
@@ -117,10 +118,11 @@
 			/*오늘의 날짜에 노란색 칠하기*/
 			if (today.getFullYear() == date.getFullYear()
 					&& today.getMonth() == date.getMonth()
-					&& i_day - 1 == date.getDate()) {
+					&& i_day - 1 == date.getDate() && isColoredYellowFirst == false) {
 				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
 				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
 				i_today = i;
+				isColoredYellowFirst = true;
 			}
 
 			if (i_today > 0 && (i - i_today) % 7 == 0 && i > i_today
