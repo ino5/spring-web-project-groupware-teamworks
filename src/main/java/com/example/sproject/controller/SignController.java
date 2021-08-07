@@ -39,24 +39,46 @@ public class SignController {
 	
 	// 전자결재 메인
 	@RequestMapping("")
-	public String index(Principal principal, Model model) {
+	public String index(@AuthenticationPrincipal Member principal, Model model) {
+		Sign sign = new Sign();
+		sign.setM_id(principal.getM_id());
+		sign.setRn_start(1);
+		sign.setRn_end(5);
+		
 		// 목록 가져오기 : 기안 진행 중인 문서
-		List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(principal.getName());
+		List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(sign);
 		model.addAttribute("listOfSignOfProposalProcessing", listOfSignOfProposalProcessing);
 		
 		// 목록 가져오기 : 기안 완료 문서
-		List<Sign> listOfSignOfProposalCompleted = signService.listSignOfProposalCompleted(principal.getName());
+		List<Sign> listOfSignOfProposalCompleted = signService.listSignOfProposalCompleted(principal.getM_id());
 		model.addAttribute("listOfSignOfProposalCompleted", listOfSignOfProposalCompleted);
 		
 		// 목록 가져오기 : 결재 대기 문서
-		List<Sign> listOfSignOfApprovalWaited = signService.listSignOfApprovalWaited(principal.getName());
+		List<Sign> listOfSignOfApprovalWaited = signService.listSignOfApprovalWaited(principal.getM_id());
 		model.addAttribute("listOfSignOfApprovalWaited", listOfSignOfApprovalWaited);
 		
 		// 목록 가져오기 : 결제 처리 문서
-		List<Sign> listOfSignOfApprovalCompleted = signService.listSignOfApprovalCompleted(principal.getName());
+		List<Sign> listOfSignOfApprovalCompleted = signService.listSignOfApprovalCompleted(principal.getM_id());
 		model.addAttribute("listOfSignOfApprovalCompleted", listOfSignOfApprovalCompleted);
 		
 		return "sign/signMain";
+	}
+	
+	// 전자결재 리스트
+	@RequestMapping(value = "list/{listType:.+}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String list(@PathVariable String listType, @AuthenticationPrincipal Member principal, Model model) {
+		Sign sign = new Sign();
+		sign.setM_id(principal.getM_id());
+		sign.setRn_start(1);
+		sign.setRn_end(5);
+		// 목록 가져오기 : 기안 진행 중인 문서
+		if (listType.equals("proposalProcessing")) {
+			List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(sign);
+			model.addAttribute("listOfSign", listOfSignOfProposalProcessing);			
+		}
+
+		
+		return "sign/signList";
 	}
 
 	// 전자결재문서 입력창
@@ -77,18 +99,18 @@ public class SignController {
 	// 전자결재문서 내용 DB에 등록하기
 	@RequestMapping(value = "insert", method = { RequestMethod.GET, RequestMethod.POST })
 	public String insert(@RequestParam(value = "sgl_m_id") String[] listOfM_idOfSignLine, @RequestParam(value = "sgl_type") int[] listOfSgl_typeOfSignLine, String sgf_id, MultipartFile file1, 
-			HttpServletRequest req, @AuthenticationPrincipal Member sessionMember, Model model) throws IOException, Exception {
+			HttpServletRequest req, @AuthenticationPrincipal Member principal, Model model) throws IOException, Exception {
 		System.out.println("-- com.example.sproject.controller.SignController.insert(String, HttpServletRequest, Member, Model)");
 		
 		// 전자결재문서(SIGN 테이블) insert 하고 해당 sg_num 가져오기
-		int sg_num = signService.getSg_numOfNewSign(sessionMember.getM_id(), sgf_id); // 임시 테스트용
+		int sg_num = signService.getSg_numOfNewSign(principal.getM_id(), sgf_id); // 임시 테스트용
 
 		// 서버에 파일 업로드
 		String uploadPath = WebMvcConfig.RESOURCE_PATH + "/drive";
 	    String dv_id = driveService.uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
 	    
 	    // DRIVE 테이블에 파일 정보 저장 
-	    DriveFileInfo driveFile = new DriveFileInfo(dv_id, sessionMember.getM_id(), file1.getOriginalFilename(), null, GlobalsOfCg_num.DRIVE_SIGN);
+	    DriveFileInfo driveFile = new DriveFileInfo(dv_id, principal.getM_id(), file1.getOriginalFilename(), null, GlobalsOfCg_num.DRIVE_SIGN);
 	    driveService.insertDriveFileInfo(driveFile);
 	    
 		// req에 "dv_id" 추가 (테이블에 insert하기 위해)

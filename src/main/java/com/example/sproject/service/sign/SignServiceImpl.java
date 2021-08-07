@@ -95,8 +95,8 @@ public class SignServiceImpl implements SignService {
 
 //리스트 가져오기
 	@Override
-	public List<Sign> listSignOfProposalProcessing(String m_id) {
-		List<Sign> listOfSignOfProposalProcessing = signDao.selectListSignOfProposalProcessing(m_id);
+	public List<Sign> listSignOfProposalProcessing(Sign sign) {
+		List<Sign> listOfSignOfProposalProcessing = signDao.selectListSignOfProposalProcessing(sign);
 		return listOfSignOfProposalProcessing;
 	}
 	

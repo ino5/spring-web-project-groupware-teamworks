@@ -6,32 +6,11 @@
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <title>Insert title here</title>
-<!-- 썸머노트  라이브러리-->
-<script src="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.js"></script>
-<script src="${pageContext.request.contextPath}/board/js/summernote/lang/summernote-ko-KR.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
-<!-- end of 썸머노트 -->
-<!-- 썸머노트 관련 js -->
-<script src="${pageContext.request.contextPath}/sign/js/scriptForSummernoteInSign.js"></script>
-
+<!-- sign head 공용 -->
+<%@include file = "/WEB-INF/views/sign/header/signHead.jsp" %>
+<!--  sign draft -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signFormDraft.css">
 <script src="${pageContext.request.contextPath}/sign/js/signFormDraft.js"></script>
-<!-- 파일 다운로드 관련 js -->
-<script defer src="${pageContext.request.contextPath}/drive/js/main.js"></script>
-
-<!-- jquery-ui sortable -->
-<style>
-  	#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-  	#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; position: relative; }
-	#sortable li span { position: absolute; margin-left: -1.3em; }
-</style>
-<script>
-	$(function() {
-		$( "#sortable" ).sortable();
-	    $( "#sortable" ).disableSelection();
-	});
-</script>
-<!-- end of jquery-ui sortable  -->
 </head>
 
 
@@ -41,7 +20,7 @@
 	<input type="hidden" id="data_jspType" value="${jspType}">
 	<div class="black_bg"></div>
 	<div id="side">
-		<%@include file = "/WEB-INF/views/sign/signSide.jsp" %>
+		<%@include file = "/WEB-INF/views/sign/header/signSide.jsp" %>
 	</div>
 <form method="post" enctype="multipart/form-data">
 	<sec:csrfInput/>

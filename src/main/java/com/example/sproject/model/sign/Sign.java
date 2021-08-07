@@ -11,16 +11,20 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Sign {
-	//SIGN 테이블
+	// SIGN 테이블
 	@NonNull
 	int sg_num;
 	@NonNull
 	String m_id;
 	@NonNull
 	String sgf_id;
+	Timestamp sg_regdate;
 	
-	//SIGN_CONTENT 테이블에서의 Title
+	// SIGN_CONTENT 테이블에서의 Title
 	String title;
 	
-	Timestamp sg_regdate;
+	// DB 페이징처리 rownum
+	int rn_start;
+	int rn_end;
+	
 }

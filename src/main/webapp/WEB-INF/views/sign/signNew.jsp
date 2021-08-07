@@ -6,11 +6,13 @@
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <title>Insert title here</title>
+<!-- sign head 공용 -->
+<%@include file = "/WEB-INF/views/sign/header/signHead.jsp" %>
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-		<%@include file = "/WEB-INF/views/sign/signSide.jsp" %>
+		<%@include file = "/WEB-INF/views/sign/header/signSide.jsp" %>
 	</div>
 	<div id="content">
 		<div id="content_top">content_top</div>

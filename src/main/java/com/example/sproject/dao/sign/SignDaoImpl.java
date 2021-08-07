@@ -52,8 +52,8 @@ public class SignDaoImpl implements SignDao {
 	
 //리스트 보기
 	@Override
-	public List<Sign> selectListSignOfProposalProcessing(String m_id) {
-		return session.selectList("selectListSignOfProposalProcessing", m_id);
+	public List<Sign> selectListSignOfProposalProcessing(Sign sign) {
+		return session.selectList("selectListSignOfProposalProcessing", sign);
 	}
 
 	@Override

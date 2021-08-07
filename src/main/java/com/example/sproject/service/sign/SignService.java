@@ -22,7 +22,7 @@ public interface SignService {
 	List<SignLine> convertToListOfSignLine(int sg_num, String[] listOfm_idOfSignLine, int[] listOfSgl_typeOfSignLine);
 
 	//리스트 가져오기
-	List<Sign> listSignOfProposalProcessing(String m_id);
+	List<Sign> listSignOfProposalProcessing(Sign sign);
 	List<Sign> listSignOfApprovalWaited(String m_id);
 	List<Sign> listSignOfProposalCompleted(String m_id);
 	List<Sign> listSignOfApprovalCompleted(String m_id);

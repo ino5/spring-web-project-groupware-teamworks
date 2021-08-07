@@ -20,7 +20,7 @@ public interface SignDao {
 	int insertSignLines(List<SignLine> listOfSignLine);
 	
 	//리스트 가져오기
-	List<Sign> selectListSignOfProposalProcessing(String m_id);
+	List<Sign> selectListSignOfProposalProcessing(Sign sign);
 	List<Sign> selectListSignOfApprovalWaited(String m_id);
 	List<Sign> selectListSignOfProposalCompleted(String m_id);
 	List<Sign> selectListSignOfApprovalCompleted(String m_id);

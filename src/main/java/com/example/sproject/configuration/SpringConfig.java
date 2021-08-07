@@ -20,10 +20,12 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.example.sproject.handler.ExceptionHandlerFilter;
 import com.example.sproject.model.login.Member;
 
 @Configuration
@@ -116,11 +118,14 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 				.expiredUrl("/duplicated-login")
 				.sessionRegistry(sessionRegistry);
 		
-		/* 자동 로그인 설정 */
+		/* 로그인 상태 유지 기능 설정 */
 		http.rememberMe()
 		  .key("twkey")
 		  .tokenRepository(persistentTokenRepository())
 		  .tokenValiditySeconds(604800) //1주일
-		  .userDetailsService(userDetailsService);		  
+		  .userDetailsService(userDetailsService);
+		
+		/* 에러 핸들링 (CookieTheftException 등) */
+		http.addFilterAfter(new ExceptionHandlerFilter(), SecurityContextHolderAwareRequestFilter.class);
 	}
 }

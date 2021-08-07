@@ -52,15 +52,19 @@
 			)
 		</foreach>
 	</insert>
-	
-	<select id="selectListSignOfProposalProcessing" parameterType="String" resultType="com.example.sproject.model.sign.Sign">
-		SELECT s.*, sc.sgc_content title FROM sign s, sign_content sc 
-		WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title') 
-		AND s.sg_num IN (
-						SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
-						WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
-						)
-		ORDER BY s.sg_num desc
+	<select id="selectListSignOfProposalProcessing" parameterType="com.example.sproject.model.sign.Sign" resultType="com.example.sproject.model.sign.Sign">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT s.*, sc.sgc_content title FROM sign s, sign_content sc 
+			WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title') 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
+							)
+			ORDER BY s.sg_num desc			  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>	
 	</select>
 
 	<select id="selectListSignOfProposalCompleted" parameterType="String" resultType="com.example.sproject.model.sign.Sign">
