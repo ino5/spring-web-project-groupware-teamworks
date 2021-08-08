@@ -19,9 +19,12 @@ public class Sign {
 	@NonNull
 	String sgf_id;
 	Timestamp sg_regdate;
+	int sg_status;
 	
-	// SIGN_CONTENT 테이블에서의 Title
-	String title;
+	String m_name; // 기안자 이름 (테이블: member)
+	String sgf_name; // 문서양식 이름 (테이블: sign_form)
+	String title; //  Title (테이블: sign_content)
+	
 	
 	// DB 페이징처리 rownum
 	int rn_start;

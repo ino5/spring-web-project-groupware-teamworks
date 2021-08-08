@@ -26,6 +26,7 @@ import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
 import com.example.sproject.model.sign.SignLine;
+import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.drive.DriveService;
 import com.example.sproject.service.sign.SignService;
 
@@ -45,20 +46,20 @@ public class SignController {
 		sign.setRn_start(1);
 		sign.setRn_end(5);
 		
-		// 목록 가져오기 : 기안 진행 중인 문서
+		// 목록 가져오기 : 기안 진행 중 문서
 		List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(sign);
 		model.addAttribute("listOfSignOfProposalProcessing", listOfSignOfProposalProcessing);
 		
 		// 목록 가져오기 : 기안 완료 문서
-		List<Sign> listOfSignOfProposalCompleted = signService.listSignOfProposalCompleted(principal.getM_id());
+		List<Sign> listOfSignOfProposalCompleted = signService.listSignOfProposalCompleted(sign);
 		model.addAttribute("listOfSignOfProposalCompleted", listOfSignOfProposalCompleted);
 		
 		// 목록 가져오기 : 결재 대기 문서
-		List<Sign> listOfSignOfApprovalWaited = signService.listSignOfApprovalWaited(principal.getM_id());
+		List<Sign> listOfSignOfApprovalWaited = signService.listSignOfApprovalWaited(sign);
 		model.addAttribute("listOfSignOfApprovalWaited", listOfSignOfApprovalWaited);
 		
 		// 목록 가져오기 : 결제 처리 문서
-		List<Sign> listOfSignOfApprovalCompleted = signService.listSignOfApprovalCompleted(principal.getM_id());
+		List<Sign> listOfSignOfApprovalCompleted = signService.listSignOfApprovalCompleted(sign);
 		model.addAttribute("listOfSignOfApprovalCompleted", listOfSignOfApprovalCompleted);
 		
 		return "sign/signMain";
@@ -66,18 +67,50 @@ public class SignController {
 	
 	// 전자결재 리스트
 	@RequestMapping(value = "list/{listType:.+}", method = { RequestMethod.GET, RequestMethod.POST })
-	public String list(@PathVariable String listType, @AuthenticationPrincipal Member principal, Model model) {
+	public String list(@PathVariable String listType, @RequestParam(required = false) Integer currentPage, @AuthenticationPrincipal Member principal, Model model) {
 		Sign sign = new Sign();
 		sign.setM_id(principal.getM_id());
-		sign.setRn_start(1);
-		sign.setRn_end(5);
-		// 목록 가져오기 : 기안 진행 중인 문서
-		if (listType.equals("proposalProcessing")) {
-			List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(sign);
-			model.addAttribute("listOfSign", listOfSignOfProposalProcessing);			
-		}
 
+		// 목록 가져오기 : 기안 진행 중 문서
+		if (listType.equals("proposalProcessing")) {
+			CommonPaging commonPaging = new CommonPaging(signService.countSignOfProposalProcessing(sign), currentPage);
+			sign.setRn_start(commonPaging.getStart());
+			sign.setRn_end(commonPaging.getEnd());
+			List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(sign);
+			model.addAttribute("listOfSign", listOfSignOfProposalProcessing);
+			model.addAttribute("paging", commonPaging);
+		}
 		
+		// 목록 가져오기 : 기안 완료 문서
+		else if (listType.equals("proposalCompleted")) {
+			CommonPaging commonPaging = new CommonPaging(signService.countSignOfProposalCompleted(sign), currentPage);
+			sign.setRn_start(commonPaging.getStart());
+			sign.setRn_end(commonPaging.getEnd());
+			List<Sign> listOfSignOfProposalCompleted = signService.listSignOfProposalCompleted(sign);
+			model.addAttribute("listOfSign", listOfSignOfProposalCompleted);
+			model.addAttribute("paging", commonPaging);
+		} 
+		
+		// 목록 가져오기 : 결재 대기 문서
+		else if (listType.equals("approvalWaited")) {
+			CommonPaging commonPaging = new CommonPaging(signService.countSignOfApprovalWaited(sign), currentPage);
+			sign.setRn_start(commonPaging.getStart());
+			sign.setRn_end(commonPaging.getEnd());
+			List<Sign> listOfSignOfApprovalWaited = signService.listSignOfApprovalWaited(sign);
+			model.addAttribute("listOfSign", listOfSignOfApprovalWaited);
+			model.addAttribute("paging", commonPaging);
+		} 
+		
+		// 목록 가져오기 : 결제 처리 문서
+		else if (listType.equals("approvalCompleted")) { 
+			CommonPaging commonPaging = new CommonPaging(signService.countSignOfApprovalCompleted(sign), currentPage);
+			sign.setRn_start(commonPaging.getStart());
+			sign.setRn_end(commonPaging.getEnd());
+			List<Sign> listOfSignOfApprovalCompleted = signService.listSignOfApprovalCompleted(sign);
+			model.addAttribute("listOfSign", listOfSignOfApprovalCompleted);
+			model.addAttribute("paging", commonPaging);
+		}
+	
 		return "sign/signList";
 	}
 

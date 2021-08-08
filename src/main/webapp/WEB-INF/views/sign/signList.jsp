@@ -42,7 +42,11 @@
 		</c:forEach>
 		</table>
 		<!-- end of 기안 진행 문서 -->
-		
+		<div id="paging">
+			${paging.startPage}
+			${paging.endPage}
+			${paging.currentPage}
+		</div>	
 	</div>
 
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>

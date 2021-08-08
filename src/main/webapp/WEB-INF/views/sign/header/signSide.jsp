@@ -2,10 +2,6 @@
     pageEncoding="UTF-8"%>
 <div class="black_bg"></div>
 <button type="button" id="button_new_sign">새 결재 진행</button> <br>
-<%-- <a href="${pageContext.request.contextPath}/drive?cg_num=1">전사 자료실</a> <br> --%>
-<%-- <a href="${pageContext.request.contextPath}/drive?cg_num=3">개인 자료실</a> <br> --%>
-
-
 
 <!-- 새 결제 진행 모달창 -->
 <div id="modal_wrap_new_sign">
@@ -24,34 +20,7 @@
 	</div>
 </div>
 
-<!-- 모달창 관련 스타일 -->
-<style>
-/* 모달창 뒤 배경 */
-.black_bg {
-	display: none;
-	position: absolute;
-	content: "";
-	width: 100%;
-	height: 100%;
-	background-color:rgba(0,0,0, 0.3);
-	top: 0;
-	left: 0;
-	z-index: 1;
-}
 
-/* 모달창 업로드 */
-#modal_wrap_new_sign {
-	display: none;
-	width: 500px;
-	height: 500px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -250px 0 0 -250px;
-	background: #eee;
-	z-index: 2;
-}
-</style>
 
 <!-- 모달창 관련 스크립트 -->
 <script>
@@ -77,14 +46,75 @@ $(document).on(
 
 
 <!-- 메뉴 -->
-기안 문서
-<ul>
-	<li><a href="${pageContext.request.contextPath}/sign/list/proposalProcessing">기안 진행 문서</a></li>
-	<li>기안 완료 문서</li>
-</ul>
+<div>
+<a id="button1" class="menu_button">
+	<span id="span_hover"><img alt="image" src="${pageContext.request.contextPath}/time/img/right.png" style="width: 16px; height: 12px; transition: 0.5s;" id="img1"></span>
+	<span id="span_none"><img alt="image" src="${pageContext.request.contextPath}/time/img/white.png" style="width: 16px; height: 12px;" id="img1"></span>
+	기안 문서
+</a>
+<ol id="scroll1" class="scroll" style="display: none; list-style: none;">
+		<li class="li"><p class="menu_title">
+			<a href="${pageContext.request.contextPath}/sign/list/proposalProcessing">기안 진행 문서</a>
+		</p></li>
+		<li class="li"><p class="menu_title">
+			<a href="${pageContext.request.contextPath}/sign/list/proposalCompleted">기안 완료 문서</a>
+		</p></li>
+	
+</ol>
+</div>
+<div style="margin-top: 30px;">
+<a id="button2" class="menu_button"><span id="span_hover"><img
+		alt="image"
+		src="${pageContext.request.contextPath}/time/img/right.png"
+		style="width: 16px; height: 12px; transition: 0.5s;" id="img2"></span>
+	<span id="span_none"><img alt="image"
+		src="${pageContext.request.contextPath}/time/img/white.png"
+		style="width: 16px; height: 12px;" id="img1"></span> 결재 문서</a>
+<ol id="scroll2" class="scroll" style="display: none; list-style: none;">
+	<li class="li"><p class="menu_title">
+		<a href="${pageContext.request.contextPath}/sign/list/proposalProcessing">결재 대기 문서</a>
+		</p></li>
+	<li class="li"><p class="menu_title">
+		<a href="${pageContext.request.contextPath}/sign/list/proposalCompleted">결재 처리 문서</a>
+		</p></li>
+</ol>
+</div>
 
-결재 문서
-<ul>
-	<li>결재 대기 문서</li>
-	<li>결재 처리 문서</li>
-</ul>
+
+
+
+<!-- 메뉴 자바스크립트 -->
+<script>
+$(document).ready(function() {
+	$("#button1").click(function() {
+		var submenu = $(this).next("#scroll1");
+		if (submenu.is(":visible")) {
+			$('#img1').css({
+				'transform' : 'rotate(0deg)'
+			});
+			submenu.slideUp("fast");
+		} else {
+			$('#img1').css({
+				'transform' : 'rotate(90deg)'
+			});
+			submenu.slideDown("fast");
+		}
+	})
+});
+$(document).ready(function() {
+	$("#button2").click(function() {
+		var submenu = $(this).next("#scroll2");
+		if (submenu.is(":visible")) {
+			$('#img2').css({
+				'transform' : 'rotate(0deg)'
+			});
+			submenu.slideUp("fast");
+		} else {
+			$('#img2').css({
+				'transform' : 'rotate(90deg)'
+			});
+			submenu.slideDown("fast");
+		}
+	})
+});
+</script>

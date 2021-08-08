@@ -8,7 +8,6 @@
 <!-- 썸머노트 관련 js -->
 <script src="${pageContext.request.contextPath}/sign/js/scriptForSummernoteInSign.js"></script>
 
-
 <!-- 파일 다운로드 관련 js -->
 <script defer src="${pageContext.request.contextPath}/drive/js/main.js"></script>
 
@@ -25,3 +24,6 @@
 	});
 </script>
 <!-- end of jquery-ui sortable  -->
+
+<!-- signSide css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signSide.css">

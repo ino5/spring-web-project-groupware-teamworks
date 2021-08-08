@@ -21,9 +21,14 @@ public interface SignDao {
 	
 	//리스트 가져오기
 	List<Sign> selectListSignOfProposalProcessing(Sign sign);
-	List<Sign> selectListSignOfApprovalWaited(String m_id);
-	List<Sign> selectListSignOfProposalCompleted(String m_id);
-	List<Sign> selectListSignOfApprovalCompleted(String m_id);
+	List<Sign> selectListSignOfApprovalWaited(Sign sign);
+	List<Sign> selectListSignOfProposalCompleted(Sign sign);
+	List<Sign> selectListSignOfApprovalCompleted(Sign sign);
+	int selectCountSignOfProposalProcessing(Sign sign);
+	int selectCountSignOfApprovalWaited(Sign sign);
+	int selectCountSignOfProposalCompleted(Sign sign);
+	int selectCountSignOfApprovalCompleted(Sign sign);
+	
 	
 	List<SignContent> selectListSignContent(int sg_num);
 
@@ -32,7 +37,6 @@ public interface SignDao {
 	List<Member> selectListMember();
 
 	List<SignLine> selectListSignLine(int sg_num);
-
 
 
 

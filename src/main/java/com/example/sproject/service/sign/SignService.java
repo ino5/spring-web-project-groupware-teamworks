@@ -23,9 +23,13 @@ public interface SignService {
 
 	//리스트 가져오기
 	List<Sign> listSignOfProposalProcessing(Sign sign);
-	List<Sign> listSignOfApprovalWaited(String m_id);
-	List<Sign> listSignOfProposalCompleted(String m_id);
-	List<Sign> listSignOfApprovalCompleted(String m_id);
+	List<Sign> listSignOfApprovalWaited(Sign sign);
+	List<Sign> listSignOfProposalCompleted(Sign sign);
+	List<Sign> listSignOfApprovalCompleted(Sign sign);
+	int countSignOfProposalProcessing(Sign sign);
+	int countSignOfApprovalWaited(Sign sign);
+	int countSignOfProposalCompleted(Sign sign);
+	int countSignOfApprovalCompleted(Sign sign);
 	
 	Map<String, Object> findMapOfSignContent(int sg_num);
 

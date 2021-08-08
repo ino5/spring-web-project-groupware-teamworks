@@ -57,18 +57,18 @@ public class SignDaoImpl implements SignDao {
 	}
 
 	@Override
-	public List<Sign> selectListSignOfProposalCompleted(String m_id) {
-		return session.selectList("selectListSignOfProposalCompleted", m_id);
+	public List<Sign> selectListSignOfProposalCompleted(Sign sign) {
+		return session.selectList("selectListSignOfProposalCompleted", sign);
 	}	
 	
 	@Override
-	public List<Sign> selectListSignOfApprovalWaited(String m_id) {
-		return session.selectList("selectListSignOfApprovalWaited", m_id);
+	public List<Sign> selectListSignOfApprovalWaited(Sign sign) {
+		return session.selectList("selectListSignOfApprovalWaited", sign);
 	}	
 
 	@Override
-	public List<Sign> selectListSignOfApprovalCompleted(String m_id) {
-		return session.selectList("selectListSignOfApprovalCompleted", m_id);
+	public List<Sign> selectListSignOfApprovalCompleted(Sign sign) {
+		return session.selectList("selectListSignOfApprovalCompleted", sign);
 	}
 	
 	@Override
@@ -91,6 +91,28 @@ public class SignDaoImpl implements SignDao {
 		return session.selectList("selectListSignLineOfSign", sg_num);
 	}
 
+	@Override
+	public int selectCountSignOfProposalProcessing(Sign sign) {
+		return session.selectOne("selectCountSignOfProposalProcessing", sign);
+	}
+
+	@Override
+	public int selectCountSignOfApprovalWaited(Sign sign) {
+		// TODO Auto-generated method stub
+		return session.selectOne("selectCountSignOfApprovalWaited", sign);
+	}
+
+	@Override
+	public int selectCountSignOfProposalCompleted(Sign sign) {
+		// TODO Auto-generated method stub
+		return session.selectOne("selectCountSignOfProposalCompleted", sign);
+	}
+
+	@Override
+	public int selectCountSignOfApprovalCompleted(Sign sign) {
+		// TODO Auto-generated method stub
+		return session.selectOne("selectCountSignOfApprovalCompleted", sign);
+	}
 
 
 

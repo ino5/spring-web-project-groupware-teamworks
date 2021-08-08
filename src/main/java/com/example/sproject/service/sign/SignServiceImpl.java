@@ -101,20 +101,20 @@ public class SignServiceImpl implements SignService {
 	}
 	
 	@Override
-	public List<Sign> listSignOfProposalCompleted(String m_id) {
-		List<Sign> listOfSignOfProposalCompleted = signDao.selectListSignOfProposalCompleted(m_id);
+	public List<Sign> listSignOfProposalCompleted(Sign sign) {
+		List<Sign> listOfSignOfProposalCompleted = signDao.selectListSignOfProposalCompleted(sign);
 		return listOfSignOfProposalCompleted;
 	}
 	
 	@Override
-	public List<Sign> listSignOfApprovalWaited(String m_id) {
-		List<Sign> listOfSignOfApprovalWaited = signDao.selectListSignOfApprovalWaited(m_id);
+	public List<Sign> listSignOfApprovalWaited(Sign sign) {
+		List<Sign> listOfSignOfApprovalWaited = signDao.selectListSignOfApprovalWaited(sign);
 		return listOfSignOfApprovalWaited;
 	}
 
 	@Override
-	public List<Sign> listSignOfApprovalCompleted(String m_id) {
-		List<Sign> listOfSignOfApprovalCompleted = signDao.selectListSignOfApprovalCompleted(m_id);
+	public List<Sign> listSignOfApprovalCompleted(Sign sign) {
+		List<Sign> listOfSignOfApprovalCompleted = signDao.selectListSignOfApprovalCompleted(sign);
 		return listOfSignOfApprovalCompleted;
 	}
 	
@@ -151,8 +151,28 @@ public class SignServiceImpl implements SignService {
 	}
 
 
+	@Override
+	public int countSignOfProposalProcessing(Sign sign) {
+		return signDao.selectCountSignOfProposalProcessing(sign);
+	}
 
 
+	@Override
+	public int countSignOfApprovalWaited(Sign sign) {
+		return signDao.selectCountSignOfApprovalWaited(sign);
+	}
+
+
+	@Override
+	public int countSignOfProposalCompleted(Sign sign) {
+		return signDao.selectCountSignOfProposalCompleted(sign);
+	}
+
+
+	@Override
+	public int countSignOfApprovalCompleted(Sign sign) {
+		return signDao.selectCountSignOfApprovalCompleted(sign);
+	}
 
 
 

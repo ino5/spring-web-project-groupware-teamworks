@@ -1,3 +1,162 @@
 @charset "UTF-8";
+a {
+	cursor: pointer;
+}
+
+/* 결제 대기 문서 카드 */
+.card_wrapper {
+	position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    transition: 0.3s;
+    width: 270px;
+    float: left;
+    margin: 12px 20px;
+    transition: 0.3s;
+}
+
+.card_wrapper:hover {
+	transform: translateY(-3px);
+    box-shadow: 0 20px 30px -20px rgb(0 0 0 / 30%);
+}
 
 
+
+
+.card_wrapper header {
+	padding: 12px 16px 0;
+    border-top: 5px solid #fff;
+    border-radius: 6px;
+    background-color: white;
+}
+
+
+
+.btn_link {
+	width: 100%;
+    padding: 12px 0;
+    border: 0;
+    background: none;
+    color: #333;
+    font-size: 20px;
+    border-top: 1px solid #ebebeb;
+    display: inline-block;
+    text-align: center;
+}
+
+.card_wrapper:hover .btn_link {
+	transition: 0.4s;
+    background: #0f91e6;
+    border-radius: 0 0 8px 8px;	
+    color: white;
+}
+
+.card_subject {
+	display: block;
+    line-height: 1.4;
+    font-size: 23px;
+    color: #484848;
+    letter-spacing: -1px;
+    margin: 9px;
+    margin-bottom: 13px;
+    margin-left: 18px;
+    font-weight: bold;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card_content {
+    font-size: 15px;
+    color: #888;
+    margin-top: 22px;
+    margin-left: 18px;
+    margin-bottom: 23px;
+}
+
+.card_content table tr {
+	height: 25px;
+}
+
+/* End of 결제 대기 문서 카드 */
+
+/* 리스트  테이블*/
+.table_sign_list {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table_sign_list thead th {
+	height: 37px;
+    border-top: 1px solid #a2a1a1;
+    border-bottom: 1px solid #a2a1a1;
+    text-align: left;
+    padding: 0 16px;
+    font-weight: normal;
+    font-size: 17px;
+}
+
+.table_sign_list tbody tr td {
+	height: 50px;
+	text-align: left;
+    padding: 0 16px;
+    border-bottom: 1px solid #ddd;
+    font-size: 17px;
+}
+
+.table_sign_list tbody tr:hover td {
+	background: #f4f4f4;
+}
+
+.table_sign_list .td_sign_title {
+	width: 65%;
+}
+
+/* End Of list */
+
+
+
+#content > h1 {
+	padding: 24px;
+	font-size: 32px;
+    font-weight: normal;
+    letter-spacing: -1px;
+}
+
+#content > h2 {
+	padding: 24px;
+	font-size: 25px;
+    font-weight: normal;
+    letter-spacing: -1px;	
+    padding-top: 66px;
+}
+
+/* 상태 */
+.status {
+	padding: 4px;
+    margin-right: 5px;
+    width: auto;
+    font-size: 12px;
+    border: 1px solid #a6c76c;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
+    letter-spacing: -1px;
+    height: 10px;
+    vertical-align: middle;
+    line-height: 10px!important; 
+}
+.ongoing {
+	background-color: #a6c76c;
+}
+.completed {
+	background-color: #A3A3A3;
+}
+.rejected {
+	background-color: #ff616b;
+}
+/* end of 상태 */
