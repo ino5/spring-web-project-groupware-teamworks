@@ -34,4 +34,6 @@ public interface TalkDao {
 
 	String selectTkrm_name(String m_id);
 
+	void updateFileImage(String filePath);
+
 }

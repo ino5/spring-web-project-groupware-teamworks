@@ -93,6 +93,11 @@ public class TalkDaoImpl implements TalkDao {
 
 	@Override
 	public String selectTkrm_name(String m_id) {
-		return session.selectOne("selectJoinMemberNameofTalk", m_id);
+		return session.selectOne("selectJoinMemberNameOfTalk", m_id);
+	}
+
+	@Override
+	public void updateFileImage(String filePath) {
+		session.update("updateFileImageOfTalk", filePath);		
 	}
 }

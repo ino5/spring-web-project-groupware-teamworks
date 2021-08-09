@@ -92,4 +92,9 @@ public class TalkServiceImpl implements TalkService {
 	public List<Member> selectJoinGroupMemberList(int tkrm_num) {
 		return talkDao.selectJoinGroupMemberList(tkrm_num);
 	}
+
+	@Override
+	public void updateFileImage(String filePath) {
+		talkDao.updateFileImage(filePath);
+	}
 }

@@ -4,7 +4,7 @@
 <mapper namespace="com.example.sproject.dao.talk.TalkDao">
 
 <insert id="insertMsgOfTalk" parameterType="com.example.sproject.model.talk.Talk">
-	insert into talk(tkrm_num, tk_num, m_id, tk_content, tk_time_sent) values(#{tkrm_num}, #{tk_num}, #{m_id}, #{tk_content}, sysdate)
+	insert into talk(tkrm_num, tk_num, m_id, tk_content, tk_time_sent, tk_type) values(#{tkrm_num}, #{tk_num}, #{m_id}, #{tk_content}, sysdate, 1)
 </insert>
 
 <select id="selectOneMaxTk_numOfTalk" resultType="int">
@@ -12,7 +12,7 @@
 </select>
 
 <select id="selectChatOfTalk" parameterType="int" resultType="Talk">
-	SELECT m.m_name, t.tk_num, t.m_id, t.tk_content, t.tk_time_sent from member m, talk t where t.m_id=m.m_id and tkrm_num = #{tkrm_num} order by tk_num
+	SELECT m.m_name, t.tk_type, t.tk_num, t.m_id, t.tk_content, t.tk_time_sent from member m, talk t where t.m_id=m.m_id and tkrm_num = #{tkrm_num} order by tk_num
 </select>
 
 <select id="selectMemberListOfTalk" resultType="com.example.sproject.model.login.Member">
@@ -51,7 +51,11 @@
 	select m.m_name from talk_room tr, talker te, member m where tr.tkrm_num=te.tkrm_num and te.m_id=m.m_id and tr.tkrm_num=#{tkrm_num} order by m.m_name
 </select>
 
-<select id="selectJoinMemberNameofTalk" parameterType="String" resultType="String">
+<select id="selectJoinMemberNameOfTalk" parameterType="String" resultType="String">
 	select m_name from member where m_id=#{m_id}
 </select>
+
+<update id="updateFileImageOfTalk" parameterType="String">
+	update talk set tk_type=2, tk_content=#{content} where tk_num=(select max(tk_num) from talk)
+</update>
 </mapper>

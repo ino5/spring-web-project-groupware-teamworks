@@ -26,6 +26,8 @@ public interface TalkService {
 
 	List<Member> selectJoinGroupMemberList(int tkrm_num);
 
+	void updateFileImage(String filePath);
+
 	
 	
 }

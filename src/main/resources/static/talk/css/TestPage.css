@@ -15,7 +15,7 @@
 
 /* =========================== Modal ===================================== */
 
-.modal-content {
+.modal-content { 
    font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
    font-size: 20px;
 }
@@ -123,3 +123,44 @@
 	width: 70px;
 	height: 20px;
 }
+
+.chating .me2{
+			color: white;
+    		text-align: center;
+    		border-radius: 20px;
+    		line-height: 40px;
+    		float: right;
+    		font-size: 18px;
+    		position: relative;
+    		font-weight: bold;
+		}
+.chating .date3{
+			float: right;
+			font-size: 12px;
+			padding-right: 7.5px;
+			text-align: right;
+			margin-top: 80px;
+		}
+.chating .others2{
+			color: black;
+    		text-align: center;
+    		border-radius: 20px;
+    		margin-bottom: 10px;
+    		line-height: 40px;
+    		float: left;
+    		font-size: 18px;
+    		position: relative;
+    		padding-left: 15px;
+    		padding-right: 15px;
+    		font-weight: bold;
+			}
+.chating .date4{
+			float: left;
+			font-size: 12px;
+			padding-left: 7.5px;
+		}
+		
+#memo2 {
+			height: 200px;
+			
+		}	
