@@ -102,15 +102,19 @@ public class SocketHandler extends TextWebSocketHandler {
 		// 바이너리 메시지 발송
 		System.out.println("SocketHandler handleBinaryMessage start...");
 		ByteBuffer byteBuffer = message.getPayload();
+		System.out.println("byteBuffer1->"+byteBuffer);
+		System.out.println("message->"+message);
+		System.out.println("file_upload_path->"+FILE_UPLOAD_PATH);
 		String fileName = "temp.jpg";
 		File dir = new File(FILE_UPLOAD_PATH);
-		System.out.println("dif->"+dir);
+		System.out.println("dir->"+dir);
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
 		
 		File file = new File(FILE_UPLOAD_PATH, fileName);
 		System.out.println("fileName->"+fileName);
+		System.out.println("file->"+file);
 		FileOutputStream out = null;
 		FileChannel outChannel = null;
 		try {
@@ -119,6 +123,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			outChannel = out.getChannel(); // 채널을 열고
 			byteBuffer.compact(); // 파일을 복사
 			outChannel.write(byteBuffer); // 파일을 쓴다
+			System.out.println("byteBuffer2->"+byteBuffer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -136,6 +141,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		
 		byteBuffer.position(0); // 파일을 저장하면서 position 값이 변경되었으므로 0으로 초기화
 		// 파일쓰기가 끝나면 이미지 발송
+		System.out.println("byteBuffer3->"+byteBuffer);
 		HashMap<String, Object> temp = rls.get(fileUploadIdx);
 		for(String k : temp.keySet()) {
 			if(k.equals("roomNumber")) {
@@ -144,6 +150,8 @@ public class SocketHandler extends TextWebSocketHandler {
 			WebSocketSession wss = (WebSocketSession) temp.get(k);
 			try {
 				wss.sendMessage(new BinaryMessage(byteBuffer)); // 초기화된 버퍼 발송
+//				talkService.insertFile(byteBuffer);
+				System.out.println("byteBuffer4->"+byteBuffer);
 			} catch (IOException e) {
 					e.printStackTrace();
 			}
