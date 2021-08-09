@@ -1,0 +1,125 @@
+@charset "UTF-8";
+#TestCircle {
+	border-radius: 50%;
+	background-color: black;
+	text-align: center;
+	font-size: 50px;
+	width: 100px;
+	height: 100px;
+}
+
+#Test {
+	width: 50px;
+	height: 50px;
+}
+
+/* =========================== Modal ===================================== */
+
+.modal-content {
+   font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+   font-size: 20px;
+}
+
+.modal_btn {
+   margin-right: 5px;
+    color: white;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: top;
+    font-size: 13px;
+   background: #0f91e6;
+    border: 1px solid #0f91e6;
+    border-radius: 2px;
+    padding-left: 5px; 
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+#modal_form tr {
+   width: 70px;
+   line-height: 35px;
+}
+
+#modal_form tr td {
+   padding: 8px;   
+}
+
+.input {
+   width: 494px;   
+   height: 25px;
+   border: 1px solid #c0c0c0;
+   border-radius: 4px;
+}
+
+.modal {
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1; /* Sit on top */
+   left: 0;
+   top: 0;
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgb(0, 0, 0); /* Fallback color */
+   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+   background-color: #fefefe;
+   margin: 15% auto; /* 15% from the top and centered */
+   padding: 20px;
+   width: 620px; /* Could be more or less, depending on screen size */
+   border: 1px solid #ddd;
+   border-radius: 4px;
+   box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}
+
+#chatting {
+/* 	display: none; */
+}
+
+#back {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+#back2 {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.groupchat {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+#content2 {
+    		position: relative;
+    		background-color: white;
+    		width: 501px;
+    		height: 500px;
+    		overflow: auto;
+}
+.onebyone {
+	width: 50px;
+	height: 20px;
+}
+
+.group {
+	width: 50px;
+	height: 20px;
+}
+
+.insertroom {
+	width: 70px;
+	height: 20px;
+}
+
+#join_member {
+	width: 70px;
+	height: 20px;
+}

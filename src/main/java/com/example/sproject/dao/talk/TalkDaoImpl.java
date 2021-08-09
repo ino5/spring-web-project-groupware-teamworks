@@ -34,8 +34,8 @@ public class TalkDaoImpl implements TalkDao {
 	}
 
 	@Override
-	public List<Member> selectMemberList() {
-		return session.selectList("selectMemberListOfTalk");
+	public List<Member> selectMemberList(String m_id) {
+		return session.selectList("selectMemberListOfTalk", m_id);
 	}
 
 	@Override
@@ -75,4 +75,19 @@ public class TalkDaoImpl implements TalkDao {
 		return session.selectOne("selectMaxRnOfTalk");
 	}
 
+	@Override
+	public List<Room> selectgetGroupRoomList(String m_id) {
+		return session.selectList("selectGroupRoomListOfTalk", m_id);
+	}
+
+	@Override
+	public void insertTalkRoomGroup() {
+		session.insert("insertMakeGroupRoomOfTalk");
+		return;
+	}
+
+	@Override
+	public List<Member> selectJoinGroupMemberList(int tkrm_num) {
+		return session.selectList("selectJoinGroupMemberListOfTalk", tkrm_num);
+	}
 }

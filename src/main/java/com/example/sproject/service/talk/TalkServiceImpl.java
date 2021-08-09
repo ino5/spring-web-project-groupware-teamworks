@@ -28,8 +28,8 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
-	public List<Member> selectMemberList() {
-		return talkDao.selectMemberList();
+	public List<Member> selectMemberList(String m_id) {
+		return talkDao.selectMemberList(m_id);
 	}
 
 	@Override
@@ -58,5 +58,31 @@ public class TalkServiceImpl implements TalkService {
 		talkDao.insertTalker(roomNumber, m_id);
 		talkDao.insertTalker(roomNumber, m_id2);
 		return 1;
+	}
+
+	@Override
+	public List<Room> selectgetGroupRoomList(String m_id) {
+		return talkDao.selectgetGroupRoomList(m_id);
+	}
+
+	@Override
+	public Room getRoom(int tkrm_num) {
+		return talkDao.selectRoom(tkrm_num);
+	}
+
+	@Override
+	public Room MakeGroupGetRoom(List<String> groupList, String m_id) {
+		talkDao.insertTalkRoomGroup();
+		int roomNumber = talkDao.selectMaxRn();
+		talkDao.insertTalker(roomNumber, m_id);
+		for(int i = 0; i < groupList.size(); i++) {
+			talkDao.insertTalker(roomNumber, groupList.get(i));
+		}
+		return talkDao.selectRoom(roomNumber);
+	}
+
+	@Override
+	public List<Member> selectJoinGroupMemberList(int tkrm_num) {
+		return talkDao.selectJoinGroupMemberList(tkrm_num);
 	}
 }

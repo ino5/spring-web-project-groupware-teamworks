@@ -14,7 +14,7 @@ public interface TalkDao {
 
 	List<Talk> selectChat(int roomNumber);
 
-	List<Member> selectMemberList();
+	List<Member> selectMemberList(String m_id);
 
 	int insertTalkRoomOneByOne();
 	
@@ -25,5 +25,11 @@ public interface TalkDao {
 	Room selectRoom(int roomNumber);
 
 	int selectMaxRn();
+
+	List<Room> selectgetGroupRoomList(String m_id);
+
+	void insertTalkRoomGroup();
+
+	List<Member> selectJoinGroupMemberList(int tkrm_num);
 
 }

@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,13 +36,13 @@ public class TalkController {
 	List<Room> roomList = new ArrayList<Room>();
 	static int roomNumber = 0; // 메모리에 한번 할당되어 프로그램이 종료될 때 해제되는 것을 의미
 	
-	@RequestMapping("/talker")
-	public ModelAndView chat() {
-		System.out.println("SocketController talker Start...");
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("talk/talk");
-		return mv;
-	}
+//	@RequestMapping("/talker")
+//	public ModelAndView chat() {
+//		System.out.println("SocketController talker Start...");
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("talk/talk");
+//		return mv;
+//	}
 	
 	/**
 	 * 방 페이지
@@ -56,49 +58,49 @@ public class TalkController {
 	// Model -> model.addAttribute를 사용하여 데이터만 저장
 	// ModelAndView -> 데이터와 이동하고자 하는 View Page를 같이 저장
 
-	@RequestMapping("/Member")
-	public ModelAndView Member(@AuthenticationPrincipal Member sessionMember) {
-		System.out.println("SocketController MemberList Start...");
-		ModelAndView mv = new ModelAndView();
-		
-		String m_id = null;
-		String m_name = null;
-		if(sessionMember != null) {
-			System.out.println("sessionMember: " + sessionMember);
-			m_id = sessionMember.getM_id();
-			m_name = sessionMember.getM_name();
-			mv.addObject("m_id", m_id);
-			mv.addObject("m_name", m_name);
-		}
-
-
-		List<Member> memberList = talkService.selectMemberList();
-		mv.addObject("memberList", memberList);
-		mv.setViewName("talk/Member");
-		return mv;
-	}
+//	@RequestMapping("/Member")
+//	public ModelAndView Member(@AuthenticationPrincipal Member sessionMember) {
+//		System.out.println("SocketController MemberList Start...");
+//		ModelAndView mv = new ModelAndView();
+//		
+//		String m_id = null;
+//		String m_name = null;
+//		if(sessionMember != null) {
+//			System.out.println("sessionMember: " + sessionMember);
+//			m_id = sessionMember.getM_id();
+//			m_name = sessionMember.getM_name();
+//			mv.addObject("m_id", m_id);
+//			mv.addObject("m_name", m_name);
+//		}
+//
+//
+//		List<Member> memberList = talkService.selectMemberList(m_id);
+//		mv.addObject("memberList", memberList);
+//		mv.setViewName("talk/Member");
+//		return mv;
+//	}
 	
-	@RequestMapping("/MemberList")
-	public ModelAndView MemberList(@AuthenticationPrincipal Member sessionMember) {
-		System.out.println("SocketController MemberList Start...");
-		ModelAndView mv = new ModelAndView();
-		
-		String m_id = null;
-		String m_name = null;
-		if(sessionMember != null) {
-			System.out.println("sessionMember: " + sessionMember);
-			m_id = sessionMember.getM_id();
-			m_name = sessionMember.getM_name();
-			mv.addObject("m_id", m_id);
-			mv.addObject("m_name", m_name);
-		}
-
-
-		List<Member> memberList = talkService.selectMemberList();
-		mv.addObject("memberList", memberList);
-		mv.setViewName("talk/MemberList");
-		return mv;
-	}
+//	@RequestMapping("/MemberList")
+//	public ModelAndView MemberList(@AuthenticationPrincipal Member sessionMember) {
+//		System.out.println("SocketController MemberList Start...");
+//		ModelAndView mv = new ModelAndView();
+//		
+//		String m_id = null;
+//		String m_name = null;
+//		if(sessionMember != null) {
+//			System.out.println("sessionMember: " + sessionMember);
+//			m_id = sessionMember.getM_id();
+//			m_name = sessionMember.getM_name();
+//			mv.addObject("m_id", m_id);
+//			mv.addObject("m_name", m_name);
+//		}
+//
+//
+//		List<Member> memberList = talkService.selectMemberList(m_id);
+//		mv.addObject("memberList", memberList);
+//		mv.setViewName("talk/MemberList");
+//		return mv;
+//	}
 	/**
 	 * 방 생성하기
 	 * @param params
@@ -125,64 +127,178 @@ public class TalkController {
 	 * @param params
 	 * @return
 	 */
-	@RequestMapping("/getRoom")
-	public 
+//	@RequestMapping("/getRoom")
+//	public 
+//	@ResponseBody
+//	List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
+//		System.out.println("SocketController getRoom Start...");
+//		System.out.println("roomList: " + roomList);
+//		return roomList;
+//	}
+	
+//	/**
+//	 * 채팅방
+//	 * @return
+//	 */
+//	@RequestMapping("/moveChating")
+//	public ModelAndView chating(String m_id2, @AuthenticationPrincipal Member sessionMember) {
+//		System.out.println("SocketController moveChating Start...");
+//		ModelAndView mv = new ModelAndView();
+//		
+//		//세션 아이디 정보 가져오기
+//		String m_id = null;
+//		String m_name = null;
+//		if(sessionMember != null) {
+//			m_id = sessionMember.getM_id();
+//			m_name = sessionMember.getM_name();
+//			mv.addObject("m_id", m_id);
+//			mv.addObject("m_name", m_name);
+//		}
+//		System.out.println("m_id: " + m_id);
+//		
+//		//멤버리스트 가져오기
+//		List<Member> memberList = talkService.selectMemberList(m_id);
+//		mv.addObject("memberList", memberList);
+//		
+//		//일대일 채팅방 가져오기
+//		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
+//		System.out.println(room);
+//		mv.addObject("roomName", room.getTkrm_name());
+//		mv.addObject("roomNumber", room.getTkrm_num());
+//		
+//		//채팅 기록 가져오기
+//		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
+//		mv.addObject("talkList", talkList);
+//		mv.setViewName("talk/MemberList");
+//		
+////		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+////		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+////		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
+////		if(new_list != null && new_list.size() > 0) {
+////			mv.addObject("roomName", params.get("roomName"));
+////			mv.addObject("roomNumber", params.get("roomNumber"));
+////			mv.addObject("m_id", m_id);
+////			List<Talk> talkList = talkService.selectChat(roomNumber);
+////			mv.addObject("talkList", talkList);
+////			
+////			mv.setViewName("talk/talk");
+////		}else {
+////			mv.setViewName("talk/room");
+////		}
+//		return mv;
+//	}
+	
+	@RequestMapping("/getMemberList")
 	@ResponseBody
-	List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
-		System.out.println("SocketController getRoom Start...");
-		System.out.println("roomList: " + roomList);
-		return roomList;
+	public Map<String, Object> getMemberList(@AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = sessionMember.getM_id();
+		List<Member> memberList = talkService.selectMemberList(m_id);
+		map.put("m_id", m_id);
+		map.put("m_name", sessionMember.getM_name());
+		map.put("memberList", memberList);
+		System.out.println("memberList");
+		for(Member member : memberList) System.out.println(member);
+		return map;
 	}
 	
-	/**
-	 * 채팅방
-	 * @return
-	 */
-	@RequestMapping("/moveChating")
-	public ModelAndView chating(String m_id2, @AuthenticationPrincipal Member sessionMember) {
-		System.out.println("SocketController moveChating Start...");
-		ModelAndView mv = new ModelAndView();
-		
-		//세션 아이디 정보 가져오기
+	@RequestMapping("/Test")
+	public ModelAndView Test(@AuthenticationPrincipal Member sessionMember) {
 		String m_id = null;
-		String m_name = null;
 		if(sessionMember != null) {
-			m_id = sessionMember.getM_id();
-			m_name = sessionMember.getM_name();
-			mv.addObject("m_id", m_id);
-			mv.addObject("m_name", m_name);
+			m_id = sessionMember.getM_id();			
 		}
-		System.out.println("m_id: " + m_id);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("talk/TestPage");
+		return mv;
+	}
+	
+	@RequestMapping("/getRoomOfApi")
+	@ResponseBody
+	public Map<String, Object> getroomNumber(String m_id2, Integer tkrm_num, @AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = null;
+		if(sessionMember != null) {
+			m_id = sessionMember.getM_id();			
+		}
 		
-		//멤버리스트 가져오기
-		List<Member> memberList = talkService.selectMemberList();
-		mv.addObject("memberList", memberList);
-		
-		//일대일 채팅방 가져오기
-		Room room = talkService.getRoomOfOneByOne(m_id, m_id2);
-		System.out.println(room);
-		mv.addObject("roomName", room.getTkrm_name());
-		mv.addObject("roomNumber", room.getTkrm_num());
-		
+		//
+		Room room = null;
+		if(tkrm_num == null) {
+			//일대일 채팅방 가져오기 
+			room = talkService.getRoomOfOneByOne(m_id, m_id2);
+			System.out.println(room);
+		} else {
+			//그룹채팅방  가져오기
+			room = talkService.getRoom(tkrm_num);
+		}
+
 		//채팅 기록 가져오기
 		List<Talk> talkList = talkService.selectChat(room.getTkrm_num());
-		mv.addObject("talkList", talkList);
-		mv.setViewName("talk/MemberList");
+		System.out.println("talkList");
+		for(Talk talk : talkList) System.out.println(talk);
 		
-//		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
-//		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
-//		// 컬렉션의 저장 요소를 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
-//		if(new_list != null && new_list.size() > 0) {
-//			mv.addObject("roomName", params.get("roomName"));
-//			mv.addObject("roomNumber", params.get("roomNumber"));
-//			mv.addObject("m_id", m_id);
-//			List<Talk> talkList = talkService.selectChat(roomNumber);
-//			mv.addObject("talkList", talkList);
-//			
-//			mv.setViewName("talk/talk");
-//		}else {
-//			mv.setViewName("talk/room");
-//		}
-		return mv;
+		//맵에 넣기
+		map.put("m_id", m_id);
+		map.put("room", room);
+		map.put("talkList", talkList);
+
+		return map;
+	}
+	
+	@RequestMapping("/getGroupRoomList")
+	@ResponseBody
+	public Map<String, Object> getGroupRoomList(@AuthenticationPrincipal Member sessionMember) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = sessionMember.getM_id();
+		List<Room> roomList = talkService.selectgetGroupRoomList(m_id);
+		map.put("m_id", m_id);
+		map.put("m_name", sessionMember.getM_name());
+		map.put("roomList", roomList);
+		System.out.println("roomList");
+		for(Room room : roomList) System.out.println(room);
+		return map;
+	}
+	
+	@RequestMapping(value="MakeGroupGetRoom", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> getGrouproomNumber(String m_id2, @AuthenticationPrincipal Member sessionMember, @RequestParam(value="checkArray[]") List<String> groupList) {
+		System.out.println("TalkController Start MakeGroupRoom..." );
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = null;
+		if(sessionMember != null) {
+			m_id = sessionMember.getM_id();			
+		}
+		
+		  ArrayList<String> GroupArray = new ArrayList<String>();
+		    for(int i=0;i<groupList.size();i++){
+		    	GroupArray.add(groupList.get(i));
+		    }
+		
+		Room room = talkService.MakeGroupGetRoom(groupList, m_id);
+				
+		//맵에 넣기
+		map.put("m_id", m_id);
+		map.put("room", room);
+
+		return map;
+	}
+	
+	@RequestMapping("/joinGroupMemberList")
+	@ResponseBody
+	public Map<String, Object> joinGroupMemberList(@AuthenticationPrincipal Member sessionMember, int tkrm_num) {
+		System.out.println("SocketController getMemberList Start...");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String m_id = sessionMember.getM_id();
+		List<Member> memberList = talkService.selectJoinGroupMemberList(tkrm_num);
+		map.put("m_id", m_id);
+		map.put("m_name", sessionMember.getM_name());
+		map.put("memberList", memberList);
+		System.out.println("joinGroupMemberList");
+		for(Member member : memberList) System.out.println(member);
+		return map;
 	}
 }
