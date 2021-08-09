@@ -152,6 +152,7 @@
 	line-height: 35px;
 }
 
+
 a {
 	color : black;
 	text-decoration: none;
@@ -169,75 +170,54 @@ a {
 	font-weight: bold;
 	font-size: 26px;
 	display: block;
-	margin-left: 45%;
+	margin-left: 35%;
 }
 
 #calendar {
 	margin-top: 50px;
 	margin-left: 50px;
-	width: 80%;
+	width: 95%;
 	border-collapse : collapse;
 }
 
-.div_week {
-	border-bottom : 1px solid #E7E7E7;
-	width: 100%;
-	font-size: 20px;	
-	margin-top: 30px;
-	padding-bottom: 20px;
+#calendar tr td {
+	width: 11%;
 }
 
-.week_img {
-	width: 14px; 
-	height: 14px;
-	cursor: pointer;
+#calendar_member {
+	margin-top: 50px;
+	margin-left: 50px;
+	border-collapse : collapse;
 }
 
-#tb_title {
-	border-top : 1px solid #E7E7E7;
-	border-bottom : 1px solid #E7E7E7;
-	display: none;
-	margin-top: 20px;
+#calendar_member tr {
+	height: 70px;
 }
-
-#tb_title td {
-	font-size: 15px;
-}
-
-.div_week table {
-	font-size: 15px;
-	padding : 10px 0;
-	display: none;
-}
-
-.div_week table:hover {
+#calendar_member tr:hover{
 	background-color: #EBF7FF;
 }
-
-.div_week table td {
-	width: 376px;
+#calendar_member tr td {
+	width: 168px;
+	vertical-align: top;
 }
 
-.week_time {
-	font-size: 15px;	
-	float: right;
-	margin-right: 50px;
+.td_span1{
+	padding-top : 20px;
+	font-size: 14px;
+	display: block;
+	font-weight: bold;
 }
 
-.div_head {
-	float: left;
-	width: 25%;
-	padding: 30px 0;
+.td_span2{
+	color:#888; 
+	font-size: 14px;
+	display: block;
+	padding-top: 15px;
 }
 
-.div_p1 {
-	text-align: center;
+.add_time{
+	padding-top : 20px;
+	font-size: 14px;
+	display: block;
+	font-weight: bold;
 }
-
-.div_p2 {
-	text-align: center;
-	font-size: 30px;
-	padding-top: 10px;
-	color : #6799FF;
-}
-

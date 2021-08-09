@@ -543,7 +543,7 @@
 					src="${pageContext.request.contextPath}/time/img/white.png"
 					style="width: 16px; height: 12px;" id="img1"></span> 근태관리</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<li class="li">내 근태 현황</li>
+				<li class="li"><a href="${pageContext.request.contextPath}/time">내 근태 현황</a></li>
 				<li class="li">내 연차 내역</li>
 				<li class="li">내 인사정보</li>
 			</ol>
@@ -555,19 +555,18 @@
 					style="width: 16px; height: 12px; transition: 0.5s;" id="img2"></span>
 				<span id="span_none"><img alt="image"
 					src="${pageContext.request.contextPath}/time/img/white.png"
-					style="width: 16px; height: 12px;" id="img2"></span> 전사 근태관리</a>
+					style="width: 16px; height: 12px;" id="img2"></span> 부서 근태관리</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<li class="li">전사 근태현황</li>
-				<li class="li">전사 근태통계</li>
-				<li class="li">전사 인사정보</li>
-				<li class="li">전사 연차현황</li>
-				<li class="li">전사 연차 사용내역</li>
+					<c:forEach var="listDeptGroup" items="${listDeptGroup }">
+						<li class="li"><a
+							href="${pageContext.request.contextPath}/time/timeDept?dpt_code=${listDeptGroup.dpt_code}">${listDeptGroup.dpt_name}</a></li>
+					</c:forEach>
 			</ol>
 		</div>
 
 	</div>
 	<div id="content" style="height: 1000px;">
-		<p id="content1">근태현황</p>	
+		<p id="content1">근태현황</p>
 		<div id="calendar_head">
 			<!-- label은 마우스로 클릭을 편하게 해줌 -->
 			<label onclick="prevCalendar()" style="padding-right: 20px;"><</label>
@@ -575,7 +574,8 @@
 				m월</a> <label onclick="nextCalendar()">> </label>
 		</div>
 		<p style="margin-left: 30px; font-size: 18px">(기본근태) B형 자유출퇴근</p>
-		<div style="width: 95%; height: 150px; border: 1px solid #E7E7E7; margin-left: 30px; margin-top: 30px;">
+		<div
+			style="width: 95%; height: 150px; border: 1px solid #E7E7E7; margin-left: 30px; margin-top: 30px;">
 			<div class="div_head">
 				<p class="div_p1">이번주 누적</p>
 				<p id="div_p2_week" class="div_p2">0h 0m 0s</p>
