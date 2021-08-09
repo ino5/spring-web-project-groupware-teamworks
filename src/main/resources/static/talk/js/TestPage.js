@@ -343,6 +343,7 @@ $(document).ready(function() {
 				$('#chating').html('');
 				$('#roomName').html('');
 				$('.group').removeAttr('checked');
+				$('#join_member_list').html('');
 			},
 			error : function(err){
 				console.log('error');
@@ -360,7 +361,6 @@ function join_member(tkrm_num) {
 			success: function (res) {
 				//참여 멤버리스트 가져오기
 				let memberList = res.memberList;
-				if(!isClickedJoinGroupMember) {
 					for(var i = 0; i<memberList.length; i++) {
 					$('#join_member_list').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
@@ -369,7 +369,6 @@ function join_member(tkrm_num) {
    					 	+ memberList[i].m_name
    					 	+ '</td></tr>'
    					 ); 
-					} isClickedJoinGroupMember = true;
 				}						
 				$('#content1').hide();
 				$('#chatting_wrap').show();
