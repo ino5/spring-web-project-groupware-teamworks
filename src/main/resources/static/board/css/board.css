@@ -82,6 +82,7 @@ table{
 	font-size: 17px;
 	color: black;
 }
+
 /* ======================== Div Side ============================= */
 
 #btn1 {
@@ -171,7 +172,7 @@ table{
 	margin-right: 50px;
 	position: relative;
 	width: 200px;
-	height: 37px;
+	height: 20px;
 	border: 1px solid #ddd;
 	padding : 0px 10px;
 }
@@ -180,18 +181,18 @@ table{
  	border : none;
 	padding : 0px 30px;
 	border-radius: 50px;
-	font-size: 18px;
+	font-size: 8px;
 	font-family: "Nunito";
 	color : #424242;
 	font-weight: 500;
-	width: 150px;
+	width: 25px;
 }
 
 #search:focus {
 	outline : none;
 }
 
-#option {
+#option{
 	border: 0;
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	font-size: 17px;
@@ -279,10 +280,11 @@ position:relative;
 }
 #board_table tr, #board_table td{
 /* 	margin-left:5%; */
-	height: 60px;
+	height: 45px;
 	width: 300px;
 	font-size:18px;
 	border-collapse: collapse;
+	color: #333333;
 }
 
 #arrow2{

@@ -270,6 +270,7 @@ public class CommunityDaoImpl implements CommunityDao {
 	public int insert(Board board) {
 		int tot = 0;
 		try {
+			System.out.println("Community.xml - CommunityInsertOfCommunity start");
 			tot = session.insert("CommunityInsertOfCommunity",board);
 			
 		} catch (Exception e) {

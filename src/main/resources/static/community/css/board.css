@@ -247,10 +247,11 @@ position:relative;
 }
 #board_table tr, #board_table td{
 /* 	margin-left:5%; */
-	height: 60px;
+	height: 45px;
 	width: 300px;
 	font-size:18px;
 	border-collapse: collapse;
+	color: #333333;
 }
 
 #arrow2{

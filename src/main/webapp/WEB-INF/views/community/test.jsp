@@ -129,7 +129,9 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div id="content">
+<div style="margin-top: 20px; margin-left: 20px;"><span style="font-size: 22px;"> ${community.bd_name} &nbsp;게시판</span></div>
 <div id="content_wrap">
+
 	<h3><span style="color: #BDBDBD;">■</span> 커뮤니티명 :<span style="font-size: 15px; font-weight: normal;"> ${community.bd_name}</span></h3>	
 	<br>
 		<table>
@@ -182,10 +184,10 @@ $(document).ready(function() {
 					<tr>
 						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.p_type}"></td>
 						<td>${ps.p_num}</td>
-						<td><a
+						<td><a style="color: #666666;"
 							href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
 						<td>${ps.m_id}</td>
-						<td>${ps.p_regdate}</td>
+						<td><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ps.p_view}</td>
 					</tr>
 				</c:forEach>

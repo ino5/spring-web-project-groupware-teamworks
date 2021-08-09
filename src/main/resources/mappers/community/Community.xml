@@ -10,7 +10,7 @@
 	<![CDATA[
 		select *
 		from (select rownum rn, a.*
-			  from (select p.* FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (3) order by p_num desc) 
+			  from (select p.*, b.bd_name, NVL((SELECT COUNT(*) FROM post_like pl WHERE pl.m_id = #{target_m_id} AND p.p_num = pl.p_num),0) is_liked FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (3) order by p_num desc) 
 			  a) where rn >= #{start} and rn <= #{end}
 	]]>		
 	</select>
@@ -154,12 +154,14 @@
 	]]>		
 	</select>
 	<insert id="CommunityInsertOfCommunity" parameterType="com.example.sproject.model.board.Board">
-	      INSERT INTO BOARD (bd_num, bd_name, bd_content, m_id, bd_type, bd_is_anon) 
-			          VALUES ( (SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{bd_name},#{bd_content}, #{m_id}, 3, #{bd_is_anon})
-	   </insert>
+		INSERT ALL
+		INTO board (bd_num, bd_name, bd_content, m_id, bd_type, bd_is_anon) VALUES ( (SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{bd_name}, #{bd_content}, #{m_id}, 3, #{bd_is_anon})
+		INTO board_member (bd_num, m_id, cmm_type) VALUES ((SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{m_id}, 2 )
+		SELECT * FROM DUAL
+	</insert>
 
 	<insert id="BoardMemberOfCommunity" parameterType="com.example.sproject.model.community.BoardMember">
-	INSERT INTO BOARD_MEMBER (bd_num, m_id, cmm_type) VALUES (
+	INSERT INTO board_member (bd_num, m_id, cmm_type) VALUES (
 	#{bd_num}, #{m_id}, 1)
    </insert>
    <select id="getCommunitiesJoinedOfCommunity" parameterType="String" resultType="com.example.sproject.model.board.Board">

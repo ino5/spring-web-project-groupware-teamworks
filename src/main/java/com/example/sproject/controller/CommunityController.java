@@ -51,7 +51,10 @@ public class CommunityController {
 		Paging pg = new Paging(total, currentPage);
 		post.setStart(pg.getStart());
 		post.setEnd(pg.getEnd());
+		 //좋아요 리싀트 가져오기
+		
 		//모든글
+		post.setTarget_m_id(principal.getName());
 		List<Post> listPost = communityService.listPost(post);
 		for(Post post2 : listPost) {
 			System.out.println(post2);
@@ -68,7 +71,7 @@ public class CommunityController {
 		
 		//사이드바 리스트 
 		communityService.listSide(principal.getName(), model);
-		return "community/board";
+		return "community/community_main";
 	}
 	//게시글 작성화면
 	@GetMapping(value = "write")
@@ -118,19 +121,18 @@ public class CommunityController {
      	communityService.listSide(principal.getName(), modelandview);	
         modelandview.addObject("view", post);
      
-        
         //좋아요 가져오기
       PostLike postLike = new PostLike();
       if(principal != null) {
     	  postLike.setM_id(principal.getName());
     	  postLike.setP_num(p_num);
     	  int statusOfLike = communityService.checkLike(postLike);
-    	  modelandview.addObject("statusOfLike", statusOfLike);
-    	  //
-    	  
+    	  modelandview.addObject("statusOfLike", statusOfLike); 
       }
       return modelandview;
 }
+   
+    
     // 게시글 수정
     @PostMapping(value = "update")
     public String update(Post post) throws Exception{
