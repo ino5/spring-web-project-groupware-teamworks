@@ -13,11 +13,15 @@ import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
 import com.example.sproject.model.login.Member;
+import com.example.sproject.service.board.BoardService;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
 	@Autowired
 	private SqlSession session;
+	
+	@Autowired
+	private BoardService boardService;
 
 	@Override
 	public List<Post> listPost(Post post) {
@@ -59,7 +63,7 @@ public class BoardDaoImpl implements BoardDao {
 		try {
 			tot = session.insert("PostInsertOfBoard", post);
 			System.out.println("PostDaoImpl Start insert...");
-			System.out.println("post: " + post);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("PostDaoImpl insert Exception->" + e.getMessage());
@@ -134,7 +138,7 @@ public class BoardDaoImpl implements BoardDao {
 		List<Board> boardList = null;
 		System.out.println("PostDaoImpl boardList Start...");
 		try {
-			boardList = session.selectList("selectListBoardofBoard",board);
+			boardList = session.selectList("selectListBoardOfBoard",board);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -291,6 +295,8 @@ public class BoardDaoImpl implements BoardDao {
 
 		for(int i = 0; i < groupList.size(); i++) {
 			String p_num = groupList.get(i);
+			boardService.PostLike_Delete(Integer.parseInt(p_num));
+			boardService.post_replydelete(Integer.parseInt(p_num));
 			session.delete("DeleteBoardGroupOfBoard", Integer.parseInt(p_num));
 	}
 	}
@@ -319,6 +325,29 @@ public class BoardDaoImpl implements BoardDao {
 	    map.put("searchOption", searchOption);
 	    map.put("keyword", keyword);
 	    return session.selectOne("boardcountArticleOfBoard", map);
+	}
+
+	@Override
+	public int post_replydelete(int p_num) {
+		int result = 0;
+		try {
+			result = session.delete("Post_ReplydeleteOfBoard",p_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("PostDaoImpl delete Exception->"+e.getMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public int PostLike_Delete(int p_num) {
+		int result = 0;
+		try {
+			result = session.delete("PostLike_DeleteOfBoard",p_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	}
 

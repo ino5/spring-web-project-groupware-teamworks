@@ -17,6 +17,26 @@
 
 <title>Insert title here</title>
 </head>
+		<script type="text/javascript">
+										$('#summernote').summernote({
+											height : 600, // 에디터 높이
+											width:1200,
+			
+											minHeight : null, // 최소 높이
+											maxHeight : null, // 최대 높이
+											focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+											lang : "ko-KR", // 한글 설정
+											placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
+											callbacks: {	//이미지 첨부하는 부분
+										               onImageUpload : function(files) {
+										            	   	alert("onImageUpload : function");
+										                    uploadSummernoteImageFile(files[0],this);
+										                }
+										            }
+
+										});
+					
+									</script>
 <body>
 <%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 		
@@ -120,22 +140,6 @@
 
 										});
 									});
-									function uploadSummernoteImageFile(file, editor) {
-							            data = new FormData();
-							            data.append("file", file);
-							            $.ajax({
-							                data : data,
-							                type : "POST",
-							                url : "/uploadSummernoteImageFile",
-							                contentType : false,
-							                processData : false,
-							                success : function(data) {
-							                    //항상 업로드된 파일의 url이 있어야 한다.
-							                    $(editor).summernote('insertImage', data.url);
-							                }
-							            });
-							        }
-
 								</script></td>
 						</tr>
 						</table>

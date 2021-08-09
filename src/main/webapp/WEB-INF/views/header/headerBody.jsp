@@ -14,6 +14,7 @@
 				<li><a href="${pageContext.request.contextPath}/sign" id="head_sign">전자결재</a></li>
 				<li><a href="${pageContext.request.contextPath}/calendar" id="head_calendar">캘린더</a></li>
 				<li><a href="${pageContext.request.contextPath}/board" id="head_board">게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/community" id="head_community">커뮤니티</a></li>
 				<li><a href="${pageContext.request.contextPath}/address" id="head_address">주소록</a></li>
 				<li><a href="${pageContext.request.contextPath}/drive" id="head_drive">드라이브</a></li>
 				<li><a href="${pageContext.request.contextPath}/reservation" id="head_reservation">예약</a></li>

@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* 새 결재 창 모달창 */
+/* 모달창 뒤 배경 */
+.black_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 1000%;
+	height: 1000%;
+	background-color:rgba(0,0,0, 0.3);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+/* 모달창 업로드 */
+#modal_wrap_new_sign_line {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	background: #eee;
+	z-index: 2;
+}
+
+/* 결재 양식 */
+#div_content_wrap {
+	margin: 23px;
+    border: 5px solid #e8e8e8;
+    width: 80%;
+    min-width: 1150px;
+    padding: 18px;
+}
+
+#div_content {
+	width: 1100px;	
+}
+
+#div_content h1.sgf_name {
+	text-align: center;
+}
+
+#div_content table {
+	border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#div_content table .td_head {
+	background: rgb(221, 221, 221);
+	font-weight: bold;
+	text-align: center;
+	font-size: 18px;
+}

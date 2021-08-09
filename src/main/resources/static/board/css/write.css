@@ -127,3 +127,36 @@ margin-bottom: 100px;
      margin-left: 100px;
      margin-bottom: 50px;
     }
+/* 검색창 */
+#searchBox{
+	float:right;
+	margin-top: 40px;
+	margin-right: 50px;
+	position: relative;
+	width: 200px;
+	height: 37px;
+	border: 1px solid #ddd;
+	padding : 0px 10px;
+}
+
+ #search {
+ 	border : none;
+	padding : 0px 30px;
+	border-radius: 50px;
+	font-size: 18px;
+	font-family: "Nunito";
+	color : #424242;
+	font-weight: 500;
+	width: 150px;
+}
+
+#search:focus {
+	outline : none;
+}
+
+#option {
+	border: 0;
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 17px;
+	color: black;
+}

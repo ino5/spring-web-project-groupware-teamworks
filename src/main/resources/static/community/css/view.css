@@ -1,0 +1,151 @@
+@charset "UTF-8";
+/* ======================== Div Side ============================= */
+#btn1 {
+	font-family: 'Noto Sans KR', 맑은 고딕, 돋움, malgun gothic, dotum,
+		AppleGothic, Helvetica, sans-serif;
+	background-color: white;
+	border-style: solid;
+	border-radius: 10px;
+	border-width: 2px;
+	box-shadow: none;
+	border-color: #D5D5D5;
+	/* 	margin-top: 10%; */
+	/* 	margin-left: 10%; */
+	/* 	margin-bottom: 10%; */
+	margin: 10% 10%;
+	padding: 5% 0%;
+	width: 85%;
+	font-size: 21px;
+}
+
+a {
+	text-decoration: none
+}
+list_table td {
+	width: 30px;
+}
+#btn1:hover {
+	transition: all 0.2s linear;
+	transform: translate(0, -5%);
+	box-shadow: 2px 2px 2px 2px #BDBDBD;
+	border: 2px solid gray;
+}
+
+.li {
+	width: 100%;
+	height: 30px;
+}
+
+.li:hover {
+	background-color: #F6F6F6;
+}
+
+.button1 {
+	margin-left: 3%;
+	font-family: 'Noto Sans KR', 맑은 고딕, 돋움, malgun gothic, dotum,
+		AppleGothic, Helvetica, sans-serif;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+#scroll {
+	margin-left: 18%;
+}
+
+#div2 {
+	margin-top: 7%;
+}
+
+.li {
+	font-family: 'Noto Sans KR', 맑은 고딕, 돋움, malgun gothic, dotum,
+		AppleGothic, Helvetica, sans-serif;
+	font-size: 17px;
+	line-height: 20px;
+	padding-top: 5px;
+}
+
+#span_hover {
+	display: none;
+}
+
+@
+-webkit-keyframes fadein {
+	/* Safari and Chrome */ from { opacity:0;
+	
+}
+
+to {
+	opacity: 1;
+}
+
+}
+
+/*     @-webkit-keyframes fadeout { */
+/*         Safari and Chrome */
+/*         from { */
+/*             opacity: 1; */
+/*         } */
+/*         to { */
+/*             opacity: 0; */
+/*         } */
+/*     } */
+#side:hover #span_hover {
+	display: inline;
+	-webkit-animation: fadein 1s;
+}
+
+#side:hover #span_none {
+	display: none;
+}
+
+.note-editor {
+	width: 1300px;
+	margin-top: 30px;
+	margin-left: 100px;
+	margin-bottom: 50px;
+}
+
+.note-editable {
+	height: 600px;
+}
+
+#replyUpdete{
+	
+    position: relative;
+    background: #fff;
+    width: 74px;
+    height: 26px;
+    line-height: 24px;
+    text-align: center;
+    margin-left: 24px;
+}
+
+#rp_content{
+	margin-left:100px;
+	width: 500px;
+	height: 30px;
+
+    }
+    
+.table_rp td {
+	width: 1500px;
+    display: block;
+}
+.td_subject input{
+/* 	margin-left:100px; */
+width: 780px;
+height: 30px;
+margin-top: 20px;
+margin-bottom: 20px;
+border: 1px solid #ddd;
+}
+#btnUpdete{
+	margin-top:20px;
+    position: relative;
+    background: #fff;
+    width: 74px;
+    height: 26px;
+    line-height: 24px;
+    text-align: center;
+    margin-left: 24px;
+}

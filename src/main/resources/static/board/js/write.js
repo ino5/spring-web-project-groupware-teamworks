@@ -31,3 +31,35 @@ $(document).ready(function() {
 			}
 		})
 	});
+	var mid = $('#m_id').val();
+	var loginId = $('#loginId').val();
+	console.log("mid",mid);
+	console.log("loginId",loginId);
+	if(mid == loginId){
+		$('#summernote').summernote('enable');
+		
+	}else{
+		$('#summernote').summernote('disable');
+		$("#btnUpdete").remove();
+		$("#btnDelete").remove();
+	}
+	console.log($("#btnUpdete"));
+	
+	
+
+function uploadSummernoteImageFile(file, editor) {
+		alert('이미지업로드');
+    data = new FormData();
+    data.append("file", file);
+    $.ajax({
+        data : data,
+        type : "POST",
+        url : _contextPath+"/board/uploadSummernoteImageFile",
+        contentType : false,
+        processData : false,
+        success : function(data) {
+            //항상 업로드된 파일의 url이 있어야 한다.
+            $(editor).summernote('insertImage', _contextPath+data.url);
+        }
+    });
+}

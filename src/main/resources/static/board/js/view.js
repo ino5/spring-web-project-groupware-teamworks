@@ -33,6 +33,7 @@
 			}
 		})
 	});
+	
 	var mid = $('#m_id').val();
 	var loginId = $('#loginId').val();
 	console.log("mid",mid);
@@ -48,7 +49,7 @@
 	console.log($("#btnUpdete"));
 	
 	
-
+//이미지파일 업로드
 function uploadSummernoteImageFile(file, editor) {
     data = new FormData();
     data.append("file", file);
@@ -64,6 +65,7 @@ function uploadSummernoteImageFile(file, editor) {
         }
     });
 }
+//댓글삭제
 function clickDelete(rpNum){
 	console.log(rpNum);
 	

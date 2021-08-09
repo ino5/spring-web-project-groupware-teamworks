@@ -10,12 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.sproject.dao.board.BoardDao;
+import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
 import com.example.sproject.model.board.Reply;
-import com.example.sproject.model.common.CommonGroup;
-import com.example.sproject.model.login.Member;
-import com.example.sproject.model.board.Board;
 
 
 @Service
@@ -62,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
         post.setM_id(m_id);
         post.setP_name(p_name);
         post.setP_content(p_content);
-        System.out.println("post: " + post);
+        
         return boardDao.insert(post);
 
 }
@@ -279,6 +277,18 @@ public class BoardServiceImpl implements BoardService {
 	public int countArticle(String searchOption, String keyword) {
 		  return boardDao.countArticle(searchOption, keyword);
 	
+	}
+
+	@Override
+	public int post_replydelete(int p_num) {
+	 return boardDao.post_replydelete(p_num);
+		
+	}
+
+	@Override
+	public int PostLike_Delete(int p_num) {
+		// TODO Auto-generated method stub
+		return boardDao.PostLike_Delete(p_num);
 	}
 
 	
