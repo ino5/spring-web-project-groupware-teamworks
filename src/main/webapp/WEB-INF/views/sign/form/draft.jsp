@@ -26,28 +26,30 @@
 	<sec:csrfInput/>
 	<div id="content">
 		<div id="content_top">
-			<h2>${mapOfSignContent.title}</h2>
-			
-			<div id="sign_line">
-				<h3>결재라인</h3>
-			<c:if test="${jspType == 'w' }">	
-				<button type="button" id="button_new_sign_line">결재라인 추가</button>
-				이름 부서 직위
-				<ul id="sortable">
-						<!-- 샘플 -->
-<!-- 					<li class="ui-state-default"> -->
-<!-- 						<span class="ic ic_drag"></span> -->
-<!-- 						<input type="hidden" name="sgl_m_id" value= "iin140"> -->
-<!-- 						<input type="hidden" name="sgl_type" value= "1">														 -->
-<!-- 					</li> -->
-				</ul>
-			</c:if>	
+			<h1>${mapOfSignContent.title}<span>&nbsp;&nbsp;in ${sign.sgf_name}</span></h1>
 			<c:if test="${jspType == 'r' }">
-				<c:forEach var= "signLine" items="${listOfSignLine}">
-					${signLine.m_name} ${signLine.dpt_name} ${signLine.pt_name}<br>
-				</c:forEach>
+				<button type="button">
+					<span class="ic_toolbar approval"></span>
+					<span class="txt">결재</span>
+				</button>
+				<button type="button">
+					<span class="ic_toolbar return"></span>
+					<span class="txt">반려</span>
+				</button>				
 			</c:if>
-				<br><br>
+			<div id="sign_line">
+				<c:if test="${jspType == 'w' }">
+					<h3>결재라인</h3>
+					<button type="button" id="button_new_sign_line">결재라인 추가</button>
+					이름 부서 직위
+					<ul id="sortable">
+					</ul>
+				</c:if>	
+				<c:if test="${jspType == 'r' }">
+	<%-- 				<c:forEach var= "signLine" items="${listOfSignLine}"> --%>
+	<%-- 					${signLine.m_name} ${signLine.dpt_name} ${signLine.pt_name}<br> --%>
+	<%-- 				</c:forEach> --%>
+				</c:if>
 			</div>
 
 			<!-- 결재라인 추가 모달창 -->
@@ -63,9 +65,7 @@
 		</div>
 		
 		<div id="content_middle">
-			<h3>문서 양식 : 업무 기안</h3>
 			<input type="hidden" name="sgf_id" value="draft">
-
 			<div id="div_content_wrap">
 				<div id="div_content_container">
 					<h1 class="sgf_name">업 무 기 안</h1>
@@ -129,7 +129,14 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="td_date"><fmt:formatDate value="${signLine.sgl_regdate}" pattern="yyyy/MM/dd"></fmt:formatDate></td>
+									<td class="td_date">
+										<c:if test="${signLine.sgl_status == '1'}">
+											<fmt:formatDate value="${signLine.sgl_regdate}" pattern="yyyy/MM/dd"></fmt:formatDate>
+										</c:if>
+										<c:if test="${signLine.sgl_status == '2'}">
+											<fmt:formatDate value="${signLine.sgl_regdate}" pattern="MM/dd"></fmt:formatDate>(반려)
+										</c:if>										
+									</td>
 								</tr>					
 							</table>
 						</c:forEach>
@@ -148,17 +155,19 @@
 									</c:if>								
 								</td>
 							</tr>
-							<tr>
-								<td colspan="100">
-									<c:if test="${jspType == 'r'}">
+							<tr>						
+								<c:if test="${jspType == 'r'}">
+									<td id="td_content" colspan="100">
 										${mapOfSignContent.content}
-									</c:if>
-									<c:if test="${jspType == 'w'}">
+									</td>
+								</c:if>
+								<c:if test="${jspType == 'w'}">
+									<td colspan="100">
 										<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
-											text test
+											&nbsp;
 										</textarea>
-									</c:if>									
-								</td>
+									</td>
+								</c:if>									
 							</tr>
 						</table>
 				

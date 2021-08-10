@@ -2,9 +2,10 @@
 * {
 	margin: 0;
 	padding: 0;
+	letter-spacing: -0.5px;
 }
 
-body,input, textarea, select {
+body,input, textarea, select, button {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 }
 
@@ -155,6 +156,140 @@ span.ic_arrow_up_type4			{background-position: -50px -1000px; width: 15px; heigh
 span.ic_reset {background-position: 0 -400px; width: 12px; height: 12px; cursor: pointer}
 span.btn_ic_wrap span {cursor:pointer; width:18px; height:18px}
 span.btn_ic_wrap span:hover {opacity:0.8; filter: Alpha(Opacity=80); outline:1px solid #b4d7d8}
+
+/**/
+/* ic_toolbar.png */
+/**/
+/* ----------- ic ----------- */
+.ic_toolbar {display: inline-block; background:url(./images/ic_toolbar.png) no-repeat 0 0; width: 20px; height: 20px; vertical-align: middle}
+	.ic_toolbar.mail					{background-position: -50px 0}
+	.ic_toolbar.group				{background-position: -100px 0}
+	.ic_toolbar.group_setting	{background-position: -350px -50px}
+	.ic_toolbar.cancel				{background-position: 0 -150px}
+	.ic_toolbar.opposition		{background-position: 0 -150px}
+	.ic_toolbar.end					{background-position: 0 -150px}
+	.ic_toolbar.close				{background-position: 0 -150px}
+	.ic_toolbar.group_cancel	{background-position: -50px -150px}
+	.ic_toolbar.member_cancel {background-position: -50px -150px}
+	.ic_toolbar.del					{background-position: -150px 0}
+	.ic_toolbar.copy				{background-position: -200px 0}
+	.ic_toolbar.fast					{background-position: -250px 0}
+	.ic_toolbar.plus					{background-position: -250px 0}
+	.ic_toolbar.more				{background-position: -300px 0}
+	.ic_toolbar.search				{background-position: 0 -50px}
+	.ic_toolbar.tag					{background-position: -50px -50px}
+	.ic_toolbar.spam				{background-position: -100px -50px}
+	.ic_toolbar.stop					{background-position: -100px -50px}
+	.ic_toolbar.reply				{background-position: -150px -50px}
+	.ic_toolbar.forwading		{background-position: -200px -50px}
+	.ic_toolbar.return			{background-position: -200px -50px}
+	.ic_toolbar.read					{background-position: -250px -50px}
+	.ic_toolbar.move				{background-position: -300px -50px}
+	.ic_toolbar.sort					{background-position: -50px -100px}
+	.ic_toolbar.sort_up			{background-position: -250px -100px}
+	.ic_toolbar.sort_down		{background-position: -300px -100px}
+	.ic_toolbar.up					{background-position: -250px -100px}
+	.ic_toolbar.update				{background-position: -250px -100px}
+	.ic_toolbar.down				{background-position: -300px -100px}
+	.ic_toolbar.download			{background-position: -150px -150px}
+	.ic_toolbar.upload				{background-position: -100px -150px}
+	.ic_toolbar.send				{background-position: 0px -200px}
+	.ic_toolbar.save					{background-position: -50px -200px}
+	.ic_toolbar.preview			{background-position: -100px -200px}
+	.ic_toolbar.refresh				{background-position: -150px -200px}
+	.ic_toolbar.list					{background-position: -300px -150px}
+	.ic_toolbar.board				{background-position: -200px -200px}
+	.ic_toolbar.doc					{background-position: -200px -200px}
+	.ic_toolbar.doc_official		{background-position: -200px -200px}
+	.ic_toolbar.source		{background-position: -200px -200px}
+	.ic_toolbar.write				{background-position: -250px -200px}
+	.ic_toolbar.modify				{background-position: -300px -200px}
+	.ic_toolbar.change			{background-position: 0px -250px}
+	.ic_toolbar.member			{background-position: -50px -250px}
+	.ic_toolbar.popup				{background-position: -100px -250px}
+	.ic_toolbar.info					{background-position: -150px -250px}
+	.ic_toolbar.check				{background-position: -150px -300px}
+	.ic_toolbar.check_all			{background-position: -200px -250px}
+	.ic_toolbar.check_late		{background-position: -150px -350px}
+	.ic_toolbar.approval			{background-position: -300px -200px}
+	.ic_toolbar.drive				{background-position: -250px -250px}
+	.ic_toolbar.folder				{background-position: -300px -250px}
+	.ic_toolbar.folderadd			{background-position: -50px -300px}
+	.ic_toolbar.filter					{background-position: 0px -300px}
+	.ic_toolbar.open				{background-position: -100px -300px}
+	.ic_toolbar.checking			{background-position: -150px -300px}
+	.ic_toolbar.done				{background-position: -150px -300px}
+	.ic_toolbar.agree				{background-position: -150px -300px}
+	.ic_toolbar.dotline				{background-position: -200px -300px}
+	.ic_toolbar.delay				{background-position: -250px -300px}
+	.ic_toolbar.end					{background-position: -250px -300px}
+	.ic_toolbar.noti					{background-position: -300px -300px}
+	.ic_toolbar.return_again	{background-position: 0px -350px}
+	.ic_toolbar.out					{background-position: 0px -350px}
+	.ic_toolbar.member_check	{background-position: -50px -350px}
+	.ic_toolbar.receive				{background-position: -100px -350px}
+	.ic_toolbar.play					{background-position: -250px -350px}
+	.ic_toolbar.setting				{background-position: -300px -350px}
+	.ic_toolbar.adjust				{background-position: -350px 0}
+.ic_side {display:inline-block;background:url(../images/ic_side.png?v2.6.0.0) repeat-x; vertical-align:middle}
+	.ic_side.ic_body_folder		{background-position:0 -750px; width: 20px; height: 20px}
+	.ic_side_setting					{background-position: -100px -250px; width: 14px; height: 15px}
+	.ic_side.plus						{background-position:-450px -150px; width: 14px; height: 14px}
+	.ic_side.ic_hide_up				{background-position:-100px -200px; width: 12px; height: 12px}
+	.ic_app_bbs						{width:41px; height:37px; background-position:0 0}
+	.ic_app_calendar				{width:41px; height:37px; background-position:0 -50px}
+	.ic_app_address					{width:41px; height:37px; background-position:0 -100px}
+	.ic_app_community			{width:45px!important ;  height:37px;  height:; background-position:0 -150px}
+	.ic_app_mail						{width:41px; height:37px; background-position:0 -200px}
+	.ic_app_file						{width:41px; height:37px; background-position:0 -250px}
+	.ic_app_join						{width:41px; height:37px; background-position:0 -300px}
+	.ic_app_report					{width:41px; height:37px; background-position:0 -350px}
+	.ic_app_task						{width:41px; height:37px; background-position:0 -400px}
+	.ic_app_appr						{width:41px; height:37px; background-position:0 -450px}
+	.ic_app_survey					{width:41px; height:37px; background-position:0 -500px}
+	.ic_app_works					{width:41px; height:37px; background-position:0 -550px}
+	.ic_side.ic_list_del				{background-position:-100px -400px; width: 14px; height: 14px}
+.ic_app_sms {width:41px; height:37px; background-position:0 -600px}
+.ic_app_docs {width:41px; height:37px; background-position:0 -400px}
+.ic_app_setting {width:16px; height:16px;  background-position:0px 0px}
+.ic_user {width:16px; height:16px;  background-position:-50px -100px}
+.ic_folder {width:16px; height:16px;  background-position:-100px -50px}
+.ic_folder:hover {background-position:-150px -50px}
+.ic_folder_sys {width:16px; height:16px;  background-position:-100px -0px}
+.ic_folder_sys:hover {background-position:-150px 0px}
+.ic_folder_tag {width:16px; height:16px;  background-position:-100px -100px}
+.ic_folder_tag:hover {background-position:-150px -100px}
+.ic_show_down {width:19px; height:19px;  background-position:-100px -148px}
+.ic_show_down:hover {background-position:-200px -148px}
+.ic_list_del:hover {background-position:-150px -400px}
+.ic_list_edit {width:16px; height:16px;  background-position:-100px -450px}
+.ic_list_edit:hover {background-position:-150px -450px}
+.ic_more_option {width:16px; height:16px;  background-position:-100px -500px}
+.ic_more_option:hover {background-position:-150px -500px}
+.ic_done {width:19px; height:19px;  background-position:-100px -550px; cursor:pointer}
+.ic_done:hover {background-position:-150px -550px}
+.ic_edit {width: 16px; height: 16px;  background-position:-100px -450px; cursor:pointer}
+.ic_edit:hover {background-position:-150px -450px}
+.ic_basket_bx {width:16px; height:16px;  background-position:-100px -600px; cursor:pointer}
+.ic_basket_bx:hover {background-position:-150px -600px}
+.ic_preview {width:19px; height:19px;  background-position: -200px -550px; cursor:pointer}
+.ic_preview:hover {background-position:-200px -600px}
+.ic_cancel {width:19px; height:19px;  background-position: -100px -650px; cursor:pointer}
+.ic_cancel:hover {background-position:-150px -650px}
+.ic_list_reorder {width:19px; height:19px;  background-position: -100px -450px}
+.ic_list_reorder:hover {background-position:-100px -450px}
+.ic_list_trash {width:16px; height:18px;  background-position:-100px -750px}
+.ic_list_trash:hover {background-position:-150px -750px}
+.ic_private {width:13px; height:19px; background-position:-103px -1851px}
+.ic_copy {width:19px; height:19px;  background-position:-100px -2000px; cursor:pointer}
+.ic_copy:hover {background-position:-150px -2000px}
+.ic_setting {display:inline-block;width:19px; height:19px; background:url(../images/ic_side.png?v2.6.0.0) no-repeat -100px -250px; cursor:pointer;}
+.ic_comment {width:18px; height:16px; background-position:-180px -100px!impo>
+rtant;}
+.wrap_member .ic_member {width:22px; height:17px; background-position:-140px -100px!important;}
+.wrap_reply .ic_reply2 {width:18px; height:16px; background-position:-180px -100px!important;}
+
+
 
 /*임의추가*/
 span.ic_drag {background-position: 8px -838px}

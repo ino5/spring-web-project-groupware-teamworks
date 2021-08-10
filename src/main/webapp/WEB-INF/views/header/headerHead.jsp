@@ -21,7 +21,7 @@
 <!-- Ajax에서 Post 요청마다 csrf 토큰 값 넘겨주기 위한 스크립트 -->
 <script src="${pageContext.request.contextPath}/header/js/csrf.js"></script>
 
-<!-- header에 대한 css -->
+<!-- header css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/header/css/header.css">
 
 <!-- 구글 CDN을 통한 폰트 적용  Noto Sans -->

@@ -184,5 +184,6 @@
 		SELECT sl.*, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM sign_line sl, member m, department d, position p 
 		WHERE sg_num = #{sg_num}
 		AND (sl.m_id = m.m_id AND m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code)
+		ORDER BY sl.sgl_order
 	</select>
 </mapper>
