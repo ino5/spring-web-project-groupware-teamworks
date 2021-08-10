@@ -26,31 +26,129 @@
 	z-index: 2;
 }
 
-/* 결재 양식 */
-#div_content_wrap {
-	margin: 23px;
-    border: 5px solid #e8e8e8;
-    width: 80%;
-    min-width: 1150px;
-    padding: 18px;
-}
 
-#div_content {
-	width: 1100px;	
-}
-
-#div_content h1.sgf_name {
-	text-align: center;
-}
-
-#div_content table {
+/* table 기본 */
+#div_content_container table td {
 	border: 1px solid black;
-    border-collapse: collapse;
+	padding: 6px 9px;
 }
 
-#div_content table .td_head {
+#div_content_container table .td_head {
 	background: rgb(221, 221, 221);
 	font-weight: bold;
 	text-align: center;
 	font-size: 18px;
 }
+
+#div_content_container table .td_style_short {
+	width: 120px;
+}
+
+#div_content_container table .td_style_middle {
+	width: 450px;
+}
+
+#div_content_container table .td_style_long {
+	width: 700px;
+}
+
+#div_content_container table input {
+	font-size: 18px;
+    width: 100%;	
+}
+
+
+
+/* End of table 기본 */
+
+
+/* 결재 양식 */
+#div_content_wrap {
+	margin: 23px;
+    border: 5px solid #e8e8e8;
+/*     width: 80%; */
+	width: 1100px;
+    min-width: 1100px;
+    padding: 18px;
+    min-height: 1000px;
+}
+
+#div_content_container {
+	width: 1100px;	
+}
+
+#div_content_container h1.sgf_name {
+	margin-top: 26px;
+    text-align: center;
+    margin-bottom: 41px;
+    font-size: 55px;
+}
+
+#div_content_container table {
+	border: 1px solid black;
+    border-collapse: collapse;
+}
+/* sign_info */
+#div_content_container table#tb_sign_info {
+	float: left;
+	width: 390px;
+	margin-bottom: 45px;
+}
+
+#div_content_container table#tb_sign_info .td_head {
+	width: 107px
+}
+
+
+
+
+
+/* End of sign_info */
+
+
+#div_content_container table.tb_sign_line {
+	float: left;
+	margin-left: 10px;
+}
+
+#div_content_container table.tb_sign_line td {
+	text-align: center;
+	padding: 5px 16px;
+}
+
+#div_content_container table.tb_sign_line td.td_head {
+	width: 15px;
+    padding: 6px;
+}
+
+#div_content_container table.tb_sign_line td.td_rank {
+	height: 26px;
+}
+
+#div_content_container table.tb_sign_line td.td_name {
+	height: 75px;
+}
+
+#div_content_container table.tb_sign_line td.td_date {
+	height: 26px;
+    padding: 5px 7px;
+}
+
+
+
+
+
+#div_content_container #sign_line_wrap {
+	float: right;
+	padding-top: 37px;
+}
+
+#div_content_container #div_content {
+	clear: both;
+}
+
+#div_content_container #div_content #tb_content {
+	margin: 0 auto;
+    width: 100%;
+}
+

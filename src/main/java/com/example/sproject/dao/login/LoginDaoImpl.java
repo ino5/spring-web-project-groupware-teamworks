@@ -1,6 +1,8 @@
 package com.example.sproject.dao.login;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,14 @@ public class LoginDaoImpl implements LoginDao {
 	@Override
 	public int updateLastdateOfMember(String m_id) {
 		return session.update("updateLastdateOfMember", m_id);
+	}
+
+	@Override
+	public int updateMemberPhoto(String m_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("m_id", m_id);
+		map.put("m_photo", "resource/member/photo/" + m_id);
+		return session.update("updateMemberPhotoOfLogin", map);
 	}
 
 }

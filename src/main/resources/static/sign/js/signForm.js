@@ -1,3 +1,4 @@
+/* 결재라인 추가 모달창 */
 //'결재라인 추가' 버튼 클릭시 모달창 띄우는 이벤트
 $(document).on(
 		"click", 
@@ -35,3 +36,4 @@ function addSignLine(m_id, m_name, dpt_name, pt_name) {
 		+ '</li>'
 	)
 }
+/* End of 결재라인 추가 모달창 */

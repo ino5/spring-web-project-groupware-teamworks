@@ -9,8 +9,8 @@
 <!-- sign head 공용 -->
 <%@include file = "/WEB-INF/views/sign/header/signHead.jsp" %>
 <!--  sign draft -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signFormDraft.css">
-<script src="${pageContext.request.contextPath}/sign/js/signFormDraft.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signForm.css">
+<script src="${pageContext.request.contextPath}/sign/js/signForm.js"></script>
 </head>
 
 
@@ -65,23 +65,106 @@
 		<div id="content_middle">
 			<h3>문서 양식 : 업무 기안</h3>
 			<input type="hidden" name="sgf_id" value="draft">
-			<div id="div_title">
-				<c:if test="${jspType == 'r'}">
-					${mapOfSignContent.title }
-				</c:if>			
-				<c:if test="${jspType == 'w'}">
-					제목: <input type="text" name="title">
-				</c:if>
-			</div>
-			<div id="div_content">
-				<c:if test="${jspType == 'r'}">
-					${mapOfSignContent.content}
-				</c:if>
-				<c:if test="${jspType == 'w'}">
-					<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
-						text test
-					</textarea>
-				</c:if>
+
+			<div id="div_content_wrap">
+				<div id="div_content_container">
+					<h1 class="sgf_name">업 무 기 안</h1>
+					
+					<!-- 문서 기본 정보 테이블 -->
+					<table id="tb_sign_info">
+						<tr>
+							<td class="td_head">기안자</td>
+							<td>${sign.m_name}</td>
+						</tr>
+						<tr>
+							<td class="td_head">소속</td>
+							<td>${sign.dpt_name}</td>							
+						</tr>
+						<tr>
+							<td class="td_head">직위</td>
+							<td>${sign.pt_name}</td>
+						</tr>
+						<tr>
+							<td class="td_head">기안일</td>
+							<c:if test="${jspType == 'r'}">
+								<td><fmt:formatDate value="${sign.sg_regdate}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
+							</c:if>
+							<c:if test="${jspType == 'w'}">
+								<td class="now_date"></td>
+							</c:if>
+						</tr>
+						<tr>
+							<td class="td_head">문서번호</td>
+							<td>${sign.sg_num}</td>
+						</tr>
+					</table>
+								
+					<!-- sign line: 결재 -->
+					<div id="sign_line_wrap">
+						<!-- sign line: 신청 -->
+						<table class="tb_sign_line">
+							<tr>
+								<td rowspan="3" class="td_head">신청</td>
+								<td class="td_rank">${sign.pt_name}</td>
+							</tr>
+							<tr>
+								<td class="td_name">${sign.m_name}</td>
+							</tr>
+							<tr>
+								<td class="td_date"><fmt:formatDate value="${sign.sg_regdate}" pattern="yyyy/MM/dd"></fmt:formatDate></td>
+							</tr>					
+						</table>
+						<c:forEach var= "signLine" items="${listOfSignLine}">
+							<table class="tb_sign_line">
+								<tr>
+									<td rowspan="3" class="td_head">승인</td>
+									<td class="td_rank">${signLine.pt_name}</td>
+								</tr>
+								<tr>
+									<td class="td_name">
+										<c:if test="${signLine.sgl_status == '1'}">
+											<img src="${pageContext.request.contextPath}/sign/img/stamp_approval.png"><br>
+										</c:if>
+										${signLine.m_name}
+									</td>
+								</tr>
+								<tr>
+									<td class="td_date"><fmt:formatDate value="${signLine.sgl_regdate}" pattern="yyyy/MM/dd"></fmt:formatDate></td>
+								</tr>					
+							</table>
+						</c:forEach>
+					</div>					
+					
+					<div id="div_content">
+						<table id="tb_content">
+							<tr>
+								<td class="td_head td_style_short">제목 </td>
+								<td class="td_style_long">
+									<c:if test="${jspType == 'r'}">
+										${mapOfSignContent.title }
+									</c:if>			
+									<c:if test="${jspType == 'w'}">
+										<input type="text" name="title">
+									</c:if>								
+								</td>
+							</tr>
+							<tr>
+								<td colspan="100">
+									<c:if test="${jspType == 'r'}">
+										${mapOfSignContent.content}
+									</c:if>
+									<c:if test="${jspType == 'w'}">
+										<textarea id="summernote" class="summernote" name="content" placeholder="글 내용" rows="15" readonly >
+											text test
+										</textarea>
+									</c:if>									
+								</td>
+							</tr>
+						</table>
+				
+					</div>
+
+				</div>
 			</div>
 			<div id="div_file">
 				<c:if test="${jspType == 'r'&& mapOfSignContent.dv_id != null}">
@@ -107,8 +190,9 @@
 <script>
 	$('#summernote').summernote({
 		height : 600, // 에디터 높이
-		width:1200,
-	
+		width: 1100,
+		fontSize: 16,
+		
 		minHeight : null, // 최소 높이
 		maxHeight : null, // 최대 높이
 		focus : true, // 에디터 로딩후 포커스를 맞출지 여부

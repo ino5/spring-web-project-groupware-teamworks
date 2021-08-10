@@ -19,4 +19,7 @@
 		UPDATE member SET m_lastdate = SYSDATE WHERE m_id = #{m_id}
 	</update>
 	
+	<select id="updateMemberPhotoOfLogin" parameterType="Map">
+		UPDATE member SET m_photo = #{m_photo} WHERE m_id = #{m_id}
+	</select>
 </mapper>

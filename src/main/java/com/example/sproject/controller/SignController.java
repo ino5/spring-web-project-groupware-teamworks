@@ -161,11 +161,13 @@ public class SignController {
 	// 전자결재문서 내용 읽기
 	@RequestMapping(value = "view/{sgf_id:.+}/{sg_num:.+}", method = { RequestMethod.GET })
 	public String view(@PathVariable("sg_num") int sg_num, @PathVariable("sgf_id") String sgf_id, Model model) {
+		System.out.println("start -- com.example.sproject.controller.SignController.view(int, String, Model)");
 		// jsp 타입 : 문서 읽기
 		model.addAttribute("jspType", "r");
 		
 		// 전자결재문서 정보 가져오기
 		Sign sign = signService.selectOneSign(sg_num);
+		System.out.println("sign: " + sign);
 		model.addAttribute("sign", sign);
 		
 		// 전자결재문서 입력내용들 Map형태로 가져오기

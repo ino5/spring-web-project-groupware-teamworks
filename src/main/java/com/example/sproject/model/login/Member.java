@@ -28,6 +28,7 @@ public class Member implements UserDetails{
 	private String pt_code;
 	private Timestamp m_lastdate;
 	private int m_status;
+	private String m_photo;
 
 //	position
 	private String pt_name;

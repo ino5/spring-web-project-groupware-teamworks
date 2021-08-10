@@ -1,5 +1,7 @@
 package com.example.sproject.service.login;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.dao.login.LoginDao;
 import com.example.sproject.model.login.Member;
 
@@ -88,5 +93,37 @@ public class LoginServiceImpl implements LoginService {
 		int result;
 		result = loginDao.updateLastdateOfMember(m_id);
 		return result;
+	}
+
+	@Override
+	public int updateMemberPhoto(String m_id, MultipartFile multipartFile) {
+		// 파일 경로 설정
+		String uploadPath = WebMvcConfig.RESOURCE_PATH + "/member/photo";
+		File fileDirectory = new File(uploadPath);
+		if (!fileDirectory.exists()) {
+			fileDirectory.mkdirs();
+		}
+			
+		// 기존 파일 삭제
+		File fileForDelete = new File(uploadPath+ "/" + m_id);
+		if(fileForDelete.exists()) fileForDelete.delete();
+		
+		// 서버에 파일 저장
+	    File target = new File(uploadPath, m_id+".jpg");    
+		try {
+			byte[] fileData = multipartFile.getBytes();
+			System.out.println(multipartFile.getOriginalFilename());
+			System.out.println(multipartFile.getSize());
+			System.out.println(fileData);
+			FileCopyUtils.copy(fileData, target);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// DB update
+		loginDao.updateMemberPhoto(m_id);
+	    
+	    
+	    return 1;
 	}
 }

@@ -11,17 +11,21 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.globals.GlobalsOfTb_code;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sample.Sample;
 import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.common.CommonService;
+import com.example.sproject.service.login.LoginService;
 import com.example.sproject.service.sample.SampleService;
 
 @Controller
@@ -32,6 +36,9 @@ public class SampleController {
 	
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private LoginService loginService;
 	
 	@Autowired
 	private SessionRegistry sessionRegistry;
@@ -156,7 +163,7 @@ public class SampleController {
 	
 	
 	//세션 유저 리스트 가져오기 테스트
-	@RequestMapping(value ="test/sessionList", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "test/sessionList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String sessionList(HttpServletRequest req, HttpSession session, Principal principal) {
 		List<Object> list = sessionRegistry.getAllPrincipals();
 		System.out.println(list);
@@ -174,11 +181,36 @@ public class SampleController {
 	}
 	
 	//페이징 테스트
-	@RequestMapping(value ="test/paging", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "test/paging", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String testPaging(int total, Integer currentPage) {
 		CommonPaging commonPaging = new CommonPaging(total, currentPage);
 		System.out.println(commonPaging);
 		return commonPaging.toString();
+	}
+	
+	//회원 사진 테스트 페이지
+	@RequestMapping(value = "test/memberPhoto/{m_id:.+}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberPhoto(@PathVariable String m_id, Model model) {
+		Member member = (Member) loginService.loadUserByUsername(m_id); // m_id로 멤버 정보 가져오기
+		member.setM_password(null); // 비밀번호 정보 삭제하기
+		model.addAttribute("member", member);
+		return "sample/sampleMemberPhoto";
+	}
+	
+	// 회원 사진 업데이트 페이지
+	@RequestMapping(value = "test/memberPhoto/updateForm", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberPhotoInsertForm() {
+		return "sample/sampleMemberPhotoUpdateForm";
+	}
+	
+	// 회원 사진 업데이트 하기
+	@RequestMapping(value = "test/memberPhoto/update", method= {RequestMethod.GET, RequestMethod.POST})
+	public String memberPhotoUpdate(MultipartFile multipartFile, Principal principal) {
+		
+		loginService.updateMemberPhoto(principal.getName(), multipartFile);
+		
+		
+		return "redirect:/sample/test/memberPhoto/" + principal.getName(); 
 	}
 }

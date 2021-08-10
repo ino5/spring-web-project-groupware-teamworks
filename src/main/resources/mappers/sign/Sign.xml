@@ -170,7 +170,9 @@
 	</select>
 
 	<select id="selectOneSignOfSign" parameterType="int" resultType="com.example.sproject.model.sign.Sign">
-		SELECT * FROM sign WHERE sg_num = #{sg_num}
+		SELECT s.*, sf.sgf_name, m.m_name, m.dpt_code, m.pt_code, d.dpt_name, p.pt_name FROM sign s, sign_form sf, member m, department d, position p
+		WHERE sg_num = #{sg_num} AND s.sgf_id = sf.sgf_id
+		AND s.m_id = m.m_id AND m.dpt_code = d.dpt_code(+) AND m.pt_code = p.pt_code(+)
 	</select>
 	
 	<select id="selectListMemberOfSign" resultType="com.example.sproject.model.login.Member">
