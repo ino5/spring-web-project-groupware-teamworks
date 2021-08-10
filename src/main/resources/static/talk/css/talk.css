@@ -31,9 +31,12 @@
 			margin-top: 50px;
 		}
 		#logo {
-			background: #F6F6F6;
+			background: white;
+			/* border-right: 3px solid #0F91E6; */
+    		/* border-left: 3px solid #0F91E6; */
+    		/* border-top: 3px solid #0F91E6; */
     		height: 70px;
-    		width: 500px;
+    		width: 501px;
 		}
 		#logo .img{
 			width: 40px;
@@ -65,16 +68,18 @@
 			margin-top: 22px;
 		}
 		.roomContainer{
-			background-color: #F6F6F6;
-			width: 500px;
+			background-color: white;
+			width: 501px;
 			height: 500px;
 			overflow: auto;
+			/* border-right: 3px solid #0F91E6; */
+    		/* border-left: 3px solid #0F91E6; */
 		}
 		.roomList{
 			border: none;
 		}
 		.roomList th{
-			background-color: #F6F6F6;
+			background-color: white;
 			color: #0F91E6;
 			font-size: 16px;
 			border-bottom: 1px solid #0F91E6;
@@ -82,11 +87,12 @@
     		text-align: center;	
 		}
 		.roomList td{
-			background-color: #F6F6F6;
+			background-color: white;
 			text-align: center;
 			color: black;
 			font-weight: bold;
 			font-size: 16px;
+			height: 50px
 		}
 		.roomList .num{
 			width: 75px;
@@ -118,6 +124,11 @@
 			font-weight: bold;
 			margin: 3px;
 		}
+		.inputTable {
+		/* border-bottom: 3px solid #0F91E6; */
+    	/* border-left: 3px solid #0F91E6; */
+    	/* border-right: 3px solid #0F91E6; */
+		}
 		
 		.inputTable th{
 			padding: 5px;
@@ -130,9 +141,13 @@
 			color: #0F91E6;
 			font-size: 15px;
 			font-weight: bold;			
-		}		
+		}
+		#memo {
+			height: 70px;
+			
+		}				
 		.chating{
-			background-color: #F6F6F6;
+			background-color: white;
 			width: 500px;
 			height: 500px;
 			overflow: auto;
@@ -140,27 +155,41 @@
 		.chating .me{
 			color: white;
 			background-color: #0F91E6;
-    		width: 301px;
     		margin-bottom: 10px;
     		text-align: center;
-    		border-radius: 10px;
-    		height: 40px;
+    		border-radius: 20px;
     		line-height: 40px;
     		float: right;
     		font-size: 18px;
+    		position: relative;
+    		padding-left: 15px;
+    		padding-right: 15px;
+    		font-weight: bold;
+		}
+		.chating .date{
+			float: right;
+			font-size: 12px;
+			padding-right: 7.5px;
 		}
 		.chating .others{
 			color: black;
-			background-color: white;
-			width: 301px;
+			background-color: #f6f6f6;
     		text-align: center;
-    		border-radius: 10px;
-    		height: 40px;
+    		border-radius: 20px;
     		margin-bottom: 10px;
     		line-height: 40px;
     		float: left;
     		font-size: 18px;
+    		position: relative;
+    		padding-left: 15px;
+    		padding-right: 15px;
+    		font-weight: bold;
 			}
+		.chating .date2{
+			float: left;
+			font-size: 12px;
+			padding-left: 7.5px;
+		}
 		#yourName {
 			margin-top: 10px;
 			margin-left: 5px;

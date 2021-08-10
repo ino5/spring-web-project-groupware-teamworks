@@ -3,6 +3,11 @@
 			margin:0;
 			padding:0;
 		}
+		.wrap {
+		    height: 1000px;
+   			margin-left: 400px;
+    		margin-top: 70px;
+		}
 		.container{
 			width: 500px;
 			margin: 0 auto;
@@ -16,16 +21,16 @@
 			margin-bottom: 20px;
 		}
 		#content1 {
-			width: 84%;
-    		float: right;
+			width: 600px;
+    		float: left;
 		}		
 		#room1 {
 			margin-top: 50px;
 		}
 		#logo {
-			background: #F6F6F6;
+			background: white;
     		height: 70px;
-    		width: 500px;
+    		width: 501px;
 		}
 		#logo .img{
 			width: 40px;
@@ -57,8 +62,8 @@
 			margin-top: 22px;
 		}
 		.roomContainer{
-			background-color: #F6F6F6;
-			width: 500px;
+			background-color: white;
+			width: 501px;
 			height: 500px;
 			overflow: auto;
 		}
@@ -66,7 +71,7 @@
 			border: none;
 		}
 		.roomList th{
-			background-color: #F6F6F6;
+			background-color: white;
 			color: #0F91E6;
 			font-size: 16px;
 			border-bottom: 1px solid #0F91E6;
@@ -74,11 +79,12 @@
     		text-align: center;	
 		}
 		.roomList td{
-			background-color: #F6F6F6;
+			background-color: white;
 			text-align: center;
 			color: black;
 			font-weight: bold;
 			font-size: 16px;
+			height: 50px;
 		}
 		.roomList .num{
 			width: 75px;

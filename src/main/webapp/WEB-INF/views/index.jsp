@@ -10,7 +10,7 @@
 </head>
 <body>
 <%
-	response.sendRedirect("login/login"); 
+	response.sendRedirect("login"); 
 %>
 </body>
 </html>

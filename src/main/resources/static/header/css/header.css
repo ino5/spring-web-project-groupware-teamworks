@@ -50,3 +50,111 @@ header {
 	width: 84%; 
 	float: right;
 }
+
+/**/
+/* ic.png */
+/**/
+/* ----------- ic ----------- */
+span.ic	{display:inline-block;background: url(./images/ic.png) no-repeat 0 0;vertical-align: middle;height: 34px;padding: 0 10px;top: -3px;}
+	.ic.ic_x_b_w {background-position: -100px -1100px; width: 24px; height: 24px}
+	span.ic.ic_feedPlus_s				{background-position: 0 -350px; width: 14px; height: 14px}
+	span.ic.ic_arrow_type1_down	{background-position: 0 -250px; width: 11px; height: 7px}
+	span.ic.ic_arrow_type1_up		{background-position: 0 -300px; width: 11px; height: 7px}
+	span.ic.ic_refresh			 		{background-position: -100px -1000px; width:20px; height: 20px}
+	span.ic.ic_close_type1			{background-position: -100px -200px; width:16px; height:16px}
+	span.ic_high							{background-position: -50px -1050px; width:11px; height:14px}
+	span.ic_low							{background-position: -50px -1100px; width:11px; height:14px}
+	span.ic_setup						{background-position: -48px -50px; width:16px; height:16px}
+	span.ic_delete						{background-position: -48px -99px; width:16px; height:16px; cursor:pointer}
+	span.ic_modify						{background-position: -47px -199px; width:16px; height:16px}
+	span.ic.ic_del						{background-position: -48px -148px; width:16px; height:16px}
+	span.ic_addlist						{background-position: -50px 1px; width:16px; height:14px}
+	span.ic_change						{background-position: -98px -49px; width:16px; height:16px}
+	span.ic_arrow_up_s  				{background-position: -50px -500px; width:9px; height:6px}
+	span.ic_arrow_down_s 			{background-position: -50px -550px; width:9px; height:6px}
+	span.ic_arrow_type3 	 			{background-position: -100px -500px; width: 9px; height: 6px}
+	span.ic_arrow_down  			{background-position: -100px -500px; width:7px; height:4px}
+	span.ic_arrow_up					{background-position: -140px -500px; width:7px; height:4px}
+	span.ic_func							{background-position: -50px -450px; width: 6px; height: 11px; margin: 3px 5px 0 0}
+	span.ic_repeat						{width:16px; height:16px; background-position:-100px -97px}
+	span.ic_openbox					{width:25px; height:28px; background-position:-150px -250px}
+	span.ic_closebox					{width:25px; height:28px; background-position:-150px -300px}
+	span.ic_csm_arrow        		{width:4px; height:7px; background-position:-100px -700px}
+	span.ic_cs_detail_arrow			{width:7px; height:7px; background-position:-100px -800px}
+	span.ic_cs_da_over       			{width:7px; height:7px; background-position:-100px -850px}
+	span.ic.ic_fail							{background-position: -140px -650px; width: 14px; height: 14px}
+
+span.btn_border_color {border: 1px solid #F3F3F3; width: 18px; height: 18px}
+span.btn_border_color:hover {border: 1px solid #dddddd; background: #f5f5f5; border-radius: 4px}
+span.btn_ic_prev2:hover span.ic_prev2 {background-position: -100px -350px}
+span.btn_ic_next2:hover span.ic_next2 {background-position: -100px -400px}
+a.ic				{display:inline-block; background: url(../images/ic.png?v2.6.0.0) no-repeat 0 0}
+a.ic_del			{background-position: -48px -148px; width:16px; height:16px}
+.ic.ic_arrow5 {background-position: 0px -900px; width:18px; height:10px}
+.ic.ic_mapping_l {background-position: 0px -950px; width:22px; height:16px}
+.ic.ic_mapping_s {background-position: 0px -1000px; width:17px; height:13px; margin-right:4px;}
+ins.ic  {display:inline-block; background: url(../images/icon_classic.png?v2.6.0.0) no-repeat 0 0; vertical-align: middle}
+div.btn_page a {display:inline-block; background:#F5F5F5; border: 1px solid #DDDDDD; border-radius:5px; height:23px; line-height:23px; vertical-align: middle}
+div.btn_page span.ic_classic {display:inline-block; background: url(../images/icon_classic.png?v2.6.0.0) no-repeat 0 0}
+div.btn_page span.btn_page_prev {background-position: -33px 6px; width:22px; height:23px}
+div.btn_page span.btn_page_next {background-position: -50px 6px; width:22px; height:23px}
+div.btn_page span.txt {padding:0 4px}
+span.ic_classic {display:inline-block; background: url(../images/icon_classic.png?v2.6.0.0) no-repeat 0 0; vertical-align: middle}
+span.ic_reply  {background-position: -80px 0; width: 14px; height: 14px}
+span.ic_opinion  {background-position: -80px -80px; width: 14px; height: 14px}
+span.ic_answer {background-position: -80px -60px; width:13px; height:12px}
+span.ic_activvity {background-position: -100px 0; width:12px; height:14px}
+span.ic_activvity.on {background-position: -100px -60px; width:12px; height:14px}
+span.ic_open {background-position: 0 -80px; width:20px; height:20px}
+span.ic_close   {background-position: 0 -60px; width:20px; height:20px}
+span.ic_open_s {background-position: 0 -40px; width:14px; height:14px}
+span.ic_close_s  {background-position: -20px -40px; width:14px; height:14px}
+span.ic_new    {background-position: -120px 0; width:13px; height:13px; vertical-align:middle}
+span.ic_new2   {background-position: -120px -20px; width:16px; height:14px}
+span.ic_notice {background-position: -139px 0; width:20px; height:13px; vertical-align:middle}
+span.ic_basket {background-position: -178px -18px; width:16px; height:16px}
+span.ic_setup {background-position: -180px 0px; width:12px; height:12px}
+span.ic_no_result {background-position: 0 -478px; width:22px; height:22px}
+span.ic_bul1 {background-position: -80px -40px; width:12px; height:12px}
+span.btn_search2 {background:#bababa url(../images/icon_search.png?v2.6.0.0) no-repeat 6px -46px; border: 1px solid #a4a4a4; width:30px; height:24px; border-radius:0 2px 2px 0; padding:0; text-indent:-9999px}
+span.btn_search2:hover {cursor:pointer; background:#999 url(../images/icon_search.png?v2.6.0.0) no-repeat 6px -46px; border-color:#999}
+span.ic_lock {display:inline-block; background:url(../images/ic_side.png?v2.6.0.0) no-repeat -152px -1852px ; width:13px; height:15px}
+span.ic_del    {background-position: -177px -37px; width:16px; height:16px}
+span.ic_classic.ic_read    {background-position: -179px -77px; width: 16px; height: 16px}
+span.ic_close_s2    {background-position: -177px -37px; width:14px; height:14px}
+span.ic_depth {background-position:-40px -40px; width:12px; height:14px}
+span.ic_now   {background-position:-60px -39px; width:12px; height:12px}
+span.ic_prev2		{background-position: -50px -350px; width:8px; height:13px}
+span.ic_next2		{background-position: -50px -400px; width:8px; height:13px}
+span.ic_print {width: 12px; height: 12px; background-position:-200px 0; vertical-align:middle}
+span.ic_sync  {display: inline-block; width: 59px; height: 15px; background: url(../images/ic_gnb.png?v2.6.0.0) no-repeat -200px -250px}
+span.ic_calendar    {background-position:-150px 2px; width:17px; height:19px}
+span.ic_part        {background-position:-100px -40px; width:15px; height:15px}
+span.ic_check       {background-position:-150px -149px; width:14px; height:16px}
+span.ic_check:hover {background-position:-150px -199px}
+span.ic_read_no  {background-position: -50px -700px; width: 20px; height: 20px}
+span.ic_read_yes  {background-position: -50px -750px; width: 20px; height: 20px}
+.ic.ic_important_on  {background-position: -100px -600px; width: 20px; height: 20px}
+.ic.ic_important_off  {background-position: -100px -650px; width: 20px; height: 20px}
+span.ic_file_s  {background-position: -50px -800px; width: 20px; height: 20px}
+span.ic_appr_receive  {background-position: -100px -750px; width: 18px; height: 17px}
+span.ic_read_reply  {background-position: 0px -50px; width:16px; height:16px}
+span.ic_read_fw  {background-position: 0px -100px; width:16px; height:17px}
+span.ic_noread_reply  {background-position: 0px -150px; width:16px; height:16px}
+span.ic_noread_fw  {background-position: 0px -200px; width:16px; height:17px}
+span.ic_popup {background-position:-200px -180px; width:12px; height:12px;}
+div.report_type span.ic_popup {display: inline-block;width: 13px;height: 12px;background: url(../images/ic_gnb.png?v2.6.0.0) no-repeat -250px -475px;}
+span.ic_arrow_down_type3  {background-position: -50px -850px; width:6px; height:7px}
+span.ic_arrow_up_type3  {background-position: -50px -900px; width:6px; height:7px}
+span.ic_arrow_down_type4		{background-position: -50px -950px; width: 15px; height: 15px}
+span.ic_arrow_up_type4			{background-position: -50px -1000px; width: 15px; height: 15px}
+.ic_allow {width:11px; height:11px; background:url(../images/icon_classic.png?v2.6.0.0) no-repeat -140px -60px!important}
+.ic_disallow {width:11px; height:11px; background:url(../images/icon_classic.png?v2.6.0.0) no-repeat -160px -60px!important}
+.ic_arrow_type {width:11px; height:11px; background:url(../images/icon_classic.png?v2.6.0.0) no-repeat -80px -19px!important}
+.ic_blank {width: 14px; height: 14px; background:url(../images/icon_classic.png?v2.6.0.0) no-repeat -40px -60px!important}
+span.ic_reset {background-position: 0 -400px; width: 12px; height: 12px; cursor: pointer}
+span.btn_ic_wrap span {cursor:pointer; width:18px; height:18px}
+span.btn_ic_wrap span:hover {opacity:0.8; filter: Alpha(Opacity=80); outline:1px solid #b4d7d8}
+
+/*임의추가*/
+span.ic_drag {background-position: 8px -838px}

@@ -41,9 +41,28 @@
 	<div class="container">
 		<h1>${roomName}</h1>
 		<input type="hidden" id="sessionId" value="">
+		<input type="hidden" id="m_id" value="${m_id}">
 		<input type="hidden" id="roomNumber" value="${roomNumber}">
 		<div id="meName"></div>
 		<div id="chating" class="chating">
+			<c:forEach var="list" items="${talkList }">
+				<c:if test="${m_id != list.m_id }">
+				<div id="memo">
+					<p class='others'> ${list.m_id} : ${list.tk_content}</p>
+					<p class='date2'>
+					<fmt:formatDate value="${list.tk_time_sent}" pattern="yy-MM-dd"/><br>
+					<fmt:formatDate value="${list.tk_time_sent}" pattern="HH:mm"/></p>
+				</div>
+				</c:if>
+				<c:if test="${m_id == list.m_id }">
+				<div id="memo">
+					<p class='me'> ${list.m_id} : ${list.tk_content}</p>
+					<p class='date'>
+					<fmt:formatDate value="${list.tk_time_sent}" pattern="yy-MM-dd"/><br>
+					<fmt:formatDate value="${list.tk_time_sent}" pattern="HH:mm"/></p>
+				</div>
+				</c:if>
+			</c:forEach>
 		</div>
 		
 		<div id="yourName">

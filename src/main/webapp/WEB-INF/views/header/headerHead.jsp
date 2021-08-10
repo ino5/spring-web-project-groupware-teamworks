@@ -11,6 +11,10 @@
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/header/js/jquery.js"></script>
 
+<!-- 제이쿼리 ui -->
+<script src="${pageContext.request.contextPath}/header/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/header/css/jquery-ui.css">
+
 <!-- header js -->
 <script src="${pageContext.request.contextPath}/header/js/header.js"></script>
 

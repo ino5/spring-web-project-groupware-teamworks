@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+/* ======================== Div Side ============================= */
+
+#btn1 {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	background-color : white;
+	border-style: solid;
+	border-radius : 10px;
+	border-width : 2px;
+	box-shadow: none;
+	border-color : #D5D5D5;
+/* 	margin-top: 10%; */
+/* 	margin-left: 10%; */
+/* 	margin-bottom: 10%; */
+	margin : 10% 10%;
+	padding : 5% 0%;
+	width: 85%;
+	font-size: 21px;   
+}
+a { text-decoration:none } 
+#btn1:hover{
+     transition: all 0.2s linear;
+     transform: translate(0, -5%);
+       box-shadow: 2px 2px 2px 2px #BDBDBD; 
+       border: 2px solid gray;
+  
+ }
+  .li{
+ width:100%;
+ height: 30px;
+}
+ .li:hover {
+	background-color: #F6F6F6;
+
+}
+ .button1{	
+  	margin-left: 3%;
+  	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+  	font-size: 20px;
+  	cursor: pointer;
+ }
+ .button1{	
+  	margin-left: 3%;
+  	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+  	font-size: 17px;
+  	cursor: pointer;
+ }
+
+#scroll {
+	margin-left: 18%;
+}
+
+#div2 {
+	margin-top: 7%;
+}
+
+.li {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+  	font-size: 17px;
+  	line-height: 20px;
+  	padding-top: 5px;
+  	
+}
+
+
+#span_hover{
+	display: none;
+}
+@-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+#side:hover #span_hover {
+    display: inline;	
+    -webkit-animation: fadein 1s;
+}
+
+#side:hover #span_none {
+    display: none;
+}
+.td_subject input{
+	
+width: 780px;
+height: 30px;
+margin-top: 20px;
+margin-bottom: 20px;
+border: 1px solid #ddd;
+}
+#btnUpdete{
+	
+	margin-left: 600px;
+display: inline-block;
+    cursor: pointer;
+    padding: 0 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 13px;
+    height: 34px;
+    line-height: 33px;
+    background: #00a1b9;
+    border: 1px solid #00a1b9;
+    border-radius: 2px;
+}
+#btnNotice{
+
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 16px;
+    height: 34px;
+    line-height: 33px;
+    border-radius: 2px;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+margin-left: 20px;
+margin-bottom: 100px;
+    }
+
+.note-editor{
+     margin-top: 30px;
+     margin-left: 100px;
+     margin-bottom: 50px;
+    }
+/* 검색창 */
+#searchBox{
+	float:right;
+	margin-top: 40px;
+	margin-right: 50px;
+	position: relative;
+	width: 200px;
+	height: 37px;
+	border: 1px solid #ddd;
+	padding : 0px 10px;
+}
+
+ #search {
+ 	border : none;
+	padding : 0px 30px;
+	border-radius: 50px;
+	font-size: 18px;
+	font-family: "Nunito";
+	color : #424242;
+	font-weight: 500;
+	width: 150px;
+}
+
+#search:focus {
+	outline : none;
+}
+
+#option {
+	border: 0;
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	font-size: 17px;
+	color: black;
+}

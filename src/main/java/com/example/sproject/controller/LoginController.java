@@ -1,13 +1,20 @@
 package com.example.sproject.controller;
 
 import java.security.Principal;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.sproject.model.login.Member;
@@ -20,7 +27,7 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	@GetMapping("login")
+	@RequestMapping(value = "login", method = {RequestMethod.GET, RequestMethod.POST})
 	public String login() {
 		return "login/login";
 	}
@@ -42,12 +49,12 @@ public class LoginController {
 	public String memberInfo(Principal principal, Model model) {
 		System.out.println("--Method memberInfo in Class LoginController");
 		if (null == principal) {
-			return "login/memberInfo";
+			return "login/login";
 		}
 		String m_id = principal.getName();
 		System.out.println("m_id: " + m_id);
 		model.addAttribute("m_id", m_id);
-		return "main/main";
+		return "main/sampleMain";
 	}
 	
 	@GetMapping("denied")
@@ -70,4 +77,16 @@ public class LoginController {
 		return "login/passwordCheckResult";
 	}
 	
+	@RequestMapping("memberInfo")
+	public String memberInfo(@AuthenticationPrincipal Member member, Model model) {
+		model.addAttribute("member", member);
+//		System.out.println(member.getM_id());
+		return "login/memberInfo";
+	}
+	
+	@RequestMapping("api/getSessionMembers")
+	@ResponseBody
+	public List<Member> getSessionMembers() {
+		return loginService.getSessionMembers();
+	}
 }

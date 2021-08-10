@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.sign.SignDao">
+	<select id="selectListSignFormComponentOfSign" parameterType="String" resultType="com.example.sproject.model.sign.SignContent">
+		SELECT * FROM sign_form_component WHERE sgf_id = #{sgf_id}
+	</select>
+	
+	<insert id="insertSignContentsOfSign" parameterType="Map">
+		<foreach collection="signContentList" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO sign_content(
+				sg_num,
+				sgf_id,
+				sgfc_id,
+				sgc_content
+			) VALUES (
+				#{item.sg_num},
+				#{item.sgf_id},
+				#{item.sgfc_id}, 
+				#{item.sgc_content, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	
+	<select id="selectOneMaxSg_numOfSignOfSign" resultType="int">
+		SELECT NVL(MAX(sg_num), 0) FROM sign
+	</select>
+	
+	<insert id="insertSignOfSign" parameterType="com.example.sproject.model.sign.Sign">
+		INSERT INTO sign(sg_num, m_id, sgf_id, sg_regdate, sg_status)
+		VALUES (#{sg_num}, #{m_id}, #{sgf_id}, SYSDATE, 0)
+	</insert>
+	
+	<insert id="insertSignLinesOfSign" parameterType="Map">
+		<foreach collection="listOfSignLine" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO sign_line(
+				sg_num,
+				m_id,
+				sgl_type,
+				sgl_status,
+				sgl_order,
+				
+				sgl_regdate
+			) VALUES (
+				#{item.sg_num},
+				#{item.m_id},
+				#{item.sgl_type}, 
+				#{item.sgl_status},
+				#{item.sgl_order},
+				
+				SYSDATE
+			)
+		</foreach>
+	</insert>
+	<select id="selectListSignOfProposalProcessing" parameterType="com.example.sproject.model.sign.Sign" resultType="com.example.sproject.model.sign.Sign">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT s.*, m.m_name, sf.sgf_name, sc.sgc_content title FROM sign s, sign_content sc, member m, sign_form sf
+			WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title' AND s.m_id = m.m_id AND s.sgf_id = sf.sgf_id) 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
+							)
+			ORDER BY s.sg_num desc			  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>	
+	</select>
+	
+	<select id="selectCountSignOfProposalProcessing" parameterType="com.example.sproject.model.sign.Sign" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM sign s, sign_content sc 
+			WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title') 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
+							)
+			ORDER BY s.sg_num desc	
+		]]>	
+	</select>
+
+	<select id="selectListSignOfProposalCompleted" parameterType="com.example.sproject.model.sign.Sign" resultType="com.example.sproject.model.sign.Sign">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT s.*, m.m_name, sf.sgf_name, sc.sgc_content title FROM sign s, sign_content sc, member m, sign_form sf 
+			WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title' AND s.m_id = m.m_id AND s.sgf_id = sf.sgf_id)
+			AND s.sg_num IN (
+			                SELECT s.sg_num FROM sign s WHERE s.m_id = #{m_id} 
+			                AND s.sg_num NOT IN(
+			                                    SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+			                                    WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
+			                                    )                
+			                )
+			ORDER BY s.sg_num desc		  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>		                
+	</select>
+
+	<select id="selectCountSignOfProposalCompleted" parameterType="com.example.sproject.model.sign.Sign" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM sign s, sign_content sc WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title')
+			AND s.sg_num IN (
+			                SELECT s.sg_num FROM sign s WHERE s.m_id = #{m_id} 
+			                AND s.sg_num NOT IN(
+			                                    SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+			                                    WHERE s.sg_num = sl.sg_num AND s.m_id = #{m_id} AND (sl.sgl_type = 1 AND sl.sgl_status = 0)
+			                                    )                
+			                )
+			ORDER BY s.sg_num desc
+		]]>	
+	</select>
+
+	<select id="selectListSignOfApprovalWaited" parameterType="com.example.sproject.model.sign.Sign" resultType="com.example.sproject.model.sign.Sign">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT s.*, m.m_name, sf.sgf_name, sc.sgc_content title FROM sign s, sign_content sc, member m, sign_form sf
+			WHERE (s.sg_num = sc.sg_num AND sc.sgfc_id = 'title' AND s.m_id = m.m_id AND s.sgf_id = sf.sgf_id) 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND (sl.m_id = #{m_id} AND sl.sgl_type = 1 AND sl.sgl_status = 0)
+							)
+			ORDER BY s.sg_num desc		  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>						
+	</select>	
+
+	<select id="selectCountSignOfApprovalWaited" parameterType="com.example.sproject.model.sign.Sign" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM sign s, sign_content sc 
+			WHERE (s.sg_num = sc.sg_num AND sc.sgfc_id = 'title') 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND (sl.m_id = #{m_id} AND sl.sgl_type = 1 AND sl.sgl_status = 0)
+							)
+			ORDER BY s.sg_num desc	
+		]]>	
+	</select>
+
+	<select id="selectListSignOfApprovalCompleted" parameterType="com.example.sproject.model.sign.Sign" resultType="com.example.sproject.model.sign.Sign">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT s.*, m.m_name, sf.sgf_name, sc.sgc_content title FROM sign s, sign_content sc, member m, sign_form sf
+			WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title' AND s.m_id = m.m_id AND s.sgf_id = sf.sgf_id) 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND (sl.m_id = #{m_id} AND sl.sgl_type = 1 AND sl.sgl_status = 1)
+							)
+			ORDER BY s.sg_num desc	  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>						
+	</select>	
+
+	<select id="selectCountSignOfApprovalCompleted" parameterType="com.example.sproject.model.sign.Sign" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM sign s, sign_content sc 
+			WHERE (s.sg_num = sc.sg_num  AND sc.sgfc_id = 'title') 
+			AND s.sg_num IN (
+							SELECT DISTINCT s.sg_num FROM sign s, sign_line sl 
+							WHERE s.sg_num = sl.sg_num AND (sl.m_id = #{m_id} AND sl.sgl_type = 1 AND sl.sgl_status = 1)
+							)
+			ORDER BY s.sg_num desc		
+		]]>	
+	</select>
+	
+	<select id="selectListSignContentOfSign" parameterType="int" resultType="com.example.sproject.model.sign.SignContent">
+		SELECT * FROM sign_content WHERE sg_num = #{sg_num}
+	</select>
+
+	<select id="selectOneSignOfSign" parameterType="int" resultType="com.example.sproject.model.sign.Sign">
+		SELECT s.*, sf.sgf_name, m.m_name, m.dpt_code, m.pt_code, d.dpt_name, p.pt_name FROM sign s, sign_form sf, member m, department d, position p
+		WHERE sg_num = #{sg_num} AND s.sgf_id = sf.sgf_id
+		AND s.m_id = m.m_id AND m.dpt_code = d.dpt_code(+) AND m.pt_code = p.pt_code(+)
+	</select>
+	
+	<select id="selectListMemberOfSign" resultType="com.example.sproject.model.login.Member">
+		SELECT m.m_id, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM member m, department d, position p
+		WHERE m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code ORDER BY d.dpt_name, p.pt_order
+	</select>
+	
+	<select id="selectListSignLineOfSign" parameterType="int" resultType="com.example.sproject.model.sign.SignLine">
+		SELECT sl.*, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM sign_line sl, member m, department d, position p 
+		WHERE sg_num = #{sg_num}
+		AND (sl.m_id = m.m_id AND m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code)
+	</select>
+</mapper>

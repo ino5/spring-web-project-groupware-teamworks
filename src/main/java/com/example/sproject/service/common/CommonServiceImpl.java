@@ -16,10 +16,23 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	//특정 tb_code에 해당하는 CommonGroup들을 순서에 맞게 리스트 형태로 저장하는 메소드
 	public List<CommonGroup> listCommonGroup(String tb_code) {
-		List<CommonGroup> CommonGroupList = commonGroupDao.selectList(tb_code);
-		return CommonGroupList;
+		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code);
+		return commonGroupList;
 	}
 
+	@Override
+	public List<CommonGroup> listCommonGroup(String tb_code, int cg_ref) {
+		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code, cg_ref);
+		return commonGroupList;
+	}	
+	
+	@Override
+	//tb_code, cg_ref, cg_depth를 가져와서 CommonGroup들을 리스트 형대로 가져오기
+	public List<CommonGroup> listCommonGroup(String tb_code, int cg_ref, int cg_depth) {
+		List<CommonGroup> commonGroupList = commonGroupDao.selectList(tb_code, cg_ref, cg_depth);
+		return commonGroupList;
+	}	
+	
 	@Override
 	public int addCommonGroup(String tb_code, CommonGroup commonGroup, int parent_cg_num) {
 		//tb_code 값 설정
@@ -58,5 +71,42 @@ public class CommonServiceImpl implements CommonService {
 		//CommonGroup 삽입하기
 		return commonGroupDao.insertCommonGroup(commonGroup);
 	}
+
+	@Override
+	public int deleteCommonGroup(String tb_code, int cg_num) {
+		System.out.println("-- Mehthod deleteCommonGroup in Class CommonService");
+		int result = 0;
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_num(cg_num);
+		result = commonGroupDao.deleteCommonGroup(commonGroup);
+		System.out.println("CommonGroup 삭제 결과: " + result);
+		return result;
+	}
+
+	@Override
+	public int updateCommonGroup(String tb_code, int cg_num, String cg_name) {
+		System.out.println("-- Mehthod updateCommonGroup in Class CommonService");
+		int result = 0;
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_num(cg_num);
+		commonGroup.setCg_name(cg_name);
+		result = commonGroupDao.updateCommonGroup(commonGroup);
+		System.out.println("CommonGroup update 결과: " + result);
+		return result;
+	}
+
+	@Override
+	public CommonGroup selectOneCommonGroup(String tb_code, int cg_num) {
+		CommonGroup commonGroup = new CommonGroup();
+		commonGroup.setTb_code(tb_code);
+		commonGroup.setCg_num(cg_num);
+		return commonGroupDao.selectOneCommonGroup(commonGroup);
+	}
+
+
+
+
 	
 }

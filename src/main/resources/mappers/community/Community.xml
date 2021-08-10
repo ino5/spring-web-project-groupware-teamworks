@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.community.CommunityDao">
+<select id="PostTotalOfCommunity" resultType="int">
+		select Count(*) FROM post
+	</select>
+
+<select id="selectListPostOfCommunity" parameterType="com.example.sproject.model.board.Post" resultType="com.example.sproject.model.board.Post">
+	<![CDATA[
+		select *
+		from (select rownum rn, a.*
+			  from (select p.* FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (3) order by p_num desc) 
+			  a) where rn >= #{start} and rn <= #{end}
+	]]>		
+	</select>
+
+<insert id="PostInsertOfCommunity" parameterType="com.example.sproject.model.board.Post">
+	INSERT INTO post (p_num, bd_num, m_id, p_name, p_content,p_view, p_type, p_regdate) VALUES (
+	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{bd_num}, #{m_id}, #{p_name}, #{p_content}, 0, #{p_type}, SYSDATE)
+   </insert>
+   
+	<!--     게시판 리스트  -->
+<select id="selectListBoardOfCommunity" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
+		select *
+		from board
+	</select>
+
+<!--  게시물 상세조회 -->
+<select id="PostReadOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Post">
+        SELECT * FROM post
+        WHERE p_num = #{p_num}
+   </select>
+        <!-- 게시글 조회수 증가처리 -->
+<update id="PostincreaseViewcntOfCommunity" parameterType="int">
+        UPDATE post SET p_view = p_view + 1 
+        WHERE p_num = #{p_num}
+   </update>
+    
+<delete id="PostDeleteOfCommunity" parameterType="int">
+    delete from post where p_num = #{p_num}
+   </delete>
+ <update id="PostUpdateOfCommunity" parameterType="com.example.sproject.model.board.Post">
+      UPDATE post SET
+            p_name = #{p_name},
+            p_content = #{p_content},
+            m_id = #{m_id}
+        WHERE p_num = #{p_num}
+   </update>
+<!-- 댓글리스트 -->
+<select id="ReplyListofCommunity" parameterType="com.example.sproject.model.board.Reply" resultType ="com.example.sproject.model.board.Reply" >
+		select *
+	from reply 
+		where p_num = #{p_num}
+		order by rp_ref, rp_order, rp_depth
+	</select>
+
+<!-- 댓글추가 -->
+<insert id="ReplyInsertOfCommunity" parameterType="com.example.sproject.model.board.Reply">
+ INSERT INTO REPLY (p_num, rp_num, m_id, rp_content, rp_ref, rp_order, rp_depeth )
+ VALUES (#{p_num}, #{rp_num}, #{m_id}, {rp_content}, #{rp_num}, 1, 1))
+	</insert>
+
+<!--    댓글 추가를 위해 가장 큰 댓글 번호 가져오기 -->
+<select id="selectOneMaxRp_numOfCommunity" resultType="int">
+   	SELECT NVL(MAX(rp_num),0) FROM reply
+	</select>
+<!--    댓글 삭제하기 -->
+<delete id="Reply_DeleteOfCommunity" parameterType="int">
+    delete from reply where rp_num= #{rp_num}
+	</delete>
+<!--     부모 댓글번호를 가지고 부모 댓글정보 가져오기(부모 댓글의 ref, order, depth)  -->
+<select id="selectOneParentReplyOfCommunity" parameterType="com.example.sproject.model.board.Reply" resultType="com.example.sproject.model.board.Reply">
+	<![CDATA[
+		SELECT * FROM reply WHERE p_num = #{p_num} AND rp_num = #{parent_rp_num} 
+ 	]]>	 
+	</select>
+<!-- 	삽입될 위치의 order값 찾기 -->
+<select id="selectOneInsertedRp_orderOfCommunity" parameterType="com.example.sproject.model.board.Reply" resultType="int">
+	<![CDATA[
+		SELECT NVL(MIN(rp_order),-1) FROM reply 
+		WHERE	(p_num = #{p_num} AND rp_ref = #{rp_ref}) AND 
+				(rp_order > #{parent_rp_order} AND rp_depth <= #{parent_rp_depth})
+	]]>	
+	</select>
+<!-- 	삽입될 위치의 order값 앞에서 못찾았을 때 해당 ref에서의 최대 order값 찾기 -->
+<select id="selectOneMaxRp_orderOfCommunity" parameterType="com.example.sproject.model.board.Reply" resultType="int">
+	<![CDATA[
+		SELECT MAX(rp_order) FROM reply WHERE (p_num = #{p_num} AND rp_ref = #{rp_ref})
+	]]>	
+	</select>
+
+<!-- 	  삽입될 order값 찾은 뒤에 삽입될 댓글 뒤 댓글들의 order 값들 1칸씩 밀기  -->
+<update id="pushRp_orderOfCommunity" parameterType="com.example.sproject.model.board.Reply">
+	<![CDATA[
+		UPDATE reply SET rp_order = rp_order + 1 WHERE (p_num = #{p_num} AND rp_ref = #{rp_ref}) AND rp_order >= #{rp_order}
+	]]>
+	</update>
+	
+<!-- 	댓글 삽입하기 -->
+<insert id="rereply_insertCommunity" parameterType="com.example.sproject.model.board.Reply">
+	<![CDATA[
+		INSERT INTO reply
+		(p_num, rp_num, rp_content, m_id, rp_ref, rp_order, rp_depth)
+		VALUES
+		(#{p_num}, #{rp_num}, #{rp_content}, #{m_id}, #{rp_ref}, #{rp_order}, #{rp_depth})
+	]]>
+	</insert>
+	
+<!-- 	좋아요 -->
+<insert id="insertLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike">
+		insert into post_like(p_num, m_id ) values(#{p_num},#{m_id})
+	</insert>
+<delete id="deleteLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike">
+	delete from post_like where p_num = #p_num and m_id=#{m_id}
+	</delete>
+	
+<select id="checkLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike" resultType="int">
+	 SELECT COUNT(*) FROM post_like WHERE p_num = #{p_num} AND m_id = #{m_id}
+	</select>
+<select id="selectListNoticeOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Post">
+	select * from post where p_type = #{p_type} order by p_num desc
+	</select>
+<update id="selectcommunityGroupOfCommunity" parameterType="Map">
+		UPDATE post SET bd_num = #{bd_num}  WHERE p_num = #{p_num}
+	</update>
+<delete id="CommunityDeleteGroupOfCommunity" parameterType="Map">
+	 DELETE from post where p_num = {#p_num}
+	</delete>
+<update id="CommunityNoticeGroupOfCommunity" parameterType="Map">
+		UPDATE post SET p_type= 1 WHERE p_num = #{p_num}
+	</update>
+<!-- 사이드바 -->
+	<select id="selectListTypedofCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board">
+		select *
+		from board where bd_type = #{bd_type}
+</select>
+	<select id="board_list_totalOfCommunity" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM post where bd_num = #{bd_num}
+	</select>
+	<select id="selectBoard_ListCommunity" parameterType="com.example.sproject.model.board.Post" resultType="com.example.sproject.model.board.Post"> 
+	<![CDATA[
+		select * 
+		from (select rownum rn, a.*  
+ 			  from (select * from post where bd_num=#{bd_num} order by p_num) a) where rn >= #{start} and rn <= #{end}  
+ 	]]>	  
+	</select> 
+
+	<select id="selectListCommunityOfCommunity" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
+	<![CDATA[
+		select *
+		from (select rownum rn, a.*
+			  from (select * from board order by bd_num desc) a) where rn >= #{start} and rn <= #{end}
+	]]>		
+	</select>
+	<insert id="CommunityInsertOfCommunity" parameterType="com.example.sproject.model.board.Board">
+	      INSERT INTO BOARD (bd_num, bd_name, bd_content, m_id, bd_type, bd_is_anon) 
+			          VALUES ( (SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{bd_name},#{bd_content}, #{m_id}, 3, #{bd_is_anon})
+	   </insert>
+
+	<insert id="BoardMemberOfCommunity" parameterType="com.example.sproject.model.community.BoardMember">
+	INSERT INTO BOARD_MEMBER (bd_num, m_id, cmm_type) VALUES (
+	#{bd_num}, #{m_id}, 1)
+   </insert>
+   <select id="getCommunitiesJoinedOfCommunity" parameterType="String" resultType="com.example.sproject.model.board.Board">
+   		SELECT * FROM board b, board_member bm WHERE b.bd_num = bm.bd_num AND bm.m_id = #{m_id}
+   </select>
+   
+   <select id="selectOneBoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board">
+   		SELECT * FROM board WHERE bd_num = #{bd_num}
+   </select>
+   <select id="selecList_BoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board" >
+   		SELECT * FROM board_member  WHERE bd_num = #{bd_num}
+   	</select>
+ 		
+ </mapper>

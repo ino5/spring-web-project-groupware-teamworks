@@ -33,7 +33,7 @@
 						<input type="submit" class="btn_login" value="로그인">
 					</div>
 					<div style="float: left; margin-left: 128px; margin-top: 10px;">
-						<input type="checkbox" name="check" id="chk_1"><label
+						<input type="checkbox" name="remember-me" id="chk_1"><label
 					for="chk_1"  style="font-weight: bold; font-size: 17px">로그인 상태 유지</label>
 					</div>
 				</fieldset>

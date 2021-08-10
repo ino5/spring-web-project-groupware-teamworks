@@ -1,6 +1,3 @@
-	function button_click() {
-				document.getElementById("container").style.display = "block";
-	}
 	var ws;
 
 	window.onload = function(){   
@@ -46,7 +43,7 @@
 				tag += "<tr>"+
 							"<td class='num'>"+(idx+1)+"</td>"+
 							"<td class='room'>"+ rn +"</td>"+
-							"<td class='go'><button type='button' class='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\"); button_click();'>참여</button></td>" +
+							"<td class='go'><button type='button' class='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
 						"</tr>";	
 			});
 			$("#roomList").empty().append(tag);
@@ -89,7 +86,10 @@
 		ws.onmessage = function(data) {
 			
 			var msg = data.data;
-			alert("ws.onmessage->"+msg)
+			var date = new Date();
+			var dateInfo = date.getHours() + ":" + date.getMinutes();
+			var $chat = $("<div class='chat-box'><div class='chat'>" + "</div><div class='chat-info chat-box'>" + dateInfo + "</div></div>");
+			//alert("ws.onmessage->"+msg)
 			if(msg != null && msg.type != ''){
 				// 파일 업로드가 아닌 경우 메시지 뿌려준다
 				var jsonMsg = JSON.parse(msg);
@@ -108,10 +108,10 @@
                 // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
 					if(jsonMsg.sessionId == $("#sessionId").val()){
 						isMyMessage = 1;
-						$("#chating").append("<p class='me'>" + jsonMsg.msg + "</p>");	
+						$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + dateInfo + "</p></div>");
 					}else{
 						isMyMessage = 0;
-						$("#chating").append("<p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p>");
+						$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + dateInfo + "</p></div>");
 					}						
 				}else{
 					console.warn("unknown type!")
@@ -124,7 +124,7 @@
 				} else{
 					$("#chating").append("<div class='img2'><img class='msgImg2' src="+url+"></div><div class='clearBoth'></div>");
 				}	
-			}
+			}			
 		}
 		document.addEventListener("keypress", function(e){
 			if(e.keyCode == 13){ //enter press
@@ -153,7 +153,8 @@
 			roomNumber : $("#roomNumber").val(),  
 			sessionId : $("#sessionId").val(),
 			userName : $("#userName").val(),
-			msg : $("#chatting").val()
+			msg : $("#chatting").val(),
+			m_id : $("#m_id").val()
 		}  //roomNumber는 방의 번호를 보내줌으로써 소켓서버는 어느방에서 메시지를 보냈는지 구분
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
