@@ -31,7 +31,8 @@
 				</div>
 				<div id="roomContainer" class="roomContainer">
 					<table id="memberlist" class="memberlist">
-					<tr><th>이름</th></tr>
+					<tr><th>이름</th>
+</tr>
 					</table>
 					<table id="groupRoomlist">
 					<tr><th>방 이름</th></tr>
