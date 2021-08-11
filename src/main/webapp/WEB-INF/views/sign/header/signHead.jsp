@@ -13,9 +13,7 @@
 
 <!-- jquery-ui sortable -->
 <style>
-  	#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-  	#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; position: relative; }
-	#sortable li span { position: absolute; margin-left: -1.3em; }
+
 </style>
 <script>
 	$(function() {
@@ -25,5 +23,6 @@
 </script>
 <!-- end of jquery-ui sortable  -->
 
-<!-- signSide css -->
+<!-- signSide css, js -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signSide.css">
+<script defer src="${pageContext.request.contextPath}/sign/js/signSide.js"></script>

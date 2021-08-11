@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignForm;
 import com.example.sproject.model.sign.SignLine;
 
 public interface SignDao {
@@ -37,6 +38,10 @@ public interface SignDao {
 	List<Member> selectListMember();
 
 	List<SignLine> selectListSignLine(int sg_num);
+
+	int approveSign(SignLine signLine);
+
+	List<SignForm> selectListSignForm();
 
 
 

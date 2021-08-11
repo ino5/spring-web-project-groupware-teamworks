@@ -31,34 +31,14 @@
 			<%@include file = "/WEB-INF/views/sign/header/signContentTop.jsp" %>				
 		</div>
 		<div id="content_middle">
-			<input type="hidden" name="sgf_id" value="draft">
+			<input type="hidden" name="sgf_id" value="ibpus">
 			<div id="div_content_wrap">
 				<div id="div_content_container">
-					<h1 class="sgf_name">업 무 기 안</h1>
+					<h1 class="sgf_name">품 의 서</h1>
 					<%@include file = "/WEB-INF/views/sign/header/signContentContainerUpperPart.jsp" %>
 										
 					<div id="div_content">
 						<table id="tb_content">
-							<tr>
-								<td class="td_head td_style_short">시행일</td>
-								<td class="td_style_middle">
-									<c:if test="${jspType == 'r'}">
-										${mapOfSignContent.sdate }
-									</c:if>			
-									<c:if test="${jspType == 'w'}">
-										<input class="td_style_middle" type="date" name="sdate">
-									</c:if>									
-								</td>
-								<td class="td_head td_style_short">협조부서</td>
-								<td class="td_style_middle">
-									<c:if test="${jspType == 'r'}">
-										${mapOfSignContent.hjbs }
-									</c:if>			
-									<c:if test="${jspType == 'w'}">
-										<input class="td_style_middle" type="text" name="hjbs">
-									</c:if>									
-								</td>
-							</tr>
 							<tr>
 								<td class="td_head td_style_short">제목</td>
 								<td class="td_style_long" colspan="99">

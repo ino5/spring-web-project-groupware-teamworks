@@ -19,7 +19,7 @@
 	<div id="content">
 		<h1>전자결재 홈</h1>
 		<!-- 결재 대기 문서 카드-->
-		<c:forEach var= "sign" items="${listOfSignOfApprovalWaited}">
+		<c:forEach var= "sign" items="${listOfSignOfApprovalWaited}" begin="0" end="3">
 			<div class="card_wrapper">
 				<header>
 					<span class="status ongoing">진행중</span>

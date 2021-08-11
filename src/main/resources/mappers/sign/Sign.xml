@@ -177,7 +177,7 @@
 	
 	<select id="selectListMemberOfSign" resultType="com.example.sproject.model.login.Member">
 		SELECT m.m_id, m.m_name, m.dpt_code, d.dpt_name, m.pt_code, p.pt_name FROM member m, department d, position p
-		WHERE m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code ORDER BY d.dpt_name, p.pt_order
+		WHERE m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code AND m.m_status = 1 ORDER BY d.dpt_name, p.pt_order
 	</select>
 	
 	<select id="selectListSignLineOfSign" parameterType="int" resultType="com.example.sproject.model.sign.SignLine">
@@ -185,5 +185,13 @@
 		WHERE sg_num = #{sg_num}
 		AND (sl.m_id = m.m_id AND m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code)
 		ORDER BY sl.sgl_order
+	</select>
+	
+	<update id="approveSign" parameterType="com.example.sproject.model.sign.SignLine">
+		UPDATE sign_line SET sgl_status = #{sgl_status} WHERE sg_num = #{sg_num} AND m_id = #{m_id}
+	</update>
+	
+	<select id="selectListSignForm" resultType="com.example.sproject.model.sign.SignForm">
+		SELECT * FROM sign_form ORDER BY cg_num
 	</select>
 </mapper>

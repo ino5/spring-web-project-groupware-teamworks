@@ -52,6 +52,7 @@
 	margin: -250px 0 0 -250px;
 	background: #eee;
 	z-index: 2;
+	overflow: scroll;
 }
 
 /* 메뉴 스타일 */
@@ -104,3 +105,17 @@ li .menu_title {
     display: none;
 }
 
+
+/* 새 결재 진행창 내 목록*/
+li.common_group {
+	list-style: none;
+	font-size: 20px;
+    margin-top: 16px;
+}
+
+li.sign_form {
+	list-style: none;
+	font-size: 15px;
+}
+
+/* End of 새 결재 진행창 내 목록 */

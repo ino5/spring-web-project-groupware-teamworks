@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignForm;
 import com.example.sproject.model.sign.SignLine;
 
 @Repository
@@ -112,6 +113,18 @@ public class SignDaoImpl implements SignDao {
 	public int selectCountSignOfApprovalCompleted(Sign sign) {
 		// TODO Auto-generated method stub
 		return session.selectOne("selectCountSignOfApprovalCompleted", sign);
+	}
+
+	@Override
+	public int approveSign(SignLine signLine) {
+		System.out.println("approveSign");
+		System.out.println("signLine: " + signLine);
+		return session.update("approveSign", signLine);
+	}
+
+	@Override
+	public List<SignForm> selectListSignForm() {
+		return session.selectList("selectListSignForm");
 	}
 
 

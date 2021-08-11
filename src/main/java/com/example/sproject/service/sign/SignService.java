@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignForm;
 import com.example.sproject.model.sign.SignLine;
 
 public interface SignService {
@@ -38,6 +39,10 @@ public interface SignService {
 	List<Member> listMember();
 
 	List<SignLine> findListOfSignLine(int sg_num);
+
+	int approveSign(SignLine signLine);
+
+	List<SignForm> listSignForm();
 
 
 

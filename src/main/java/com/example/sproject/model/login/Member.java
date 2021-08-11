@@ -32,6 +32,7 @@ public class Member implements UserDetails{
 
 //	position
 	private String pt_name;
+	private int pt_order;
 //	department
 	private String dpt_name;
 //  address

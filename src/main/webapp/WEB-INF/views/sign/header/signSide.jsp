@@ -9,39 +9,13 @@
 	<div>
 		<form id="form_new_sign" action="${pageContext.request.contextPath}/sign/form" method="post" enctype="multipart/form-data">
 			<sec:csrfInput/>
-			<input type="hidden" name="tb_code" value="sgf">
-			<select name="cg_num">
-				<optgroup label="일반">
-				<option value="101">업무기안</option>
-				</optgroup>
-			</select>
-			<input type="submit">
+			<input type="hidden" name="sgf_id" value="">
+			<div id="sign_form_list">
+			</div>
 		</form>
 	</div>
 </div>
 
-
-
-<!-- 모달창 관련 스크립트 -->
-<script>
-//'새 결재 진행' 버튼 클릭시 모달창 띄우는 이벤트
-$(document).on(
-		"click", 
-		"#button_new_sign", 
-		e => { 
-			$('.black_bg').css('display', 'block');
-			$('#modal_wrap_new_sign').css('display', 'block');
-		});
-
-//'새 결재 진행' 모달창 닫기 버튼 클릭 시 이벤트
-$(document).on(
-		"click", 
-		"#modal_close_new_sign", 
-		e => { 
-			$('.black_bg').css('display', 'none');
-			$('#modal_wrap_new_sign').css('display', 'none');
-		});
-</script>
 
 
 
@@ -79,42 +53,3 @@ $(document).on(
 		</p></li>
 </ol>
 </div>
-
-
-
-
-<!-- 메뉴 자바스크립트 -->
-<script>
-$(document).ready(function() {
-	$("#button1").click(function() {
-		var submenu = $(this).next("#scroll1");
-		if (submenu.is(":visible")) {
-			$('#img1').css({
-				'transform' : 'rotate(0deg)'
-			});
-			submenu.slideUp("fast");
-		} else {
-			$('#img1').css({
-				'transform' : 'rotate(90deg)'
-			});
-			submenu.slideDown("fast");
-		}
-	})
-});
-$(document).ready(function() {
-	$("#button2").click(function() {
-		var submenu = $(this).next("#scroll2");
-		if (submenu.is(":visible")) {
-			$('#img2').css({
-				'transform' : 'rotate(0deg)'
-			});
-			submenu.slideUp("fast");
-		} else {
-			$('#img2').css({
-				'transform' : 'rotate(90deg)'
-			});
-			submenu.slideDown("fast");
-		}
-	})
-});
-</script>

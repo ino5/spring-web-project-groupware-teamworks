@@ -3,6 +3,7 @@ package com.example.sproject.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,17 +18,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sproject.configuration.WebMvcConfig;
+import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.drive.DriveFileInfo;
 import com.example.sproject.model.globals.GlobalsOfCg_num;
+import com.example.sproject.model.globals.GlobalsOfTb_code;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignForm;
 import com.example.sproject.model.sign.SignLine;
 import com.example.sproject.service.common.CommonPaging;
+import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.drive.DriveService;
+import com.example.sproject.service.login.LoginService;
 import com.example.sproject.service.sign.SignService;
 
 @Controller
@@ -37,9 +44,11 @@ public class SignController {
 	private SignService signService;
 	@Autowired
 	private DriveService driveService;
+	@Autowired
+	private CommonService commonService;
 	
 	// 전자결재 메인
-	@RequestMapping("")
+	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String index(@AuthenticationPrincipal Member principal, Model model) {
 		Sign sign = new Sign();
 		sign.setM_id(principal.getM_id());
@@ -116,10 +125,14 @@ public class SignController {
 
 	// 전자결재문서 입력창
 	@RequestMapping(value = "form", method = { RequestMethod.GET, RequestMethod.POST })
-	public String form(int cg_num, Model model) {
+	public String form(String sgf_id, Model model, @AuthenticationPrincipal Member principal) {
 		System.out.println("-- com.example.sproject.controller.SignController.form(int, Model)");
-		System.out.println("cg_num: " + cg_num);
-		String sgf_id = "draft";
+		// 세션 아이디 가져오기
+		System.out.println("principal: " + principal);
+		model.addAttribute("principal", principal);
+		
+		//입력 설정
+		model.addAttribute("sgf_id", sgf_id);
 		model.addAttribute("jspType", "w");
 		
 		// 멤버 목록 가져오기
@@ -131,7 +144,7 @@ public class SignController {
 
 	// 전자결재문서 내용 DB에 등록하기
 	@RequestMapping(value = "insert", method = { RequestMethod.GET, RequestMethod.POST })
-	public String insert(@RequestParam(value = "sgl_m_id") String[] listOfM_idOfSignLine, @RequestParam(value = "sgl_type") int[] listOfSgl_typeOfSignLine, String sgf_id, MultipartFile file1, 
+	public String insert(@RequestParam(value = "sgl_m_id") String[] listOfM_idOfSignLine, @RequestParam(value = "sgl_type") int[] listOfSgl_typeOfSignLine, String sgf_id, MultipartFile multipartFile, 
 			HttpServletRequest req, @AuthenticationPrincipal Member principal, Model model) throws IOException, Exception {
 		System.out.println("-- com.example.sproject.controller.SignController.insert(String, HttpServletRequest, Member, Model)");
 		
@@ -139,29 +152,36 @@ public class SignController {
 		int sg_num = signService.getSg_numOfNewSign(principal.getM_id(), sgf_id); // 임시 테스트용
 
 		// 서버에 파일 업로드
-		String uploadPath = WebMvcConfig.RESOURCE_PATH + "/drive";
-	    String dv_id = driveService.uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
-	    
-	    // DRIVE 테이블에 파일 정보 저장 
-	    DriveFileInfo driveFile = new DriveFileInfo(dv_id, principal.getM_id(), file1.getOriginalFilename(), null, GlobalsOfCg_num.DRIVE_SIGN);
-	    driveService.insertDriveFileInfo(driveFile);
-	    
-		// req에 "dv_id" 추가 (테이블에 insert하기 위해)
-		req.setAttribute("dv_id", dv_id);
-		
+		if (multipartFile.getSize() > 0) {
+			String uploadPath = WebMvcConfig.RESOURCE_PATH + "/drive";
+		    String dv_id = driveService.uploadFile(multipartFile.getOriginalFilename(), multipartFile.getBytes(), uploadPath);
+		    
+		    // DRIVE 테이블에 파일 정보 저장 
+		    DriveFileInfo driveFile = new DriveFileInfo(dv_id, principal.getM_id(), multipartFile.getOriginalFilename(), null, GlobalsOfCg_num.DRIVE_SIGN);
+		    driveService.insertDriveFileInfo(driveFile);
+		    
+			// req에 "dv_id" 추가 (테이블에 insert하기 위해)
+			req.setAttribute("dv_id", dv_id);
+		}
+
 		// 전자결재문서내용(SIGN_CONTENT 테이블) insert
 		signService.insertSignContents(sg_num, sgf_id, req);
 
 		// 결재라인(SIGN_LINE) insert
 		List<SignLine> listOfSignLine = signService.convertToListOfSignLine(sg_num, listOfM_idOfSignLine, listOfSgl_typeOfSignLine);
 		signService.insertSignLines(listOfSignLine);
-		return "redirect:/sign";
+		
+		return "redirect:/sign/view/" + sgf_id + "/" + sg_num;
 	}
 	
 	// 전자결재문서 내용 읽기
-	@RequestMapping(value = "view/{sgf_id:.+}/{sg_num:.+}", method = { RequestMethod.GET })
-	public String view(@PathVariable("sg_num") int sg_num, @PathVariable("sgf_id") String sgf_id, Model model) {
+	@RequestMapping(value = "view/{sgf_id:.+}/{sg_num:.+}", method = { RequestMethod.GET, RequestMethod.POST})
+	public String view(@PathVariable("sg_num") int sg_num, @PathVariable("sgf_id") String sgf_id, @AuthenticationPrincipal Member principal, Model model) {
 		System.out.println("start -- com.example.sproject.controller.SignController.view(int, String, Model)");
+		
+		// 세션 아이디 가져오기
+		model.addAttribute("principal", principal);
+		
 		// jsp 타입 : 문서 읽기
 		model.addAttribute("jspType", "r");
 		
@@ -186,6 +206,41 @@ public class SignController {
 
 		return "sign/form/" + sgf_id;
 	}
+	
+	// 전자결재문서 결재하기 (결재 혹은 반려)
+	@PostMapping("approval")
+	public String approval(int sg_num, @AuthenticationPrincipal Member principal, String sgf_id, @RequestParam int sgl_status) {
+		System.out.println("-- com.example.sproject.controller.SignController.approval(int, Member, String)");
+		// 객체 안에  결재할 번호와 ID값, 결재 상태 넣기
+		SignLine signLine = new SignLine();
+		signLine.setSg_num(sg_num);
+		signLine.setM_id(principal.getM_id());
+		signLine.setSgl_status(sgl_status);
+		
+		// 결재하기
+		signService.approveSign(signLine);
+		
+		return "redirect:/sign/view/"+ sgf_id + "/" + sg_num;
+	}
+	
+	// 전자결재양식 리스트 보내주기
+	@RequestMapping(value = "api/getListOfSignForm", method = { RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> apiGetListOfSignForm() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// 문서 양식 분류 항목 가져오기
+		List<CommonGroup> listOfCommonGroup = commonService.listCommonGroup(GlobalsOfTb_code.SIGN_FORM);
+		map.put("listOfCommonGroup", listOfCommonGroup);
+		
+		// 문서 양식 가져오기
+		List<SignForm> listOfSignForm = signService.listSignForm();
+		map.put("listOfSignForm", listOfSignForm);
+		
+		return map;
+	}
+	
+	
 	
 	// 전자결재문서 삭제하기
 	/**

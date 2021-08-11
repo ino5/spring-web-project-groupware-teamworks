@@ -3,31 +3,14 @@
 .txt {
 	margin: 0 0 0 4px;
 	display: inline-block;
-    font-size: 17px;
+	font-size: 17px;
 }
 
 .ic_toolbar {
 	height: 26px;
 }
-/* End of 기본 */
 
-
-/* 새 결재라인 모달창 */
-/* 모달창 뒤 배경 */
-.black_bg {
-	display: none;
-	position: absolute;
-	content: "";
-	width: 1000%;
-	height: 1000%;
-	background-color:rgba(0,0,0, 0.3);
-	top: 0;
-	left: 0;
-	z-index: 1;
-}
-
-/* 모달창 업로드 */
-#modal_wrap_new_sign_line {
+.modal {
 	display: none;
 	width: 500px;
 	height: 500px;
@@ -38,7 +21,105 @@
 	background: #eee;
 	z-index: 2;
 }
+
+#content_top button, #content_bottom button, .button {
+	float: left;
+	margin: 0 8px 0 0;
+	height: 30px;
+	line-height: 30px;
+	background: none;
+	border: 0;
+	color: #333;
+	display: inline-block;
+	cursor: pointer;
+	padding: 0 8px;
+	border-radius: 2px;
+	font-size: 13px;
+	vertical-align: middle;
+}
+
+#content_top button:hover, #content_bottom button:hover, .button:hover {
+	background: #eee;
+}
+
+span.title {
+	font-size: 18px;
+	margin-right: 14px;
+}
+
+/* End of 기본 */
+
+/* 새 결재라인 모달창 */
+/* 모달창 뒤 배경 */
+.black_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 1000%;
+	height: 1000%;
+	background-color: rgba(0, 0, 0, 0.3);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.sign_line_txt {
+	left: 55px;
+	bottom: 2px;
+	font-size: 16px;
+}
+
+#sortable {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 60%;
+	margin-bottom: 24px;
+}
+
+#sortable li {
+	margin: 0 3px 3px 3px;
+	padding: 0.4em;
+	padding-left: 1.5em;
+	font-size: 1.4em;
+	height: 8px;
+	position: relative;
+	background: #fafbfd;
+}
+
+#sortable li span {
+	position: absolute;
+	margin-left: -1.3em;
+}
+
+/* 새 결재라인 모달창 */
+#modal_wrap_new_sign_line {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	background: #eee;
+	z-index: 2;
+	overflow: scroll;
+}
+
+#modal_close_new_sign_line {
+	float: none !important;
+}
+
+.button_new_sign_line_member {
+	float: none !important; 
+}
 /* End of 새 결재라인 모달창 */
+
+/* 결재하기 모달창 */
+#modal_wrap_approval {
+	
+}
+/* End of 결재하기 모달창 */
 
 /* content_top */
 #content_top {
@@ -49,36 +130,22 @@
 
 #content_top h1 {
 	font-size: 32px;
-    font-weight: normal;
-    letter-spacing: -1px;
-    margin-bottom: 35px;
+	font-weight: normal;
+	letter-spacing: -1px;
+	margin-bottom: 35px;
+}
+
+#content_top h1.sign_line_title {
+	margin-bottom: 15px;
 }
 
 #content_top h1 span {
 	font-size: 18px;
-    color: #999;
-    vertical-align: middle;
+	color: #999;
+	vertical-align: middle;
 }
 
-#content_top button {
-	float: left;
-    margin: 0 8px 0 0;
-    height: 30px;
-    line-height: 30px;
-    background: none;
-    border: 0;
-    color: #333;
-    display: inline-block;
-    cursor: pointer;
-    padding: 0 8px;
-    border-radius: 2px;
-    font-size: 13px;
-    vertical-align: middle;
-}
 
-#content_top button:hover {
-	background: #eee;
-}
 
 /* table 기본 */
 #div_content_container table td {
@@ -98,49 +165,63 @@
 }
 
 #div_content_container table .td_style_middle {
-	width: 450px;
+	width: 350px;
 }
 
 #div_content_container table .td_style_long {
 	width: 700px;
 }
 
-#div_content_container table input {
-	font-size: 18px;
-    width: 100%;	
+#div_content_container table .td_style_100per {
+	width: 100%;
 }
 
+#div_content_container table .td_style_height_middle {
+	height: 113px;
+}
 
+#div_content_container table input {
+	font-size: 18px;
+/* 	width: 100%; */
+}
+
+#div_content_container table textarea.textarea_full {
+	width: 96%;
+	height: 77%;
+	resize: none;
+	padding: 5px;
+}
 
 /* End of table 기본 */
-
 
 /* 결재 양식 */
 #div_content_wrap {
 	margin: 23px;
-    border: 5px solid #e8e8e8;
-/*     width: 80%; */
+	border: 5px solid #e8e8e8;
+	/*     width: 80%; */
 	width: 1100px;
-    min-width: 1100px;
-    padding: 18px;
-    min-height: 1000px;
-    margin-top: 15px;
+	min-width: 1118px;
+	padding: 18px;
+	padding-bottom: 49px;
+	min-height: 1000px;
+	margin-top: 15px;
 }
 
 #div_content_container {
-	width: 1100px;	
+	width: 1100px;
+	margin-bottom: 25px;
 }
 
 #div_content_container h1.sgf_name {
 	margin-top: 26px;
-    text-align: center;
-    margin-bottom: 41px;
-    font-size: 55px;
+	text-align: center;
+	margin-bottom: 41px;
+	font-size: 55px;
 }
 
 #div_content_container table {
 	border: 1px solid black;
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
 /* sign_info */
 #div_content_container table#tb_sign_info {
@@ -153,13 +234,7 @@
 	width: 107px
 }
 
-
-
-
-
 /* End of sign_info */
-
-
 #div_content_container table.tb_sign_line {
 	float: left;
 	margin-left: 10px;
@@ -172,7 +247,7 @@
 
 #div_content_container table.tb_sign_line td.td_head {
 	width: 15px;
-    padding: 6px;
+	padding: 6px;
 }
 
 #div_content_container table.tb_sign_line td.td_rank {
@@ -185,13 +260,9 @@
 
 #div_content_container table.tb_sign_line td.td_date {
 	height: 26px;
-    padding: 5px 7px;
-    width: 85px;
+	padding: 5px 7px;
+	width: 85px;
 }
-
-
-
-
 
 #div_content_container #sign_line_wrap {
 	float: right;
@@ -203,16 +274,21 @@
 }
 
 /* content 테이블 */
-
 #div_content_container #div_content #tb_content {
 	margin: 0 auto;
-    width: 100%;
+	width: 100%;
 }
 
 #div_content_container #div_content #tb_content #td_content {
-    padding-top: 27px;
-    padding-bottom: 47px;
-    padding-left: 17px;
+	padding-top: 27px;
+	padding-bottom: 47px;
+	padding-left: 17px;
 }
 
 /* End of content 테이블 */
+
+#content_bottom {
+	height: 100px;
+	padding: 24px;
+	padding-top: 5px;
+}

@@ -14,6 +14,7 @@ import com.example.sproject.dao.sign.SignDao;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
+import com.example.sproject.model.sign.SignForm;
 import com.example.sproject.model.sign.SignLine;
 
 @Service
@@ -172,6 +173,19 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public int countSignOfApprovalCompleted(Sign sign) {
 		return signDao.selectCountSignOfApprovalCompleted(sign);
+	}
+
+
+	@Override
+	public int approveSign(SignLine signLine) {
+		System.out.println("-- com.example.sproject.service.sign.SignServiceImpl.approveSign(SignLine)");
+		return signDao.approveSign(signLine);
+	}
+
+
+	@Override
+	public List<SignForm> listSignForm() {
+		return signDao.selectListSignForm();
 	}
 
 

@@ -4,7 +4,9 @@
 <mapper namespace="com.example.sproject.dao.login.LoginDao">
 
 	<select id="selectOneMemberOfLogin" parameterType="java.lang.String" resultType="com.example.sproject.model.login.Member">
-		SELECT * FROM member WHERE m_id = #{m_id}
+		SELECT m.*, d.dpt_name, p.pt_name, p.pt_order 
+		FROM member m, department d, position p 
+		WHERE m_id = #{m_id} AND m.dpt_code = d.dpt_code AND m.pt_code = p.pt_code
 	</select>
 	
 	<insert id="insertMemberOfLogin" parameterType="com.example.sproject.model.login.Member">
