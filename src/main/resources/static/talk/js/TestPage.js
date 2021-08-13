@@ -22,7 +22,7 @@ $(document).ready(function() {
    					 $('#memberlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ memberList[i].m_id + '"'
-   					 	+ "><img src='"+_contextPath+"/resource/member/photo/"+memberList[i].m_id+".jpg' onerror=this.src='"+_contextPath+"/resource/member/photo/default.jpg' style='width: 50px; height: 50px'><button type='button'  id='chat' onclick='getRoomOfApi("
+   					 	+ '><img src="' + _contextPath + '/resource/member/photo/' + memberList[i].m_id + '.jpg" onerror=this.src="' + _contextPath + '/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><button type="button"  id="chat" onclick="getRoomOfApi('
    					 	+ '\''
    					 	+ memberList[i].m_id
    					 	+ '\''
@@ -180,7 +180,7 @@ $(document).ready(function() {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ roomList[i].m_id + '"'
-   					 	+ "><img src='"+_contextPath+"/resource/member/photo/"+roomList[i].m_id+".jpg' onerror=this.src='"+_contextPath+"/resource/member/photo/default.jpg' style='width: 50px; height: 50px'><button type='button'  id='chat' onclick='getRoomOfApi2("
+						+ '><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].m_id+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><button type="button"  id="chat" onclick="getRoomOfApi2('
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
    					 	+ '\''

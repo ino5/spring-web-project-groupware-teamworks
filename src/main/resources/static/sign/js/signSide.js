@@ -1,50 +1,55 @@
 /* 모달창 관련 스크립트 */
 //'새 결재 진행' 버튼 클릭시 모달창 띄우는 이벤트
+let isAppendedNewSign = false;
 $(document).on(
 		"click", 
 		"#button_new_sign", 
 		e => {
-			$.ajax({
-				type: "GET",
-				url: _contextPath + "/sign/api/getListOfSignForm",
-				success: function(res) {				
-					let listOfCommonGroup = res.listOfCommonGroup;
-					let listOfSignForm = res.listOfSignForm;
-					let indexOfListOfSignForm = 0;
-					let stringAppended = "";
-					stringAppended += ('<ul class="common_group">');
-					for (let i = 0; i < listOfCommonGroup.length; i++) {
-					    console.log(listOfCommonGroup[i].cg_name);
-					    stringAppended += (
-					    	'<li class="common_group">'
-					    	+ listOfCommonGroup[i].cg_name
-					    	+ '<ul class="sign_form">'
-					    );
-					    for (let j = indexOfListOfSignForm; j < listOfSignForm.length; j++) {
-							if (listOfSignForm[j].cg_num == listOfCommonGroup[i].cg_num) {
-								console.log(listOfSignForm[j].sgf_name);
-								stringAppended += (
-									'<li class="sign_form">'
-									+ '<button type="button" class="button_new_sign_form" onclick="moveSignForm(\''+ listOfSignForm[j].sgf_id +'\')">'
-									+ listOfSignForm[j].sgf_name
-									+ '</button>'
-									+ '</li>'
-								);
-							} else {
-								indexOfListOfSignForm = j;
-								break;
-							}
-					    }
-					    stringAppended += ('</ul></li>');
-					}
-					stringAppended += ('</ul>');
-					$('#sign_form_list').append(stringAppended);
-					//모달창 보여주기
-					$('.black_bg').css('display', 'block');
-					$('#modal_wrap_new_sign').css('display', 'block');
-					//debugger;
-				}
-			});
+			if (isAppendedNewSign == false) {
+				$.ajax({
+					type: "GET",
+					url: _contextPath + "/sign/api/getListOfSignForm",
+					success: function(res) {
+						//결재 양식 가져오기
+						let listOfCommonGroup = res.listOfCommonGroup;
+						let listOfSignForm = res.listOfSignForm;
+						let indexOfListOfSignForm = 0;
+						let stringAppended = "";
+						stringAppended += ('<ul class="common_group">');
+						for (let i = 0; i < listOfCommonGroup.length; i++) {
+						    console.log(listOfCommonGroup[i].cg_name);
+						    stringAppended += (
+						    	'<li class="common_group">'
+						    	+ '<span class="common_group_title">' +listOfCommonGroup[i].cg_name + '</span>'
+						    	+ '<ul class="sign_form">'
+						    );
+						    for (let j = indexOfListOfSignForm; j < listOfSignForm.length; j++) {
+								if (listOfSignForm[j].cg_num == listOfCommonGroup[i].cg_num) {
+									console.log(listOfSignForm[j].sgf_name);
+									stringAppended += (
+										'<li class="sign_form">'
+										+ '<button type="button" class="button_new_sign_form" onclick="moveSignForm(\''+ listOfSignForm[j].sgf_id +'\')">'
+										+ listOfSignForm[j].sgf_name
+										+ '</button>'
+										+ '</li>'
+									);
+								} else {
+									indexOfListOfSignForm = j;
+									break;
+								}
+						    }
+						    stringAppended += ('</ul></li>');
+						}
+						stringAppended += ('</ul>');
+						$('#sign_form_list').append(stringAppended);			
+						//반복 방지
+						isAppendedNewSign = true;				
+					}				
+				});
+			}
+			//모달창 보여주기
+			$('.black_bg').css('display', 'block');
+			$('#modal_wrap_new_sign').css('display', 'block');
 		});
 
 //'새 결재 진행' 모달창 닫기 버튼 클릭 시 이벤트

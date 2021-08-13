@@ -149,7 +149,7 @@ public class SignController {
 		System.out.println("-- com.example.sproject.controller.SignController.insert(String, HttpServletRequest, Member, Model)");
 		
 		// 전자결재문서(SIGN 테이블) insert 하고 해당 sg_num 가져오기
-		int sg_num = signService.getSg_numOfNewSign(principal.getM_id(), sgf_id); // 임시 테스트용
+		int sg_num = signService.getSg_numOfNewSign(principal.getM_id(), sgf_id);
 
 		// 서버에 파일 업로드
 		if (multipartFile.getSize() > 0) {

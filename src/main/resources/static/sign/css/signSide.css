@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 /* 버튼 스타일 */
+button {
+	cursor: pointer;
+}
 #button_new_sign {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	background-color : white;
@@ -41,8 +44,8 @@
 	z-index: 1;
 }
 
-/* 모달창 업로드 */
-#modal_wrap_new_sign {
+/* 모달창 */
+.modal_wrap {
 	display: none;
 	width: 500px;
 	height: 500px;
@@ -50,9 +53,59 @@
 	top: 50%;
 	left: 50%;
 	margin: -250px 0 0 -250px;
-	background: #eee;
 	z-index: 2;
+	border-radius: 4px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 20%);
+}
+.modal_wrap .button_new_sign_form {
+	background: white;
+	border: none;
+	margin-top: 7px;
+	font-size: 15px;
+}
+.modal_wrap button:hover {
+	background: #eee;	
+}
+
+#sign_form_list {
 	overflow: scroll;
+	height: 414px;
+    margin-left: 34px;
+    overflow-x: hidden;	
+}
+
+.button_x {
+	background-color: white;
+    border: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+	top: 22px;
+    right: 23px;
+    cursor: pointer;
+}
+
+.modal_wrap .modal_content {
+	position: absolute;
+	width: 90%;
+    height: 300px;
+	top: 65px;
+}
+
+.modal_wrap h1 {
+	color: #000;
+    font-weight: normal;
+    font-size: 25px;
+    margin: 17px;
+}
+/* End of 모달창 */
+
+.common_group_title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 13px;
 }
 
 /* 메뉴 스타일 */
@@ -110,7 +163,7 @@ li .menu_title {
 li.common_group {
 	list-style: none;
 	font-size: 20px;
-    margin-top: 16px;
+    margin-bottom: 20px;
 }
 
 li.sign_form {

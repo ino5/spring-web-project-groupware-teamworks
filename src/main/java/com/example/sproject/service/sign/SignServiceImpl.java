@@ -28,16 +28,16 @@ public class SignServiceImpl implements SignService {
 		System.out.println("--Method insertSignContents in Class SignServiceImpl");
 		int result = 0;
 		
-		//SIGN_FORM_COMPONENT 테이블로부터 각각의 sgfc_id에 대한 SignContent 객체 리스트 만들기
+		// SIGN_FORM_COMPONENT 테이블로부터 각각의 sgfc_id에 대한 SignContent 객체 리스트 만들기
 		List<SignContent> signContentList = signDao.selectListSignFormComponent(sgf_id);
 		
-		//signContent에 sgfc_id 값 제외한 나머지 값들 넣기
+		// signContent에 sgfc_id 값 제외한 나머지 값들 넣기
 		for(SignContent signContent : signContentList) {
 			signContent.setSg_num(sg_num);
 			signContent.setSgf_id(sgf_id);
 			signContent.setSgc_content(req.getParameter(signContent.getSgfc_id()) != null ? req.getParameter(signContent.getSgfc_id()) : "");
 			
-			//파일 dv_id 넣기
+			// 파일 dv_id 넣기
 			if (signContent.getSgfc_id().equals("dv_id")) {
 				String dv_id = (String) req.getAttribute("dv_id");
 				signContent.setSgc_content(dv_id != null ? dv_id : "");
@@ -46,7 +46,7 @@ public class SignServiceImpl implements SignService {
 			System.out.println(signContent); //콘솔 확인
 		}
 		
-		//SIGN_CONTENT 테이블에 insert all 하기
+		// SIGN_CONTENT 테이블에 insert all 하기
 		result = signDao.insertSignContents(signContentList);
 		
 		return result;

@@ -10,18 +10,6 @@
 	height: 26px;
 }
 
-.modal {
-	display: none;
-	width: 500px;
-	height: 500px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -250px 0 0 -250px;
-	background: #eee;
-	z-index: 2;
-}
-
 #content_top button, #content_bottom button, .button {
 	float: left;
 	margin: 0 8px 0 0;
@@ -34,7 +22,7 @@
 	cursor: pointer;
 	padding: 0 8px;
 	border-radius: 2px;
-	font-size: 13px;
+	font-size: 15px;
 	vertical-align: middle;
 }
 
@@ -93,7 +81,7 @@ span.title {
 }
 
 /* 새 결재라인 모달창 */
-#modal_wrap_new_sign_line {
+.modal_wrap {
 	display: none;
 	width: 500px;
 	height: 500px;
@@ -101,9 +89,44 @@ span.title {
 	top: 50%;
 	left: 50%;
 	margin: -250px 0 0 -250px;
-	background: #eee;
 	z-index: 2;
+	border-radius: 4px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 20%);
+}
+
+.button_x {
+	background-color: white;
+    border: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+	top: 22px;
+    right: 23px;
+    cursor: pointer;
+}
+
+.modal_wrap h1 {
+	color: #000;
+    font-weight: normal;
+    font-size: 25px;
+    margin: 17px;
+}
+
+
+.modal_wrap .modal_content {
+	position: absolute;
+	width: 90%;
+    height: 300px;
+	top: 81px;
+}
+
+#sign_line_form_list {
 	overflow: scroll;
+	height: 393px;
+    margin-left: 34px;
+    overflow-x: hidden;	
 }
 
 #modal_close_new_sign_line {
@@ -115,10 +138,19 @@ span.title {
 }
 /* End of 새 결재라인 모달창 */
 
-/* 결재하기 모달창 */
-#modal_wrap_approval {
-	
+/* 결재하기, 반려하기 모달창 */
+#modal_wrap_approval, #modal_wrap_return {
+	height: 162px;
 }
+
+#modal_wrap_approval button, #modal_wrap_return button {
+	font-size: 20px;
+}
+
+#modal_wrap_approval #button_approval_yes, #modal_wrap_return #button_return_yes {
+	margin-left: 365px;
+}
+
 /* End of 결재하기 모달창 */
 
 /* content_top */
@@ -180,9 +212,44 @@ span.title {
 	height: 113px;
 }
 
+#div_content_container table .td_no_border {
+	border: 1px solid transparent !important;
+	background-color: transparent !important;
+	vertical-align: top;
+}
+
+#div_content_container table .td_bottom_border {
+	border-top: 1px solid transparent !important;
+	border-left: 1px solid transparent !important;
+	border-right: 1px solid transparent !important;
+	border-bottom: 1px solid black !important;
+	background-color: transparent !important;
+	vertical-align: top;
+}
+
+#div_content_container table .td_right_border {
+	border-top: 1px solid transparent !important;
+	border-left: 1px solid transparent !important;
+	border-bottom: 1px solid transparent !important;
+	border-right: 1px solid black !important;
+	background-color: transparent !important;
+	vertical-align: top;
+}
+
+#div_content_container table .td_right_bottom_border {
+	border-top: 1px solid transparent !important;
+	border-left: 1px solid transparent !important;
+	border-bottom: 1px solid black !important;
+	border-right: 1px solid black !important;
+	background-color: transparent !important;
+	vertical-align: top;
+}
+
 #div_content_container table input {
 	font-size: 18px;
 /* 	width: 100%; */
+	border: 1px solid #ccc;
+    background: #f9f9f9;
 }
 
 #div_content_container table textarea.textarea_full {
@@ -203,7 +270,6 @@ span.title {
 	min-width: 1118px;
 	padding: 18px;
 	padding-bottom: 49px;
-	min-height: 1000px;
 	margin-top: 15px;
 }
 

@@ -289,6 +289,11 @@ rtant;}
 .wrap_member .ic_member {width:22px; height:17px; background-position:-140px -100px!important;}
 .wrap_reply .ic_reply2 {width:18px; height:16px; background-position:-180px -100px!important;}
 
+/**/
+/* ic_gnb.png */
+/**/
+/* ----------- ic_gnb ----------- */
+span.ic_gnb_x {display:inline-block;width: 16px;height: 16px;background:url(./images/ic_gnb.png) no-repeat -100px -100px;vertical-align:middle;}
 
 
 /*임의추가*/
