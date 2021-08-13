@@ -116,7 +116,7 @@ function getRoomOfApi(m_id2) {
 				if(talkList[i].m_id != m_id){				
 	   					 $('#chating').append(
 	   					 	'<div id="memo"><p class="others">'
-	   					 	+ talkList[i].m_name + ':' + talkList[i].tk_content
+	   					 	+ talkList[i].m_name + ':' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
 	   					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
 	   					 	+'</p></div>'
@@ -125,7 +125,7 @@ function getRoomOfApi(m_id2) {
 				else if(talkList[i].m_id == m_id){
 						$('#chating').append(
 	   					 	'<div id="memo"><p class="me">'
-	   					 	+ '나 :' + talkList[i].tk_content
+	   					 	+ '나 :' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
 	   					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
 	   					 	+'</p></div>'
@@ -135,7 +135,7 @@ function getRoomOfApi(m_id2) {
 				if(talkList[i].m_id != m_id){				
 	   					 $('#chating').append(
 	   					 	'<div id="memo2"><p class="others2">'
-	   					 	+ talkList[i].m_name + ':'  + '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+	   					 	+ talkList[i].m_name + ':'  + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
 	   					 	+'</p><p class="date4">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
 	   					 	+'</p></div>'
@@ -144,7 +144,7 @@ function getRoomOfApi(m_id2) {
 				else if(talkList[i].m_id == m_id){
 						$('#chating').append(
 	   					 	'<div id="memo2"><p class="me2">'
-	   					 	+ '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+	   					 	+ '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
 	   					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
 	   					 	+'</p></div>'
@@ -231,7 +231,7 @@ function getRoomOfApi2(tkrm_num) {
 			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
    					 	'<div id="memo"><p class="others">'
-   					 	+ talkList[i].m_name + ':' + talkList[i].tk_content
+   					 	+ talkList[i].m_name + ':' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
    					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
    					 	+'</p></div>'
@@ -240,7 +240,7 @@ function getRoomOfApi2(tkrm_num) {
 			else if(talkList[i].m_id == m_id){
 					$('#chating').append(
    					 	'<div id="memo"><p class="me">'
-   					 	+ '나:' + talkList[i].tk_content
+   					 	+ '나:' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
    					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
    					 	+'</p></div>'
@@ -250,7 +250,7 @@ function getRoomOfApi2(tkrm_num) {
    			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
    					 	'<div id="memo2"><p class="others2">'
-   					 	+ talkList[i].m_name + ':' + '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+   					 	+ talkList[i].m_name + ':' + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
    					 	+'</p><p class="date4">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
    					 	+'</p></div>'
@@ -259,7 +259,7 @@ function getRoomOfApi2(tkrm_num) {
 			else if(talkList[i].m_id == m_id){
 					$('#chating').append(
    					 	'<div id="memo2"><p class="me2">'
-   					 	+ '나:' + '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+   					 	+ '나:' + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
    					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
    					 	+'</p></div>'

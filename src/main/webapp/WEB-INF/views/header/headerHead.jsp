@@ -26,3 +26,9 @@
 
 <!-- 구글 CDN을 통한 폰트 적용  Noto Sans -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<!-- talk -->
+<link rel="styleSheet" href="${pageContext.request.contextPath}/talk/css/TestPage.css">
+<script src="${pageContext.request.contextPath}/talk/js/TestPage.js"></script>
+<script src="${pageContext.request.contextPath}/talk/js/moment.js"></script>
+<link rel="styleSheet" href="${pageContext.request.contextPath}/talk/css/MemberList.css">

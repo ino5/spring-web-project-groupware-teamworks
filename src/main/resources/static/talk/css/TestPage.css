@@ -6,6 +6,9 @@
 	font-size: 50px;
 	width: 100px;
 	height: 100px;
+	position: fixed;
+    bottom: 25px;
+    left: 25px;	
 }
 
 #Test {
