@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +28,28 @@ import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.login.LoginService;
 import com.example.sproject.service.sample.SampleService;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import java.io.*;
+import java.net.InetAddress;
+import java.util.Properties;
+import java.util.Date;
+import javax.mail.*;
+import javax.mail.internet.*;
+import com.sun.mail.smtp.*;
 
 @Controller
 @RequestMapping("sample")
 public class SampleController {
+	@Value("${project-value.mailgun.api-key}")
+	String API_KEY;
+	@Value("${project-value.mailgun.smtp-password}")
+	String SMTP_PASSWORD;
+	String YOUR_DOMAIN_NAME = "teamworksgroupware.shop";
+	
 	@Autowired
 	private SampleService sampleService;
 	
@@ -217,8 +236,37 @@ public class SampleController {
 	
 	// 메일 보내기 테스트 (mailgun)
 	@RequestMapping(value ="mail/send", method= {RequestMethod.GET, RequestMethod.POST})
-	public String mailSend() {
-		System.out.println("");
+	public String mailSend() throws UnirestException, MessagingException {
+		System.out.println(API_KEY);
+		System.out.println(SMTP_PASSWORD);
+		sendMail();
+//		System.out.println(sendSimpleMessage());
 		return null;
 	}
+	
+    public void sendMail() throws MessagingException {
+        Properties props = System.getProperties();
+        props.put("mail.smtps.host", "smtp.mailgun.org");
+        props.put("mail.smtps.auth", "true");
+
+        Session session = Session.getInstance(props, null);
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress("YOU@naver.com"));
+
+        InternetAddress[] addrs = InternetAddress.parse("chero77@naver.com lalala225257@gmail.com", false);
+        msg.setRecipients(Message.RecipientType.TO, addrs);
+
+        msg.setSubject("Hello");
+        msg.setText("Testing some Mailgun awesomness");
+        msg.setSentDate(new Date());
+
+        SMTPTransport t =
+            (SMTPTransport) session.getTransport("smtps");
+        t.connect("smtp.mailgun.org", "postmaster@teamworksgroupware.shop", SMTP_PASSWORD);
+        t.sendMessage(msg, msg.getAllRecipients());
+
+        System.out.println("Response: " + t.getLastServerResponse());
+
+        t.close();
+    }
 }
