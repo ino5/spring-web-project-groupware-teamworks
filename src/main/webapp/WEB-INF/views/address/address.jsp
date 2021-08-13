@@ -219,7 +219,7 @@ function addressGroup() {
 						<tr>
 							<td style="text-align: center;"><input type="checkbox"
 								name="check" value="${member.m_id }" class="chk"></td>
-							<td>${member.m_name }</td>
+							<td><img style="width: 40px; height: 40px; border-radius: 70%; margin-top: 10px;" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>&nbsp&nbsp${member.m_name }</td>
 							<c:if test="${member.m_empnum > 0}">
 								<td>${member.m_empnum }</td>
 							</c:if>

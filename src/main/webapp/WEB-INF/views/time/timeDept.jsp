@@ -62,7 +62,6 @@
 						// 				debugger;
 						document.getElementById('startTime').innerHTML = global_nowTime;
 						start_text = new Date(global_now);
-						document.getElementById(global_date).rows[0].insertCell(-1).innerText=global_nowTime;
 						document.getElementById('btn1').style.color = '#CFCFCF';
 						document.getElementById('btn1').style.pointerEvents = 'none';
 					}
@@ -86,8 +85,6 @@
 				MMM = Math.floor((end_start % (1000 * 60 * 60)) / (1000 * 60));				
 				SSS = Math.floor((end_start % (1000 * 60)) / 1000);		
 				document.getElementById('endTime').innerHTML = global_nowTime;
-				document.getElementById(global_date).rows[0].insertCell(-1).innerText=global_nowTime;
-				document.getElementById(global_date).rows[0].insertCell(-1).innerText= HHH + "h " + MMM + "m " + SSS + "s";
 				document.getElementById('btn2').style.color = '#CFCFCF';
 				document.getElementById('btn2').style.pointerEvents = 'none';
 			}
@@ -261,10 +258,10 @@
 		<table id="calendar_member">
 			<c:forEach var="member" items="${listDeptGroupMember }">
 				<tr id="${member.m_id}" style="height: 100px;">
-					<td><p
-							style="font-size: 18px; font-weight: bold; padding-top: 20px;">${member.m_name }
-							<span class="td_span">${member.pt_name }</span>
-						</p>
+					<td>
+					<img style="width: 40px; height: 40px; border-radius: 70%; margin-top: 10px;" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>
+					<span style="font-size: 18px; font-weight: bold;">${member.m_name } </span>
+					<span class="td_span" style="font-size: 18px; font-weight: bold;">${member.pt_name }</span>
 						<p style="color: #888; font-size: 14px; padding-left: 70px;">${member.dpt_name }</p></td>
 
 					<td><span class='add_time'>0h 0m 0s</span></td>
@@ -286,6 +283,19 @@
 
 			</c:forEach>
 		</table>
+		<div id="pg">
+				<c:if test="${pg.startPage > pg.pageBlock }">
+					<a href="timeDept?dpt_code=${dpt_code}&currentPage=${pg.startPage-pg.pageBlock}">[이전]</a>
+				</c:if>
+				<c:if test="${pg.total > 20}">
+					<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
+						<a href="timeDept?dpt_code=${dpt_code}&currentPage=${i}">[${i}]</a>
+					</c:forEach>
+				</c:if>
+				<c:if test="${pg.endPage < pg.totalPage }">
+					<a href="timeDept?dpt_code=${dpt_code}&currentPage=${pg.startPage+pg.pageBlock}">[다음]</a>
+				</c:if>
+			</div>
 		<script type="text/javascript">
 			set_day();
 		</script>

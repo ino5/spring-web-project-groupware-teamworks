@@ -56,7 +56,10 @@ public class TimeController {
 		model.addAttribute("timeList_edate", timeList_edate);
 		model.addAttribute("listDeptGroupMember", listDeptGroupMember);
 		model.addAttribute("listDeptGroup", listDeptGroup);
+		model.addAttribute("dpt_code", dpt_code);
 		model.addAttribute("listDeptGroupTime", listDeptGroupTime);
+		model.addAttribute("total", total); 
+		model.addAttribute("pg",pg);
 		return "time/timeDept";
 	}
 	

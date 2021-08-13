@@ -11,4 +11,6 @@ public class Calendar {
 	private String cl_sdate;
 	private String cl_edate;
 	private int cg_num;
+	
+	private int cl_term;
 }

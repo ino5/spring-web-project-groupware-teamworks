@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="calendarListOfCalendar" parameterType="java.lang.String" resultType="com.example.sproject.model.calendar.Calendar">
-		select cl_num, cl_name, cl_sdate, cl_edate from calendar where m_id = #{m_id} order by cl_sdate
+		select cl_num, cl_name, cl_sdate, cl_edate, to_date(cl_edate)-to_date(cl_sdate) cl_term from calendar where m_id = #{m_id} order by to_date(cl_edate)-to_date(cl_sdate) desc
 	</select>
 	
 	<select id="calendarSelectOfCalendar" parameterType="int" resultType="com.example.sproject.model.calendar.Calendar">
