@@ -1,26 +1,27 @@
 @charset "UTF-8";
-		*{
-			margin:0;
-			padding:0;
-		}
-		.wrap {
-		    height: 1000px;
-   			margin-left: 400px;
-    		margin-top: 70px;
-		}
-		#content1 {
+/* 		*{ */
+/* 			margin:0; */
+/* 			padding:0; */
+/* 		} */
+/* 		.wrap { */
+/* 		    height: 1000px; */
+/*    			margin-left: 400px; */
+/*     		margin-top: 70px; */
+/* 		} */
+		#myModal #content1 {
 			width: 600px;
     		float: left;
     		position: relative;
 		}
-		.container{
+		#myModal .container{
 			width: 600px;
 			padding: 25px;
 			display: block;
 			float: left;
 			margin-top: 10px;
 		}
-		.container h1{
+		
+		#my_Modal .container h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
 			color: white;
@@ -195,7 +196,7 @@
 			margin-top: 10px;
 			margin-left: 5px;
 		}
-		input{
+		#myModal input{
 			width: 330px;
 			height: 25px;
 		}

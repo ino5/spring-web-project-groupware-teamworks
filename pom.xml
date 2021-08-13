@@ -138,7 +138,14 @@
     		<artifactId>commons-io</artifactId>
     		<version>2.6</version>
 		</dependency>
-	
+
+		<!-- mailgun 관련 -->
+		<dependency>
+		    <groupId>com.mashape.unirest</groupId>
+		    <artifactId>unirest-java</artifactId>
+		    <version>1.4.9</version>
+		</dependency>
+
 
 	</dependencies>
 

@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-###etc###
+### etc ###
 /bin/
+
+### private ###
+application.yml

@@ -213,4 +213,12 @@ public class SampleController {
 		
 		return "redirect:/sample/test/memberPhoto/" + principal.getName(); 
 	}
+	
+	
+	// 메일 보내기 테스트 (mailgun)
+	@RequestMapping(value ="mail/send", method= {RequestMethod.GET, RequestMethod.POST})
+	public String mailSend() {
+		System.out.println();
+		return null;
+	}
 }
