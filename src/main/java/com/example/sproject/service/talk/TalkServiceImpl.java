@@ -71,8 +71,15 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
-	public Room MakeGroupGetRoom(List<String> groupList, String m_id) {
-		talkDao.insertTalkRoomGroup();
+	public Room MakeGroupGetRoom(List<String> groupList, String m_id) {		
+		String tkrm_name = null;
+		String Total = "";
+		for(int i = 0; i < groupList.size(); i++) {
+			tkrm_name = talkDao.selectTkrm_name(groupList.get(i));
+			Total = tkrm_name + ", " + Total;
+		} 
+		Total = Total + talkDao.selectTkrm_name(m_id);
+		talkDao.insertTalkRoomGroup(Total);
 		int roomNumber = talkDao.selectMaxRn();
 		talkDao.insertTalker(roomNumber, m_id);
 		for(int i = 0; i < groupList.size(); i++) {
@@ -84,5 +91,10 @@ public class TalkServiceImpl implements TalkService {
 	@Override
 	public List<Member> selectJoinGroupMemberList(int tkrm_num) {
 		return talkDao.selectJoinGroupMemberList(tkrm_num);
+	}
+
+	@Override
+	public void updateFileImage(String filePath) {
+		talkDao.updateFileImage(filePath);
 	}
 }

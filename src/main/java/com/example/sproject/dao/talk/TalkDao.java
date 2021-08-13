@@ -28,8 +28,12 @@ public interface TalkDao {
 
 	List<Room> selectgetGroupRoomList(String m_id);
 
-	void insertTalkRoomGroup();
+	void insertTalkRoomGroup(String Total);
 
 	List<Member> selectJoinGroupMemberList(int tkrm_num);
+
+	String selectTkrm_name(String m_id);
+
+	void updateFileImage(String filePath);
 
 }

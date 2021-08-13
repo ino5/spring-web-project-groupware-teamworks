@@ -8,6 +8,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,6 +21,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.talk.Talk;
 import com.example.sproject.service.talk.TalkService;
 
@@ -30,7 +32,8 @@ public class SocketHandler extends TextWebSocketHandler {
 	
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); // 웹소켓 세션을 담아둘 리스트 -- roomListSessions
-	private static final String FILE_UPLOAD_PATH = "C:/test/websocket/";
+//	private static final String FILE_UPLOAD_PATH = "C:/test/websocket/";
+	private static final String FILE_UPLOAD_PATH = WebMvcConfig.RESOURCE_PATH + "/talk";
 	static int fileUploadIdx = 0;
 	static String fileUploadSession  = "";
 	// 메시지 발송
@@ -102,15 +105,22 @@ public class SocketHandler extends TextWebSocketHandler {
 		// 바이너리 메시지 발송
 		System.out.println("SocketHandler handleBinaryMessage start...");
 		ByteBuffer byteBuffer = message.getPayload();
-		String fileName = "temp.jpg";
+		System.out.println("byteBuffer1->"+byteBuffer);
+		System.out.println("message->"+message);
+		System.out.println("file_upload_path->"+FILE_UPLOAD_PATH);
+		
+		
+		// 서버 파일 저장
+		UUID uuid = UUID.randomUUID();
+		String fileName = uuid.toString() + ".jpg";		
 		File dir = new File(FILE_UPLOAD_PATH);
-		System.out.println("dif->"+dir);
+		System.out.println("dir->"+dir);
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
-		
 		File file = new File(FILE_UPLOAD_PATH, fileName);
 		System.out.println("fileName->"+fileName);
+		System.out.println("file->"+file);
 		FileOutputStream out = null;
 		FileChannel outChannel = null;
 		try {
@@ -119,6 +129,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			outChannel = out.getChannel(); // 채널을 열고
 			byteBuffer.compact(); // 파일을 복사
 			outChannel.write(byteBuffer); // 파일을 쓴다
+			System.out.println("byteBuffer2->"+byteBuffer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -133,9 +144,14 @@ public class SocketHandler extends TextWebSocketHandler {
 				e.printStackTrace();
 			}
 		}
-		
 		byteBuffer.position(0); // 파일을 저장하면서 position 값이 변경되었으므로 0으로 초기화
+		
+		// db에 파일 정보 업데이트
+		talkService.updateFileImage("resource/talk/" + fileName);
+		
+		
 		// 파일쓰기가 끝나면 이미지 발송
+		System.out.println("byteBuffer3->"+byteBuffer);
 		HashMap<String, Object> temp = rls.get(fileUploadIdx);
 		for(String k : temp.keySet()) {
 			if(k.equals("roomNumber")) {
@@ -144,6 +160,8 @@ public class SocketHandler extends TextWebSocketHandler {
 			WebSocketSession wss = (WebSocketSession) temp.get(k);
 			try {
 				wss.sendMessage(new BinaryMessage(byteBuffer)); // 초기화된 버퍼 발송
+//				talkService.insertFile(byteBuffer);
+				System.out.println("byteBuffer4->"+byteBuffer);
 			} catch (IOException e) {
 					e.printStackTrace();
 			}

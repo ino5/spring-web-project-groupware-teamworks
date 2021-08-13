@@ -21,8 +21,8 @@ $(document).ready(function() {
 				for(var i = 0; i<memberList.length; i++) {
    					 $('#memberlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
-   					 	+ memberList[i].m_id
-   					 	+ '"><button type="button"  id="chat" onclick="getRoomOfApi('
+   					 	+ memberList[i].m_id + '"'
+   					 	+ "><img src='"+_contextPath+"/resource/member/photo/"+memberList[i].m_id+".jpg' onerror=this.src='"+_contextPath+"/resource/member/photo/default.jpg' style='width: 50px; height: 50px'><button type='button'  id='chat' onclick='getRoomOfApi("
    					 	+ '\''
    					 	+ memberList[i].m_id
    					 	+ '\''
@@ -112,25 +112,46 @@ function getRoomOfApi(m_id2) {
 		$('#roomNumber').val(room.tkrm_num);
 		$('#roomName').text(room.tkrm_name);
 		for(var i = 0; i < talkList.length; i++) {
-			if(talkList[i].m_id != m_id){				
-   					 $('#chating').append(
-   					 	'<div id="memo"><p class="others">'
-   					 	+ talkList[i].m_name + ':' + talkList[i].tk_content
-   					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
-   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
-   					 	+'</p></div>'
-   					 ); 
-				}
-			else if(talkList[i].m_id == m_id){
-					$('#chating').append(
-   					 	'<div id="memo"><p class="me">'
-   					 	+ '나:' + talkList[i].tk_content
-   					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
-   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
-   					 	+'</p></div>'
-   					 );
+			if(talkList[i].tk_type == 1) {
+				if(talkList[i].m_id != m_id){				
+	   					 $('#chating').append(
+	   					 	'<div id="memo"><p class="others">'
+	   					 	+ talkList[i].m_name + ':' + talkList[i].tk_content
+	   					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+	   					 	+'</p></div>'
+	   					 ); 
+					}
+				else if(talkList[i].m_id == m_id){
+						$('#chating').append(
+	   					 	'<div id="memo"><p class="me">'
+	   					 	+ '나 :' + talkList[i].tk_content
+	   					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+	   					 	+'</p></div>'
+	   					 );
+	   				}	
+   				} else if(talkList[i].tk_type == 2) {
+				if(talkList[i].m_id != m_id){				
+	   					 $('#chating').append(
+	   					 	'<div id="memo2"><p class="others2">'
+	   					 	+ talkList[i].m_name + ':'  + '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+	   					 	+'</p><p class="date4">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+	   					 	+'</p></div>'
+	   					 ); 
+					}
+				else if(talkList[i].m_id == m_id){
+						$('#chating').append(
+	   					 	'<div id="memo2"><p class="me2">'
+	   					 	+ '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+	   					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+	   					 	+'</p></div>'
+	   					 );
+	   				}	
    				}
-   			}					
+   			}				
 		
 		//멤버리스트창 끄고 채팅창 보여주기
 		$('#content1').hide();
@@ -158,8 +179,8 @@ $(document).ready(function() {
 				for(var i = 0; i<roomList.length; i++) {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
-   					 	+ roomList[i].m_id
-   					 	+ '"><button type="button"  id="chat" onclick="getRoomOfApi2('
+   					 	+ roomList[i].m_id + '"'
+   					 	+ "><img src='"+_contextPath+"/resource/member/photo/"+roomList[i].m_id+".jpg' onerror=this.src='"+_contextPath+"/resource/member/photo/default.jpg' style='width: 50px; height: 50px'><button type='button'  id='chat' onclick='getRoomOfApi2("
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
    					 	+ '\''
@@ -206,6 +227,7 @@ function getRoomOfApi2(tkrm_num) {
 		$('#roomNumber').val(room.tkrm_num);
 		$('#roomName').text(room.tkrm_name);
 		for(var i = 0; i < talkList.length; i++) {
+		if(talkList[i].tk_type == 1) {
 			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
    					 	'<div id="memo"><p class="others">'
@@ -224,7 +246,27 @@ function getRoomOfApi2(tkrm_num) {
    					 	+'</p></div>'
    					 );
    				}
-   			} 					
+   		} else if(talkList[i].tk_type == 2) {
+   			if(talkList[i].m_id != m_id){				
+   					 $('#chating').append(
+   					 	'<div id="memo2"><p class="others2">'
+   					 	+ talkList[i].m_name + ':' + '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+   					 	+'</p><p class="date4">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+   					 	+'</p></div>'
+   					 ); 
+				}
+			else if(talkList[i].m_id == m_id){
+					$('#chating').append(
+   					 	'<div id="memo2"><p class="me2">'
+   					 	+ '나:' + '<img src = "' + _contextPath + '/' + talkList[i].tk_content + '" ' + ' style="width: 150px; height: 150px">'
+   					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
+   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
+   					 	+'</p></div>'
+   					 );
+   				}
+   		 	}
+   		}		
 		
 		//멤버리스트창 끄고 채팅창 보여주기
 		$('#content1').hide();
