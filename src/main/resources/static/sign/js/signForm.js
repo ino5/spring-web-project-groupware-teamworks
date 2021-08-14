@@ -120,7 +120,7 @@ function uploadSummernoteImageFile(file, editor) {
         processData : false,
         success : function(data) {
             //항상 업로드된 파일의 url이 있어야 한다.
-            $(editor).summernote('insertImage', _contextPath+data.url);
+            $(editor).summernote('insertImage', _contextPathWithDomain+data.url);
         }
     });
 }

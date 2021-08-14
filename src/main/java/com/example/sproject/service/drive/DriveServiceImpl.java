@@ -59,8 +59,8 @@ public class DriveServiceImpl implements DriveService {
 	
 	@Override
 	// DB에 파일 정보 저장
-	public int insertDriveFileInfo(DriveFileInfo driveFile) {
-	    int result = driveDao.insertDriveFileInfo(driveFile);
+	public int insertDriveFileInfo(DriveFileInfo driveFileInfo) {
+	    int result = driveDao.insertDriveFileInfo(driveFileInfo);
 		return result;
 	}
 

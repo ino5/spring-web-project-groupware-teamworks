@@ -6,7 +6,7 @@ import com.example.sproject.model.drive.DriveFileInfo;
 
 public interface DriveDao {
 
-	int insertDriveFileInfo(DriveFileInfo driveFile);
+	int insertDriveFileInfo(DriveFileInfo driveFileInfo);
 
 	DriveFileInfo selectOneDriveFileInfo(String dv_id);
 

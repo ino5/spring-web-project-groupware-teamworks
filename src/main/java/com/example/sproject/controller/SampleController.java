@@ -1,6 +1,8 @@
 package com.example.sproject.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import com.example.sproject.model.sample.Sample;
 import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.common.CommonService;
 import com.example.sproject.service.login.LoginService;
+import com.example.sproject.service.sample.EmailReader;
 import com.example.sproject.service.sample.SampleService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -39,7 +42,14 @@ import java.util.Properties;
 import java.util.Date;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.mail.search.AndTerm;
+import javax.mail.search.ComparisonTerm;
+import javax.mail.search.ReceivedDateTerm;
+import javax.mail.search.SearchTerm;
+
 import com.sun.mail.smtp.*;
+
+//import cn.easyproject.easyocr.EasyOCR;
 
 @Controller
 @RequestMapping("sample")
@@ -251,7 +261,7 @@ public class SampleController {
 
         Session session = Session.getInstance(props, null);
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("YOU@naver.com"));
+        msg.setFrom(new InternetAddress("iin140@teamworksgroup.shop"));
 
         InternetAddress[] addrs = InternetAddress.parse("chero77@naver.com lalala225257@gmail.com", false);
         msg.setRecipients(Message.RecipientType.TO, addrs);
@@ -260,8 +270,7 @@ public class SampleController {
         msg.setText("Testing some Mailgun awesomness");
         msg.setSentDate(new Date());
 
-        SMTPTransport t =
-            (SMTPTransport) session.getTransport("smtps");
+        SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
         t.connect("smtp.mailgun.org", "postmaster@teamworksgroupware.shop", SMTP_PASSWORD);
         t.sendMessage(msg, msg.getAllRecipients());
 
@@ -269,4 +278,42 @@ public class SampleController {
 
         t.close();
     }
+    
+    
+
+
+    /**
+     * pop3 서버이용에 필요한 계정정보
+     * @throws MessagingException 
+     * @throws ParseException 
+     */
+    @RequestMapping(value ="mail/read", method= {RequestMethod.GET, RequestMethod.POST})
+    public String mailRead() throws MessagingException, ParseException {
+    	System.out.println("mailRead");
+        String userName = "ino210714@gmail.com";
+        String password = "dprls896321!";
+        Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse("2021-07-14");
+        Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse("2021-08-15");
+        String saveDirectory = "C:/mail";
+
+        EmailReader receiver = new EmailReader();
+        receiver.setSaveDirectory(saveDirectory);
+        receiver.receiveMailAttachedFile(userName, password, startDate, endDate);
+        
+        return null;
+    }
+    
+//    // OCR 테스트
+//    @RequestMapping(value ="ocr/test", method= {RequestMethod.GET, RequestMethod.POST})
+//    public String ocrTest(String path) {
+//    	EasyOCR e=new EasyOCR();
+////    	e.setTesseractOptions("-l kor");
+//    	e.setTesseractPath("C:\\Users\\user\\Tesseract-OCR");
+//    	System.out.println(e.discern("C:\\Users\\user\\Tesseract-OCR\\ocr_test.png"));     
+//    	
+////    	File file = new File(WebMvcConfig.RESOURCE_PATH + "/ocr" + "/ocr_test.png");
+////    	System.out.println(file.length());
+////    	System.out.println(e.discern(file));
+//    	return null;
+//    }
 }

@@ -9,7 +9,7 @@
 				<li><a onclick="javascript:doShow()" class="button3" style="vertical-align:middle; padding-top: 18px; padding-bottom: 11px;"><img alt="image"
 					src="${pageContext.request.contextPath}/header/img/full.png" style="width: 30px; height: 23px;"></a></li>
 				<li><a href="${pageContext.request.contextPath}/main" id="head_main">홈</a></li>
-				<li><a href="${pageContext.request.contextPath}/mail" id="head_mail">사내메일</a></li>
+				<li><a href="${pageContext.request.contextPath}/mail" id="head_mail">메일</a></li>
 				<li><a href="${pageContext.request.contextPath}/time" id="head_time">근태관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/sign" id="head_sign">전자결재</a></li>
 				<li><a href="${pageContext.request.contextPath}/calendar" id="head_calendar">캘린더</a></li>

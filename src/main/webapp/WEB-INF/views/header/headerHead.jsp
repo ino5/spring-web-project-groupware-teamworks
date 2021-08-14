@@ -7,6 +7,7 @@
 
 <!-- js 위한 contextPath 세팅 -->
 <meta id="_contextPath" name="_contextPath" content="${pageContext.request.contextPath}" />
+<meta id="_contextPathWithDomain" name="_contextPathWithDomain" content="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/header/js/jquery.js"></script>

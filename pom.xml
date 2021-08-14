@@ -150,7 +150,20 @@
 		    <artifactId>json</artifactId>
 		    <version>20201115</version>
 		</dependency>
-
+		
+		<!-- 메일가져오기 관련 -->
+	    <dependency>
+	      <groupId>com.sun.mail</groupId>
+	      <artifactId>javax.mail</artifactId>
+	      <version>1.6.0</version>
+	    </dependency>
+	    
+<!-- 	    OCR -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>cn.easyproject</groupId> -->
+<!-- 			<artifactId>easyocr</artifactId> -->
+<!-- 			<version>3.0.4-RELEASE</version> -->
+<!-- 		</dependency>	     -->
 
 	</dependencies>
 

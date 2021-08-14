@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sproject.dao.sign.SignDao">
+	<select id="countMailReceivedOfMail" resultType="int">
+		SELECT COUNT(*) FROM mail WHERE ml_type = 1
+	</select>
+	
+	<insert id="insertMailOfMail" parameterType="com.example.sproject.model.mail.Mail">
+		INSERT INTO mail(
+				ml_num, ml_email, mlb_num, ml_title, ml_content, 
+				ml_regdate, ml_rcvdate, ml_type
+		)
+		VALUES(
+				#{ml_num}, #{ml_email}, #{mlb_num}, #{ml_title}, #{ml_content}, 
+				#{ml_regdate}, #{ml_rcvdate}, #{ml_type}
+		) 
+	</insert>
+	
+	<select id= "countMaxMl_numOfMail" resultType="int">
+		SELECT NVL(MAX(ml_num), 0) FROM mail
+	</select>
+	
+	<insert id="insertMailFileOfMail" parameterType="com.example.sproject.model.mail.MailFile">
+		INSERT INTO mail_file(
+			ml_num, dv_id
+		)
+		VALUES (
+			#{ml_num}, #{dv_id}
+		)
+	</insert>
+
+	<insert id="insertMailToOfMail" parameterType="com.example.sproject.model.mail.MailTo">
+		INSERT INTO mail_to(
+			ml_num, ml_email
+		)
+		VALUES (
+			#{ml_num}, #{ml_email}
+		)
+	</insert>	
+	
+</mapper>

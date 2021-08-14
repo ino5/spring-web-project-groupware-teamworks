@@ -15,8 +15,8 @@ public class DriveDaoImpl implements DriveDao {
 	private SqlSession session;
 	
 	@Override
-	public int insertDriveFileInfo(DriveFileInfo driveFile) {
-		return session.insert("insertDriveFileOfDrive", driveFile);
+	public int insertDriveFileInfo(DriveFileInfo driveFileInfo) {
+		return session.insert("insertDriveFileOfDrive", driveFileInfo);
 	}
 
 	@Override

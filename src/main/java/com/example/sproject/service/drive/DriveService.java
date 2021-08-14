@@ -7,7 +7,7 @@ import com.example.sproject.model.drive.DriveFileInfo;
 public interface DriveService {
 	String uploadFile(String originalName, byte[] fileData , String uploadPath) throws Exception;
 
-	int insertDriveFileInfo(DriveFileInfo driveFile);
+	int insertDriveFileInfo(DriveFileInfo driveFileInfo);
 	DriveFileInfo selectOneDriveFileInfo(String dv_id);
 
 	List<DriveFileInfo> selectListDriveFileInfo(int cg_num, String m_id);
