@@ -39,4 +39,26 @@
 		)
 	</insert>	
 	
+	<select id="selectListMailOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="com.example.sproject.model.mail.Mail">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT ml.* FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email = #{ml_email}
+			ORDER BY ml.ml_num desc			  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>	
+	</select>
+	
+	<select id="selectMailOfMail" parameterType="int" resultType="com.example.sproject.model.mail.Mail">
+		SELECT ml.* FROM mail ml WHERE ml_num = #{ml_num}
+	</select>
+
+	<select id="selectListMailToOfMail" parameterType="int" resultType="com.example.sproject.model.mail.MailTo">
+		SELECT mlt.* FROM mail_to mlt WHERE ml_num = #{ml_num}
+	</select>	
+	
+	<select id="selectListDriveFileInofoOfMail" parameterType="int" resultType="com.example.sproject.model.drive.DriveFileInfo">
+		SELECT d.* FROM drive d, mail_file mlf WHERE d.dv_id = mlf.dv_id AND mlf.ml_num = #{ml_num}
+	</select>	
+	
 </mapper>

@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Address;
 import javax.mail.Folder;
@@ -33,6 +36,7 @@ import org.springframework.stereotype.Service;
 import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.dao.mail.MailDao;
 import com.example.sproject.model.drive.DriveFileInfo;
+import com.example.sproject.model.globals.GlobalsOfMail;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailFile;
 import com.example.sproject.model.mail.MailTo;
@@ -41,12 +45,6 @@ import com.sun.mail.smtp.SMTPTransport;
 
 @Service
 public class MailServiceImpl implements MailService {
-	@Value("${project-value.mailgun.smtp-password}")
-	String SMTP_PASSWORD;
-	@Value("${project-value.mail.id}")
-	String MAIL_ID;
-	@Value("${project-value.mail.password}")
-	String MAIL_PASSWORD;
 	
 	@Autowired
 	MailDao mailDao;
@@ -62,7 +60,7 @@ public class MailServiceImpl implements MailService {
         	System.out.println("in try");
             Session session = Session.getDefaultInstance(props, null);
             Store store = session.getStore("imaps");
-            store.connect("imap.gmail.com", MAIL_ID, MAIL_PASSWORD);
+            store.connect("imap.gmail.com", GlobalsOfMail.MAIL_ID, GlobalsOfMail.MAIL_PASSWORD);
             
             // 받은편지함을 INBOX 라고 한다.
             Folder inbox = store.getFolder("INBOX");
@@ -202,9 +200,9 @@ public class MailServiceImpl implements MailService {
 
         Session session = Session.getInstance(props, null);
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("이름 <iin140@teamworksgroup.shop>"));
+        msg.setFrom(new InternetAddress("이름 <iin140@"+ GlobalsOfMail.MAIL_DOMAIN +">"));
 
-        InternetAddress[] addrs = InternetAddress.parse("iin141@teamworksgroup.shop", false);
+        InternetAddress[] addrs = InternetAddress.parse("iin141@" + GlobalsOfMail.MAIL_DOMAIN, false);
         msg.setRecipients(Message.RecipientType.TO, addrs);
 
         msg.setSubject("Hello");
@@ -212,7 +210,7 @@ public class MailServiceImpl implements MailService {
         msg.setSentDate(new Date());
 
         SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
-        t.connect("smtp.mailgun.org", "postmaster@teamworksgroupware.shop", SMTP_PASSWORD);
+        t.connect("smtp.mailgun.org", "postmaster@" + GlobalsOfMail.MAIL_DOMAIN_FOR_MAILGUN, GlobalsOfMail.SMTP_PASSWORD);
         t.sendMessage(msg, msg.getAllRecipients());
 
         System.out.println("Response: " + t.getLastServerResponse());
@@ -222,5 +220,54 @@ public class MailServiceImpl implements MailService {
         //db 저장하기
         
         return 1;
-    }	
+    }
+
+	@Override
+	public String extractEmailAddress(String text) {
+    	Matcher matcher = Pattern.compile("\\<[^\\<\\>]+\\>").matcher(text);
+    	String textMatched = new String();
+    	if (matcher.find()) {
+    		textMatched = text.substring(matcher.start()+1, matcher.end()-1);
+    	} else {
+    		textMatched = text;
+    	}
+    	return textMatched;
+	}
+
+	@Override
+	public List<Mail> listMail(Mail mail) {
+		mail.setMl_email(mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN);
+		return mailDao.selectListMail(mail);
+	}
+
+	@Override
+	public void replaceStringForHtml(List<Mail> listOfMail) {
+		for (Mail mail : listOfMail) {
+			replaceStringForHtml(mail);
+		}
+		
+	}
+
+	@Override
+	public void replaceStringForHtml(Mail mail) {
+		String ml_email = mail.getMl_email();
+		ml_email = ml_email.replaceAll("<", "&lt;");
+		ml_email = ml_email.replaceAll(">", "&gt;");
+		mail.setMl_email(ml_email);	
+	}
+
+	@Override
+	public Mail selectMail(int ml_num) {
+		return mailDao.selectMail(ml_num);
+	}
+
+	@Override
+	public List<MailTo> listMailTo(int ml_num) {
+		return mailDao.selectListMailTo(ml_num);
+	}
+
+	@Override
+	public List<DriveFileInfo> listDriveFileInfo(int ml_num) {
+		return mailDao.selectListDriveFileInofo(ml_num);
+	}	
 }

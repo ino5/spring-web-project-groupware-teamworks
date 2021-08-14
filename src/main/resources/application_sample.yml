@@ -57,4 +57,13 @@ mybatis:
 #logging.level:
 #  org.hibernate.SQL: debug
   # org.hibernate.type: trace
+
+project-value:
+  mailgun:
+    api-key: 
+    smtp-password: 
+  mail:
+    id: 
+    password: 
+
   

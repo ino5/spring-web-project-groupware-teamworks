@@ -1,5 +1,8 @@
 package com.example.sproject.dao.mail;
 
+import java.util.List;
+
+import com.example.sproject.model.drive.DriveFileInfo;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailFile;
 import com.example.sproject.model.mail.MailTo;
@@ -15,5 +18,13 @@ public interface MailDao {
 	int insertMailFile(MailFile mailFile);
 
 	int insertMailTo(MailTo mailTo);
+
+	List<Mail> selectListMail(Mail mail);
+
+	Mail selectMail(int ml_num);
+
+	List<MailTo> selectListMailTo(int ml_num);
+
+	List<DriveFileInfo> selectListDriveFileInofo(int ml_num);
 
 }
