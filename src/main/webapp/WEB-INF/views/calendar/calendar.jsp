@@ -115,20 +115,20 @@
 				}
 			}
 			/*오늘의 날짜에 노란색 칠하기*/
-			if (today.getFullYear() == date.getFullYear()
-					&& today.getMonth() == date.getMonth()
-					&& i_day - 1 == date.getDate()) {
-				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
-				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
-				i_today = i;
-			}
-			if (i_today > 0 && (i - i_today) % 7 == 0 && i > i_today
-					&& i < i_today + 7 * 7) {
-				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
-				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
-			}
+// 			if (today.getFullYear() == date.getFullYear()
+// 					&& today.getMonth() == date.getMonth()
+// 					&& i_day - 1 == date.getDate()) {
+// 				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
+// 				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
+// 				i_today = i;
+// 			}
+// 			if (i_today > 0 && (i - i_today) % 7 == 0 && i > i_today
+// 					&& i < i_today + 7 * 7) {
+// 				//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
+// 				cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
+// 			}
 		}
-		
+			
 		var j = 0;
 		
 		for(i=1; i<=6; i++){
@@ -171,36 +171,83 @@
 					document.getElementById('cell_'+ (7 * i + j)).setAttribute("id", "cell_" + document.getElementById('cell_' + j).dataset.day + "_" + i);
 				}
 			}
+
+// 			for(j=1; j<32; j++){
+// 				if($('#cell_'+j+'_'+i).length > 0){
+// 					document.getElementById('cell_'+j+'_'+i).className = 'td_date';
+// 				}
+// 				if($('#cell_'+j).length > 0){
+// 					document.getElementById('cell_'+j).className = 'td_date';
+// 				}
+// 			}
 		}
+
 		var diff = 0;
+		var diff1 = 0;	// 줄바꿈 전까지의 colspan 크기
 		/*일정 등록된 날짜에 제목 띄우기*/
+		var rowPlace = [];
+		for (i = 0; i < 32; i++) {
+			rowPlace[i] = 1;
+		}
 		for(i=1; i<=lastDate.getDate(); i++){
-			for(j=1; j<=6; j++){
-				<c:forEach items="${calendarList}" var="item">
-					if (today.getFullYear() == Number('${item.cl_sdate}'.substr(0, 4))
-							&& today.getMonth() + 1 == Number('${item.cl_sdate}'.substr(5, 2))
-							&& Number('${item.cl_sdate}'.substr(8, 2)) == Number(document.getElementById('cell_' + i + '_1').dataset.day)) {
-						//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
-						var a = "<div class='div1'>" + '${item.cl_name}' + "</div>";
-						if (${item.cl_term} > 0 && document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode){
-							document.getElementById('cell_' + i + '_1').setAttribute("colspan", ${item.cl_term} + 1);
-							document.getElementById('cell_' + i + '_1').innerHTML = a;
-							for(k=1; k <= ${item.cl_term}; k++){
+			<c:forEach items="${calendarList}" var="item">
+				if (today.getFullYear() == Number('${item.cl_sdate}'.substr(0, 4))
+						&& today.getMonth() + 1 == Number('${item.cl_sdate}'.substr(5, 2))
+						&& Number('${item.cl_sdate}'.substr(8, 2)) == Number(document.getElementById('cell_' + i + '_1').dataset.day)) {
+					//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
+					console.log('${item.cl_name}');
+						var a = "<div id='div_"+ i +"_1' class='div_cal'>" + "<span class='span_cal'>${item.cl_name}</span>" + "</div>";
+						var a1 = "<div id='div_"+ i +"'>" + "<span class='span_cal'>${item.cl_name}</span>" + "</div>";
+						var a2 = "<div id='div_"+ i +"_2' class='div_cal'>" + "<span class='span_cal'>${item.cl_name}</span>" + "</div>";
+					if ( ${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode){
+						document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", ${item.cl_term} + 1);
+						document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
+						for(k=1; k <= ${item.cl_term}; k++){
 // 									$('#cell_' + (i+k) + '_1').remove();
-									$('#cell_' + (i+k) + '_1').css("display", "none");
-								}
-						} else if(${item.cl_term} > 0 && document.getElementById('cell_' + i + '_1').parentNode != document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode) {
-							for(diff; diff <= ${item.cl_term} + 1; diff++){
-								if(document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+ diff) + '_1').parentNode){
-									document.getElementById('cell_' + (i+diff) + '_1').innerHTML = a;
+							if(k>1 && rowPlace[i+k] != (rowPlace[i+k-1]-1)){
+// 								console.log(i+k+"// 앞과 뒤가 다를 때");
+// 								console.log("바뀌기 전"+rowPlace[i+k]);
+								rowPlace[i+k] = (rowPlace[i+k-1]-1);
+// 								console.log("바뀌기 후"+rowPlace[i+k]);
+								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+								++rowPlace[i+k];
+							} else {
+// 								console.log(i+k+"// 앞과 뒤가 같을 때");
+								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+								++rowPlace[i+k];
 								}
 							}
-						} else {
-								document.getElementById('cell_' + i + '_2').innerHTML = a;
+						++rowPlace[i];
+					} else if(${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode != document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode) {
+						diff1 = 0;
+						diff = 0;
+						for(diff; diff <= ${item.cl_term}; diff++){
+							if(document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+ diff) + '_1').parentNode){
+								++diff1;	// 줄바꿈 전까지의 colspan 크기
+							}
 						}
+						document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", diff1);
+						document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
+						
+						for(k=1; k <= diff1-1; k++){
+							$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+							++rowPlace[i+k];
+						}
+						// 줄바꿈 후의 colspan
+						document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).setAttribute("colspan", (${item.cl_term}+1) - diff1);
+						document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).innerHTML = a2;
+						for(k=diff1 + 1; k <= ${item.cl_term}; k++){
+							$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+							++rowPlace[i+k];	
+						}
+						++rowPlace[i];
+						++rowPlace[i+diff1];
+					} else if ( ${item.cl_term} == 0){
+						document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a1;
+						++rowPlace[i];
 					}
-				</c:forEach>
-			}
+				}
+			</c:forEach>
 		}
 	}
 	$(document).ready(function() {
@@ -220,7 +267,7 @@
 			}
 		})
 		// 달력 클릭 시 모달창 열기
-		$("#calendar").on("click", "td", function() {
+		$("#calendar").on("click","td",function() {
 			var td = $(this);
 			var year = today.getFullYear();
 			var month = today.getMonth() + 1;
@@ -232,7 +279,9 @@
 				day = "0" + day;
 			}
 			$("input[type=date]").val(year + "-" + month + "-" + day);
-			$('#myModal').show();
+			if(td.context.dataset.day>0){
+				$('#myModal').show();
+			}
 		});
 		$(".div1").on("click", function(e) {
 			e.stopPropagation();

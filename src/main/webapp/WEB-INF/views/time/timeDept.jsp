@@ -64,6 +64,7 @@
 						start_text = new Date(global_now);
 						document.getElementById('btn1').style.color = '#CFCFCF';
 						document.getElementById('btn1').style.pointerEvents = 'none';
+						document.getElementById('btn1').style.borderColor = '#CFCFCF';
 					}
 				});
 	}
@@ -87,6 +88,7 @@
 				document.getElementById('endTime').innerHTML = global_nowTime;
 				document.getElementById('btn2').style.color = '#CFCFCF';
 				document.getElementById('btn2').style.pointerEvents = 'none';
+				document.getElementById('btn2').style.borderColor = '#CFCFCF';
 			}
 		});
 		

@@ -179,11 +179,6 @@ h2 {
 	border-collapse : collapse;
 }
 
-#calendar tr{
-	border-top: 1px;
-	border-color: #F6F6F6;
-}
-
 #calendar tr th{
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	text-align: center;
@@ -200,14 +195,27 @@ h2 {
     vertical-align : top;
 }
 
-
-.div1 {
-	background-color: #EAEAEA;
-	cursor: pointer;
+#row_8{
+	border-top:1px solid #ddd;
+}
+#row_15{
+	border-top:1px solid #ddd;
+}
+#row_22{
+	border-top:1px solid #ddd;
+}
+#row_29{
+	border-top:1px solid #ddd;
 }
 
-.div1:nth-child(even) {
-  background-color : #B2CCFF;
+.div_cal {
+	margin : 0.5px 2px;
+	cursor: pointer;
+	background-color: #0f91e6;
+}
+
+.span_cal{
+	padding-left: 15px;
 }
 
 #date{

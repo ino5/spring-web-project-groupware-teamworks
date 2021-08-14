@@ -12,18 +12,19 @@
 	border-radius : 10px;
 	border-width : 2px;
 	box-shadow: none;
-	border-color : #D5D5D5;
+	border-color : #0f91e6;
 	padding : 5% 5%;
 	margin-left : 5%;
 	width: 42%;
 	font-size: 16px;   
+	color : #0f91e6;
 }
 
 .btn1:hover{
      transition: all 0.2s linear;
      transform: translate(0, -5%);
        box-shadow: 2px 2px 2px 2px #BDBDBD; 
-       border: 2px solid gray;
+       border: 2px solid #0f91e6;
   
  }
  

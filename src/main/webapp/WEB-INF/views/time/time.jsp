@@ -57,6 +57,7 @@
 						document.getElementById(global_date).rows[0].insertCell(-1).innerText=global_nowTime;
 						document.getElementById('btn1').style.color = '#CFCFCF';
 						document.getElementById('btn1').style.pointerEvents = 'none';
+						document.getElementById('btn1').style.borderColor = '#CFCFCF';
 					}
 				});
 	}
@@ -82,6 +83,7 @@
 				document.getElementById(global_date).rows[0].insertCell(-1).innerText= HHH + "h " + MMM + "m " + SSS + "s";
 				document.getElementById('btn2').style.color = '#CFCFCF';
 				document.getElementById('btn2').style.pointerEvents = 'none';
+				document.getElementById('btn2').style.borderColor = '#CFCFCF';
 			}
 		});
 	}
