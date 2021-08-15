@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import org.springframework.stereotype.Service;
 
 import com.example.sproject.model.drive.DriveFileInfo;
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailTo;
 
@@ -15,7 +16,15 @@ public interface MailService {
 
 	int updateMailDB();
 	
-	int sendMail() throws MessagingException;
+	/**
+	 * 메일 보내기
+	 * @param m_id
+	 * @param mail
+	 * @param addressTo
+	 * @return
+	 * @throws MessagingException
+	 */
+	int sendMail(Member principal, Mail mail, String addressTo, List<DriveFileInfo> listOfDriveFileInfo) throws MessagingException;
 	
 	/**
 	 * 텍스트에서 <> 안에 있는 email 주소 뽑아내기 
@@ -39,4 +48,10 @@ public interface MailService {
 	List<MailTo> listMailTo(int ml_num);
 
 	List<DriveFileInfo> listDriveFileInfo(int ml_num);
+
+	int insertMailSent(Mail mail);
+
+	int insertMailTo(int ml_num, String addressTo);
+
+	int insertMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo);
 }

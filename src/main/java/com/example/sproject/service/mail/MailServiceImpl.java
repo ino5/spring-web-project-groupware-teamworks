@@ -3,6 +3,8 @@ package com.example.sproject.service.mail;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -11,6 +13,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -37,6 +41,7 @@ import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.dao.mail.MailDao;
 import com.example.sproject.model.drive.DriveFileInfo;
 import com.example.sproject.model.globals.GlobalsOfMail;
+import com.example.sproject.model.login.Member;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailFile;
 import com.example.sproject.model.mail.MailTo;
@@ -51,13 +56,16 @@ public class MailServiceImpl implements MailService {
 	
 	@Autowired
 	DriveService driveService;
-
+	
+	/**
+	 * 메일 업데이트하기 
+	 */
 	@Override
 	public int updateMailDB() {
 		Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
         try {
-        	System.out.println("in try");
+        	System.out.println("updateMailDB");
             Session session = Session.getDefaultInstance(props, null);
             Store store = session.getStore("imaps");
             store.connect("imap.gmail.com", GlobalsOfMail.MAIL_ID, GlobalsOfMail.MAIL_PASSWORD);
@@ -113,10 +121,16 @@ public class MailServiceImpl implements MailService {
                             
                         } else {
                             // 메일 내용 저장
-                            messageContent = part.getContent().toString();
-                        	// 위에가 샘플 코드인데 MimeMultipart 객체를 가져와서 임시방편으로 아래처럼 해서 해결했다.
+                        	if (part.getContentType().toLowerCase().contains("text/plain".toLowerCase()) || part.getContentType().toLowerCase().contains("text/html".toLowerCase())) {
+                        		messageContent = part.getContent().toString();
+                        	}
+                            
+                        	// MimeMultipart 객체에 대해 임시방편으로 아래와 같이 해결
                         	System.out.println("part.getContent()");
+                        	System.out.println(part.getContentType());
                         	if(part.getContent() instanceof MimeMultipart) {
+                        		System.out.println(((MimeMultipart) (part.getContent())).getBodyPart(0).getContentType());
+                        		System.out.println(((MimeMultipart) (part.getContent())).getBodyPart(1).getContentType());
                             	System.out.println(((MimeMultipart) (part.getContent())).getBodyPart(0).getContent().toString());
                             	System.out.println(((MimeMultipart) (part.getContent())).getBodyPart(1).getContent().toString());
                                 messageContent = ((MimeMultipart) (part.getContent())).getBodyPart(1).getContent().toString();                        		
@@ -127,7 +141,7 @@ public class MailServiceImpl implements MailService {
                         attachFiles = attachFiles.substring(0,
                                 attachFiles.length() - 2);
                     }
-                } else if (contentType.contains("text/plain") || contentType.contains("text/html")) {
+                } else if (contentType.toLowerCase().contains("text/plain".toLowerCase()) || contentType.toLowerCase().contains("text/html".toLowerCase())) {
                     Object content = msg.getContent();
                     if (content != null) {
                         messageContent = content.toString();
@@ -193,31 +207,54 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	// 메일보내기
-    public int sendMail() throws MessagingException {
+    public int sendMail(Member principal, Mail mail, String addressTo, List<DriveFileInfo> listOfDriveFileInfo) throws MessagingException {
         Properties props = System.getProperties();
         props.put("mail.smtps.host", "smtp.mailgun.org");
         props.put("mail.smtps.auth", "true");
 
         Session session = Session.getInstance(props, null);
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("이름 <iin140@"+ GlobalsOfMail.MAIL_DOMAIN +">"));
-
-        InternetAddress[] addrs = InternetAddress.parse("iin141@" + GlobalsOfMail.MAIL_DOMAIN, false);
+        String ml_email = principal.getM_name() + "<" + principal.getM_id() + "@" + GlobalsOfMail.MAIL_DOMAIN + ">";
+        msg.setFrom(new InternetAddress(ml_email));
+        InternetAddress[] addrs = InternetAddress.parse(addressTo, false);
         msg.setRecipients(Message.RecipientType.TO, addrs);
-
-        msg.setSubject("Hello");
-        msg.setText("Testing some Mailgun awesomness");
+//        msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(messageCCTo, parseStrict));
+        msg.setSubject(mail.getMl_title());
+        
         msg.setSentDate(new Date());
+        
+        Multipart multipart = new MimeMultipart();
+        
+        // 내용 첨부
+        MimeBodyPart bodypart = new MimeBodyPart();
+        bodypart.setContent(mail.getMl_content(), "text/html; charset=utf-8");
+        multipart.addBodyPart(bodypart);    
+        
+        // 파일 첨부
+        if (listOfDriveFileInfo != null && listOfDriveFileInfo.size() > 0 ) {
+        	for (DriveFileInfo driveFileInfo : listOfDriveFileInfo) {
+        		MimeBodyPart attachPart = new MimeBodyPart();
+        		attachPart.setDataHandler(new DataHandler(new FileDataSource(new File(WebMvcConfig.RESOURCE_PATH + "/drive/" + driveFileInfo.getDv_id()))));
+        		attachPart.setFileName(driveFileInfo.getDv_filename());
+        		multipart.addBodyPart(attachPart);
+        	}
+        }
 
+        // setContent
+        msg.setContent(multipart);
+
+        
+        // 메일 보내기
         SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
         t.connect("smtp.mailgun.org", "postmaster@" + GlobalsOfMail.MAIL_DOMAIN_FOR_MAILGUN, GlobalsOfMail.SMTP_PASSWORD);
         t.sendMessage(msg, msg.getAllRecipients());
-
         System.out.println("Response: " + t.getLastServerResponse());
-
         t.close();
-        
-        //db 저장하기
+
+        // mail 객체 안에 데이터 넣기
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        mail.setMl_regdate(Timestamp.valueOf(simpleDateFormat.format(msg.getSentDate()))); 
+        mail.setMl_email(ml_email);
         
         return 1;
     }
@@ -269,5 +306,30 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public List<DriveFileInfo> listDriveFileInfo(int ml_num) {
 		return mailDao.selectListDriveFileInofo(ml_num);
+	}
+
+	@Override
+	public int insertMailSent(Mail mail) {
+		if (mail.getMl_title() == null) mail.setMl_title("");
+		if (mail.getMl_content() == null) mail.setMl_content("");
+		mail.setMlb_num(0); // 메일함 임시로 값 할당
+		mail.setMl_type(2);
+		mail.setMl_num(1 + mailDao.countMaxMl_num());
+		return mailDao.insertMail(mail);
+	}
+
+	@Override
+	public int insertMailTo(int ml_num, String addressTo) {
+		String[] arrayOfAddressTo = addressTo.split(" ");
+		List<String> listOfAddressTo = new ArrayList<String>();
+		for(String str : arrayOfAddressTo) {
+			listOfAddressTo.add(str);
+		}
+		return mailDao.insertAllMailTo(ml_num, listOfAddressTo);
+	}
+
+	@Override
+	public int insertMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo) {
+		return mailDao.insertAllMailFile(ml_num, listOfDriveFileInfo);
 	}	
 }

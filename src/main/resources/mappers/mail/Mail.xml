@@ -13,7 +13,7 @@
 		)
 		VALUES(
 				#{ml_num}, #{ml_email}, #{mlb_num}, #{ml_title}, #{ml_content}, 
-				#{ml_regdate}, #{ml_rcvdate}, #{ml_type}
+				#{ml_regdate}, #{ml_rcvdate, jdbcType = DATE}, #{ml_type}
 		) 
 	</insert>
 	
@@ -43,8 +43,8 @@
 		<![CDATA[
 		SELECT *
 		FROM (SELECT ROWNUM rn, a.* FROM (
-			SELECT ml.* FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email = #{ml_email}
-			ORDER BY ml.ml_num desc			  		  
+			SELECT ml.* FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email = #{ml_email} AND ml.ml_type = #{ml_type}
+			ORDER BY ml.ml_regdate desc			  		  
 		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
 		]]>	
 	</select>
@@ -60,5 +60,25 @@
 	<select id="selectListDriveFileInofoOfMail" parameterType="int" resultType="com.example.sproject.model.drive.DriveFileInfo">
 		SELECT d.* FROM drive d, mail_file mlf WHERE d.dv_id = mlf.dv_id AND mlf.ml_num = #{ml_num}
 	</select>	
+
+	<insert id="insertAllMailToOfMail" parameterType="Map">
+		<foreach collection="listOfAddressTo" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO mail_to(
+				ml_num, ml_email
+			) VALUES (
+				#{ml_num}, #{item}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="insertAllMailFileOfMail" parameterType="Map">
+		<foreach collection="listOfDriveFileInfo" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO mail_file(
+				ml_num, dv_id
+			) VALUES (
+				#{ml_num}, #{item.dv_id}
+			)
+		</foreach>
+	</insert>	
 	
 </mapper>

@@ -1,7 +1,9 @@
 package com.example.sproject.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -22,13 +24,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.drive.DriveFileInfo;
+import com.example.sproject.model.globals.GlobalsOfCg_num;
 import com.example.sproject.model.globals.GlobalsOfMail;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailTo;
+import com.example.sproject.service.drive.DriveService;
 import com.example.sproject.service.mail.MailService;
 import com.example.sproject.service.sample.EmailReader;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -42,9 +49,10 @@ public class MailController {
 	
 	@Autowired
 	EmailReader emailReader;
-	
 	@Autowired
 	MailService mailService;
+	@Autowired
+	DriveService driveService;
 	
     /**
      * 메일 읽기
@@ -56,6 +64,7 @@ public class MailController {
     	mailService.updateMailDB();
     	
     	Mail mail = new Mail();
+    	mail.setMl_type(1);
     	mail.setM_id(principal.getM_id());
     	mail.setRn_start(1);
     	mail.setRn_end(10);
@@ -92,29 +101,66 @@ public class MailController {
     	model.addAttribute("listOfDriveFileInfo", listOfDriveFileInfo);
     	
     	// 메일 읽을 권한 있는지 체크
-    	boolean is_authorized = false;
+    	boolean isAuthorized = false;
     	for (MailTo mailTo : listOfMailTo) {
     		if (mailTo.getMl_email().equals(principal.getM_id() + "@" + GlobalsOfMail.MAIL_DOMAIN)) {
-    			is_authorized = true;
+    			isAuthorized = true;
     			break;
     		}
     	}
-    	if (!is_authorized) {
+    	if (!isAuthorized) {
     		return "login/denied";
     	}
     	
     	return "mail/mailView";
     }
     
+    /**
+     * 메일 작성 페이지 이동
+     * @return
+     */
+    @RequestMapping(value ="writeForm", method= {RequestMethod.GET, RequestMethod.POST})
+    public String writeForm() {
+    	
+    	return "mail/mailWriteForm";
+    }
     
-	// 메일 보내기 테스트 (mailgun)
-	@RequestMapping(value ="send", method= {RequestMethod.GET, RequestMethod.POST})
-	public String mailSend() throws UnirestException, MessagingException {
-		System.out.println(GlobalsOfMail.API_KEY);
-		System.out.println(GlobalsOfMail.SMTP_PASSWORD);
-		mailService.sendMail();
-//		System.out.println(sendSimpleMessage());
-		return null;
+    
+    
+	/**
+	 * 메일 보내기
+	 * @return
+	 * @throws Exception 
+	 * @throws IOException 
+	 */
+	@RequestMapping(value ="send", method= {RequestMethod.POST})
+	public String mailSend(Mail mail, String addressTo, @RequestParam("multipartFile") List<MultipartFile> listOfMultipartFile, @AuthenticationPrincipal Member principal, Model model) throws IOException, Exception {
+		// 파일 서버에 올리고 db에 정보 등록하기
+		List<DriveFileInfo> listOfDriveFileInfo = new ArrayList<DriveFileInfo>();
+		for (MultipartFile multipartFile : listOfMultipartFile) {
+			if (multipartFile.getSize() > 0) {
+				// 파일 서버에 업로드
+				String uploadPath = WebMvcConfig.RESOURCE_PATH + "/drive";
+			    String dv_id = driveService.uploadFile(multipartFile.getOriginalFilename(), multipartFile.getBytes(), uploadPath);
+			    
+			    // DRIVE 테이블에 파일 정보 저장 
+			    DriveFileInfo driveFile = new DriveFileInfo(dv_id, principal.getM_id(), multipartFile.getOriginalFilename(), null, GlobalsOfCg_num.DRIVE_SIGN);
+			    driveService.insertDriveFileInfo(driveFile);
+			    
+				// 리스트에 추가
+			    listOfDriveFileInfo.add(driveService.selectOneDriveFileInfo(dv_id));
+			}			
+		}
+		
+		// 메일 보내기
+		mailService.sendMail(principal, mail, addressTo, listOfDriveFileInfo);
+		
+		// 메일 정보 db에 등록하기
+		mailService.insertMailSent(mail);
+		mailService.insertMailTo(mail.getMl_num(), addressTo);
+		mailService.insertMailFile(mail.getMl_num(),listOfDriveFileInfo);
+
+		return "redirect:/mail";
 	}
 	
 

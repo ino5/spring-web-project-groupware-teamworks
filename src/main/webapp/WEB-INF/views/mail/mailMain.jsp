@@ -10,7 +10,7 @@
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 	<div id="side">
-
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/mail/writeForm'">메일쓰기</button>
 	</div>
 	<div id="content">
 		<table id="list_mail">

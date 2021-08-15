@@ -5,8 +5,6 @@
 <script src="${pageContext.request.contextPath}/board/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/board/js/summernote/summernote-lite.css">
 <!-- end of 썸머노트 -->
-<!-- 썸머노트 관련 js -->
-<%-- <script src="${pageContext.request.contextPath}/sign/js/scriptForSummernoteInSign.js"></script> --%>
 
 <!-- 파일 다운로드 관련 js -->
 <script defer src="${pageContext.request.contextPath}/drive/js/main.js"></script>
@@ -22,7 +20,3 @@
 	});
 </script>
 <!-- end of jquery-ui sortable  -->
-
-<!-- signSide css, js -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signSide.css">
-<script defer src="${pageContext.request.contextPath}/sign/js/signSide.js"></script>

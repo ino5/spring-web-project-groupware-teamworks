@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <!-- sign head 공용 -->
 <%@include file = "/WEB-INF/views/sign/header/signHead.jsp" %>
-<script defer src="${pageContext.request.contextPath}/sign/js/signMain.js"></script>
+<%-- <script defer src="${pageContext.request.contextPath}/sign/js/signMain.js"></script> --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signMain.css">
 </head>
 <body>

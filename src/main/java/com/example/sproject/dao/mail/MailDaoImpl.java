@@ -1,6 +1,8 @@
 package com.example.sproject.dao.mail;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,22 @@ public class MailDaoImpl implements MailDao {
 	@Override
 	public List<DriveFileInfo> selectListDriveFileInofo(int ml_num) {
 		return session.selectList("selectListDriveFileInofoOfMail", ml_num);
+	}
+
+	@Override
+	public int insertAllMailTo(int ml_num, List<String> listOfAddressTo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ml_num", ml_num);
+		map.put("listOfAddressTo", listOfAddressTo);
+		return session.insert("insertAllMailToOfMail", map);
+	}
+
+	@Override
+	public int insertAllMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ml_num", ml_num);
+		map.put("listOfDriveFileInfo", listOfDriveFileInfo);
+		return session.insert("insertAllMailFileOfMail", map);
 	}
 
 }

@@ -60,10 +60,10 @@ mybatis:
 
 project-value:
   mailgun:
-    api-key: 
-    smtp-password: 
+    api-key: 1234
+    smtp-password: 1234
   mail:
-    id: 
-    password: 
+    id: 1234@mail.com
+    password: 1234
 
   

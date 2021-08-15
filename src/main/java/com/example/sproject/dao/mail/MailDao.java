@@ -27,4 +27,8 @@ public interface MailDao {
 
 	List<DriveFileInfo> selectListDriveFileInofo(int ml_num);
 
+	int insertAllMailTo(int ml_num, List<String> listOfAddressTo);
+
+	int insertAllMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo);
+
 }
