@@ -21,6 +21,7 @@
 a {
 	text-decoration: none
 }
+
 list_table td {
 	width: 30px;
 }
@@ -140,12 +141,41 @@ margin-bottom: 20px;
 border: 1px solid #ddd;
 }
 #btnUpdete{
-	margin-top:20px;
-    position: relative;
-    background: #fff;
-    width: 74px;
-    height: 26px;
-    line-height: 24px;
-    text-align: center;
-    margin-left: 24px;
+		margin-left: 600px;
+display: inline-block;
+    cursor: pointer;
+    padding: 0 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 13px;
+    height: 34px;
+    line-height: 33px;
+    background: #0f91e6;
+    border: 1px solid #0f91e6;
+    border-radius: 2px;
+}
+#btnDelete{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 13px;
+    height: 34px;
+    line-height: 33px;
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+    margin: 0 4px;
+}
+
+a{
+	color: black;
+}
+.ic_answer {
+    background-position: -80px -60px;
+    width: 13px;
+    height: 12px;
+        vertical-align: middle;
+ 
 }

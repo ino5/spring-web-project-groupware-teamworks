@@ -9,4 +9,6 @@ import com.example.sproject.model.login.Member;
 public interface LoginService extends UserDetailsService {
 	int join(Member member);
 	int passwordCheck(Member member);
+
+	
 }

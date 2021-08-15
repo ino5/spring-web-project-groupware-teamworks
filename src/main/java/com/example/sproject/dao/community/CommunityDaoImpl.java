@@ -181,6 +181,8 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public int rereply_insert(Reply reply) {
+		System.out.println("rereply_insert in CommunityDaoImpl");
+		System.out.println("reply: " + reply);
 		return session.insert("rereply_insertCommunity", reply);
 	}
 
@@ -312,6 +314,21 @@ public class CommunityDaoImpl implements CommunityDao {
 	public List<BoardMember> list_board(int bd_num) {
 		return session.selectList("selecList_BoardOfCommunity", bd_num);
 
+	}
+
+	@Override
+	public List<BoardMember> list_community(int bd_num) {
+		return session.selectList("selecList_AdminOfCommunity", bd_num);
+	}
+
+	@Override
+	public int postLike_delete(int p_num) {
+		return session.delete("PostLike_DeleteOfCommunity", p_num);
+	}
+
+	@Override
+	public int post_replydelete(int p_num) {
+		return session.delete("post_replydeleteOfCommunity", p_num);
 	}
 
 }

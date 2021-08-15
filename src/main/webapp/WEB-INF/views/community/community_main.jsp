@@ -28,6 +28,7 @@
 					<li class="li">
 						<c:if test="${as.is_joined != '0'}">
 							<a href="${pageContext.request.contextPath}/community/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a>
+								<img style="border-radius:70%; width:30px; height: 30px; " src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>
 						</c:if>
 						
 						<c:if test="${as.is_joined == '0'}">
@@ -54,10 +55,15 @@
 					<c:forEach var="ps" items="${listPost}">
 					<div id="community_list">
 				<ul>
-				<li>${ps.bd_name} ${ps.p_view} </li>
-				<li ><a style="font-size: 20px;" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></li>
+				<li  style="margin-top: 20px;">${ps.bd_name} > ${ps.p_name} <span id="img_com" style="color: black;"> &nbsp;&nbsp;&nbsp; <img alt="image"
+											src="${pageContext.request.contextPath}/community/img/arrow5.png"
+											style="width: 20px; height: 15px;"> &nbsp;${ps.p_view} </span></li>
+				<li ><a style="font-size: 20px;" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_content}</a></li>
 			
-				<li>${ps.m_id} &nbsp; &nbsp; &nbsp;<fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/><button style="background-color: transparent; border: none;" type="button" id="buttonRecommand" onclick="location.href='${pageContext.request.contextPath}/board/recommend?p_num=${view.p_num}'">
+				<li>
+				<img style="border-radius:70%; width:30px; height: 30px; " src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>
+				${ps.m_name}${ps.pt_name}&nbsp; &nbsp; &nbsp;
+				<fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/><button style="background-color: transparent; border: none;" type="button" id="buttonRecommand" onclick="location.href='${pageContext.request.contextPath}/board/recommend?p_num=${view.p_num}'">
 </button>
 			<c:if test="${ps.is_liked == 0}">
 			<img alt="image" src="${pageContext.request.contextPath}/board/img/heart.png"
@@ -76,41 +82,6 @@
 			</div>
 			</div>
  </div>
-<!-- 	</div> -->
-<div id="myModal" class="modal">
-
-		<!-- Modal content -->
-		<div class="modal-content">
-			<p>
-				<span>게시판 관리 <img
-					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
-					style="width: 35px; height: 25px; float: right; cursor: pointer;"
-					onclick="close_pop2();" id="x_icon" />
-				</span>
-			</p>
-			<br>
-			<p style="text-align: center; line-height: 1.5;"></p>
-			<form id="modal_form" name="modal_form">
-			<sec:csrfInput/>
-				<table>
-					<tr>
-						<td>게시판선택</td>
-						<td colspan="3">
-							<select name="bd_num">
-								<c:forEach var="boardListOfCommunity" items="${boardListOfCommunity}">
-									  <option value="${boardListOfCommunity.bd_num}">${boardListOfCommunity.bd_name}</option>
-								</c:forEach>							
-							</select>
-						</td>
-					<tr>
-						<td></td>
-					    <td><input type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
-						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/board/groupDelete"></td>
-						<td><input type="button" value="취소" id="close_btn"></td>
-				</table>
-			</form>
-		</div>
-	</div>
 	<c:forEach var="as" items="${boardListOfCommunity }">
 	<div id="myModal2_${as.bd_num}" class="modal">
 	
@@ -121,7 +92,7 @@
 				<span style="font-size: 20px; font-weight: bold;">가입을 하시겠습니까? <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
-					onclick="close_pop2();" id="x_icon" />
+					 id="x_icon_${as.bd_num}" />
 				</span>
 			</p>
 			<br>
@@ -144,11 +115,7 @@
 			$('#myModal2_${as.bd_num}').show();
 		});
 		//모달창 Close 기능
-			$("#close_btn2").unbind('click').on('click', function() {
-				$('#myModal2_${as.bd_num}').hide();
-			});
-		//모달창 Close 기능
-			$("#x_icon").unbind('click').on('click', function() {
+			$("#x_icon_${as.bd_num}").unbind('click').on('click', function() {
 				$('#myModal2_${as.bd_num}').hide();
 			});
 		});

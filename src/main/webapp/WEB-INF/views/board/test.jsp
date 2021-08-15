@@ -170,7 +170,7 @@ $("#boardSet").on("click", function () {
 						<td>${ps.p_num}</td>
 						<td><a style="color: #666666;"
 							href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
-						<td>${ps.m_id}</td>
+						<td>${ps.m_name} ${ps.pt_name}</td>
 						<td><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ps.p_view}</td>
 					</tr>

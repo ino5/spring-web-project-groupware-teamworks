@@ -368,27 +368,7 @@ article .block:nth-child(2n)
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-#btnNotice button{
-	display: inline-block;
-    cursor: pointer;
-    padding: 0 8px;
-    color: #fff;
-    height: 26px;
-    line-height: 26px;
-    background: #00a1b9;
-    border: 1px solid #00a1b9;
-    border-radius: 2px;
-    font-size: 13px;
-}    
-#boardSet2 button{
-    padding: 2px 4px 4px;
-    color: #fff;
-    font-weight: normal;
-    font-size: 11px;
-    line-height: 11px;
-    background: #aeb2ba;
-}
-}
+
 /* Modal Content/Box */
 .modal-content {
 	background-color: #fefefe;

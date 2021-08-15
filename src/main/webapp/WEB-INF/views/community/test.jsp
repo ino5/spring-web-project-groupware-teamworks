@@ -102,6 +102,8 @@ $(document).ready(function() {
 			submenu.slideDown("fast");
 		}
 	});
+});
+
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -120,12 +122,11 @@ $(document).ready(function() {
 					src="${pageContext.request.contextPath}/board/img/white.png"
 					style="width: 16px; height: 12px;" id="img1">
 			</span>가입 멤버</a>
-<!-- 			<ol id="scroll" style="display: none; list-style: none;"> -->
+			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="bc" items="${boardListOfJoinedCommunity }">
-					<li class="li">${bc.m_id}</li>
+					<li class="li">${bc.m_name}</li>
 				</c:forEach>
-
-<!-- 			</ol> -->
+			</ol>
 		</div>
 	</div>
 	<div id="content">
@@ -146,17 +147,19 @@ $(document).ready(function() {
 						<li><button type="button" class="btn2"onclick="location.href='${pageContext.request.contextPath}/community/write'">
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/pencil.png"><span style="font-weight: bold;"> 새글쓰기</span>
 							</button></li>
-			<c:if test="${sessionId =='admin'}">
-						<li><button type="button" id="boardSet" class="btn2 btn_admin" >
-								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
-							</button></li>
-						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
-								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
-							</button></li>
-						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
-									<img style=" width: 25px; height: 25px;" alt="image" src="${pageContext.request.contextPath}/board/img/megaphone.png"><span style="font-weight: bold;"> 공지로 등록</span>
-							</button></li>
-							  </c:if>
+					<c:forEach var="as" items="${boardListOfAdministratorOfCommunity}">
+						<c:if test="${as.m_id == sessionId }">
+							<li><button type="button" id="boardSet" class="btn2 btn_admin" >
+									<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
+								</button></li>
+							<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
+									<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
+								</button></li>
+							<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
+										<img style=" width: 25px; height: 25px;" alt="image" src="${pageContext.request.contextPath}/board/img/megaphone.png"><span style="font-weight: bold;"> 공지로 등록</span>
+								</button></li>
+						</c:if>
+					</c:forEach>
 					</ul>
 				</section>
 
@@ -186,7 +189,7 @@ $(document).ready(function() {
 						<td>${ps.p_num}</td>
 						<td><a style="color: #666666;"
 							href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
-						<td>${ps.m_id}</td>
+						<td>${ps.m_name} ${ps.pt_name}<img style="border-radius:70%; width:30px; height: 30px; " src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/></td>
 						<td><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ps.p_view}</td>
 					</tr>

@@ -87,6 +87,7 @@ function clickDelete(rpNum){
         
     });
 }
+
 //아이디가 관리자인 사람만 보이게 
 	var mid = $('#m_id').val();
 	var loginId = $('#loginId').val();

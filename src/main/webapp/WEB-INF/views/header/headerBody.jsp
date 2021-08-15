@@ -19,6 +19,7 @@
 				<li><a href="${pageContext.request.contextPath}/drive" id="head_drive">드라이브</a></li>
 				<li><a href="${pageContext.request.contextPath}/reservation" id="head_reservation">예약</a></li>
 				<li><a href="${pageContext.request.contextPath}/survey" id="head_survey">설문</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin" id="head_admin">관리자</a></li>
 			</ul>
 		</nav>
 	</header>

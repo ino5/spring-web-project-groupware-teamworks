@@ -128,24 +128,25 @@ $("#boardSet").on("click", function () {
 		</div>
 	</div>
 	<div style="margin-top: 20px; margin-left: 20px; position:relative; float: left;" ><span style="font-size: 22px;">게시글 목록</span></div>
-				<div id="searchBox_div" style=" position:relative; float: right: ;">
+				<div id="searchBox_div" style=" position:relative; float: right;">
 <form action="${pageContext.request.contextPath}/board/BoardSearchList" method="post">
 <sec:csrfInput/>
 				<table id="searchBox">
 					<tr>		
-		<td><select id="option" style="width: 110px; font-size: 14px;" name="searchOption">
-            <!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
+		<td><select id="option" name="searchOption">
+<!--             검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
           			  <option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/> >제목+이름+제목</option>
            			 <option value="m_id" <c:out value="${map.searchOption == 'm_id'?'selected':''}"/> >이름</option>
            			  <option value="p_content" <c:out value="${map.searchOption == 'p_content'?'selected':''}"/> >내용</option>
           			 <option value="p_name" <c:out value="${map.searchOption == 'p_name'?'selected':''}"/> >제목</option>
           			 <option value="m_id">진짜이름</option>
        	</select></td>
-						<td><input style="width: 150px;" id="search" type="text" name="keyword"
-							value="${map.p_name}" placeholder="검색" size="20"><button type="submit" onclick="location.href='${pageContext.request.contextPath}/board/BoardSearchList'"><img
-							src="${pageContext.request.contextPath}/board/img/search.png"
-							width="20px" height="20px"></button></td>
+						<td><input id="search" type="text" name="keyword"
+							value="${map.p_name}" placeholder="검색" size="100"><img
+							src="${pageContext.request.contextPath}/address/img/search.png"  onclick="location.href='${pageContext.request.contextPath}/board/BoardSearchList'"
+							width="14px" height="13px"></td>
 					</tr>
+
 				</table>
         			</form>
         			</div>
@@ -162,7 +163,7 @@ $("#boardSet").on("click", function () {
 						<li><button type="button" id="boardSet" class="btn2 btn_admin" >
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
 							</button></li>
-						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:groupDelete()">
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
 							</button></li>
 						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
@@ -206,7 +207,7 @@ $("#boardSet").on("click", function () {
 						</td>
 						<td>${ps.p_num}</td>
 						<td><a style="color: #666666;" href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
-						<td>${ps.m_id}</td>
+						<td>${ps.m_name}${ps.pt_name}</td>
 						<td><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ps.p_view}</td>		
 					</tr>

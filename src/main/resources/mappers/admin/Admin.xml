@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.sproject.dao.admin.AdminDao">
+
+	<select id="memberCntOfAdmin" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE m_status IN (1)
+	</select>
+	
+	<select id="memberListOfAdmin" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+    <![CDATA[
+         select * from (select rownum rn, a.m_id, a.m_name, a.m_empnum, a.m_birth, a.m_phone, a.m_email, d.dpt_name, p.pt_name from 
+		 (select * from member where m_status IN (1) order by m_name) a, position p, department d 
+		 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code) 
+    	 where rn >= #{start} and rn <= #{end} 
+     ]]>	 
+    </select>
+<update id="selectAdminGroupOfAdmin" parameterType="Map">
+		UPDATE member SET pt_code = #{pt_code}  WHERE m_id = #{m_id}
+	</update>
+<!-- 	<delete id="boardDeleteGroup" parameterType="int"> -->
+<!-- 		delete from post where pt_code= #{pt_code} -->
+<!-- 	</delete> -->
+	<update id="adminPassWordChangeGroupOfAdmin" parameterType="Map">
+		UPDATE member SET m_password = #{m_password}  where m_id = #{m_id}
+	</update>
+	<delete id="DeleteBoardGroupOfAdmin" parameterType="string">
+		delete from member where p_num= #{p_num}
+	</delete>
+	<select id="checkedIDMemberOfAdmin" parameterType="String" resultType="int">
+	 SELECT COUNT(*) 
+		FROM   MEMBER
+		WHERE  m_id = #{m_id}
+	</select>
+</mapper>

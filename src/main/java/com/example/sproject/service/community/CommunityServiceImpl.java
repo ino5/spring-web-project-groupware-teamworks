@@ -144,8 +144,7 @@ public class CommunityServiceImpl implements CommunityService {
 		reply.setParent_rp_ref(parentReply.getRp_ref());
 		reply.setParent_rp_order(parentReply.getRp_order());
 		reply.setParent_rp_depth(parentReply.getRp_depth());
-
-
+		System.out.println("parentReply: " + parentReply);
 		
 		//tRp_ref, Rp_depth 값 설정
 		reply.setRp_ref(reply.getParent_rp_ref());
@@ -263,6 +262,21 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<BoardMember> list_board(int bd_num) {
 		return communityDao.list_board(bd_num);
 
+	}
+	@Override
+	public List<BoardMember> list_community(int bd_num) {
+		return communityDao.list_community(bd_num);
+
+	}
+	@Override
+	public int postLike_delete(int p_num) {
+		 return communityDao.postLike_delete(p_num);
+		
+	}
+	@Override
+	public int post_replydelete(int p_num) {
+		return communityDao.post_replydelete(p_num);
+		
 	}
 
 }
