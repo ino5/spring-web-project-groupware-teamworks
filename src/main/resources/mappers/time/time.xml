@@ -21,6 +21,28 @@
 	
 	<select id="timeList_edateOfTime" parameterType="java.lang.String" resultType="com.example.sproject.model.time.Time">
 		select tm_num, m_id, tm_type, tm_sdate, substr(tm_edate,12,8) tm_sdate_time, tm_edate, substr(tm_edate,12,8) tm_edate_time,
-		substr(tm_edate,1,10) tm_edate_date, substr(tm_edate,9,2) tm_edate_day from time where m_id = #{m_id}
+		substr(tm_edate,1,10) tm_edate_date, substr(tm_edate,9,2) tm_edate_day from time where m_id = #{m_id} and tm_type = 2
+	</select>
+		
+	<select id="DepartmentOfTime" resultType="com.example.sproject.model.address.Department">
+		select * from department
+	</select>
+	
+	<select id="totalDeptOfTime" parameterType="java.lang.String" resultType="int">
+		select count(*) from member where dpt_code = #{dpt_code}
+	</select>
+	
+	<select id="listDeptGroupMemberOfTime" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+		<![CDATA[
+			 select * from (select rownum rn, a.m_id, a.m_name, a.m_email, d.dpt_name, p.pt_name from 
+			 (select * from member where m_status IN (1,11) order by m_name) a, position p, department d 
+			 where a.dpt_code = d.dpt_code and a.pt_code = p.pt_code and a.dpt_code = #{dpt_code}) 
+	    	 where rn >= #{start} and rn <= #{end} 
+   		]]>	 
+	</select>
+	
+	<select id="listDeptGroupTimeOfTime" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.time.Time">
+		select m.m_id, t.tm_sdate, t.tm_edate, substr(t.tm_edate,0,10) tm_edate_date, substr(t.tm_sdate,12,8) tm_sdate_time, 
+		substr(t.tm_edate,12,8) tm_edate_time from time t, member m where m.m_id = t.m_id and m.dpt_code = #{dpt_code} and t.tm_type = 2
 	</select>
 </mapper>
