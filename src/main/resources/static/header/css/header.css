@@ -15,9 +15,11 @@ header {
 }
 
 .head_nav {
-	margin-left: 18%;
+	margin-left: 8%;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	display: inline-block;
+    width: 63%;
 }
 
 .head_nav ul li {
@@ -35,11 +37,90 @@ header {
 	color: white;
 	text-decoration : none;
 	letter-spacing: -0.5px;
+	cursor: pointer;
 }
 
 .head_nav ul li a:hover {
 	background-color: #4374D9;
 }
+
+header #logo {
+	width: 20%;
+	float: left;
+	height: 56px;
+    width: 198px;
+    margin-left: 16px;
+}
+
+/* header 오른쪽 부분 */
+header #header_right {
+	float: right;
+}
+
+header #header_right #my_photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    margin-top: 10px;
+    margin-right: 23px;
+    cursor: pointer;
+}
+
+#header_right_modal {
+/*     display: block; */
+    display: none;
+    z-index: 50;
+	position: absolute;
+	right: 23px;
+	top: 50px;
+	box-shadow: 0 0 16px rgb(0 0 0 / 40%);
+    border-radius: 4px;
+    background: #fff;
+}
+
+#header_right_modal ul, #header_right_modal li {
+	padding: 0;
+    list-style: none;	
+}
+
+#header_right_modal ul {
+	margin: 8px 0;
+}
+
+#header_right_modal li a {
+	display: block;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#header_right_modal li a:hover {
+	background: #eee;
+}
+
+
+/* 로딩 모달 화면 */
+#loading_modal {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 1000%;
+	height: 1000%;
+	background-color: rgba(0, 0, 0, 0.3);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+/* 로그아웃 form */
+#div_logout {
+	display: none;
+}
+
+/* header 아래에 side와 content */
 
 #side {
 	 width: 15%; 

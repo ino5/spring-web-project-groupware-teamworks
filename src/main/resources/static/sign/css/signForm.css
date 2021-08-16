@@ -110,7 +110,7 @@ span.title {
 .modal_wrap h1 {
 	color: #000;
     font-weight: normal;
-    font-size: 25px;
+    font-size: 25px !important;
     margin: 17px;
 }
 
@@ -140,7 +140,7 @@ span.title {
 
 /* 결재하기, 반려하기 모달창 */
 #modal_wrap_approval, #modal_wrap_return {
-	height: 162px;
+	height: 139px;
 }
 
 #modal_wrap_approval button, #modal_wrap_return button {

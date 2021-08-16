@@ -18,6 +18,7 @@
 
 <!-- header js -->
 <script src="${pageContext.request.contextPath}/header/js/header.js"></script>
+<script defer src="${pageContext.request.contextPath}/header/js/header-defer.js"></script>
 
 <!-- Ajax에서 Post 요청마다 csrf 토큰 값 넘겨주기 위한 스크립트 -->
 <script src="${pageContext.request.contextPath}/header/js/csrf.js"></script>
