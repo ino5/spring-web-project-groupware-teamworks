@@ -13,6 +13,7 @@
 					</div>
 					<div class="h5"><b>TEAM</b></div>
 					<div class="h6"><b>works</b></div>
+					<div class="x"><b>X</b></div>
 				</div>
 				<div id="roomContainer" class="roomContainer">
 					<table id="memberlist" class="memberlist">
