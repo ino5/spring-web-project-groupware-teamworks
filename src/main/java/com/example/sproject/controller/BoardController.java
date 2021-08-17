@@ -47,7 +47,7 @@ public class BoardController {
 		System.out.println("BoardController Start List..");
 		int total = boardService.total();
 		System.out.println("BoardController total=>"+total);
-		
+
 		//입력받은 currentpage가 null일 때 1로 바꿔주기
 		if(currentPage == null || "".equals(currentPage)) {
 			currentPage = "1";
@@ -175,7 +175,7 @@ public class BoardController {
 	public String delete(int p_num, Model model) {
 		System.out.println("EmpController Start delete...");
 		System.out.println("p_num"+p_num);
-		boardService.PostLike_Delete(p_num);
+		boardService.postLike_delete(p_num);
 		boardService.post_replydelete(p_num);
 		boardService.delete(p_num);
 		boardService.listSide(model);

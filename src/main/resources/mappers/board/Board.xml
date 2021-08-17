@@ -6,13 +6,15 @@
 	<![CDATA[
 		select *
 		from (select rownum rn, a.*
-			  from (select p.* FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (1,2) order by p_num desc) 
+			  from (select p.*, b.bd_name, m.m_name, ps.pt_name FROM post p inner join board b on(p.bd_num = b.bd_num) inner join member m on(p.m_id = m.m_id)  inner join position ps on(m.pt_code = ps.pt_code) 
+        WHERE b.BD_TYPE in (1,2) order by p_num desc) 
 			  a) where rn >= #{start} and rn <= #{end}
+
 	]]>	
 </select>
 
 <select id="PostTotalOfBoard" resultType="int">
-		select Count(*) FROM post	
+		select count(*) FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (1,2)
 	</select>
   <insert id="PostInsertOfBoard" parameterType="com.example.sproject.model.board.Post">
 	INSERT INTO post (p_num, bd_num, m_id, p_name, p_content,p_view, p_type, p_regdate) VALUES (
@@ -62,10 +64,10 @@
 
 <!--     댓글 리스트  -->
 <select id="ReplyListofBoard" parameterType="int" resultType="com.example.sproject.model.board.Reply">
-		select *
-		from reply 
-		where p_num = #{p_num}
-		order by rp_ref, rp_order, rp_depth
+		select m.m_name, p.pt_name, r.* 
+		from reply r, member m, position p
+		where r.p_num = #{p_num} and r.m_id = m.m_id and p.pt_code = m.pt_code 
+		order by r.rp_ref, r.rp_order, r.rp_depth
 </select>
 <!-- 댓글 추가 -->
   <insert id="ReplyInsertOfBoard" parameterType="com.example.sproject.model.board.Reply">
@@ -131,9 +133,11 @@
 	<select id="checkLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike" resultType="int">
 		SELECT COUNT(*) FROM post_like WHERE p_num = #{p_num} AND m_id = #{m_id}
 	</select>
+	
 	<insert id="insertLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike">
 		insert into post_like(p_num, m_id ) values(#{p_num},#{m_id})
 	</insert>
+	
 	<delete id="deleteLikeOfBoard" parameterType="com.example.sproject.model.board.PostLike">
 	delete from post_like where p_num= #{p_num} and m_id=#{m_id}
 	</delete>
@@ -144,9 +148,11 @@
 	
  	<select id="selectBoard_ListOfBoard" parameterType="com.example.sproject.model.board.Post" resultType="com.example.sproject.model.board.Post"> 
 	<![CDATA[
-		select * 
+			select * 
 		from (select rownum rn, a.*  
- 			  from (select * from post where bd_num=#{bd_num} order by p_num desc) a) where rn >= #{start} and rn <= #{end}  
+ 			  from (
+          select p.*, m.m_name, ps.pt_name from post p , member m, position ps where bd_num=#{bd_num} and p.m_id = m.m_id and m.pt_code = ps.pt_code 
+          order by p_num) a) where rn >= #{start} and rn <= #{end}
  	]]>	  
  </select> 
 	
@@ -182,11 +188,13 @@
     <!-- WHERE절을 include 태그로 삽입 -->
     <include refid="search"></include>
     ORDER BY p_num desc, p_regdate desc
+    
 </select>
 <!-- 댓글삭제 후 게시글 삭제-->
  	<delete id="Post_ReplydeleteOfBoard" parameterType="int">
 		delete from reply where p_num= #{p_num}
 	</delete>
+	
 <!-- 	좋아요삭제 후 게시글 삭제 -->
 	<delete id="PostLike_DeleteOfBoard" parameterType="int">
 		delete from post_like where p_num= #{p_num}

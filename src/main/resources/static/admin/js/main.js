@@ -27,48 +27,116 @@
         })
     });
      $(document).ready(function(){
-        //차트 초기화
-    	lineChart([],[]);
-    	
     	//차트 값 세팅 (데이터 값을 불러와서 형식에 맞게 넣기)
+    	var dptData = new Array();
     	$("#test").click(function(){
-    		var label =  ["월","화","수","목","금","토","일"];
-    		var data = [2, 3, 5, 7, 11, 13, 17];
-
-    		lineChart(label, data);
+    	//데이터를 조회하는 통신
+			$.ajax({
+		        data : {},
+		        type : "POST",
+		        url : _contextPath+"/admin/memberAllList",
+		        contentType : false,
+		        processData : false,
+		        success : function(data) {
+		            //항상 업로드된 파일의 url이 있어야 한다.
+		            console.log(data);
+		           // barChart(data);
+		           var label = new Array();
+		           var chartData = new Array();
+		       
+		          var title = "부서별 사원 수";
+		           if(data.length>0){
+			           for(var i=0;i<data.length;i++){
+			           		label.push(data[i].dpt_name);
+			           		chartData.push(data[i].dpt_count);
+			           		dptData.push({code:data[i].dpt_code , name :data[i].dpt_name});
+			           }
+			           barChart(label,chartData,title);
+			           
+			         /*  1.차트에 들어가는 데이터 형태를 파악하기
+			           2.조회한 데이터 확인
+			           3.데이터형태에 맞춰서 값 넣어주기
+			            label = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
+		         		data =   [12, 19, 3, 5, 2, 3] */
+		           } 
+		        }
+	    	});
     	});
-      //선 차트입니다.
-        function lineChart(label , data){
-        	var data = {
-        	        labels:label,
-        	        datasets: [
-        	            {
-        	                label: "",
-        	                fillColor: "rgba(220,220,220,0.5)",
-        	                strokeColor: "rgba(220,220,220,1)",
-        	                pointColor: "rgba(220,220,220,1)",
-        	                pointStrokeColor: "#ffff",
-        	                pointHighlightFill: "#ffff",
-        	                pointHighlightStroke: "rgba(189,189,189,2)",
-        	                data: data
-        	            },
-        	            {
-        	                label: "",
-        	                fillColor: "rgba(151,187,205,0.2)",
-        	                strokeColor: "rgba(151,187,205,1)",
-        	                pointColor: "rgba(151,187,205,1)",
-        	                pointStrokeColor: "#fff",
-        	                pointHighlightFill: "#fff",
-        	                pointHighlightStroke: "rgba(151,187,205,1)",
-        	                data: [0, 1, 1, 2, 3, 5, 8]
-        	            }
-        	        ]
-        	    };
-        	    var ctx = document.getElementById("lineCanvas").getContext("2d");
-        	    var options = { };
-        	    var lineChart = new Chart(ctx).Line(data, options);
-        }
+    	
+    	
+    //차트실행 함수 (함수가 실행되면 차트가 그려지도록 만듬)	
+	function barChart(label , data,title){
+	    // 우선 컨텍스트를 가져옵니다. 
+		var ctx1 = document.getElementById("myChart").getContext('2d');
+		console.log(dptData);
+		/*
+		- Chart를 생성하면서, 
+		- ctx를 첫번째 argument로 넘겨주고, 
+		- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
+		*/
+		var myChart = new Chart(ctx1, {
+		    type: 'bar',
+		    data: {
+		        labels: label,
+		        datasets: [{
+		            label: title,
+		            data: data,
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255,99,132,1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+			    //차트를 누르면 이벤트 발생
+			    onClick: function(c,i) {
+			    //이벤트를 만들어서 C, i 를 받음
+					    e = i[0];
+					    //차트 순서 인덱스 
+					    var idx = e._index;
+					    var url="";
+					    if(idx==0){
+					    	url="/board/sideboard_list?bd_num=105";
+					    }else if(idx==1){
+					    	url="/board/sideboard_list?bd_num=104";
+					    }else if(idx==2){
+					    	url="/board";
+					    }else if(idx==3){
+					    	url="/board";
+					    }else if(idx==4){
+					    	url="/board/sideboard_list?bd_num=103";
+					    }else if(idx==5){
+					    	url="/board";
+					    }
+			    
+					     location.href= _contextPath+url;
+					},
+			        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    beginAtZero:true
+			                }
+			            }]
+			        }
+			    }
+			});
+		}
     });
+
 
 
 function doShow() { 

@@ -6,7 +6,7 @@
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/css/main.css">
 <script src="${pageContext.request.contextPath}/admin/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <title>Insert title here</title>
 </head>
 <!-- 바디 태그 더블 클릭 시 블록 선택 방지 -->
@@ -76,9 +76,11 @@
 				</a>
 			</div>
 			<button id="test">TEST</button>
-			<div class="graphBox" style="width: 50%; background-color: white; margin-left: 40px;">
-				<canvas id="lineCanvas" width="800" height="500"></canvas>
+			
+			<div style="width:800px">
+			    <canvas id="myChart"></canvas>
 			</div>
 	</div>
+	
 </body>
 </html>

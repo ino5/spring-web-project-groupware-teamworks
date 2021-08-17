@@ -7,7 +7,7 @@
 <head>
 <%@include file="/WEB-INF/views/header/headerHead.jsp"%>
 <link rel="styleSheet" href="${pageContext.request.contextPath}/community/css/board.css">
-<script src="${pageContext.request.contextPath}/board/js/board.js"></script>
+<script src="${pageContext.request.contextPath}/community/js/board.js"></script>
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
@@ -167,8 +167,9 @@ $("#boardSet").on("click", function () {
 							<input type="checkbox" name="check" id="chk_1" class="chk_1" value="${ps.p_num}">
 						</td>
 						<td>${ps.p_num}</td>
-						<td><a href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
+						<td><a style="color: #666666;" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
 						<td>${ps.m_id}</td>
+					
 						<td><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ps.p_view}</td>		
 					</tr>
@@ -229,7 +230,7 @@ $("#boardSet").on("click", function () {
 	<div id="myModal2_${as.bd_num}" class="modal">
 	
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content" style="background-color: white;">
 		
 			<p>
 				<span style="font-size: 20px; font-weight: bold;">가입을 하시겠습니까? <img

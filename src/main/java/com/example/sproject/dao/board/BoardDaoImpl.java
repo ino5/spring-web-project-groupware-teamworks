@@ -295,7 +295,7 @@ public class BoardDaoImpl implements BoardDao {
 
 		for(int i = 0; i < groupList.size(); i++) {
 			String p_num = groupList.get(i);
-			boardService.PostLike_Delete(Integer.parseInt(p_num));
+			boardService.postLike_delete(Integer.parseInt(p_num));
 			boardService.post_replydelete(Integer.parseInt(p_num));
 			session.delete("DeleteBoardGroupOfBoard", Integer.parseInt(p_num));
 	}
@@ -340,7 +340,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int PostLike_Delete(int p_num) {
+	public int postLike_delete(int p_num) {
 		int result = 0;
 		try {
 			result = session.delete("PostLike_DeleteOfBoard",p_num);
@@ -349,6 +349,7 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		return result;
 	}
+
 	}
 
 	

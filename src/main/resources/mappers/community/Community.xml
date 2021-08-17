@@ -10,11 +10,14 @@
 	<![CDATA[
 		select *
 		from (select rownum rn, a.*
-			  from (select p.* FROM post p inner join board b on(p.bd_num = b.bd_num) WHERE b.BD_TYPE in (3) order by p_num desc) 
-			  a) where rn >= #{start} and rn <= #{end}
+			  from (select p.*, b.bd_name, m.m_name, ps.pt_name, NVL((SELECT COUNT(*) FROM post_like pl WHERE pl.m_id = #{target_m_id} AND p.p_num = pl.p_num),0) is_liked FROM 
+        post p inner join board b on(p.bd_num = b.bd_num) inner join member m on(p.m_id = m.m_id) inner join position ps on(m.pt_code = ps.pt_code) WHERE b.BD_TYPE in (3) order by p.p_num desc) 
+			  a) 
+ where rn >= #{start} and rn <= #{end}
 	]]>		
 	</select>
 
+	
 <insert id="PostInsertOfCommunity" parameterType="com.example.sproject.model.board.Post">
 	INSERT INTO post (p_num, bd_num, m_id, p_name, p_content,p_view, p_type, p_regdate) VALUES (
 	(SELECT NVL(MAX(p_num)+1, 1) FROM post), #{bd_num}, #{m_id}, #{p_name}, #{p_content}, 0, #{p_type}, SYSDATE)
@@ -22,8 +25,7 @@
    
 	<!--     게시판 리스트  -->
 <select id="selectListBoardOfCommunity" parameterType="com.example.sproject.model.board.Board" resultType="com.example.sproject.model.board.Board">
-		select *
-		from board
+		select b.*, m.m_name from  board b, member m where b.m_id = m.m_id
 	</select>
 
 <!--  게시물 상세조회 -->
@@ -49,16 +51,16 @@
    </update>
 <!-- 댓글리스트 -->
 <select id="ReplyListofCommunity" parameterType="com.example.sproject.model.board.Reply" resultType ="com.example.sproject.model.board.Reply" >
-		select *
-	from reply 
-		where p_num = #{p_num}
-		order by rp_ref, rp_order, rp_depth
-	</select>
+		select m.m_name, p.pt_name, r.* 
+		from reply r, member m, position p
+		where r.p_num = #{p_num} and r.m_id = m.m_id and p.pt_code = m.pt_code 
+		order by r.rp_ref, r.rp_order, r.rp_depth
+</select>
 
 <!-- 댓글추가 -->
 <insert id="ReplyInsertOfCommunity" parameterType="com.example.sproject.model.board.Reply">
- INSERT INTO REPLY (p_num, rp_num, m_id, rp_content, rp_ref, rp_order, rp_depeth )
- VALUES (#{p_num}, #{rp_num}, #{m_id}, {rp_content}, #{rp_num}, 1, 1))
+ INSERT INTO REPLY (p_num, rp_num, m_id, rp_content, rp_ref, rp_order, rp_depth )
+ VALUES (#{p_num}, #{rp_num}, #{m_id}, #{rp_content}, #{rp_num}, 1, 1)
 	</insert>
 
 <!--    댓글 추가를 위해 가장 큰 댓글 번호 가져오기 -->
@@ -111,13 +113,15 @@
 <insert id="insertLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike">
 		insert into post_like(p_num, m_id ) values(#{p_num},#{m_id})
 	</insert>
+<!-- 	좋아요 삭제 -->
 <delete id="deleteLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike">
 	delete from post_like where p_num = #p_num and m_id=#{m_id}
 	</delete>
-	
+<!-- 	좋아요 확인한기 -->
 <select id="checkLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike" resultType="int">
 	 SELECT COUNT(*) FROM post_like WHERE p_num = #{p_num} AND m_id = #{m_id}
 	</select>
+<!-- 	공지 -->
 <select id="selectListNoticeOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Post">
 	select * from post where p_type = #{p_type} order by p_num desc
 	</select>
@@ -142,7 +146,9 @@
 	<![CDATA[
 		select * 
 		from (select rownum rn, a.*  
- 			  from (select * from post where bd_num=#{bd_num} order by p_num) a) where rn >= #{start} and rn <= #{end}  
+ 			  from (
+          select p.*, m.m_name, ps.pt_name from post p , member m, position ps where bd_num=#{bd_num} and p.m_id = m.m_id and m.pt_code = ps.pt_code 
+          order by p_num) a) where rn >= #{start} and rn <= #{end}
  	]]>	  
 	</select> 
 
@@ -153,13 +159,16 @@
 			  from (select * from board order by bd_num desc) a) where rn >= #{start} and rn <= #{end}
 	]]>		
 	</select>
+<!-- 	커뮤니티 만들기 -->
 	<insert id="CommunityInsertOfCommunity" parameterType="com.example.sproject.model.board.Board">
-	      INSERT INTO BOARD (bd_num, bd_name, bd_content, m_id, bd_type, bd_is_anon) 
-			          VALUES ( (SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{bd_name},#{bd_content}, #{m_id}, 3, #{bd_is_anon})
-	   </insert>
+		INSERT ALL
+		INTO board (bd_num, bd_name, bd_content, m_id, bd_type, bd_is_anon) VALUES ( (SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{bd_name}, #{bd_content}, #{m_id}, 3, #{bd_is_anon})
+		INTO board_member (bd_num, m_id, cmm_type) VALUES ((SELECT NVL(MAX(bd_num)+1, 1) FROM BOARD), #{m_id}, 2 )
+		SELECT * FROM DUAL
+	</insert>
 
 	<insert id="BoardMemberOfCommunity" parameterType="com.example.sproject.model.community.BoardMember">
-	INSERT INTO BOARD_MEMBER (bd_num, m_id, cmm_type) VALUES (
+	INSERT INTO board_member (bd_num, m_id, cmm_type) VALUES (
 	#{bd_num}, #{m_id}, 1)
    </insert>
    <select id="getCommunitiesJoinedOfCommunity" parameterType="String" resultType="com.example.sproject.model.board.Board">
@@ -169,8 +178,21 @@
    <select id="selectOneBoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board">
    		SELECT * FROM board WHERE bd_num = #{bd_num}
    </select>
-   <select id="selecList_BoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.board.Board" >
-   		SELECT * FROM board_member  WHERE bd_num = #{bd_num}
+   <select id="selecList_BoardOfCommunity" parameterType="int" resultType="com.example.sproject.model.community.BoardMember" >
+   		select bm.* , m.m_name 
+		from board_member bm, member m where bm.m_id = m.m_id and bd_num = #{bd_num}
    	</select>
  		
+ 		<select id="selecList_AdminOfCommunity" parameterType="int" resultType="com.example.sproject.model.community.BoardMember" >
+   		SELECT * FROM board_member  WHERE bd_num = #{bd_num} and cmm_type = 2
+   	</select>
+   
+   	<!-- 	좋아요삭제 후 게시글 삭제 -->
+<delete id="PostLike_DeleteOfCommunity" parameterType="int">
+		delete from post_like where p_num= #{p_num}
+	</delete>
+	   	<!-- 	댓글삭제 후 게시글 삭제 -->
+<delete id="post_replydeleteOfCommunity" parameterType="int">
+		delete from reply where p_num= #{p_num}
+	</delete>
  </mapper>

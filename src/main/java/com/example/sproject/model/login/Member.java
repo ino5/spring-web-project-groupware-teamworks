@@ -35,6 +35,7 @@ public class Member implements UserDetails{
 	private int pt_order;
 //	department
 	private String dpt_name;
+	private int dpt_count;
 //  address
 	private int adg_num;
 //  address 검색
@@ -97,4 +98,7 @@ public class Member implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+
+
 }

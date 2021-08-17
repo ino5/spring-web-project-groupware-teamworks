@@ -138,55 +138,91 @@
 			<button type="button" id="btnDelete" 
 				onclick="location.href='${pageContext.request.contextPath}/board/delete?p_num=${view.p_num}'">삭제</button>
 					</form>
+				
+				
 				<div>
 				<form action="${pageContext.request.contextPath}/board/reply_insert?p_num=${view.p_num}&loginId=${view.loginId}"
 			method="post">
 					<sec:csrfInput />
-					<table class="table_rp"style="width: 1000px; height:30px;  ">
-						<tr><td>
-					    <input  type="text" id = "rp_content" name = "rp_content">
-								<button type="submit" id="replyUpdete"onclick="location.href='${pageContext.request.contextPath}/board/view'">댓글등록</button>
-						</td></tr>
-						
-					</table>
-				</form>	
+				<table class="table_rp" style="width: 1000px; height: 30px; margin-top:100px; border-top: 2px solid #D5D5D5; ">
+					<tr>
+						<td><input style="margin-top: 50px;" type="text" id="rp_content" name="rp_content">
+							<button type="submit" id="replyUpdete"
+								onclick="location.href='${pageContext.request.contextPath}/board/view'">댓글등록</button>
+						</td>
+					</tr>
+				</table>
+
+				<script type="text/javascript">
+						// div speed 만들기
+						function doShow2(i) {
+							if ($('.speed_'+i).is(":visible")) {
+								$('.speed_'+i).hide();
+							} else {
+								$('.speed_'+i).show();
+							}
+						}
+					</script>
+			</form>	
+			<sec:csrfInput/>
 					<table id="list_table" style=" margin-top: 4%; border-top: 2px solid #EAEAEA;">
 						<c:forEach var="reply" items="${listReply}">
-							<tr class="rp_${reply.rp_num}">			
-								<td>${reply.m_id}</td>				
-								<td>
-									<c:if test="${reply.rp_depth > 1}">
-										<c:forEach begin="3" end="${reply.rp_depth}" step="1">
+						
+				<tr class="rp_${reply.rp_num}">
+						<td>${reply.m_name} ${reply.pt_name}
+						<button class="ic_answer"
+								style="background: transparent; border: 0; font-size: 15px; font-weight: bold; color: #8c8c8c"
+								type="button" onclick="javascript:doShow2(${reply.rp_num})">
+								<img style="width: 15px;" alt=""
+									src="${pageContext.request.contextPath}/community/img/arrow.png">
+								댓글
+							</button></td>
+						<td style="width: 500px"><c:if test="${reply.rp_depth > 1}">
+								<c:forEach begin="3" end="${reply.rp_depth}" step="1">
 											&nbsp;&nbsp;&nbsp;
 										</c:forEach>
-										<img alt="image" src="${pageContext.request.contextPath}/board/img/arrow.png" style="width: 16px; height: 12px;">
-									</c:if>
-<%-- 									<span style="margin-left: 100px;">${reply.rp_content}</span> --%>
-									${reply.rp_content}</span>
-								</td>
-								<td><button type="button" id="btnUpdete" onclick="clickDelete(${reply.rp_num})"><img alt="image" src="${pageContext.request.contextPath}/board/img/delete.png" style="width: 16px; height: 12px;">댓글삭제</button></td>
-							</tr>
-							<tr class="rp_${reply.rp_num}" id="scroll3">
-<!-- 								<a class="button3" onclick="javascript:doShow4()"  style=" margin-left: 1000px;">댓글</a> -->
-	                           <form  action="${pageContext.request.contextPath}/board/rereply_insert" method="post">
-									<sec:csrfInput/>
-						
-									<input type="hidden" name="p_num" value="${reply.p_num}">
-									<input type="hidden" name="parent_rp_num" value="${reply.rp_num}">
-									
-									<td><input type="text" id = "rp_content" name = "rp_content"></td>
-								
-									<td><button type="submit"><img alt="image" src="${pageContext.request.contextPath}/board/img/pencil.png" style="width: 16px; height: 12px;">대댓글등록</button></td>
-							
-								</form>				
-                           </tr>
-						</c:forEach>
-					</table>
-				
-	</div>
-	</div>
 
-		
+							</c:if>
+					</tr>
+					<tr class="rp_${reply.rp_num}">
+						<td></td>
+						<td>${reply.rp_content}</td>
+						<td><button type="button" id="btnUpdete"
+								onclick="clickDelete(${reply.rp_num})">
+								<img alt="image"
+									src="${pageContext.request.contextPath}/board/img/delete.png"
+									style="width: 16px; height: 12px; margin-left: 3px; margin-bottom: -16">	
+							</button></td>
+					</tr>
+					<tr class="rp_${reply.rp_num}">
+							
+							<td></td>
+							
+							<td style="display: none;" class="speed_${reply.rp_num}">
+								<form id="frm_rereply_${reply.rp_num}" name="frm_rereply_${reply.rp_num}" action="${pageContext.request.contextPath}/board/rereply_insert" method="post">
+									<sec:csrfInput/>
+									<input type="hidden" name="p_num" value="${reply.p_num}">
+									<input type="hidden" name="rp_ref" value="${reply.rp_ref}">
+									<input type="hidden" name="parent_rp_num" value="${reply.rp_num}">
+									<input type="text" id="rp_content" name="rp_content">
+								</form>
+							</td>
+							<td style="display: none;" class="speed_${reply.rp_num}"><button
+									type="button" onclick="document.getElementById('frm_rereply_${reply.rp_num}').submit();">
+									<img alt="image"
+										src="${pageContext.request.contextPath}/board/img/pencil.png"
+										style="width: 16px; height: 16px;">
+								</button>
+							</td>
+							
+							
+					</tr>
+						
+				</c:forEach>
+			</table>
+			
+		</div>		
+	</div>
 	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
 </html>

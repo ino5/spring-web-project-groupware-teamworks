@@ -41,6 +41,7 @@ public class CommunityController {
 	@RequestMapping(value = "", method = {RequestMethod.GET, RequestMethod.POST})
 	public String board(Model model, Post post, String currentPage, Board board,  Principal principal,BoardMember boardMember) {
 		System.out.println("CommunityController Start List");
+	
 		int total = communityService.total();
 		System.out.println("CommunityController total=>"+total);
 		
@@ -51,13 +52,21 @@ public class CommunityController {
 		Paging pg = new Paging(total, currentPage);
 		post.setStart(pg.getStart());
 		post.setEnd(pg.getEnd());
+
+		
 		//모든글
+		post.setTarget_m_id(principal.getName());
 		List<Post> listPost = communityService.listPost(post);
 		for(Post post2 : listPost) {
 			System.out.println(post2);
 		}
+		
+
+
+        
 		//커뮤니티 멤버 보여주기
 		List<Board> boardListOfCommunity = communityService.listBoard(3);
+		
 		//공지
 		List<Post> listNoticePost = communityService.listNoticePost(1);
 		model.addAttribute("boardListOfCommunity", boardListOfCommunity);
@@ -65,10 +74,11 @@ public class CommunityController {
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("listNoticePost", listNoticePost);
 		model.addAttribute("pg",pg);
-		
+
+		System.out.println(boardListOfCommunity+ "11111111111111111111111");
 		//사이드바 리스트 
 		communityService.listSide(principal.getName(), model);
-		return "community/board";
+		return "community/community_main";
 	}
 	//게시글 작성화면
 	@GetMapping(value = "write")
@@ -112,25 +122,27 @@ public class CommunityController {
         if(principal != null) {
         	post.setLoginId(principal.getName());
         }
+        
+        
+        
         //댓글 가져오기
      	List<Reply> listReply = communityService.listReply(p_num);
         modelandview.addObject("listReply", listReply);
      	communityService.listSide(principal.getName(), modelandview);	
         modelandview.addObject("view", post);
      
-        
         //좋아요 가져오기
       PostLike postLike = new PostLike();
       if(principal != null) {
     	  postLike.setM_id(principal.getName());
     	  postLike.setP_num(p_num);
     	  int statusOfLike = communityService.checkLike(postLike);
-    	  modelandview.addObject("statusOfLike", statusOfLike);
-    	  //
-    	  
+    	  modelandview.addObject("statusOfLike", statusOfLike); 
       }
       return modelandview;
 }
+   
+    
     // 게시글 수정
     @PostMapping(value = "update")
     public String update(Post post) throws Exception{
@@ -142,7 +154,9 @@ public class CommunityController {
     //게시글 삭제 
     @RequestMapping(value ="delete" )
     public String delete(int p_num, Model model) {
-    	System.out.println("CommunityController Start delete...");
+    	System.out.println("CommunityController Start delete...");    	
+    	communityService.postLike_delete(p_num);
+    	communityService.post_replydelete(p_num);
     	communityService.delete(p_num);
     	return "redirect:/community";
     }
@@ -203,7 +217,6 @@ public class CommunityController {
   			@PostMapping(value = "rereply_insert")
   			public String rereply_insert(Reply reply, Model model, Principal principal, int parent_rp_num ) throws Exception {
   				System.out.println("CommunityController Start Rereplyinsert..");
-
   				if(principal != null) {
   					reply.setM_id(principal.getName());
   				}
@@ -263,6 +276,13 @@ public class CommunityController {
 //사이드
 			@RequestMapping(value = "sideboard_list")
 			public String board_list(Post post, String currentPage, Model model, int bd_num, Principal principal,BoardMember boardMember) {
+				//커뮤니티 관리자 가져오기
+		        List<BoardMember> boardListOfAdministratorOfCommunity = communityService.list_community(bd_num);
+		        for (BoardMember boardMemberTemp : boardListOfAdministratorOfCommunity) {
+		        	System.out.println("boardMember: " + boardMemberTemp);
+		        }
+		        model.addAttribute("boardListOfAdministratorOfCommunity", boardListOfAdministratorOfCommunity);					
+				
 				//bd_num, 커뮤니티 정보 jsp에 넘기기
 				model.addAttribute("bd_num", bd_num);
 				Board community = communityService.findBoard(bd_num);
@@ -316,14 +336,14 @@ public class CommunityController {
 				communityService.listSide(principal.getName(), model);
 				return "redirect:/community/";
 				
-				
+
 			}
 //커뮤니티 가입하기
 			@PostMapping(value = "CommunitySign")
 			public String CommunitySign(Model model, BoardMember boardMember, Principal principal, int bd_num) throws Exception{
-				
 				//아이디 넣기
 				boardMember.setM_id(principal.getName());
+				boardMember.setBd_num(bd_num);
 				//화면에서 입력받은 제목,소개
 				communityService.insert(boardMember);
 				//사이드바 리스트 

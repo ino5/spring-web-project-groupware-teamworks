@@ -55,8 +55,8 @@ table{
 	margin-top: 40px;
 	margin-right: 50px;
 	position: relative;
-	width: 200px;
-	height: 37px;
+	width: 380px;
+	height: 45px;
 	border: 1px solid #ddd;
 	padding : 0px 10px;
 }
@@ -82,6 +82,7 @@ table{
 	font-size: 17px;
 	color: black;
 }
+
 /* ======================== Div Side ============================= */
 
 #btn1 {
@@ -164,40 +165,7 @@ table{
     display: none;
 }
 
-
-#searchBox{
-	float:right;
-	margin-top: 40px;
-	margin-right: 50px;
-	position: relative;
-	width: 200px;
-	height: 37px;
-	border: 1px solid #ddd;
-	padding : 0px 10px;
-}
-
- #search {
- 	border : none;
-	padding : 0px 30px;
-	border-radius: 50px;
-	font-size: 18px;
-	font-family: "Nunito";
-	color : #424242;
-	font-weight: 500;
-	width: 150px;
-}
-
-#search:focus {
-	outline : none;
-}
-
-#option {
-	border: 0;
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-	font-size: 17px;
-	color: black;
-}
-
+	
 h2 {
 	font-weight: normal;
 	margin: 50px 50px;
@@ -279,10 +247,11 @@ position:relative;
 }
 #board_table tr, #board_table td{
 /* 	margin-left:5%; */
-	height: 60px;
+	height: 45px;
 	width: 300px;
 	font-size:18px;
 	border-collapse: collapse;
+	color: #333333;
 }
 
 #arrow2{
@@ -364,18 +333,7 @@ input[type="checkbox"]:checked {
 	position: relative;
 }
 
-select {
-	width: 140px; /* 원하는 너비설정 */
-	padding: .7em .4em; /* 여백으로 높이 설정 */
-	border: 2px solid #c0c0c0;
-	font-family: inherit; /* 폰트 상속 */
-	font-size:15px;
-	background: url('arrow.jpg') no-repeat 95% 50%;
-	border-radius: 0px; /* iOS 둥근모서리 제거 */
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-/* 	appearance: none; */
-}
+
 .wrap {
 	width: 140px;
 	height:.7em .4em;
@@ -414,12 +372,13 @@ select {
 	padding: 8px;	
 }
 
-.input {
-	width: 494px;	
-	height: 25px;
-	border: 1px solid #c0c0c0;
-	border-radius: 4px;
-}
+/* 검색 창 수정 중 */
+/* .input { */
+/* 	width: 494px;	 */
+/* 	height: 25px; */
+/* 	border: 1px solid #c0c0c0; */
+/* 	border-radius: 4px; */
+/* } */
 
 .modal {
 	display: none; /* Hidden by default */

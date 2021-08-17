@@ -286,9 +286,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int PostLike_Delete(int p_num) {
+	public int postLike_delete(int p_num) {
 		// TODO Auto-generated method stub
-		return boardDao.PostLike_Delete(p_num);
+		return boardDao.postLike_delete(p_num);
 	}
 
 	

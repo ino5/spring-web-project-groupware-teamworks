@@ -42,7 +42,7 @@ public interface BoardService {
 	List<Post> listAll(String searchOption, String keyword);
 	int countArticle(String searchOption, String keyword);
 	int post_replydelete(int p_num);
-	int PostLike_Delete(int p_num);
+	int postLike_delete(int p_num);
 
 
 

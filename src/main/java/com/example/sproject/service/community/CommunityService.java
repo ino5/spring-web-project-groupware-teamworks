@@ -50,6 +50,9 @@ public interface CommunityService {
 	int insert(BoardMember boardMember);
 	Board findBoard(int bd_num);
 	List<BoardMember> list_board(int bd_num);
+	List<BoardMember> list_community(int bd_num);
+    int postLike_delete(int p_num);
+	int post_replydelete(int p_num);
 	
 
 

@@ -54,7 +54,7 @@ html, body, .container {
 
 #content {
 
-	width: 84%; 
+	width: 1980px; 
 	float: right;
 }
 
@@ -219,11 +219,12 @@ h2 {
 	margin-top:5%;
 	margin-left:2%;
 	padding-top:30px;
+	line-height:70px;
 	padding-bottom:30px;
 	padding-left: 20px;
 	border-radius:10px;
 	width: 95%;
-	height: 100px;
+	height: 80px;
 	background-color: white;
 }
 #wrap tr, #wrap td{
@@ -263,7 +264,7 @@ position:relative;
 #board_table tr, #board_table td{
 	margin-left:5%;
 	height: 50px;
-	width: 300px;
+	width: 250px;
 	font-size:18px;
 	border-collapse: collapse;
 }
@@ -366,3 +367,13 @@ position:relative;
 #modal_wrap{
 	margin-left: 88px;
 }
+#profile{
+	float: left;
+}
+
+#profile_name{
+	padding-top:7px;
+	margin-left: 70px;
+}
+.id_ok{color:#fff; display: none;}
+.id_already{color:#6A82FB; display: none;}

@@ -30,13 +30,13 @@ function doShow() {
     if ($('#hide').is(":visible")) { 
         $('#hide').hide();             	
         $('#img3').css({'transform': 'rotate(180deg)'});
-        $('#content').css({"width": "100%"}); 
-        $('#list_table').css({"width": "1730px"}); 
+        $('#content').css({"width": "90%"}); 
+        $('#list_table').css({"width": "1530px"}); 
     } else { 
         $('#hide').show(); 
         $('#img3').css({'transform': 'rotate(0deg)'});
-        $('#content').css({"width": "1591.8px"});  
-        $('#list_table').css({"width": "1591px"}); 
+        $('#content').css({"width": "1500px"});  
+        $('#list_table').css({"width": "1500px"}); 
     } 
 } 
 

@@ -12,4 +12,6 @@ public class Board {
  private int bd_is_anon;
  private int is_joined;
  private int cm_num;
+ private String m_name;
+ private String pt_name;
 }
