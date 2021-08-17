@@ -255,10 +255,14 @@
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 <div id="side">
 		<div id="myInfo">
-			<img id="img" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" style="width: 50px; height: 50px"/>			
-			이름 : ${m_name }
-			생년월일 : ${m_birth }
-	 		직위 : ${pt_name }
+			<div id="img">
+				<img id="img" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" style="width: 50px; height: 50px"/>			
+			</div>
+			<div id="text">
+					이름 : ${m_name } <br>
+					생년월일 : ${m_birth } <br>
+			 		직위 : ${pt_name }
+		 	</div>
  		</div>
  		<section id="clock">
 			<span id="clock1"></span> <br> <span id="clock2"></span>
@@ -324,7 +328,98 @@
 		</script>	
 </div>
 <div id="content">
-
+	
+	<div class="set1">
+		<div class="box1">
+		</div>
+		<!-- 게시판 -->
+		<div class="box2">
+			<div class="box2_1">
+				<table id="list_table">
+					<tr>
+						<td></td>
+						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><b>게시판</b></td>
+					</tr>
+					<tr style="height: 10px"></tr>
+					<c:forEach var="ps" items="${listPost}" begin="0" end="3">				
+							<tr style="width: 550px">
+								<td style="height: 40px; width: 50px; text-align: center">*</td>
+								<td style="width: 200px"><a style="color: #666666; text-decoration: none" href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
+								<td style="width: 150px; text-align: center">${ps.m_name}${ps.pt_name}</td>
+								<td style="width: 150px; text-align: center"><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy/MM/dd"/></td>	
+							</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<div class="box2_2">
+				<img alt="게시판.png" src="main/img/게시판.png"> 
+			</div>
+		</div>
+		<!-- 드라이브 -->
+		<div class="box3">
+			<div class="box3_1">
+						<table>
+								<tr>
+									<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><b>드라이브</b></td>
+								</tr>
+								<tr style="height: 10px"></tr>		
+							<c:forEach var= "driveFileInfo" items="${driveFileInfoListOfEnterprise}" begin="0" end="3">
+								<tr id="row_dv_id_${driveFileInfo.dv_id}" style="width: 550px">									
+									<td style="height: 40px; width: 150px; text-align: center">
+										<fmt:formatDate value="${driveFileInfo.dv_regdate}" pattern="yyyy/MM/dd"/>
+									</td>		
+									<td style="width: 200px">
+										${driveFileInfo.dv_filename}
+									</td>												
+									<td style="width: 100px; text-align: center">
+										${driveFileInfo.m_id}
+									</td>
+									<td style="width: 100px; text-align: center">
+										<button type="button" class="button_download_file" data-dv_id="${driveFileInfo.dv_id}">Download</button>
+									</td>
+								</tr>
+						</c:forEach>
+						</table>
+			</div>
+			<div class="box3_2">
+				<img alt="드라이브.png" src="main/img/드라이브.png"> 
+			</div>
+		</div>
+	</div>
+	<div class="set2">
+		<div class="box4">
+			<div class="box4_1">
+				<div class="text"><b>결재현황</b></div>
+				<div class="img"><img alt="전자결재.png" src="main/img/전자결재.png"> </div>
+			</div>
+			<div class="box4_2">
+				<div class="box4_2_1">
+					<div class="box4_2_1_1">
+						<div class="text1_1">기안진행</div>
+						<div class="text1_2"><b>${num_processing }</b></div>
+					</div>
+					<div class="box4_2_1_2">
+						<div class="text2_1">기안완료</div>
+						<div class="text2_2"><b>${num_ProposalCompleted }</b></div>
+					</div>
+				</div>
+				<div class="box4_2_2">
+					<div class="box4_2_2_1">
+						<div class="text3_1">결제대기</div>
+						<div class="text3_2"><b>${num_Waited }</b></div>
+					</div>
+					<div class="box4_2_2_2">
+						<div class="text4_1">결재처리</div>
+						<div class="text4_2"><b>${num_ApprovalCompleted }</b></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box5">
+		</div>
+		<div class="box6">
+		</div>
+	</div>	
 </div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

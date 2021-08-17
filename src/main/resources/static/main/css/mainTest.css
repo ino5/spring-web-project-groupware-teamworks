@@ -1,27 +1,30 @@
 @charset "UTF-8";
 
 #side {
-	 width: 25%;
-	 height: 1000px; 
+	 width: 20%;
+	 height: 800px; 
 	 float:left;
 }
 
-#content {
-	border-left: 2px solid #EAEAEA;
-	width: 74%; 
-	float: right;
+#img {
+	float:left;
+	position: relative;
 }
+
+#text {
+	float:left;
+}
+
 
 /* 시계 */
 #clock {
-	margin-top: 40px;
+	margin-top: 90px;
 	margin-bottom: 20px;
 }
 
 #clock1 {
 	color: #8C8C8C;
 	font-weight: bold;
-	margin-left: 40px;
 }
 
 #clock2 {
@@ -239,4 +242,213 @@ button {
 #date3{
 	padding : 0px 10px;
 	color: blue;	
+}
+
+#content {
+	border-left: 2px solid #EAEAEA;
+	width: 79%; 
+	float: right;
+}
+
+.set1 {
+	float: left;
+	position: relative;
+	width: 49%;
+}
+
+.box1 {
+	border: 1px solid black;
+	height: 250px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.box2 {
+	border: 1px solid black;
+	height: 250px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.box2_1 {
+	width: 79%;
+	float: left;
+	position: relative;
+	height: 250px;
+}
+
+.box2_2 {
+	width: 20.8%;
+	border-left: 1px solid black;
+	float: left;
+	height: 250px;
+	background-color: black;
+}
+
+.box2_2 img {
+	width: 100px;
+    height: 100px;
+    padding-left: 25px;
+    padding-top: 15px;
+}
+
+.box3 {
+	border: 1px solid black;
+	height: 250px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.box3_1 {
+	width: 79%;
+	float: left;
+	position: relative;
+	height: 250px;
+}
+
+.box3_2 {
+	width: 20.8%;
+	border-left: 1px solid black;
+	float: left;
+	height: 250px;
+	background-color: white;
+}
+
+.box3_2 img {
+	width: 70px;
+    height: 70px;
+    padding-left: 40px;
+    padding-top: 25px;
+}
+
+.set2 {
+	float: right;
+	width: 49%;
+}
+
+.box4 {
+	border: 1px solid black;
+	height: 250px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+.box4_1 {
+	float: left;
+	position: relative;
+	width: 33%;
+	height: 250px;
+}
+.box4_1 .text {
+	font-size: 25px;
+	height: 80px;	
+}
+
+.box4_1 .img {
+	height: 160px;
+	float: left; 
+}
+
+.box4_1 img {
+	width: 150px;
+	height: 150px;
+	margin-left: 50px;
+}
+
+.box4_2 {
+	float: left;
+	width: 67%;
+	height: 250px;
+}
+
+.box4_2_1{
+	height: 125px;
+}
+
+.box4_2_1_1{
+	width: 49%;
+	height: 125px;
+	float: left;
+	position: relative;
+}
+
+.text1_1 {
+	font-size: 25px;
+	float: left;
+	position: relative;
+}
+
+.text1_2 {
+	font-size: 35px;
+	float: left;
+}
+
+.box4_2_1_2{
+	width: 49%;
+	height: 125px;
+	float: left;
+}
+
+.text2_1 {
+	font-size: 25px;
+	float: left;
+	position: relative;
+}
+
+.text2_2 {
+	font-size: 35px;
+	float: left;
+}
+
+.box4_2_2{
+	height: 125px;
+}
+
+.box4_2_2_1{
+	width: 49%;
+	height: 125px;
+	float: left;
+	position: relative;
+}
+
+.text3_1 {
+	font-size: 25px;
+	float: left;
+	position: relative;
+}
+
+.text3_2 {
+	font-size: 35px;
+	float: left;
+}
+
+.box4_2_2_2{
+	width: 49%;
+	height: 125px;
+	float: left;
+}
+
+.text4_1 {
+	font-size: 25px;
+	float: left;
+	position: relative;
+}
+
+.text4_2 {
+	font-size: 35px;
+	float: left;
+}
+
+.box5 {
+	border: 1px solid black;
+	height: 250px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+.box6 {
+	border: 1px solid black;
+	height: 250px;
+	margin-top: 20px;
+	margin-right: 20px;
 }
