@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sproject.model.login.Member;
 import com.example.sproject.service.login.LoginService;
@@ -89,4 +90,18 @@ public class LoginController {
 	public List<Member> getSessionMembers() {
 		return loginService.getSessionMembers();
 	}
+	
+	@RequestMapping("simpleMyProfile")
+	public String simpleMyProfile(@AuthenticationPrincipal Member principal, Model model) {
+		System.out.println(principal);
+		model.addAttribute("principal", principal);
+		return "login/simpleMyProfile";
+	}
+	
+	@RequestMapping(value = "simpleMyProfile/save", method = {RequestMethod.GET, RequestMethod.POST})
+	public String simpleMyProfileSave(MultipartFile multipartFile, @AuthenticationPrincipal Member principal) {
+		loginService.updateMemberPhoto(principal.getM_id(), multipartFile);
+		return "redirect:/login/simpleMyProfile";
+	}
+	
 }

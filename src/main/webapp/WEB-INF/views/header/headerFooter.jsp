@@ -61,12 +61,4 @@
 				<table id="join_member_list"></table>
 			</div>
 		</div>
-	<script> 
-		$(function () { 
-			$('.drag').draggable({ 
-				
-			}); 
-		}); 
-	</script>
-
 	</div>

@@ -35,6 +35,7 @@ import com.example.sproject.model.globals.GlobalsOfMail;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailTo;
+import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.drive.DriveService;
 import com.example.sproject.service.mail.MailService;
 import com.example.sproject.service.sample.EmailReader;
@@ -55,25 +56,44 @@ public class MailController {
 	DriveService driveService;
 	
     /**
-     * 메일 읽기
+     * 받은 메일 리스트 가져오기
      * @throws MessagingException 
      * @throws ParseException 
      */
     @RequestMapping(value ="", method= {RequestMethod.GET, RequestMethod.POST})
-    public String index(@AuthenticationPrincipal Member principal, Model model) throws MessagingException, ParseException {
+    public String index(Integer currentPage, @AuthenticationPrincipal Member principal, Model model) throws MessagingException, ParseException {
+    	// 메일 DB 업데이트하기
     	mailService.updateMailDB();
     	
+    	// 메일 가져오기 위한 정보 세팅
     	Mail mail = new Mail();
     	mail.setMl_type(1);
     	mail.setM_id(principal.getM_id());
-    	mail.setRn_start(1);
-    	mail.setRn_end(10);
+    	
+    	// 페이징 처리
+    	CommonPaging commonPaging = new CommonPaging(mailService.countTotalMail(mail), currentPage, 10, 5);
+    	System.out.println("commonPaging: " + commonPaging);
+    	model.addAttribute("commonPaging", commonPaging);
+    	mail.setRn_start(commonPaging.getStart());
+    	mail.setRn_end(commonPaging.getEnd());
+    	
+    	// 페이징 처리에 맞게 메일 가져오기
     	List<Mail> listOfMail = mailService.listMail(mail);    	
-    	for (Mail m : listOfMail) {
-    		System.out.println(m);
-    	}
     	mailService.replaceStringForHtml(listOfMail);
     	model.addAttribute("listOfMail", listOfMail);
+    	
+    	// 메일 수 카운트하기
+    	mail.setRn_start(1);
+    	mail.setRn_end(Integer.MAX_VALUE);
+    	List<Mail> listOfMailForCounting = mailService.listMail(mail);
+    	int numRead = 0;
+    	for (Mail m : listOfMailForCounting) {
+    		if (m.getMl_read() == 1) {
+    			++numRead;
+    		}
+    	}
+    	model.addAttribute("numRead", numRead);
+    	model.addAttribute("numUnread", listOfMailForCounting.size() - numRead);
     	
         return "mail/mailMain";
     }
@@ -94,6 +114,8 @@ public class MailController {
     	
     	// 받는 사람 목록 가져오기
     	List<MailTo> listOfMailTo = mailService.listMailTo(ml_num);
+    	mailService.replaceStringForHtml(listOfMailTo);
+    	
     	model.addAttribute("listOfMailTo", listOfMailTo);
     	
     	// 첨부파일 목록 가져오기
@@ -103,7 +125,7 @@ public class MailController {
     	// 메일 읽을 권한 있는지 체크
     	boolean isAuthorized = false;
     	for (MailTo mailTo : listOfMailTo) {
-    		if (mailTo.getMl_email().equals(principal.getM_id() + "@" + GlobalsOfMail.MAIL_DOMAIN)) {
+    		if (mailTo.getMl_email().toLowerCase().contains((principal.getM_id() + "@" + GlobalsOfMail.MAIL_DOMAIN).toLowerCase())) {
     			isAuthorized = true;
     			break;
     		}
@@ -111,6 +133,9 @@ public class MailController {
     	if (!isAuthorized) {
     		return "login/denied";
     	}
+    	
+    	// 메일 읽은 여부 처리하기
+    	mailService.updateMailRead(ml_num);
     	
     	return "mail/mailView";
     }
@@ -120,8 +145,8 @@ public class MailController {
      * @return
      */
     @RequestMapping(value ="writeForm", method= {RequestMethod.GET, RequestMethod.POST})
-    public String writeForm() {
-    	
+    public String writeForm(@AuthenticationPrincipal Member principal, Model model) {
+    	model.addAttribute("principal", principal);
     	return "mail/mailWriteForm";
     }
     
@@ -158,8 +183,10 @@ public class MailController {
 		// 메일 정보 db에 등록하기
 		mailService.insertMailSent(mail);
 		mailService.insertMailTo(mail.getMl_num(), addressTo);
-		mailService.insertMailFile(mail.getMl_num(),listOfDriveFileInfo);
-
+		if (listOfDriveFileInfo.size() > 0) {
+			mailService.insertMailFile(mail.getMl_num(),listOfDriveFileInfo);
+		}
+		
 		return "redirect:/mail";
 	}
 	

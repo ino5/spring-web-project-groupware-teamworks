@@ -32,3 +32,17 @@ function uploadSummernoteImageFile(file, editor) {
     });
 }
 /* End of 썸머노트  */
+
+// 첨부파일 추가
+$('.multipartFile').on('change',addInputOfMultipartFile);
+let indexOfTableOfWrite = 4;
+function addInputOfMultipartFile(e) {
+	let tableOfWrite = document.getElementById('table_write');
+	let newRow = tableOfWrite.insertRow(indexOfTableOfWrite);
+	let newCell1 = newRow.insertCell(0);
+	let newCell2 = newRow.insertCell(1);
+	newCell1.className += 'title txt';
+	newCell2.innerHTML='<input class="multipartFile" type="file" name="multipartFile">';
+	$('.multipartFile').on('change',addInputOfMultipartFile);
+	++indexOfTableOfWrite;	
+}

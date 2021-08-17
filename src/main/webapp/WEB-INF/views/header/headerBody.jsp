@@ -12,8 +12,10 @@
 			<ul>
 <%-- 				<li><a onclick="location.href('${pageContext.request.contextPath}/main');" class="button3" style="vertical-align:middle; padding-top: 18px; padding-bottom: 11px;"><img alt="image" --%>
 <%-- 					src="${pageContext.request.contextPath}/header/img/logo.png" style="width: 30px; height: 23px;"></a></li> --%>
-				<li><a onclick="javascript:doShow()" class="button3" style="vertical-align:middle; padding-top: 18px; padding-bottom: 11px; cursor: pointer;"><img alt="image"
-					src="${pageContext.request.contextPath}/header/img/full.png" style="width: 30px; height: 23px;"></a></li>
+				<li><a id= "hide_changeSideDisplay" class="class_changeSideDisplay" onclick="javascript:doShow()" class="button3"><img alt="image"
+					src="${pageContext.request.contextPath}/header/img/side_show.png" style="width: 30px; height: 23px;"></a></li>
+				<li><a id= "show_changeSideDisplay" class="class_changeSideDisplay" onclick="javascript:doShow()" class="button3"><img alt="image"
+					src="${pageContext.request.contextPath}/header/img/side_hide.png" style="width: 30px; height: 23px;"></a></li>	
 				<li><a href="${pageContext.request.contextPath}/main" id="head_main">홈</a></li>
 				<li><a onclick="waitLoading(); location.href='${pageContext.request.contextPath}/mail';" id="head_mail">메일</a></li>
 				<li><a href="${pageContext.request.contextPath}/time" id="head_time">근태관리</a></li>
@@ -39,7 +41,7 @@
 	<!-- 헤더 오른쪽 프로필 사진 눌렀을 때 나오는 메뉴 -->	
 	<div id="header_right_modal">
 		<ul>
-			<li><a>
+			<li><a href="${pageContext.request.contextPath}/login/simpleMyProfile">
 				기본정보
 			</a></li>
 				

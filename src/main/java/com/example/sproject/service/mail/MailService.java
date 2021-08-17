@@ -39,9 +39,13 @@ public interface MailService {
 	 * @return
 	 */
 	List<Mail> listMail(Mail mail);
+	
+	int countTotalMail(Mail mail);
 
-	void replaceStringForHtml(List<Mail> listOfMail);
+	void replaceStringForHtml(List list);
 	void replaceStringForHtml(Mail mail);
+	void replaceStringForHtml(MailTo mailTo);
+	String replaceStringForHtml(String str);
 
 	Mail selectMail(int ml_num);
 
@@ -54,4 +58,8 @@ public interface MailService {
 	int insertMailTo(int ml_num, String addressTo);
 
 	int insertMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo);
+
+	int updateMailRead(int ml_num);
+
+	
 }

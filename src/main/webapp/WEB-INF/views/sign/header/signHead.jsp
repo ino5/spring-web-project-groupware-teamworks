@@ -12,9 +12,6 @@
 <script defer src="${pageContext.request.contextPath}/drive/js/main.js"></script>
 
 <!-- jquery-ui sortable -->
-<style>
-
-</style>
 <script>
 	$(function() {
 		$( "#sortable" ).sortable();

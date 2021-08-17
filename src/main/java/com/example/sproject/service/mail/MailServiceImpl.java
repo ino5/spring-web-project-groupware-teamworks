@@ -273,26 +273,40 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	public List<Mail> listMail(Mail mail) {
-		mail.setMl_email(mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN);
+		mail.setMl_email('%' + mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%');
 		return mailDao.selectListMail(mail);
 	}
 
 	@Override
-	public void replaceStringForHtml(List<Mail> listOfMail) {
-		for (Mail mail : listOfMail) {
-			replaceStringForHtml(mail);
+	public void replaceStringForHtml(List list) {
+		for (Object item : list) {
+			if (item instanceof Mail) {
+				replaceStringForHtml((Mail) item);
+			}		
+			if (item instanceof MailTo) {
+				replaceStringForHtml((MailTo) item);
+			}
 		}
-		
 	}
 
 	@Override
 	public void replaceStringForHtml(Mail mail) {
-		String ml_email = mail.getMl_email();
-		ml_email = ml_email.replaceAll("<", "&lt;");
-		ml_email = ml_email.replaceAll(">", "&gt;");
-		mail.setMl_email(ml_email);	
+		mail.setMl_email(replaceStringForHtml(mail.getMl_email()));
 	}
 
+	@Override
+	public void replaceStringForHtml(MailTo mailTo) {
+		mailTo.setMl_email(replaceStringForHtml(mailTo.getMl_email()));
+	}
+	
+	@Override
+	public String replaceStringForHtml(String str) {
+		str = str.replaceAll("<", "&lt;");
+		str = str.replaceAll(">", "&gt;");
+		return str;
+	}	
+	
+	
 	@Override
 	public Mail selectMail(int ml_num) {
 		return mailDao.selectMail(ml_num);
@@ -331,5 +345,18 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public int insertMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo) {
 		return mailDao.insertAllMailFile(ml_num, listOfDriveFileInfo);
-	}	
+	}
+
+	@Override
+	public int countTotalMail(Mail mail) {
+		mail.setMl_email('%' + mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%');
+		return mailDao.countTotalMail(mail);
+	}
+
+	@Override
+	public int updateMailRead(int ml_num) {
+		return mailDao.updateMailRead(ml_num);
+	}
+
+
 }

@@ -1,0 +1,49 @@
+/* 프로필 기본정보 */
+#simpleMyProfileWrap {
+	margin-left: 25px;
+}
+
+#simpleMyProfileWrap h1{
+    vertical-align: middle;
+    font-size: 29px;
+    font-weight: normal;
+    margin: 20px 0px;	
+}
+
+#simpleMyProfileWrap #table_simple_my_profile {
+	border-collapse: collapse;
+    border-collapse: collapse;
+    margin-top: 34px;	
+    margin-bottom: 21px;    
+}
+
+#simpleMyProfileWrap #table_simple_my_profile td {
+	height: 51px;
+    font-size: 17px;	
+}
+
+#simpleMyProfileWrap #table_simple_my_profile .td_title {
+	width: 146px;
+}
+
+#simpleMyProfileWrap #my_photo {
+	height: 150px;
+    width: 150px;
+    border-radius: 14%;
+}
+
+#simpleMyProfileWrap .button {
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 17px;
+    height: 37px;
+	background-color: #0f91e6;
+	border: none;
+}
+
+#simpleMyProfileWrap .button:hover {
+	background-color: #0f91e6d1; 		
+}

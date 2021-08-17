@@ -1,0 +1,252 @@
+/* 높이 100% 지정하기 위해 */
+html, body, #content {
+	height: 105%; 
+/* 	overflow:hidden; */
+}
+
+/* 공용 */
+a {
+	text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+
+.ic_toolbar {
+	height: 23px !important;
+}
+
+
+/* content 부분 */
+#mail_wrap {
+	height: 100%;
+}
+
+#mail_header {
+	margin-top: 24px;
+	margin-left: 24px;
+}
+
+#mail_header #title span.span_title {
+	font-size: 27px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin-right: 17px;    
+}
+
+#mail_header #title span.span_gray {
+	color: gray;
+}
+
+#mail_header #title span.span_number {
+	
+}
+
+/* 메일 목록 부분 */
+#mail_wrap #list_mail_wrap {
+/* 	height: 70%; */
+/* 	overflow: scroll; */
+}
+
+#mail_wrap #list_mail_wrap table#list_mail {
+	border-collapse: collapse;
+    width: 100%;	
+    margin-top: 50px;
+	margin-bottom: 30px;    
+}
+
+#mail_wrap #list_mail_wrap table#list_mail td {
+    height: 50px;
+    text-align: left;
+    padding: 0 16px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    font-size: 17px; 	
+}
+
+#mail_wrap #list_mail_wrap table#list_mail tr:hover td {
+    background: #f4f4f4;	
+}
+
+#mail_wrap #list_mail_wrap table#list_mail td.email {
+	max-width: 63px;
+    padding-left: 40px;
+}
+
+#mail_wrap #list_mail_wrap table#list_mail td.date {
+	max-width: 55px;
+}  
+
+#mail_wrap #list_mail_wrap table#list_mail tr, #mail_wrap #list_mail_wrap table#list_mail tr a {
+	font-weight: 500;
+}
+
+#mail_wrap #list_mail_wrap table#list_mail tr.tr_read, #mail_wrap #list_mail_wrap table#list_mail tr.tr_read a {
+	color: #666 !important;
+	font-weight: 400 !important;
+}
+
+
+    
+
+
+/* 메일 아래 부분 */
+#mail_wrap #mail_footer {
+	text-align: center;
+}
+#mail_wrap #mail_footer .paginate_active {
+    color: #333 !important;
+    border-color: #333 !important;
+    	
+}
+#mail_wrap #mail_footer .paginate_button {
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center;    
+}
+
+/* 메일 보내기 */
+#mail_write_content_wrap {
+	margin-top: 24px;
+    margin-left: 24px;
+}
+#mail_write_content_wrap .border_bottom {
+	border: none;
+    border-bottom: 1px solid #efefef;
+    width: 100%;    
+    padding-bottom: 9px;
+}
+
+#mail_write_content_wrap .border_bottom:focus {
+	outline: none;
+	border-bottom: 1px solid #7bb2f5;
+}
+
+#mail_write_content_wrap #table_write {
+	margin-bottom: 20px;
+}
+
+
+#mail_write_content_wrap table td.title {
+	width: 142px;
+}
+
+
+#mail_write_content_wrap table td.txt, #mail_write_content_wrap table input.txt {    
+    font-size: 20px;
+    height: 45px;
+    font-weight: 300;
+}
+
+#mail_write_content_wrap .multipartFile{
+	padding-top: 10px;
+	
+}
+    
+#mail_write_content_wrap table td.content {
+	padding-top: 18px;
+}
+    
+#mail_write_content_wrap span.txt {
+    font-size: 21px;
+    font-weight: 300;
+}
+
+#mail_write_content_wrap span.txt_gray {
+	font-size: 14px;
+	font-weight: 300;
+    color: #959595;
+	letter-spacing: 0.5px;    
+}
+
+#mail_write_content_wrap span.txt_button {
+	margin: 0 0 0 4px;
+    display: inline-block;
+    font-size: 17px;
+}
+
+#mail_write_content_wrap .mail_button {
+    float: left;
+    margin: 0 8px 0 0;
+    height: 30px;
+    line-height: 30px;
+    background: none;
+    border: 0;
+    color: #333;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    border-radius: 2px;
+    font-size: 15px;
+    vertical-align: middle;	
+}
+
+#mail_write_content_wrap .mail_button:hover {
+	background: #eee;
+}
+
+/* 메일 읽기 mailView.jsp */
+#mail_view_content_wrap {
+	margin-top: 24px;
+/*     margin-left: 24px;	 */
+}
+
+#mail_view_content_wrap #header {
+    border-bottom: 1px solid #ececec;	
+}
+
+#mail_view_content_wrap #header #title {
+	margin-left: 32px;
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+#mail_view_content_wrap #mail_info {
+	border-collapse: collapse;
+	margin-left: 32px;
+    margin-bottom: 11px;	
+}
+
+
+
+#mail_view_content_wrap #mail_info td.title {
+	width: 142px;
+}
+
+#mail_view_content_wrap #mail_info td.txt, #mail_view_content_wrap table input.txt {    
+    font-size: 20px;
+    height: 45px;
+    font-weight: 300;
+}
+
+#mail_view_content_wrap .mail_button {
+    float: left;
+    margin: 0 8px 0 0;
+    height: 30px;
+    line-height: 30px;
+    background: none;
+    border: 0;
+    color: #333;
+    display: inline-block;
+    cursor: pointer;
+/*     padding: 0 8px; */
+    padding-right: 14px;
+    border-radius: 2px;
+    font-size: 15px;
+    vertical-align: middle;	
+}
+
+#mail_view_content_wrap .mail_button:hover {
+	background: #eee;
+}
+
+#mail_view_content_wrap #mail_content {
+	margin-left: 32px;
+    margin-top: 24px;	
+}

@@ -9,6 +9,17 @@ body,input, textarea, select, button {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 }
 
+/* autofill 배경 지우기 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+	-webkit-transition: background-color 9999s ease-out;
+/* 	-webkit-box-shadow: 0 0 0px 1000px white inset !important; */
+/* 	-webkit-text-fill-color: #fff !important; */
+  }
+
 header {
 	width: 100%; 
 	background-color: #0f91e6;
@@ -51,6 +62,20 @@ header #logo {
     width: 198px;
     margin-left: 16px;
 }
+
+
+/* header side 가리기/보여주기 */
+.class_changeSideDisplay {
+	vertical-align:middle !important; 
+	padding-top: 18px !important; 
+	padding-bottom: 11px !important; 
+	cursor: pointer;
+}
+
+#show_changeSideDisplay {
+	display: none; 
+}
+
 
 /* header 오른쪽 부분 */
 header #header_right {
@@ -376,6 +401,35 @@ rtant;}
 /* ----------- ic_gnb ----------- */
 span.ic_gnb_x {display:inline-block;width: 16px;height: 16px;background:url(./images/ic_gnb.png) no-repeat -100px -100px;vertical-align:middle;}
 
-
 /*임의추가*/
 span.ic_drag {background-position: 8px -838px}
+
+
+
+/**/
+/* icon_classic.png */
+/**/
+/* ----------- icon_classic ----------- */
+a.ic_paginate {
+	display: inline-block;
+    width: 20px;
+    height: 16px;
+    background: #fff url(./images/ic_classic.png) no-repeat -40px 0;
+    padding: 0;
+}
+
+a.ic_first {
+    background-position: -32px -14px;	
+}
+
+a.ic_previous {
+	background-position: -34px 6px;
+}
+
+a.ic_next {
+	background-position: -50px 6px;
+}
+
+a.ic_last {
+	background-position: -52px -14px;
+}

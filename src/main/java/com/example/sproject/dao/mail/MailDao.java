@@ -31,4 +31,8 @@ public interface MailDao {
 
 	int insertAllMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo);
 
+	int countTotalMail(Mail mail);
+
+	int updateMailRead(int ml_num);
+
 }

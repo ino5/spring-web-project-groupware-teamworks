@@ -43,10 +43,14 @@
 		<![CDATA[
 		SELECT *
 		FROM (SELECT ROWNUM rn, a.* FROM (
-			SELECT ml.* FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email = #{ml_email} AND ml.ml_type = #{ml_type}
+			SELECT ml.* FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type}
 			ORDER BY ml.ml_regdate desc			  		  
 		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
 		]]>	
+	</select>
+	
+	<select id="countTotalMailOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="int">
+		SELECT COUNT(*) FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type}
 	</select>
 	
 	<select id="selectMailOfMail" parameterType="int" resultType="com.example.sproject.model.mail.Mail">
@@ -80,5 +84,9 @@
 			)
 		</foreach>
 	</insert>	
+	
+	<update id="updateMailReadOfMail" parameterType="int">
+		UPDATE mail SET ml_read = 1 WHERE ml_num = #{ml_num}
+	</update>
 	
 </mapper>

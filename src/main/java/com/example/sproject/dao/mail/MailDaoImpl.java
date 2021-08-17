@@ -79,4 +79,14 @@ public class MailDaoImpl implements MailDao {
 		return session.insert("insertAllMailFileOfMail", map);
 	}
 
+	@Override
+	public int countTotalMail(Mail mail) {
+		return session.selectOne("countTotalMailOfMail", mail);
+	}
+
+	@Override
+	public int updateMailRead(int ml_num) {
+		return session.update("updateMailReadOfMail", ml_num);
+	}
+
 }

@@ -15,9 +15,11 @@ public class Mail {
 	private Timestamp ml_rcvdate;
 	private Timestamp ml_deldate;
 	private int ml_type; // 타입 -> 1: 받은 메일, 2: 보낸 메일
+	private int ml_read;
 	
 	private String m_name;
 	private String m_id;
+	
 	
 	// 페이징 처리
 	private int rn_start;

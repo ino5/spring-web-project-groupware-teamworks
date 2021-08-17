@@ -9,14 +9,9 @@
 <!-- 파일 다운로드 관련 js -->
 <script defer src="${pageContext.request.contextPath}/drive/js/main.js"></script>
 
-<!-- jquery-ui sortable -->
-<style>
+<!-- mail side -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/mail/css/mailSide.css">
+<script defer src="${pageContext.request.contextPath}/mail/js/mailSide.js"></script>
 
-</style>
-<script>
-	$(function() {
-		$( "#sortable" ).sortable();
-	    $( "#sortable" ).disableSelection();
-	});
-</script>
-<!-- end of jquery-ui sortable  -->
+<!-- mail css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/mail/css/mail.css">

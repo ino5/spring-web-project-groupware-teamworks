@@ -5,11 +5,15 @@ function doShow() {
 		$('#content').css({
 			"width" : "100%"
 		});
+		$('#hide_changeSideDisplay').hide();
+		$('#show_changeSideDisplay').show();		
 	} else {
 		$('#side').show();
 		$('#content').css({
 			"width" : "84%"
 		});
+		$('#show_changeSideDisplay').hide();
+		$('#hide_changeSideDisplay').show();			
 	}
 }
 
@@ -26,3 +30,14 @@ function showHeaderRightModal() {
 		$('#header_right_modal').show();
 	}
 }
+
+
+	$(function() {
+		// jquery-ui sortable
+		$( ".sortable" ).sortable();
+	    $( ".sortable" ).disableSelection();
+		
+		// jquery-ui draggable
+		$('.drag').draggable({ 
+		}); 	    
+	});
