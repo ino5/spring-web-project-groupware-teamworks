@@ -35,6 +35,8 @@ $(document).ready(function() {
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#groupRoomlist').hide();
+				$('#Test').hide();
+				$('#TestCircle').hide();			
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -175,7 +177,6 @@ $(document).ready(function() {
 			success: function (res) {
 				//멤버리스트 가져오기
 				let roomList = res.roomList;
-				if(!isClickedGroupRoomList) {
 				for(var i = 0; i<roomList.length; i++) {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
@@ -188,8 +189,6 @@ $(document).ready(function() {
    					 	+ roomList[i].tkrm_name
    					 	+ '</button></td></tr>'
    					 ); 
-					}	
-					isClickedGroupRoomList = true;
 				}				
 				$('.modal').show();
 				$('#content2').hide();
@@ -386,6 +385,8 @@ $(document).ready(function() {
 				$('#roomName').html('');
 				$('.group').removeAttr('checked');
 				$('#join_member_list').html('');
+				$('#groupRoomlist').html('');
+				$('#groupRoomlist').append('<tr><th>방 이름</th></tr>');
 			},
 			error : function(err){
 				console.log('error');

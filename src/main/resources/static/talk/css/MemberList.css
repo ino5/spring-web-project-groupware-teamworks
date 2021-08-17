@@ -261,3 +261,9 @@
 			height: 200px;
 			float: left;
 		}
+		.x {
+			float: right;
+			font-size: 30px;
+			background-color: #0F91E6;
+			color: white;
+		}

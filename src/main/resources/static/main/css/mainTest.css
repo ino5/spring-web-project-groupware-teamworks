@@ -1,0 +1,242 @@
+@charset "UTF-8";
+
+#side {
+	 width: 25%;
+	 height: 1000px; 
+	 float:left;
+}
+
+#content {
+	border-left: 2px solid #EAEAEA;
+	width: 74%; 
+	float: right;
+}
+
+/* 시계 */
+#clock {
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+#clock1 {
+	color: #8C8C8C;
+	font-weight: bold;
+	margin-left: 40px;
+}
+
+#clock2 {
+	margin-left: 50px;
+	font-size: 47px;
+	color: #5D5D5D;
+}
+
+.clock3 {
+	font-weight: bold;
+	line-height: 35px;
+	font-size: 15px;
+}
+
+.clock4 {
+	font-size: 15px;
+	line-height: 35px;
+}
+
+/* 버튼 스타일 */
+button {
+	cursor: pointer;
+}
+#button_new_sign {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	background-color : white;
+	border-style: solid;
+	border-radius : 10px;
+	border-width : 2px;
+	box-shadow: none;
+	border-color : #D5D5D5;
+	font-size: 21px;
+	cursor: pointer;
+	float: left;
+	position: relative;
+}
+
+#button_new_sign:hover { 
+     transition: all 0.2s linear;
+     transform: translate(0, -5%);
+       box-shadow: 2px 2px 2px 2px #BDBDBD; 
+       border: 2px solid gray;
+  
+ }
+ 
+/* 모달창 관련 스타일 */
+/* 모달창 뒤 배경 */
+.black_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color:rgba(0,0,0, 0.3);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+/* 모달창 */
+.modal_wrap {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	z-index: 2;
+	border-radius: 4px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 20%);
+}
+.modal_wrap .button_new_sign_form {
+	background: white;
+	border: none;
+	margin-top: 7px;
+	font-size: 15px;
+}
+.modal_wrap button:hover {
+	background: #eee;	
+}
+
+#sign_form_list {
+	overflow: scroll;
+	height: 414px;
+    margin-left: 34px;
+    overflow-x: hidden;	
+}
+
+.button_x {
+	background-color: white;
+    border: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+	top: 22px;
+    right: 23px;
+    cursor: pointer;
+}
+
+.modal_wrap .modal_content {
+	position: absolute;
+	width: 90%;
+    height: 300px;
+	top: 65px;
+}
+
+.modal_wrap h1 {
+	color: #000;
+    font-weight: normal;
+    font-size: 25px;
+    margin: 17px;
+}
+/* End of 모달창 */
+
+/* 게시판 작성 */
+#btn1 {
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	background-color : white;
+	border-style: solid;
+	border-radius : 10px;
+	border-width : 2px;
+	box-shadow: none;
+	border-color : #D5D5D5;
+	font-size: 21px;
+	float: left;   
+}
+
+#btn1:hover{
+     transition: all 0.2s linear;
+     transform: translate(0, -5%);
+       box-shadow: 2px 2px 2px 2px #BDBDBD; 
+       border: 2px solid gray;
+  
+ }
+ 
+ .write_button1 {
+ 	float: left;
+ 	position:relative;
+ }
+  .write_button2 {
+ 	float: left;
+ 	margin-left: 10px;
+ }
+ 
+ /* calendar */
+ 
+.calendar {
+	width: 200px;
+}
+
+#calendar_head {
+	font-weight: bold;
+	font-size: 26px;
+	display: block;
+	margin-top: 70px;
+	width: 200px;
+	margin-left: 30px;
+}
+#calendar {
+	border-top:1px solid #ddd;
+	margin-top: 30px;
+	width: 200px;
+	border-collapse : collapse;
+}
+
+#calendar tr th{
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+	text-align: center;
+	font-weight: normal;
+}
+
+#calendar tr td{
+   	width: 170px;
+   	height: 5px;
+   	text-align: center;
+   	font-size: 14px;
+	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
+    text-align: left;
+    vertical-align : top;
+}
+
+#row_8{
+	border-top:1px solid #ddd;
+}
+#row_15{
+	border-top:1px solid #ddd;
+}
+#row_22{
+	border-top:1px solid #ddd;
+}
+#row_29{
+	border-top:1px solid #ddd;
+}
+
+.div_cal {
+	margin : 0.5px 2px;
+	cursor: pointer;
+	background-color: #0f91e6;
+}
+
+.span_cal{
+	padding-left: 15px;
+}
+
+#date{
+	padding : 0px 10px;
+}
+#date2{
+	padding : 0px 10px;
+	color: red;
+}
+#date3{
+	padding : 0px 10px;
+	color: blue;	
+}

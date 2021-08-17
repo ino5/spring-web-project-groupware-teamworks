@@ -33,7 +33,7 @@
 		<div id="header_right">
 			<sec:authorize access="isAuthenticated()">
 				<sec:authentication property="principal.username" var="sec_m_id" />
-				<img id="my_photo" onclick="showHeaderRightModal();" src="/sproject/resource/member/photo/${sec_m_id}.jpg" onerror="this.src='/sproject/resource/member/photo/default.jpg'">
+				<img id="my_photo" onclick="showHeaderRightModal();" src="${pageContext.request.contextPath}/resource/member/photo/${sec_m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'">
 			</sec:authorize>
 		</div>
 	</header>
