@@ -53,8 +53,7 @@ html, body, .container {
 }
 
 #content {
-
-	width: 1980px; 
+	width: 87% !important;
 	float: right;
 }
 
@@ -282,7 +281,6 @@ input[type="checkbox"]:checked {
   border-color: rgb(192, 192, 192);
 }
 #right2{
-	background-color: #dadee094;
 	height: 60px;
 	width: 35px;
 }

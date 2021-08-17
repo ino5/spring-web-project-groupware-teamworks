@@ -29,7 +29,6 @@
      $(document).ready(function(){
     	//차트 값 세팅 (데이터 값을 불러와서 형식에 맞게 넣기)
     	var dptData = new Array();
-    	$("#test").click(function(){
     	//데이터를 조회하는 통신
 			$.ajax({
 		        data : {},
@@ -60,7 +59,6 @@
 		         		data =   [12, 19, 3, 5, 2, 3] */
 		           } 
 		        }
-	    	});
     	});
     	
     	
@@ -109,17 +107,17 @@
 					    var idx = e._index;
 					    var url="";
 					    if(idx==0){
-					    	url="/board/sideboard_list?bd_num=105";
+					    	url="/address/dept?dpt_code=IS";
 					    }else if(idx==1){
-					    	url="/board/sideboard_list?bd_num=104";
+					    	url="/address/dept?dpt_code=HG";
 					    }else if(idx==2){
-					    	url="/board";
+					    	url="/address/dept?dpt_code=GB";
 					    }else if(idx==3){
-					    	url="/board";
+					    	url="/address/dept?dpt_code=CM";
 					    }else if(idx==4){
-					    	url="/board/sideboard_list?bd_num=103";
+					    	url="/address/dept?dpt_code=YU";
 					    }else if(idx==5){
-					    	url="/board";
+					    	url="/address/dept?dpt_code=GH";
 					    }
 			    
 					     location.href= _contextPath+url;
