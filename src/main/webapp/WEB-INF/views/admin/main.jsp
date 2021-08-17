@@ -60,17 +60,20 @@
 		</div>
 		<div id="content">
 			<h2>
-				<span style="color: #8C8C8C; font-size: 20px; font-weight: bold; margin-top: 20px;">메뉴관리/게시판</span>
+				<span style="color: #8C8C8C; font-size: 20px; font-weight: bold; margin-top: 20px;">관리자 페이지 Main</span>
 			</h2>
 			<br>
-			<div style="z-index: 2; padding-top: 20px; margin-left: 50px;">
+			<div style="z-index: 2; padding-top: 20px; margin-left: 50px; margin-bottom: 100px;">
 				<h2>
-					<span id="content1" style="font-weight: bold; font-size: 35px;">게시판</span>
+					<span id="content1" style="font-weight: bold; font-size: 35px;">사원 현황</span>
 				</h2>
 			</div>
 			
-			<div style="width:800px">
+			<div style="width:800px; display: inline-block; margin: 0px 70px;">
 			    <canvas id="myChart"></canvas>
+			</div>
+			<div style="width:800px; display: inline-block;">
+			    <canvas id="myChart_time"></canvas>
 			</div>
 	</div>
 	

@@ -35,7 +35,7 @@
 	</select>
 	
 	
-	<select id="memberAllList" resultType="com.example.sproject.model.login.Member">
+	<select id="memberAllListOfAdmin" resultType="com.example.sproject.model.login.Member">
 	    SELECT 
 		 m.dpt_code
 		,(select dpt_name from department where 1=1 and dpt_code = m.dpt_code) as dpt_name 
@@ -45,6 +45,16 @@
 		GROUP BY m.dpt_code
     </select>
 	
+	
+	<select id="TimeListOfAdmin" resultType="com.example.sproject.model.time.Time">
+	    select substr(tm_sdate,1,10) date_cnt, count(*) cnt from time where tm_type = 2 and substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-1,'YYYY-MM-DD') 
+		or substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-2,'YYYY-MM-DD') 
+ 		or substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-3,'YYYY-MM-DD')
+ 		or substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-4,'YYYY-MM-DD')
+   		or substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-5,'YYYY-MM-DD')
+    	or substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-6,'YYYY-MM-DD')
+     	or substr(tm_sdate,1,10) = TO_CHAR(SYSDATE-7,'YYYY-MM-DD') group by substr(tm_sdate,1,10) order by date_cnt
+    </select>
 	
 	
 </mapper>
