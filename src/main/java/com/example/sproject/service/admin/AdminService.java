@@ -17,5 +17,7 @@ public interface AdminService {
 	void admindDeleteGroup(List<String> groupList);
 
 	int checkID(String m_id);
+	
+	List<Member> memberAllList();
 
 }

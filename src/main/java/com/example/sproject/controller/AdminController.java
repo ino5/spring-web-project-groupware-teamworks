@@ -83,6 +83,7 @@ public class AdminController {
 	   @RequestMapping(value="admindDeleteGroup", method= {RequestMethod.GET, RequestMethod.POST})
 	   @ResponseBody
 	   public void admindDeleteGroup(@RequestParam(value="checkArray[]", required=false) List<String> groupList, Model model) {
+		   System.out.println("확인");
 	       ArrayList<String> GroupArray = new ArrayList<String>();
 	       for(int i=0;i<groupList.size();i++){
 	          GroupArray.add(groupList.get(i));
@@ -101,4 +102,15 @@ public class AdminController {
 		int result = adminservice.checkID(m_id);
 		return result;
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "/memberAllList")
+	public List<Member> memberAllList(Model model) throws Exception {
+		System.out.println("!!!");
+		System.out.println(adminservice.memberAllList());
+		
+		return adminservice.memberAllList();
+	}
+	
+	
 }

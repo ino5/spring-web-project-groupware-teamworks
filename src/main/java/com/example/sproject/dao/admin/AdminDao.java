@@ -19,7 +19,8 @@ public interface AdminDao {
 	int checkID(String m_id);
 
 
-
+	List<Member> memberAllList();
+	
 
 
 	

@@ -56,5 +56,12 @@ public class AdminServiceImpl implements AdminService {
 		int result = admindao.checkID(m_id);
 		return result;
 	}
+	@Override
+	public List<Member> memberAllList() {
+		List<Member> memberList = null;
+		memberList = admindao.memberAllList();
+		return memberList;
+	}
+	
 	
 }

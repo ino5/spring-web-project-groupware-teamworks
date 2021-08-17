@@ -34,6 +34,7 @@ public class Member implements UserDetails{
 	private String pt_name;
 //	department
 	private String dpt_name;
+	private int dpt_count;
 //  address
 	private int adg_num;
 //  address 검색

@@ -76,5 +76,16 @@ public class AdminDaoiml implements AdminDao {
 		int result = session.selectOne("checkedIDMemberOfAdmin", m_id);
 		return result;
 	}
+	
+	@Override
+	public  List<Member> memberAllList() {
+		List<Member> memberList = null;
+		try {
+		memberList = session.selectList("memberAllList");
+		} catch (Exception e) {
+			System.out.println("AdminDaoiml listMember Exception->"+e.getMessage());
+		}
+		return memberList;
+	}
 
 }

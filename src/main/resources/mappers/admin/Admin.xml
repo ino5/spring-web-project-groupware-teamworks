@@ -26,11 +26,25 @@
 		UPDATE member SET m_password = #{m_password}  where m_id = #{m_id}
 	</update>
 	<delete id="DeleteBoardGroupOfAdmin" parameterType="string">
-		delete from member where p_num= #{p_num}
+		delete from member where m_id= #{m_id}
 	</delete>
 	<select id="checkedIDMemberOfAdmin" parameterType="String" resultType="int">
 	 SELECT COUNT(*) 
 		FROM   MEMBER
 		WHERE  m_id = #{m_id}
 	</select>
+	
+	
+	<select id="memberAllList" resultType="com.example.sproject.model.login.Member">
+	    SELECT 
+		 m.dpt_code
+		,(select dpt_name from department where 1=1 and dpt_code = m.dpt_code) as dpt_name 
+		,COUNT(dpt_code) AS dpt_count from member m 
+		where 1=1
+		and dpt_code is not null
+		GROUP BY m.dpt_code
+    </select>
+	
+	
+	
 </mapper>
