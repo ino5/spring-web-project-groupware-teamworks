@@ -41,6 +41,7 @@
 	var MMM;
 	var SSS;
 	
+	var start_text;
 	function start() {
 
 		$
@@ -62,7 +63,6 @@
 				});
 	}
 	
-
 	function end() {
 
 		$.ajax({
@@ -74,6 +74,8 @@
 			success : function(result) {
 				// 				debugger;
 				var end_text = new Date(global_now);
+				start_text = new Date(global_date + $('#startTime').text());
+				console.log(start_text);
 				var end_start = end_text - start_text;
 				HHH = Math.floor((end_start % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 				MMM = Math.floor((end_start % (1000 * 60 * 60)) / (1000 * 60));				
