@@ -1,32 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file = "/WEB-INF/views/header/header.jsp" %>
+<%@include file="/WEB-INF/views/header/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
+<%@include file="/WEB-INF/views/header/headerHead.jsp"%>
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/login/css/simpleMyProfile.css">
-<script defer src="${pageContext.request.contextPath}/login/js/simpleMyProfile.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/login/css/simpleMyProfile.css">
+<script defer
+	src="${pageContext.request.contextPath}/login/js/simpleMyProfile.js"></script>
 </head>
 <body>
-<%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
-	<div id="side">
-
-	</div>
+	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
+	<div id="side"></div>
 	<div id="content">
 		<div id="simpleMyProfileWrap">
 			<h1>기본정보</h1>
-			<form action="${pageContext.request.contextPath}/login/simpleMyProfile/save" method="post" enctype="multipart/form-data">
-				<sec:csrfInput/>
+			<form
+				action="${pageContext.request.contextPath}/login/simpleMyProfile/save"
+				method="post" enctype="multipart/form-data">
+				<sec:csrfInput />
 				<table id=table_simple_my_profile>
 					<tr>
 						<td class="td_title">사진</td>
 						<td>
 							<div id="image_preview">
-								<img id="my_photo" onclick="" src="/sproject/resource/member/photo/${principal.m_id}.jpg" onerror="this.src='/sproject/resource/member/photo/default.jpg'">
-							</div>
-							<input id="multipartFile" type="file" name="multipartFile">
+								<img id="my_photo" onclick=""
+									src="${pageContext.request.contextPath}/resource/member/photo/${principal.m_id}.jpg"
+									onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'">
+							</div> <input id="multipartFile" type="file" name="multipartFile">
 						</td>
 					</tr>
 					<tr>
@@ -58,6 +61,6 @@
 			</form>
 		</div>
 	</div>
-<%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
+	<%@include file="/WEB-INF/views/header/headerFooter.jsp"%>
 </body>
 </html>

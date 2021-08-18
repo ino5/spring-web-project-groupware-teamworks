@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div id="TestCircle">
-		<button type="button" id="Test"></button>
+	<button type="button" id="Test">
+		<img alt="물풍선.png" src="header/img/물풍선.png" style="width: 100px; height: 100px">
+	</button>
 	</div>
 	<!-- Modal content -->
 	<div id="myModal" class="modal drag">

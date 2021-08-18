@@ -255,32 +255,24 @@
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 <div id="side">
 		<div id="myInfo">
-			<img id="img" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" style="width: 50px; height: 50px"/>			
-			이름 : ${m_name }
-			생년월일 : ${m_birth }
-	 		직위 : ${pt_name }
+			<div id="img">
+			<sec:authorize access="isAuthenticated()">
+				<sec:authentication property="principal.username" var="sec_m_id" />
+				<img id="img" src="${pageContext.request.contextPath}/resource/member/photo/${sec_m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" style="width: 50px; height: 50px"/>			
+			</sec:authorize>
+			</div>
+			<div id="text">
+					<div style="font-size: 15px;">안녕하세요!</div>
+					<b style="font-size: 25px;">${m_name } ${pt_name }님</b> <br>
+					<a style="text-decoration: none; color:black; font-size: " href="${pageContext.request.contextPath}/login/simpleMyProfile">내 프로파일>></a>
+		 	</div>
  		</div>
- 		<section id="clock">
-			<span id="clock1"></span> <br> <span id="clock2"></span>
-		</section>
-		<section style="margin-bottom: 5px;">
-			<span class="clock3">출근시간</span> <span class="clock4" id="startTime">
-				<c:if test="${mainTime == null}">
-				미등록
-			</c:if> <c:if test="${mainTime.tm_sdate != null}">
-				${mainTime.tm_sdate}
-			</c:if>	</span> <br>
-			<span class="clock3">퇴근시간</span> <span class="clock4"
-				id="endTime"> <c:if test="${mainTime.tm_edate == null}">
-				미등록
-			</c:if> <c:if test="${mainTime.tm_edate != null}">
-				${mainTime.tm_edate}
-			</c:if>
-			</span> 
-		</section>
+ 		<br>
+ 		<hr style="border-top: 3px dotted black; margin-left: 15px">
 	<div id = "write2">
 		<!-- 결재작성 -->
-		<div class="write_button1"><button type="button" id="button_new_sign">결재작성</button> <br></div>
+		<div class="write_button1"><button type="button" id="button_new_sign"><img alt="결재작성.png" src="main/img/결재작성.png" style="width: 100px; height: 100px"><br>
+		<b style="margin-right: 13px;">결재작성</b></button></div>
 	
 		<!-- 새 결제 진행 모달창 -->
 		<div id="modal_wrap_new_sign" class="modal_wrap">
@@ -297,7 +289,8 @@
 		</div>
 		
 		<!-- 게시판작성 -->
-		<div class="write_button2"><button type="button" id="btn1" onclick="location.href='${pageContext.request.contextPath}/board/write'">게시판 작성</button></div>
+		<div class="write_button2"><button type="button" id="btn1" onclick="location.href='${pageContext.request.contextPath}/board/write'"><img alt="게시판작성.png" src="main/img/게시판작성.png" style="width: 100px; height: 100px"><br>
+		<b>게시판 작성</b></button></div>
 	</div>
 		<!-- 캘린더 -->
 		<div class="calendar">
@@ -324,7 +317,182 @@
 		</script>	
 </div>
 <div id="content">
-
+	
+	<div class="set1">
+		<div class="box1">
+			<div class="box1_1">
+				<div class="text"><b>근태관리</b></div>
+				<div class="img"><img alt="근태.png" src="main/img/출근.png"> </div>
+			</div>
+			<div class="box1_2">
+				<!-- 시간 + 근태 -->
+				<div id="clock">
+					<span id="clock1"></span><br><span id="clock2"></span>
+				</div>
+				<div style="margin-bottom: 5px;">
+					<span class="clock3">출근시간</span> <span class="clock4" id="startTime">
+						<c:if test="${mainTime == null}">
+						미등록
+					</c:if> <c:if test="${mainTime.tm_sdate != null}">
+						${mainTime.tm_sdate}
+					</c:if>	</span> <br>
+					<span class="clock3">퇴근시간</span> <span class="clock4"
+						id="endTime"> <c:if test="${mainTime.tm_edate == null}">
+						미등록
+					</c:if> <c:if test="${mainTime.tm_edate != null}">
+						${mainTime.tm_edate}
+					</c:if>
+					</span> 
+				</div>
+			</div>
+		</div>
+		<!-- 게시판 -->
+		<div class="box2">
+			<div class="box2_1">
+				<table id="list_table">
+					<tr>
+						<td></td>
+						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>게시판</b></td>
+					</tr>
+					<tr style="height: 10px"></tr>
+					<c:forEach var="ps" items="${listPost}" begin="0" end="3">				
+							<tr style="width: 550px">
+								<td style="height: 40px; width: 50px; text-align: center">*</td>
+								<td style="width: 200px"><a style="text-decoration: none; color: black" href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
+								<td style="width: 150px; text-align: center">${ps.m_name}${ps.pt_name}</td>
+								<td style="width: 150px; text-align: center"><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy/MM/dd"/></td>	
+							</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<div class="box2_2">
+				<img alt="게시판.png" src="main/img/게시판3.png"> 
+			</div>
+		</div>
+		<!-- 드라이브 -->
+		<div class="box3">
+			<div class="box3_1">
+						<table>
+								<tr>
+									<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>드라이브</b></td>
+								</tr>
+								<tr style="height: 10px"></tr>		
+							<c:forEach var= "driveFileInfo" items="${driveFileInfoListOfEnterprise}" begin="0" end="3">
+								<tr id="row_dv_id_${driveFileInfo.dv_id}" style="width: 550px">									
+									<td style="height: 40px; width: 150px; text-align: center">
+										<fmt:formatDate value="${driveFileInfo.dv_regdate}" pattern="yyyy/MM/dd"/>
+									</td>		
+									<td style="width: 200px">
+										<c:choose>
+		                                 <c:when test="${fn:length(driveFileInfo.dv_filename) gt 20}">
+		                                    <c:out value="${fn:substring(driveFileInfo.dv_filename, 0, 20)} ${'...'}"></c:out>
+		                                 </c:when>
+		                                 <c:otherwise>
+		                                    <c:out value="${driveFileInfo.dv_filename}" />
+		                                 </c:otherwise>
+		                              </c:choose>
+									</td>												
+									<td style="width: 100px; text-align: center">
+										${driveFileInfo.m_id}
+									</td>
+									<td style="width: 100px; text-align: center">
+										<button type="button" class="button_download_file" data-dv_id="${driveFileInfo.dv_id}"><img alt="다운로드.png" src="main/img/다운로드.png" style="width: 20px; height: 20px"> </button>
+									</td>
+								</tr>
+						</c:forEach>
+						</table>
+			</div>
+			<div class="box3_2">
+				<img alt="드라이브.png" src="main/img/드라이브1.png"> 
+			</div>
+		</div>
+	</div>
+	<div class="set2">
+		<div class="box4">
+			<div class="box4_1">
+				<div class="text"><b>결재현황</b></div>
+				<div class="img"><img alt="전자결재.png" src="main/img/전자결재.png"> </div>
+			</div>
+			<div class="box4_2">
+				<div class="box4_2_1">
+					<div class="box4_2_1_1">
+						<div class="text1_1">기안진행</div>
+						<div class="text1_2"><b>${num_processing }</b></div>
+					</div>
+					<div class="box4_2_1_2">
+						<div class="text2_1">기안완료</div>
+						<div class="text2_2"><b>${num_ProposalCompleted }</b></div>
+					</div>
+				</div>
+				<div class="box4_2_2">
+					<div class="box4_2_2_1">
+						<div class="text3_1">결제대기</div>
+						<div class="text3_2"><b>${num_Waited }</b></div>
+					</div>
+					<div class="box4_2_2_2">
+						<div class="text4_1">결재처리</div>
+						<div class="text4_2"><b>${num_ApprovalCompleted }</b></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box5">
+			<div class="box5_1">
+				<table id="list_mail">
+								<tr>
+										<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>메일</b></td>
+								</tr>
+								<tr style="height: 10px"></tr>
+							<c:forEach var="mail" items="${listOfMail}" begin="0" end="3">
+								<tr
+									<c:if test="${mail.ml_read == '1'}">
+										class="tr_read"
+									</c:if>
+								style="width: 550px" >
+									<td class="date" style="width: 150px; text-align: center">
+									<fmt:formatDate value="${mail.ml_regdate}" pattern="yyyy/MM/dd hh:mm"></fmt:formatDate></td>		
+									<td class="email" style="height: 40px; width: 200px; text-align: center">${mail.ml_email}</td>
+									<td style="width: 200px">
+										<a href="${pageContext.request.contextPath}/mail/view/${mail.ml_num}" style="text-decoration: none; color:black">
+											<c:choose>
+			                                 <c:when test="${fn:length(mail.ml_title) gt 15}">
+			                                    <c:out value="${fn:substring(mail.ml_title, 0, 15)} ${'...'}"></c:out>
+			                                 </c:when>
+			                                 <c:otherwise>
+			                                    <c:out value="${mail.ml_title}" />
+			                                 </c:otherwise>
+			                              </c:choose></a>
+									</td>
+								</tr>
+							</c:forEach>
+					</table>
+			</div>
+			<div class="box5_2">
+				<img alt="메일.png" src="main/img/메일4.png"> 
+			</div>		
+		</div>
+		<div class="box6">
+			<div class="box6_1">
+				<table id="list_table">	
+						<tr>
+							<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>커뮤니티</b></td>
+						</tr>
+						<tr style="height: 10px"></tr>			
+					<c:forEach var="ps" items="${listPost2}" begin="0" end="3">					
+						<tr style="width: 550px">
+							<td style="height: 40px; width: 50px; text-align: center">*</td>
+							<td style="width: 200px"><a style="color: black; text-decoration: none" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
+							<td style="width: 150px; text-align: center">${ps.m_id}</td>						
+							<td style="width: 150px; text-align: center"><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy/MM/dd"/></td>	
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<div class="box6_2">
+				<img alt="커뮤니티.png" src="main/img/커뮤니티.png"> 
+			</div>	
+		</div>	
+	</div>
 </div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

@@ -2,7 +2,6 @@ var global_now;
 var global_date;
 var global_nowTime;
 function printTime() {
-	debugger;
 	var now = new Date(); // 현재시간
 	var month = ("0" + (now.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
 	var day = ("0" + now.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
@@ -141,3 +140,11 @@ function moveSignForm(sgf_id) {
 }
 /* End of 모달창 관련 스크립트 */
 
+//다운로드 버튼 클릭 시 이벤트
+$(document).on(
+		"click", 
+		".button_download_file", 
+		e => { 
+			let dv_id = $(e.currentTarget).data('dv_id');
+			window.location = _contextPath + '/drive/download/' + dv_id;
+		});
