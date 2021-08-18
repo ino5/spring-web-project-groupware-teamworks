@@ -52,7 +52,7 @@
 			           }
 			           barChart(label,chartData,title);
 			           
-			         /*  1.차트에 들어가는 데이터 형태를 파악하기
+			         /* 1.차트에 들어가는 데이터 형태를 파악하기
 			           2.조회한 데이터 확인
 			           3.데이터형태에 맞춰서 값 넣어주기
 			            label = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]

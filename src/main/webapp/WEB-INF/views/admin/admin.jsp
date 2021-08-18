@@ -111,7 +111,9 @@ function DeleteBoardGroupOfAdmin() {
 					style="color: #37d2e7; font-size: 20px; font-weight: bold; margin-left: 5%; cursor: pointer;">site
 					Admin</div>
 				<div id="text">
-					<h3>관리자 페이지</h3>
+				<button style="background-color: transparent; border: none;" type="button" id="text" 
+			onclick="location.href='${pageContext.request.contextPath}/admin'"><h3>관리자 페이지</h3></button>
+					
 				</div>
 				<div></div>
 				<div class="menu_hover">

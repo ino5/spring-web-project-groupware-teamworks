@@ -163,7 +163,7 @@ $("#boardSet").on("click", function () {
 						<li><button type="button" id="boardSet" class="btn2 btn_admin" >
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
 							</button></li>
-						<li><button type="button" class="btn2 btn_admin" onclick="javascript:groupDelete()">
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
 							</button></li>
 						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">

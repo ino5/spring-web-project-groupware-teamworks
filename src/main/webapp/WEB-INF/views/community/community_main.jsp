@@ -28,7 +28,7 @@
 					<li class="li">
 						<c:if test="${as.is_joined != '0'}">
 							<a href="${pageContext.request.contextPath}/community/sideboard_list?bd_num=${as.bd_num}">${as.bd_name}</a>
-								<img style="border-radius:70%; width:30px; height: 30px; " src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>
+
 						</c:if>
 						
 						<c:if test="${as.is_joined == '0'}">

@@ -18,7 +18,7 @@
 					style="color: #37d2e7; font-size: 20px; font-weight: bold; margin-left: 5%; cursor: pointer;"
 				>site Admin</div>
 				<div id="text">
-					<h3 style= "color: #bbb; font-size: 24px; cursor: pointer;">관리자 페이지</h3>
+				<h3 style= "color: #bbb; font-size: 24px; cursor: pointer;">관리자 페이지</h3>
 				</div>
 				<div></div>
 				<div class="menu_hover">
