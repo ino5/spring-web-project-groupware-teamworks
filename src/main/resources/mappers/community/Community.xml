@@ -129,7 +129,7 @@
 		UPDATE post SET bd_num = #{bd_num}  WHERE p_num = #{p_num}
 	</update>
 <delete id="CommunityDeleteGroupOfCommunity" parameterType="Map">
-	 DELETE from post where p_num = {#p_num}
+	 DELETE from post where p_num = #{p_num}
 	</delete>
 <update id="CommunityNoticeGroupOfCommunity" parameterType="Map">
 		UPDATE post SET p_type= 1 WHERE p_num = #{p_num}

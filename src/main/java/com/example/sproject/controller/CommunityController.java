@@ -235,7 +235,7 @@ public class CommunityController {
 //이동하기
 
 	@PostMapping(value = "communityGroup")
-
+	@ResponseBody
 	public void communityGroup(@RequestParam(value = "checkArray[]", required = false) List<String> groupList,
 			Model model, int bd_num) {
 		// Ajax를 통해 Array로 받은 "deleteList"를 하나씩 빼내어 ArrayList에 넣음
@@ -247,19 +247,23 @@ public class CommunityController {
 	}
 
 	// 삭제
-	@PostMapping(value = "communityDeleteGroup")
+	@RequestMapping(value="communityDeleteGroup", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
 	public void communityDeleteGroup(@RequestParam(value = "checkArray[]", required = false) List<String> groupList,
 			Model model) {
-
+		System.out.println("communityDeleteGroup Start");
 		ArrayList<String> GroupArray = new ArrayList<String>();
 		for (int i = 0; i < groupList.size(); i++) {
 			GroupArray.add(groupList.get(i));
 		}
 		communityService.communityDeleteGroup(groupList);
 	}
+	
 
 //공지로 등록
-	public void community_NoticeGroup(@RequestParam(value = "checkArray[]", required = false) List<String> groupList,
+	@PostMapping(value = "communityNoticeGroup")
+	@ResponseBody
+	public void communityNoticeGroup(@RequestParam(value = "checkArray[]", required = false) List<String> groupList,
 			Model model) {
 
 		ArrayList<String> GroupArray = new ArrayList<String>();

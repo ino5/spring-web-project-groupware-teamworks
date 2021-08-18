@@ -165,7 +165,7 @@ function DeleteBoardGroupOfAdmin() {
 					</tr>
 				</table>
 			</div>
-			<div id="board_table" style="padding-left: 80px;">
+			<div id="board_table">
 				<section class="tool_bar">
 					<ul class="tool_ul">
 						<li><button type="button" class="btn2" id="add">

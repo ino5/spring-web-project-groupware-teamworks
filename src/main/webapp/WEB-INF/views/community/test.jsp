@@ -45,7 +45,7 @@
 		      url : _contextPath + "/community/communityDeleteGroup",
 		      data : {checkArray : delchk},
 		         success: function pageReload(){
-		               location.href= "${pageContext.request.contextPath}/sideboard_list?bd_num=${bd_num}";
+		        	  location.href= "${pageContext.request.contextPath}/community/sideboard_list?bd_num=${bd_num}";
 		           }
 		      });
 		}

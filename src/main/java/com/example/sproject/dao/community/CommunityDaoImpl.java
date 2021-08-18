@@ -221,6 +221,7 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public void communityDeleteGroup(List<String> groupList) {
+		System.out.println("communityDeleteGroup DAOIMPL START");
 		for(int i = 0; i < groupList.size(); i++) {
 			String p_num = groupList.get(i);
 			session.delete("CommunityDeleteGroupOfCommunity", Integer.parseInt(p_num));
