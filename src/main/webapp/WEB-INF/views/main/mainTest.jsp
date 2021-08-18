@@ -344,7 +344,7 @@
 					<c:forEach var="ps" items="${listPost}" begin="0" end="3">				
 							<tr style="width: 550px">
 								<td style="height: 40px; width: 50px; text-align: center">*</td>
-								<td style="width: 200px"><a style="color: #666666; text-decoration: none" href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
+								<td style="width: 200px"><a style="text-decoration: none; color: black" href='${pageContext.request.contextPath}/board/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
 								<td style="width: 150px; text-align: center">${ps.m_name}${ps.pt_name}</td>
 								<td style="width: 150px; text-align: center"><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy/MM/dd"/></td>	
 							</tr>
@@ -369,7 +369,14 @@
 										<fmt:formatDate value="${driveFileInfo.dv_regdate}" pattern="yyyy/MM/dd"/>
 									</td>		
 									<td style="width: 200px">
-										${driveFileInfo.dv_filename}
+										<c:choose>
+		                                 <c:when test="${fn:length(driveFileInfo.dv_filename) gt 20}">
+		                                    <c:out value="${fn:substring(driveFileInfo.dv_filename, 0, 20)} ${'...'}"></c:out>
+		                                 </c:when>
+		                                 <c:otherwise>
+		                                    <c:out value="${driveFileInfo.dv_filename}" />
+		                                 </c:otherwise>
+		                              </c:choose>
 									</td>												
 									<td style="width: 100px; text-align: center">
 										${driveFileInfo.m_id}
@@ -416,10 +423,62 @@
 			</div>
 		</div>
 		<div class="box5">
+			<div class="box5_1">
+				<table id="list_mail">
+								<tr>
+										<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><b>메일</b></td>
+								</tr>
+								<tr style="height: 10px"></tr>
+							<c:forEach var="mail" items="${listOfMail}" begin="0" end="3">
+								<tr
+									<c:if test="${mail.ml_read == '1'}">
+										class="tr_read"
+									</c:if>
+								style="width: 550px" >
+									<td class="date" style="width: 150px; text-align: center">
+									<fmt:formatDate value="${mail.ml_regdate}" pattern="yyyy/MM/dd hh:mm"></fmt:formatDate></td>		
+									<td class="email" style="height: 40px; width: 200px; text-align: center">${mail.ml_email}</td>
+									<td style="width: 200px">
+										<a href="${pageContext.request.contextPath}/mail/view/${mail.ml_num}" style="text-decoration: none; color:black">
+											<c:choose>
+			                                 <c:when test="${fn:length(mail.ml_title) gt 15}">
+			                                    <c:out value="${fn:substring(mail.ml_title, 0, 15)} ${'...'}"></c:out>
+			                                 </c:when>
+			                                 <c:otherwise>
+			                                    <c:out value="${mail.ml_title}" />
+			                                 </c:otherwise>
+			                              </c:choose></a>
+									</td>
+								</tr>
+							</c:forEach>
+					</table>
+			</div>
+			<div class="box5_2">
+				<img alt="메일4.png" src="main/img/메일4.png"> 
+			</div>		
 		</div>
 		<div class="box6">
-		</div>
-	</div>	
+			<div class="box6_1">
+				<table id="list_table">	
+						<tr>
+							<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><b>커뮤니티</b></td>
+						</tr>
+						<tr style="height: 10px"></tr>			
+					<c:forEach var="ps" items="${listPost2}" begin="0" end="3">					
+						<tr style="width: 550px">
+							<td style="height: 40px; width: 50px; text-align: center">*</td>
+							<td style="width: 200px"><a style="color: black; text-decoration: none" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
+							<td style="width: 150px; text-align: center">${ps.m_id}</td>						
+							<td style="width: 150px; text-align: center"><fmt:formatDate value="${ps.p_regdate}" pattern="yyyy/MM/dd"/></td>	
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<div class="box6_2">
+				<img alt="커뮤니티.png" src="main/img/커뮤니티.png"> 
+			</div>	
+		</div>	
+	</div>
 </div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

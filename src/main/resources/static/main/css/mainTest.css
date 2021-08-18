@@ -446,9 +446,53 @@ button {
 	margin-right: 20px;
 }
 
+.box5_1 {
+	width: 79%;
+	float: left;
+	position: relative;
+	height: 250px;
+}
+
+.box5_2 {
+	width: 20.8%;
+	border-left: 1px solid black;
+	float: left;
+	height: 250px;
+	background-color: #f9f9e1;
+}
+
+.box5_2 img {
+	width: 100px;
+    height: 100px;
+    padding-left: 30px;
+    padding-top: 25px;
+}
+
 .box6 {
 	border: 1px solid black;
 	height: 250px;
 	margin-top: 20px;
 	margin-right: 20px;
+}
+
+.box6_1 {
+	width: 79%;
+	float: left;
+	position: relative;
+	height: 250px;
+}
+
+.box6_2 {
+	width: 20.8%;
+	border-left: 1px solid black;
+	float: left;
+	height: 250px;
+	background-color: #ffe6ff;
+}
+
+.box6_2 img {
+	width: 100px;
+    height: 100px;
+    padding-left: 30px;
+    padding-top: 25px;
 }
