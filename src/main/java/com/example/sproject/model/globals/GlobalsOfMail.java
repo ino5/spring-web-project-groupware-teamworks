@@ -19,7 +19,8 @@ public class GlobalsOfMail {
 	}
 	
 	public static String SMTP_PASSWORD;
-	@Value("${project-value.mailgun.smtp-password}")
+//	@Value("${project-value.mailgun.smtp-password}")
+	@Value("${project-value.improvmx.smtp-password}")
 	public void setSMTP_PASSWORD(String value) {
 		SMTP_PASSWORD = value;
 	}

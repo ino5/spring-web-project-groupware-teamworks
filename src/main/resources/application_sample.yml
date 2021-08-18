@@ -65,5 +65,7 @@ project-value:
   mail:
     id: 1234@mail.com
     password: 1234
+  improvmx:
+    smtp-password: 1234
 
   

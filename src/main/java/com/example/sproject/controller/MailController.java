@@ -1,6 +1,7 @@
 package com.example.sproject.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class MailController {
 	
 	static final String MAIL_DOMAIN = "@teamworksgroup.shop";
 	
+	static final String MODE_RECEIVED = "received"; // 받은 메일함
+	static final String MODE_SENT = "sent"; // 보낸 메일함
+	
 	@Autowired
 	EmailReader emailReader;
 	@Autowired
@@ -61,39 +65,81 @@ public class MailController {
      * @throws ParseException 
      */
     @RequestMapping(value ="", method= {RequestMethod.GET, RequestMethod.POST})
-    public String index(Integer currentPage, @AuthenticationPrincipal Member principal, Model model) throws MessagingException, ParseException {
-    	// 메일 DB 업데이트하기
-    	mailService.updateMailDB();
-    	
+    public String index(String mode, Integer currentPage, @AuthenticationPrincipal Member principal, Model model) throws MessagingException, ParseException {
     	// 메일 가져오기 위한 정보 세팅
     	Mail mail = new Mail();
-    	mail.setMl_type(1);
     	mail.setM_id(principal.getM_id());
+
+    	
+    	// 모드에 따른 세팅
+    	if (mode == null || mode.equals("")) {
+    		mode = MODE_RECEIVED;
+    	}
+    	if (mode.equals(MODE_RECEIVED)) {
+    		// JSP 모드 설정
+    		model.addAttribute("mode", MODE_RECEIVED);
+    		
+        	// 메일 DB 업데이트하기
+        	mailService.updateMailDB();
+        	Timestamp updateDateOfDb = mailService.findUpdateDateOfDb();
+        	model.addAttribute("updateDateOfDb",updateDateOfDb);
+        	
+        	// 메일 가져오기 위한 정보 세팅
+        	mail.setMl_type(1); // 받은 메일
+        	mail.setMl_is_deleted(0);		
+    	} else if (mode.equals(MODE_SENT)) {
+    		// JSP 모드 설정
+    		model.addAttribute("mode", MODE_SENT);
+    		
+        	// 메일 가져오기 위한 정보 세팅
+        	mail.setMl_type(2); // 보낸 메일
+        	mail.setMl_is_deleted(0);    		
+    	}
+    	
     	
     	// 페이징 처리
-    	CommonPaging commonPaging = new CommonPaging(mailService.countTotalMail(mail), currentPage, 10, 5);
+    	int rowPage = 10;
+    	int pageBlock = 5;    	
+    	CommonPaging commonPaging = null;
+    	if (mode.equals(MODE_RECEIVED)) {
+    		commonPaging = new CommonPaging(mailService.countTotalMailReceived(mail), currentPage, rowPage, pageBlock);
+    	} else if (mode.equals(MODE_SENT)) {
+    		commonPaging = new CommonPaging(mailService.countTotalMailSent(mail), currentPage, rowPage, pageBlock);
+    	}
     	System.out.println("commonPaging: " + commonPaging);
     	model.addAttribute("commonPaging", commonPaging);
     	mail.setRn_start(commonPaging.getStart());
     	mail.setRn_end(commonPaging.getEnd());
     	
     	// 페이징 처리에 맞게 메일 가져오기
-    	List<Mail> listOfMail = mailService.listMail(mail);    	
+    	List<Mail> listOfMail = null;
+    	if (mode.equals(MODE_RECEIVED)) {
+    		listOfMail = mailService.listMailReceived(mail); 
+    	} else if (mode.equals(MODE_SENT)) {
+    		listOfMail = mailService.listMailSent(mail);
+    	}
     	mailService.replaceStringForHtml(listOfMail);
     	model.addAttribute("listOfMail", listOfMail);
     	
     	// 메일 수 카운트하기
     	mail.setRn_start(1);
     	mail.setRn_end(Integer.MAX_VALUE);
-    	List<Mail> listOfMailForCounting = mailService.listMail(mail);
+    	List<Mail> listOfMailForCounting = null;
+    	if (mode.equals(MODE_RECEIVED)) {
+    		listOfMailForCounting = mailService.listMailReceived(mail);
+    	} else if (mode.equals(MODE_SENT)) {
+    		listOfMailForCounting = mailService.listMailSent(mail);
+    	}
     	int numRead = 0;
     	for (Mail m : listOfMailForCounting) {
-    		if (m.getMl_read() == 1) {
+    		if (m.getMl_is_read() == 1) {
     			++numRead;
     		}
     	}
     	model.addAttribute("numRead", numRead);
-    	model.addAttribute("numUnread", listOfMailForCounting.size() - numRead);
+    	model.addAttribute("numUnread", listOfMailForCounting.size() - numRead);   
+    	
+    	
     	
         return "mail/mailMain";
     }
@@ -159,7 +205,7 @@ public class MailController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value ="send", method= {RequestMethod.POST})
-	public String mailSend(Mail mail, String addressTo, @RequestParam("multipartFile") List<MultipartFile> listOfMultipartFile, @AuthenticationPrincipal Member principal, Model model) throws IOException, Exception {
+	public String mailSend(Mail mail, String addressTo, @RequestParam("multipartFile") List<MultipartFile> listOfMultipartFile, @AuthenticationPrincipal Member principal, Model model) throws IOException, Exception {		
 		// 파일 서버에 올리고 db에 정보 등록하기
 		List<DriveFileInfo> listOfDriveFileInfo = new ArrayList<DriveFileInfo>();
 		for (MultipartFile multipartFile : listOfMultipartFile) {
@@ -191,7 +237,14 @@ public class MailController {
 	}
 	
 
-    
+    @RequestMapping(value="delete", method= {RequestMethod.POST})
+    @ResponseBody
+    public String delete(@RequestParam(value="chkArr[]", required = false) List<Integer> listOfMl_num, @AuthenticationPrincipal Member principal) {
+    	if (listOfMl_num != null && listOfMl_num.size() > 0) {
+    		mailService.deleteMail(principal.getM_id(), listOfMl_num);
+    	}
+    	return null;
+    }
     
 
 

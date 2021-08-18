@@ -25,7 +25,13 @@
 					<span class="span_gray">안읽은 메일</span>
 					<span class="span_number">${numUnread}</span>
 				</div>
-				<div id="tool_bar">
+				<div id="toolbar_wrap">
+					<input type="checkbox" name="all_listOfMl_num" class="all_checkbox_mail">
+					<button type="button" onclick="deleteMails();">삭제</button>
+					<div id="mail_server_time">
+						서버 동기화 시간: <fmt:formatDate value="${updateDateOfDb}" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate>
+					</div>
+					<div style="clear:both;"></div>
 				</div>
 			</div>
 			<div id="list_mail_wrap">
@@ -33,10 +39,13 @@
 					<tbody>
 						<c:forEach var="mail" items="${listOfMail}" >
 							<tr
-								<c:if test="${mail.ml_read == '1'}">
+								id="tr_mail_${mail.ml_num}"
+								<c:if test="${mail.ml_is_read == '1'}">
 									class="tr_read"
 								</c:if>
+								
 							>
+								<td class="td_checkbox_mail"><input type="checkbox" name="listOfMl_num" class="checkbox_mail" value="${mail.ml_num}"></td>
 								<td class="email">${mail.ml_email}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/mail/view/${mail.ml_num}">${mail.ml_title}</a>

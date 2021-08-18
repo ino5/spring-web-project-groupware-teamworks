@@ -16,7 +16,7 @@
 			<a href="${pageContext.request.contextPath}/mail">받은 메일함</a>
 		</p></li>
 		<li class="li"><p class="menu_title">
-			<a href="#">보낸 메일함</a>
+			<a href="${pageContext.request.contextPath}/mail?mode=sent">보낸 메일함</a>
 		</p></li>
 	
 </ol>

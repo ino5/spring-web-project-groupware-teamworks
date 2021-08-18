@@ -45,7 +45,7 @@
 					</tr>				
 				</table>
 				<div id="form_footer">
-					<button class="mail_button" type="submit">
+					<button class="mail_button" type="submit" onclick="waitLoading();">
 						<span class="ic_toolbar send"></span>
 						<span class="txt_button">보내기</span>
 					</button>	

@@ -26,6 +26,10 @@ a {
 	margin-left: 24px;
 }
 
+#mail_header #title {
+	margin-bottom: 30px;
+}
+    
 #mail_header #title span.span_title {
 	font-size: 27px;
     font-weight: normal;
@@ -40,8 +44,18 @@ a {
 #mail_header #title span.span_number {
 	
 }
-
+/* 툴바 부분 */
+#toolbar_wrap{
+	margin-left: 17px;
+}
+    
 /* 메일 목록 부분 */
+#mail_server_time {
+	float: right;
+    margin-right: 28px;
+    font-size: 17px;
+	margin-bottom: 10px; 
+}
 #mail_wrap #list_mail_wrap {
 /* 	height: 70%; */
 /* 	overflow: scroll; */
@@ -50,7 +64,6 @@ a {
 #mail_wrap #list_mail_wrap table#list_mail {
 	border-collapse: collapse;
     width: 100%;	
-    margin-top: 50px;
 	margin-bottom: 30px;    
 }
 
@@ -85,7 +98,24 @@ a {
 	font-weight: 400 !important;
 }
 
+.td_checkbox_mail {
+    width: 30px;
+    padding-left: 41px !important;
+    padding-right: 0px !important;
+}
 
+.td_checkbox_mail input[type='checkbox'], #toolbar_wrap input[type='checkbox'] {
+	border: solid 2px #ccc;
+    height: 16px;
+    width: 16px;
+    border-radius: 2px;
+    overflow: hidden;	
+    margin-top: 4px;
+}
+
+.checkbox_mail .all_checkbox_mail{
+
+}
     
 
 

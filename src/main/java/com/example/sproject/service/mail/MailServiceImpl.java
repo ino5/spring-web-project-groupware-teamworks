@@ -66,6 +66,8 @@ public class MailServiceImpl implements MailService {
         props.setProperty("mail.store.protocol", "imaps");
         try {
         	System.out.println("updateMailDB");
+        	Timestamp nowTime = new Timestamp(System.currentTimeMillis());
+        	
             Session session = Session.getDefaultInstance(props, null);
             Store store = session.getStore("imaps");
             store.connect("imap.gmail.com", GlobalsOfMail.MAIL_ID, GlobalsOfMail.MAIL_PASSWORD);
@@ -109,7 +111,7 @@ public class MailServiceImpl implements MailService {
                             // 첨부파일 있을 경우 지정 폴더로 저장
                             String fileName = part.getFileName();
                             
-                            
+                       
                     		UUID uid = UUID.randomUUID();
                     		String dv_id = uid.toString();
                             part.saveFile(WebMvcConfig.RESOURCE_PATH + "/drive/" + dv_id);
@@ -163,6 +165,8 @@ public class MailServiceImpl implements MailService {
                 Mail mail = new Mail();
                 mail.setMl_num(1 + mailDao.countMaxMl_num());
                 mail.setMl_type(1); // 받은 메일
+                mail.setMl_is_read(0);
+                mail.setMl_is_deleted(0);
                 mail.setMl_email(from);
                 mail.setMlb_num(0); // 메일함 번호 임시로 0
                 mail.setMl_title(subject);
@@ -188,33 +192,42 @@ public class MailServiceImpl implements MailService {
                 	mailDao.insertMailTo(mailTo);
                 }
                 
+                
+                
             }
-
             // disconnect
             inbox.close(false);
             store.close();
+            
+            // 메일 업데이트 시간 갱신하기
+            mailDao.updateMl_rcvdate(nowTime);
 
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
-            System.exit(1);
         } catch (MessagingException e) {
             e.printStackTrace();
-            System.exit(2);
         } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+            ex.printStackTrace();	
+        } 
 		return 0;
 	}
 	
 	// 메일보내기
     public int sendMail(Member principal, Mail mail, String addressTo, List<DriveFileInfo> listOfDriveFileInfo) throws MessagingException {
-        Properties props = System.getProperties();
-        props.put("mail.smtps.host", "smtp.mailgun.org");
+    	System.out.println("sendMail method");
+    	Properties props = System.getProperties();
+    	props.put("mail.smtps.host", "smtp.improvmx.com");
+//        props.put("mail.smtps.host", "smtp.mailgun.org");
         props.put("mail.smtps.auth", "true");
-
+        // 내가 임의 추가 put
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.starttls.enable", "true");
+        
         Session session = Session.getInstance(props, null);
         Message msg = new MimeMessage(session);
         String ml_email = principal.getM_name() + "<" + principal.getM_id() + "@" + GlobalsOfMail.MAIL_DOMAIN + ">";
+//        String ml_email = "brad@" + GlobalsOfMail.MAIL_DOMAIN_FOR_MAILGUN; //임시 테스트
+        System.out.println("ml_email: " + ml_email);
         msg.setFrom(new InternetAddress(ml_email));
         InternetAddress[] addrs = InternetAddress.parse(addressTo, false);
         msg.setRecipients(Message.RecipientType.TO, addrs);
@@ -242,14 +255,43 @@ public class MailServiceImpl implements MailService {
 
         // setContent
         msg.setContent(multipart);
-
-        
-        // 메일 보내기
         SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
-        t.connect("smtp.mailgun.org", "postmaster@" + GlobalsOfMail.MAIL_DOMAIN_FOR_MAILGUN, GlobalsOfMail.SMTP_PASSWORD);
-        t.sendMessage(msg, msg.getAllRecipients());
-        System.out.println("Response: " + t.getLastServerResponse());
-        t.close();
+        System.out.println("SMTP_PASSWORD: " + GlobalsOfMail.SMTP_PASSWORD);
+
+//        try {
+//            // 메일 보내기
+//        	t.connect("smtp.improvmx.com", "postmaster@" + GlobalsOfMail.MAIL_DOMAIN, GlobalsOfMail.SMTP_PASSWORD);
+//;
+//        	t.sendMessage(msg, msg.getAllRecipients());
+//            System.out.println("Response: " + t.getLastServerResponse());   
+//            t.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			t.close();
+//			// 재전송
+//			
+//		}
+        
+        // 전송 및 실패 시 재전송
+		for (int i = 0; i < 3; i++) {
+			try {			
+				System.out.println( (i+1) + "차 메일 전송");
+				t = (SMTPTransport) session.getTransport("smtps");
+				t.connect("smtp.improvmx.com", "postmaster@" + GlobalsOfMail.MAIL_DOMAIN, GlobalsOfMail.SMTP_PASSWORD);
+//	          	t.connect("smtp.mailgun.org", "postmaster@" + GlobalsOfMail.MAIL_DOMAIN_FOR_MAILGUN, GlobalsOfMail.SMTP_PASSWORD);
+//	        	t.connect("smtp.mailgun.org", "webmaster@teamworksgroupware.shop", "2ebc7c50bbaf987363341a1227258041-9776af14-7228f2fe")
+	            t.sendMessage(msg, msg.getAllRecipients());
+	            System.out.println("Response: " + t.getLastServerResponse());	
+	            t.close();
+	            break;
+			} catch (Exception e2) {
+				System.out.println( (i+1) + "차 메일 전송 실패");
+				e2.printStackTrace();
+				t.close();
+			}				
+		}
+
+
 
         // mail 객체 안에 데이터 넣기
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -272,9 +314,9 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public List<Mail> listMail(Mail mail) {
+	public List<Mail> listMailReceived(Mail mail) {
 		mail.setMl_email('%' + mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%');
-		return mailDao.selectListMail(mail);
+		return mailDao.selectListMailReceived(mail);
 	}
 
 	@Override
@@ -329,6 +371,8 @@ public class MailServiceImpl implements MailService {
 		mail.setMlb_num(0); // 메일함 임시로 값 할당
 		mail.setMl_type(2);
 		mail.setMl_num(1 + mailDao.countMaxMl_num());
+		mail.setMl_is_read(0);
+		mail.setMl_is_deleted(0);
 		return mailDao.insertMail(mail);
 	}
 
@@ -348,14 +392,45 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public int countTotalMail(Mail mail) {
-		mail.setMl_email('%' + mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%');
-		return mailDao.countTotalMail(mail);
+	public int countTotalMailReceived(Mail mail) {
+		mail.setMl_email(m_idToMl_emailForLike(mail.getM_id()));
+		return mailDao.countTotalMailReceived(mail);
 	}
 
 	@Override
 	public int updateMailRead(int ml_num) {
 		return mailDao.updateMailRead(ml_num);
+	}
+
+	@Override
+	public int deleteMail(String m_id, List<Integer> listOfMl_num) {
+		String ml_email = m_idToMl_emailForLike(m_id);
+		for (int ml_num : listOfMl_num) {
+			mailDao.deleteMail(ml_email, ml_num);
+		}
+		return 1;
+	}
+
+	@Override
+	public String m_idToMl_emailForLike(String m_id) {
+		return '%' + m_id+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%';
+	}
+
+	@Override
+	public int countTotalMailSent(Mail mail) {
+		mail.setMl_email(m_idToMl_emailForLike(mail.getM_id()));
+		return mailDao.countTotalMailSent(mail);
+	}
+
+	@Override
+	public List<Mail> listMailSent(Mail mail) {
+		mail.setMl_email('%' + mail.getM_id()+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%');
+		return mailDao.selectListMailSent(mail);
+	}
+
+	@Override
+	public Timestamp findUpdateDateOfDb() {
+		return mailDao.findUpdateDateOfDb();
 	}
 
 

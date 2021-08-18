@@ -1,5 +1,6 @@
 package com.example.sproject.dao.mail;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,8 @@ public class MailDaoImpl implements MailDao {
 	}
 
 	@Override
-	public List<Mail> selectListMail(Mail mail) {
-		return session.selectList("selectListMailOfMail", mail);
+	public List<Mail> selectListMailReceived(Mail mail) {
+		return session.selectList("selectListMailReceivedOfMail", mail);
 	}
 
 	@Override
@@ -80,13 +81,41 @@ public class MailDaoImpl implements MailDao {
 	}
 
 	@Override
-	public int countTotalMail(Mail mail) {
-		return session.selectOne("countTotalMailOfMail", mail);
+	public int countTotalMailReceived(Mail mail) {
+		return session.selectOne("countTotalMailReceivedOfMail", mail);
 	}
 
 	@Override
 	public int updateMailRead(int ml_num) {
 		return session.update("updateMailReadOfMail", ml_num);
+	}
+
+	@Override
+	public int deleteMail(String ml_email, int ml_num) {
+		Mail mail = new Mail();
+		mail.setMl_email(ml_email);
+		mail.setMl_num(ml_num);
+		return session.update("deleteMailOfMail", mail);
+	}
+
+	@Override
+	public int countTotalMailSent(Mail mail) {
+		return session.selectOne("countTotalMailSentOfMail", mail);
+	}
+
+	@Override
+	public List<Mail> selectListMailSent(Mail mail) {
+		return session.selectList("selectListMailSentOfMail", mail);
+	}
+
+	@Override
+	public int updateMl_rcvdate(Timestamp nowTime) {
+		return session.update("updateMl_rcvdateOfMail", nowTime);
+	}
+
+	@Override
+	public Timestamp findUpdateDateOfDb() {
+		return session.selectOne("findUpdateDateOfDbOfMail");
 	}
 
 }

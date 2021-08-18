@@ -56,7 +56,7 @@ import com.sun.mail.smtp.*;
 public class SampleController {
 	@Value("${project-value.mailgun.api-key}")
 	String API_KEY;
-	@Value("${project-value.mailgun.smtp-password}")
+	@Value("${project-value.improvmx.smtp-password}")
 	String SMTP_PASSWORD;
 	String YOUR_DOMAIN_NAME = "teamworksgroupware.shop";
 	
@@ -256,12 +256,19 @@ public class SampleController {
 	
     public void sendMail() throws MessagingException {
         Properties props = System.getProperties();
-        props.put("mail.smtps.host", "smtp.mailgun.org");
+        props.put("mail.smtps.host", "smtp.improvmx.com");
+//        props.put("mail.smtps.host", "smtp.mailgun.org");
         props.put("mail.smtps.auth", "true");
-
+        
+        //임의설정
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.starttls.enable", "true");
+        
+        
         Session session = Session.getInstance(props, null);
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("iin140@teamworksgroup.shop"));
+//        msg.setFrom(new InternetAddress("postmasterasd@teamworksgroup.shop"));
+        msg.setFrom(new InternetAddress("\"abc\" <postmasterasd@teamworksgroup.shop>"));
 
         InternetAddress[] addrs = InternetAddress.parse("chero77@naver.com lalala225257@gmail.com", false);
         msg.setRecipients(Message.RecipientType.TO, addrs);
@@ -271,7 +278,9 @@ public class SampleController {
         msg.setSentDate(new Date());
 
         SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
-        t.connect("smtp.mailgun.org", "postmaster@teamworksgroupware.shop", SMTP_PASSWORD);
+        System.out.println("SMTP_PASSWORD: " + SMTP_PASSWORD);
+        t.connect("smtp.improvmx.com", "postmaster@teamworksgroup.shop", SMTP_PASSWORD);
+//        t.connect("smtp.mailgun.org", "postmaster@teamworksgroupware.shop", "df2bc287de015d79f37d3f8697fc4257-9776af14-e332c25c");
         t.sendMessage(msg, msg.getAllRecipients());
 
         System.out.println("Response: " + t.getLastServerResponse());
