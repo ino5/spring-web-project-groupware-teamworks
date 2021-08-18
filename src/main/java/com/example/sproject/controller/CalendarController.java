@@ -54,14 +54,6 @@ public class CalendarController {
 		return "redirect:/calendar";
 	}
 	
-//	@RequestMapping("calendarSelect")
-//	public String calendarSelect(Principal principal,Calendar calendar, Model model, int cl_num) {
-//		String m_id = principal.getName();
-//		calendar.setM_id(m_id);
-//		List<Calendar> calendarSelect = cals.calendarSelect(cl_num);
-//		model.addAttribute("calendarSelect", calendarSelect);
-//		return "redirect:/calendar";
-//	}
 	
 	@PostMapping(value="calendarSelect")
 	@ResponseBody

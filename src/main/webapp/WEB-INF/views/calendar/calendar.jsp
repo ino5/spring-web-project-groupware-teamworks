@@ -196,30 +196,33 @@
 						&& Number('${item.cl_sdate}'.substr(8, 2)) == Number(document.getElementById('cell_' + i + '_1').dataset.day)) {
 					//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
 					console.log('${item.cl_name}');
-						var a =  "<div id='div_"+ i +"_1' class='div_cal' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'><input type='hidden' name='cl_num' value='${item.cl_num}'>${item.cl_name}</span></div>";	// 2 주 일정의 앞에 일정
+						var a =  "<div id='div_"+ i +"_1' class='div_cal div_cal_${item.cl_group}' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'><input type='hidden' name='cl_num' value='${item.cl_num}'>${item.cl_name}</span></div>";	// 2 주 일정의 앞에 일정
 						var a1 = "<div id='div_"+ i +"'>" + "<span class='span_cal_day' onclick='javascript:modal_span(event, ${item.cl_num});'><div class='div_color' style='background-color:${item.cl_color};'></div>${item.cl_name}</span>" + "</div>";						// 당일
-						var a2 = "<div id='div_"+ i +"_2' class='div_cal' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>";	// 2 주 일정의 뒤에 일정 	
+						var a2 = "<div id='div_"+ i +"_2' class='div_cal div_cal_${item.cl_group}' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>";	// 2 주 일정의 뒤에 일정 	
 // 						var a2 = "<div id='div_"+ i +"_2' class='div_cal_2' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span><img alt='image' src='${pageContext.request.contextPath}/calendar/img/second_date.png' class='date_img2'></div>";	// 2 주 일정의 뒤에 일정
-						var a3 = "<div id='div_"+ i +"_2' class='div_cal' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>"; // 1 주 안에 일정
+						var a3 = "<div id='div_"+ i +"_2' class='div_cal div_cal_${item.cl_group}' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>"; // 1 주 안에 일정
 						if ( ${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode){
+							console.log(i);
 							document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", ${item.cl_term} + 1);
 							document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
+							++rowPlace[i];
 							for(k=1; k <= ${item.cl_term}; k++){
 //	 									$('#cell_' + (i+k) + '_1').remove();
-								if(k>1 && rowPlace[i+k] != (rowPlace[i+k-1]-1)){
-//	 								console.log(i+k+"// 앞과 뒤가 다를 때");
-//	 								console.log("바뀌기 전"+rowPlace[i+k]);
+								if(rowPlace[i+k] != (rowPlace[i+k-1]-1)){
+	 								console.log(i+k+"// 앞과 뒤가 다를 때");
+	 								console.log("바뀌기 전"+rowPlace[i+k]);
 									rowPlace[i+k] = (rowPlace[i+k-1]-1);
-//	 								console.log("바뀌기 후"+rowPlace[i+k]);
-									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+	 								console.log("바뀌기 후"+rowPlace[i+k]);
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none"); 
 									++rowPlace[i+k];
 								} else {
-//	 								console.log(i+k+"// 앞과 뒤가 같을 때");
+									console.log("rowPlace[i+k]>>" + rowPlace[i+k]);
+									console.log("rowPlace[i+k-1]-1>>" + (rowPlace[i+k-1]-1));
+	 								console.log(i+k+"// 앞과 뒤가 같을 때");
 									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
 									++rowPlace[i+k];
 									}
 								}
-							++rowPlace[i];
 						} else if(${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode != document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode) {
 							diff1 = 0;
 							diff = 0;
@@ -230,26 +233,56 @@
 							}
 							document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", diff1);
 							document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
+
+							++rowPlace[i];
 							
 							for(k=1; k <= diff1-1; k++){
-								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
-								++rowPlace[i+k];
+//									$('#cell_' + (i+k) + '_1').remove();
+								if(rowPlace[i+k] != (rowPlace[i+k-1]-1)){
+									console.log(i+k+"// 앞과 뒤가 다를 때");
+									console.log("바뀌기 전"+rowPlace[i+k]);
+									rowPlace[i+k] = (rowPlace[i+k-1]-1);
+									console.log("바뀌기 후"+rowPlace[i+k]);
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none"); 
+									++rowPlace[i+k];
+								} else {
+									console.log("rowPlace[i+k]>>" + rowPlace[i+k]);
+									console.log("rowPlace[i+k-1]-1>>" + (rowPlace[i+k-1]-1));
+									console.log(i+k+"// 앞과 뒤가 같을 때");
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+									++rowPlace[i+k];
+									}
 							}
 							// 줄바꿈 후의 colspan
-							document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).setAttribute("colspan", (${item.cl_term}+1) - diff1);
-							document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).innerHTML = a2;
-							for(k=diff1 + 1; k <= ${item.cl_term}; k++){
-								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
-								++rowPlace[i+k];	
-							}
-							++rowPlace[i];
+							document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i+diff1]).setAttribute("colspan", (${item.cl_term}+1) - diff1);
+							document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i+diff1]).innerHTML = a2;
+							
 							++rowPlace[i+diff1];
+							
+							for(k=diff1 + 1; k <= ${item.cl_term}; k++){
+//									$('#cell_' + (i+k) + '_1').remove();
+								if(rowPlace[i+k] != (rowPlace[i+k-1]-1)){
+									console.log(i+k+"// 앞과 뒤가 다를 때");
+									console.log("바뀌기 전"+rowPlace[i+k]);
+									rowPlace[i+k] = (rowPlace[i+k-1]-1);
+									console.log("바뀌기 후"+rowPlace[i+k]);
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none"); 
+									++rowPlace[i+k];
+								} else {
+									console.log("rowPlace[i+k]>>" + rowPlace[i+k]);
+									console.log("rowPlace[i+k-1]-1>>" + (rowPlace[i+k-1]-1));
+									console.log(i+k+"// 앞과 뒤가 같을 때");
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+									++rowPlace[i+k];
+								}
+							}
 						} else if ( ${item.cl_term} == 0){
 							document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a1;
 							++rowPlace[i];
 						}
 					}
-				</c:forEach>
+				</c:forEach> 
+				
 		}
 	}
 	$(document).ready(function() {
@@ -404,10 +437,19 @@
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach items="${calendarGroupList}" var="calendarGroupList">
 					<li class="li"><input type="checkbox" name="check"
-						id="chk_${calendarGroupList.cl_group}"><label
+						id="chk_${calendarGroupList.cl_group}" checked="checked"><label
 						for="chk_${calendarGroupList.cl_group}">${calendarGroupList.cl_groupname}</label><span
 						class="span_color"
 						style="background-color:${calendarGroupList.cl_color};"></span></li>
+					<script type="text/javascript">
+							$("#chk_${calendarGroupList.cl_group}").change(function(){
+						    	if($("#chk_${calendarGroupList.cl_group}").is(":checked")){
+						    		$('.div_cal_${calendarGroupList.cl_group}').css({"background-color" : "${calendarGroupList.cl_color}"});
+						    	}else{
+						    		$('.div_cal_${calendarGroupList.cl_group}').css({"background-color" : "white"});
+						   		}
+							});
+						</script>
 				</c:forEach>
 				<li class="li"><span class="groupAdd"
 					onclick="javascript:doShow3()">캘린더 그룹 추가</span></li>
@@ -521,12 +563,11 @@
 					</tr>
 					<tr>
 						<td>그룹</td>
-						<td colspan="3">						
-							<select name="cl_group">
+						<td colspan="3"><select name="cl_group">
 								<c:forEach items="${calendarGroupList}" var="calendarGroupList">
 									<option value="${calendarGroupList.cl_group}">${calendarGroupList.cl_groupname}</option>
 								</c:forEach>
-							</select></td>
+						</select></td>
 					</tr>
 				</table>
 				<br>
