@@ -256,35 +256,23 @@
 <div id="side">
 		<div id="myInfo">
 			<div id="img">
-				<img id="img" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" style="width: 50px; height: 50px"/>			
+			<sec:authorize access="isAuthenticated()">
+				<sec:authentication property="principal.username" var="sec_m_id" />
+				<img id="img" src="${pageContext.request.contextPath}/resource/member/photo/${sec_m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" style="width: 50px; height: 50px"/>			
+			</sec:authorize>
 			</div>
 			<div id="text">
-					이름 : ${m_name } <br>
-					생년월일 : ${m_birth } <br>
-			 		직위 : ${pt_name }
+					<div style="font-size: 15px;">안녕하세요!</div>
+					<b style="font-size: 25px;">${m_name } ${pt_name }님</b> <br>
+					<a style="text-decoration: none; color:black; font-size: " href="${pageContext.request.contextPath}/login/simpleMyProfile">내 프로파일>></a>
 		 	</div>
  		</div>
- 		<section id="clock">
-			<span id="clock1"></span> <br> <span id="clock2"></span>
-		</section>
-		<section style="margin-bottom: 5px;">
-			<span class="clock3">출근시간</span> <span class="clock4" id="startTime">
-				<c:if test="${mainTime == null}">
-				미등록
-			</c:if> <c:if test="${mainTime.tm_sdate != null}">
-				${mainTime.tm_sdate}
-			</c:if>	</span> <br>
-			<span class="clock3">퇴근시간</span> <span class="clock4"
-				id="endTime"> <c:if test="${mainTime.tm_edate == null}">
-				미등록
-			</c:if> <c:if test="${mainTime.tm_edate != null}">
-				${mainTime.tm_edate}
-			</c:if>
-			</span> 
-		</section>
+ 		<br>
+ 		<hr style="border-top: 3px dotted black; margin-left: 15px">
 	<div id = "write2">
 		<!-- 결재작성 -->
-		<div class="write_button1"><button type="button" id="button_new_sign">결재작성</button> <br></div>
+		<div class="write_button1"><button type="button" id="button_new_sign"><img alt="결재작성.png" src="main/img/결재작성.png" style="width: 100px; height: 100px"><br>
+		<b style="margin-right: 13px;">결재작성</b></button></div>
 	
 		<!-- 새 결제 진행 모달창 -->
 		<div id="modal_wrap_new_sign" class="modal_wrap">
@@ -301,7 +289,8 @@
 		</div>
 		
 		<!-- 게시판작성 -->
-		<div class="write_button2"><button type="button" id="btn1" onclick="location.href='${pageContext.request.contextPath}/board/write'">게시판 작성</button></div>
+		<div class="write_button2"><button type="button" id="btn1" onclick="location.href='${pageContext.request.contextPath}/board/write'"><img alt="게시판작성.png" src="main/img/게시판작성.png" style="width: 100px; height: 100px"><br>
+		<b>게시판 작성</b></button></div>
 	</div>
 		<!-- 캘린더 -->
 		<div class="calendar">
@@ -331,6 +320,31 @@
 	
 	<div class="set1">
 		<div class="box1">
+			<div class="box1_1">
+				<div class="text"><b>근태관리</b></div>
+				<div class="img"><img alt="근태.png" src="main/img/출근.png"> </div>
+			</div>
+			<div class="box1_2">
+				<!-- 시간 + 근태 -->
+				<div id="clock">
+					<span id="clock1"></span><br><span id="clock2"></span>
+				</div>
+				<div style="margin-bottom: 5px;">
+					<span class="clock3">출근시간</span> <span class="clock4" id="startTime">
+						<c:if test="${mainTime == null}">
+						미등록
+					</c:if> <c:if test="${mainTime.tm_sdate != null}">
+						${mainTime.tm_sdate}
+					</c:if>	</span> <br>
+					<span class="clock3">퇴근시간</span> <span class="clock4"
+						id="endTime"> <c:if test="${mainTime.tm_edate == null}">
+						미등록
+					</c:if> <c:if test="${mainTime.tm_edate != null}">
+						${mainTime.tm_edate}
+					</c:if>
+					</span> 
+				</div>
+			</div>
 		</div>
 		<!-- 게시판 -->
 		<div class="box2">
@@ -338,7 +352,7 @@
 				<table id="list_table">
 					<tr>
 						<td></td>
-						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><b>게시판</b></td>
+						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>게시판</b></td>
 					</tr>
 					<tr style="height: 10px"></tr>
 					<c:forEach var="ps" items="${listPost}" begin="0" end="3">				
@@ -360,7 +374,7 @@
 			<div class="box3_1">
 						<table>
 								<tr>
-									<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><b>드라이브</b></td>
+									<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>드라이브</b></td>
 								</tr>
 								<tr style="height: 10px"></tr>		
 							<c:forEach var= "driveFileInfo" items="${driveFileInfoListOfEnterprise}" begin="0" end="3">
@@ -382,7 +396,7 @@
 										${driveFileInfo.m_id}
 									</td>
 									<td style="width: 100px; text-align: center">
-										<button type="button" class="button_download_file" data-dv_id="${driveFileInfo.dv_id}">Download</button>
+										<button type="button" class="button_download_file" data-dv_id="${driveFileInfo.dv_id}"><img alt="다운로드.png" src="main/img/다운로드.png" style="width: 20px; height: 20px"> </button>
 									</td>
 								</tr>
 						</c:forEach>
@@ -426,7 +440,7 @@
 			<div class="box5_1">
 				<table id="list_mail">
 								<tr>
-										<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><b>메일</b></td>
+										<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>메일</b></td>
 								</tr>
 								<tr style="height: 10px"></tr>
 							<c:forEach var="mail" items="${listOfMail}" begin="0" end="3">
@@ -461,7 +475,7 @@
 			<div class="box6_1">
 				<table id="list_table">	
 						<tr>
-							<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><b>커뮤니티</b></td>
+							<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>커뮤니티</b></td>
 						</tr>
 						<tr style="height: 10px"></tr>			
 					<c:forEach var="ps" items="${listPost2}" begin="0" end="3">					

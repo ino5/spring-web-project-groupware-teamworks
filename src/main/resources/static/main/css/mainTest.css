@@ -6,20 +6,36 @@
 	 float:left;
 }
 
+#myInfo {
+	 height: 120px;
+	 background-color: white;
+}
+
 #img {
 	float:left;
 	position: relative;
+	margin-top: 5px;
+	margin-top: 20px;
+    margin-left: 20px;
+}
+
+#img img {
+	border-radius: 70%;
+	border : 3px solid black;
 }
 
 #text {
 	float:left;
+	margin-top: 25px;
+    margin-left: 20px;
 }
 
 
 /* 시계 */
 #clock {
-	margin-top: 90px;
 	margin-bottom: 20px;
+	margin-top: 30px;
+	margin-left: 50px;
 }
 
 #clock1 {
@@ -31,42 +47,56 @@
 	margin-left: 50px;
 	font-size: 47px;
 	color: #5D5D5D;
+/* 	margin-left: 50px; */
 }
 
 .clock3 {
 	font-weight: bold;
 	line-height: 35px;
-	font-size: 15px;
+	font-size: 20px;
 }
 
 .clock4 {
 	font-size: 15px;
 	line-height: 35px;
+	margin-left: 20px;
 }
 
 /* 버튼 스타일 */
+
+#write2 {
+	height: 200px;
+	margin-top: 10px;
+}
 button {
 	cursor: pointer;
 }
 #button_new_sign {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	background-color : white;
-	border-style: solid;
-	border-radius : 10px;
-	border-width : 2px;
+/* 	border-style: solid; */
+/* 	border-radius : 10px; */
+/* 	border-width : 2px; */
 	box-shadow: none;
 	border-color : #D5D5D5;
 	font-size: 21px;
 	cursor: pointer;
 	float: left;
 	position: relative;
+	border: 0;
+    outline: 0;
+    width: 180px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    margin-left: 25px;
 }
 
 #button_new_sign:hover { 
      transition: all 0.2s linear;
      transform: translate(0, -5%);
-       box-shadow: 2px 2px 2px 2px #BDBDBD; 
-       border: 2px solid gray;
+     box-shadow: 2px 2px 2px 2px #BDBDBD; 
+     border: 2px solid gray;
+     border-radius: 10px;
   
  }
  
@@ -146,13 +176,18 @@ button {
 #btn1 {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	background-color : white;
-	border-style: solid;
-	border-radius : 10px;
-	border-width : 2px;
+/* 	border-style: solid; */
+/* 	border-radius : 10px; */
+/* 	border-width : 2px; */
 	box-shadow: none;
 	border-color : #D5D5D5;
 	font-size: 21px;
-	float: left;   
+	float: left;
+	border: 0;
+    outline: 0;
+    width: 180px;
+    padding-top: 30px;
+    padding-bottom: 20px;   
 }
 
 #btn1:hover{
@@ -160,6 +195,7 @@ button {
      transform: translate(0, -5%);
        box-shadow: 2px 2px 2px 2px #BDBDBD; 
        border: 2px solid gray;
+       border-radius: 10px;
   
  }
  
@@ -184,12 +220,13 @@ button {
 	display: block;
 	margin-top: 70px;
 	width: 200px;
-	margin-left: 30px;
+	margin-left: 120px;
 }
 #calendar {
 	border-top:1px solid #ddd;
 	margin-top: 30px;
-	width: 200px;
+	width: 350px;
+    margin-left: 35px;
 	border-collapse : collapse;
 }
 
@@ -248,6 +285,8 @@ button {
 	border-left: 2px solid #EAEAEA;
 	width: 79%; 
 	float: right;
+	background-color: #e8e8e8;
+	padding-bottom: 20px;
 }
 
 .set1 {
@@ -257,17 +296,67 @@ button {
 }
 
 .box1 {
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	height: 250px;
 	margin-top: 20px;
-	margin-left: 20px;
+	margin-left: 20px;	
+	border-radius: 10px;
+	background-color: white;
+}
+
+.box1:hover {
+ 	transition: all 0.2s linear;
+    transform: translate(0, -5%);
+    box-shadow: 2px 2px 2px 2px #BDBDBD; 
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+.box1_1 {
+	float: left;
+	position: relative;
+	width: 33%;
+	height: 250px;
+}
+.box1_1 .text {
+	font-size: 30px;
+	height: 80px;	
+	line-height: 80px;
+	margin-left: 50px;	
+}
+
+.box1_1 .img {
+	height: 160px;
+	float: left; 
+}
+
+.box1_1 img {
+	width: 150px;
+	height: 150px;
+	margin-left: 50px;
+}
+
+.box1_2 {
+	float: left;
+	width: 67%;
+	height: 250px;
 }
 
 .box2 {
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	height: 250px;
 	margin-top: 20px;
 	margin-left: 20px;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.box2:hover {
+ 	transition: all 0.2s linear;
+    transform: translate(0, -5%);
+    box-shadow: 2px 2px 2px 2px #BDBDBD; 
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 .box2_1 {
@@ -278,8 +367,8 @@ button {
 }
 
 .box2_2 {
-	width: 20.8%;
-	border-left: 1px solid black;
+	width: 20.9%;
+/* 	border-left: 1px solid black; */
 	float: left;
 	height: 250px;
 	background-color: #dfffdd;
@@ -293,10 +382,20 @@ button {
 }
 
 .box3 {
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	height: 250px;
 	margin-top: 20px;
 	margin-left: 20px;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.box3:hover {
+ 	transition: all 0.2s linear;
+    transform: translate(0, -5%);
+    box-shadow: 2px 2px 2px 2px #BDBDBD; 
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 .box3_1 {
@@ -306,9 +405,15 @@ button {
 	height: 250px;
 }
 
+.button_download_file {
+	border: 0;
+    outline: 0;
+    background-color: white;
+}
+
 .box3_2 {
-	width: 20.8%;
-	border-left: 1px solid black;
+	width: 20.9%;
+/* 	border-left: 1px solid black; */
 	float: left;
 	height: 250px;
 	background-color: #e0f8ff;
@@ -327,10 +432,20 @@ button {
 }
 
 .box4 {
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	height: 250px;
 	margin-top: 20px;
 	margin-right: 20px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.box4:hover {
+ 	transition: all 0.2s linear;
+    transform: translate(0, -5%);
+    box-shadow: 2px 2px 2px 2px #BDBDBD; 
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 .box4_1 {
@@ -459,10 +574,20 @@ button {
 }
 
 .box5 {
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	height: 250px;
 	margin-top: 20px;
 	margin-right: 20px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.box5:hover {
+ 	transition: all 0.2s linear;
+    transform: translate(0, -5%);
+    box-shadow: 2px 2px 2px 2px #BDBDBD; 
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 .box5_1 {
@@ -473,8 +598,8 @@ button {
 }
 
 .box5_2 {
-	width: 20.8%;
-	border-left: 1px solid black;
+	width: 20.9%;
+/* 	border-left: 1px solid black; */
 	float: left;
 	height: 250px;
 	background-color: #f9f9e1;
@@ -488,10 +613,21 @@ button {
 }
 
 .box6 {
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	height: 250px;
 	margin-top: 20px;
 	margin-right: 20px;
+	background-color: white;
+	border-radius: 10px;
+	
+}
+
+.box6:hover {
+ 	transition: all 0.2s linear;
+    transform: translate(0, -5%);
+    box-shadow: 2px 2px 2px 2px #BDBDBD; 
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 .box6_1 {
@@ -502,8 +638,8 @@ button {
 }
 
 .box6_2 {
-	width: 20.8%;
-	border-left: 1px solid black;
+	width: 20.9%;
+/* 	border-left: 1px solid black; */
 	float: left;
 	height: 250px;
 	background-color: #ffe6ff;
