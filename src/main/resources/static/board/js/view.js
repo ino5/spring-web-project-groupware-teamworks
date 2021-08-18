@@ -50,6 +50,7 @@
 	
 	
 //이미지파일 업로드
+
 function uploadSummernoteImageFile(file, editor) {
     data = new FormData();
     data.append("file", file);
