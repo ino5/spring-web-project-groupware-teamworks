@@ -352,7 +352,7 @@
 				</table>
 			</div>
 			<div class="box2_2">
-				<img alt="게시판.png" src="main/img/게시판.png"> 
+				<img alt="게시판.png" src="main/img/게시판3.png"> 
 			</div>
 		</div>
 		<!-- 드라이브 -->
@@ -389,7 +389,7 @@
 						</table>
 			</div>
 			<div class="box3_2">
-				<img alt="드라이브.png" src="main/img/드라이브.png"> 
+				<img alt="드라이브.png" src="main/img/드라이브1.png"> 
 			</div>
 		</div>
 	</div>
@@ -454,7 +454,7 @@
 					</table>
 			</div>
 			<div class="box5_2">
-				<img alt="메일4.png" src="main/img/메일4.png"> 
+				<img alt="메일.png" src="main/img/메일4.png"> 
 			</div>		
 		</div>
 		<div class="box6">

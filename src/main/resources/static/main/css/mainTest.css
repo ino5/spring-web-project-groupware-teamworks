@@ -282,13 +282,13 @@ button {
 	border-left: 1px solid black;
 	float: left;
 	height: 250px;
-	background-color: black;
+	background-color: #dfffdd;
 }
 
 .box2_2 img {
 	width: 100px;
     height: 100px;
-    padding-left: 25px;
+    padding-left: 30px;
     padding-top: 15px;
 }
 
@@ -311,7 +311,7 @@ button {
 	border-left: 1px solid black;
 	float: left;
 	height: 250px;
-	background-color: white;
+	background-color: #e0f8ff;
 }
 
 .box3_2 img {
@@ -340,8 +340,10 @@ button {
 	height: 250px;
 }
 .box4_1 .text {
-	font-size: 25px;
+	font-size: 30px;
 	height: 80px;	
+	line-height: 80px;
+	margin-left: 50px;	
 }
 
 .box4_1 .img {
@@ -376,11 +378,15 @@ button {
 	font-size: 25px;
 	float: left;
 	position: relative;
+	margin-left: 60px;
+    margin-top: 40px;
 }
 
 .text1_2 {
-	font-size: 35px;
+    font-size: 40px;
 	float: left;
+	margin-left: 40px;	
+	margin-top: 28px;
 }
 
 .box4_2_1_2{
@@ -392,12 +398,16 @@ button {
 .text2_1 {
 	font-size: 25px;
 	float: left;
-	position: relative;
+	position: relative;	
+	margin-left: 60px;
+    margin-top: 40px;
 }
 
 .text2_2 {
-	font-size: 35px;
+	font-size: 40px;
 	float: left;
+    margin-left: 40px;
+    margin-top: 28px;
 }
 
 .box4_2_2{
@@ -415,11 +425,15 @@ button {
 	font-size: 25px;
 	float: left;
 	position: relative;
+	margin-left: 60px;
+    margin-top: 40px;
 }
 
 .text3_2 {
-	font-size: 35px;
+	font-size: 40px;
 	float: left;
+	margin-left: 40px;
+	margin-top: 28px;	
 }
 
 .box4_2_2_2{
@@ -432,11 +446,16 @@ button {
 	font-size: 25px;
 	float: left;
 	position: relative;
+	margin-left: 60px;
+    margin-top: 40px;
 }
 
 .text4_2 {
-	font-size: 35px;
+	font-size: 40px;
 	float: left;
+	margin-left: 40px;
+	margin-top: 28px;
+	
 }
 
 .box5 {
