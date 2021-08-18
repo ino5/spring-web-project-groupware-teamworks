@@ -112,5 +112,13 @@ public class AdminController {
 		return adminservice.memberAllList();
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "/timeList")
+	public List<Member> TimeList(Model model) throws Exception {
+
+		System.out.println(adminservice.timeList());
+		
+		return adminservice.timeList();
+	}
 	
 }

@@ -29,7 +29,6 @@
      $(document).ready(function(){
     	//차트 값 세팅 (데이터 값을 불러와서 형식에 맞게 넣기)
     	var dptData = new Array();
-    	$("#test").click(function(){
     	//데이터를 조회하는 통신
 			$.ajax({
 		        data : {},
@@ -53,17 +52,51 @@
 			           }
 			           barChart(label,chartData,title);
 			           
-			         /*  1.차트에 들어가는 데이터 형태를 파악하기
+			         /* 1.차트에 들어가는 데이터 형태를 파악하기
 			           2.조회한 데이터 확인
 			           3.데이터형태에 맞춰서 값 넣어주기
 			            label = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
 		         		data =   [12, 19, 3, 5, 2, 3] */
 		           } 
-		        }
-	    	});
-    	});
-    	
-    	
+		       }
+
+    });
+
+
+     	//차트 값 세팅 (데이터 값을 불러와서 형식에 맞게 넣기)
+     	var timeData = new Array();
+     	//데이터를 조회하는 통신
+ 			$.ajax({
+ 		        data : {},
+ 		        type : "POST",
+ 		        url : _contextPath+"/admin/timeList",
+ 		        contentType : false,
+ 		        processData : false,
+ 		        success : function(data) {
+ 		            //항상 업로드된 파일의 url이 있어야 한다.
+ 		            console.log(data);
+ 		           // barChart(data);
+ 		           var label_time = new Array();
+ 		           var chartData_time = new Array();
+ 		       
+ 		          var title_time = "출근현황";
+ 		           if(data.length>0){
+ 			           for(var i=0;i<data.length;i++){
+ 			        	  label_time.push(data[i].date_cnt);
+ 			        	 chartData_time.push(data[i].cnt);
+ 			        	timeData.push({code:data[i].date_cnt , name :data[i].date_cnt});
+ 			           }
+
+			           barChart2(label_time,chartData_time,title_time);
+			           
+ 			         /*  1.차트에 들어가는 데이터 형태를 파악하기
+ 			           2.조회한 데이터 확인
+ 			           3.데이터형태에 맞춰서 값 넣어주기
+ 			            label = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
+ 		         		data =   [12, 19, 3, 5, 2, 3] */
+ 		           } 
+ 		       }
+ 		       });
     //차트실행 함수 (함수가 실행되면 차트가 그려지도록 만듬)	
 	function barChart(label , data,title){
 	    // 우선 컨텍스트를 가져옵니다. 
@@ -82,19 +115,19 @@
 		            label: title,
 		            data: data,
 		            backgroundColor: [
-		                'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(209, 178, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
 		            ],
 		            borderColor: [
 		                'rgba(255,99,132,1)',
 		                'rgba(54, 162, 235, 1)',
 		                'rgba(255, 206, 86, 1)',
 		                'rgba(75, 192, 192, 1)',
-		                'rgba(153, 102, 255, 1)',
+		               'rgba(209, 178, 255, 1)',
 		                'rgba(255, 159, 64, 1)'
 		            ],
 		            borderWidth: 1
@@ -109,17 +142,17 @@
 					    var idx = e._index;
 					    var url="";
 					    if(idx==0){
-					    	url="/board/sideboard_list?bd_num=105";
+					    	url="/address/dept?dpt_code=IS";
 					    }else if(idx==1){
-					    	url="/board/sideboard_list?bd_num=104";
+					    	url="/address/dept?dpt_code=HG";
 					    }else if(idx==2){
-					    	url="/board";
+					    	url="/address/dept?dpt_code=GB";
 					    }else if(idx==3){
-					    	url="/board";
+					    	url="/address/dept?dpt_code=CM";
 					    }else if(idx==4){
-					    	url="/board/sideboard_list?bd_num=103";
+					    	url="/address/dept?dpt_code=YU";
 					    }else if(idx==5){
-					    	url="/board";
+					    	url="/address/dept?dpt_code=GH";
 					    }
 			    
 					     location.href= _contextPath+url;
@@ -135,9 +168,57 @@
 			    }
 			});
 		}
-    });
-
-
+		
+		function barChart2(label , data,title){
+		var ctx1 = document.getElementById("myChart_time").getContext('2d');
+		/*
+		- Chart를 생성하면서, 
+		- ctx를 첫번째 argument로 넘겨주고, 
+		- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
+		*/
+		var myChart = new Chart(ctx1, {
+		    type: 'bar',
+		    data: {
+		        labels: label,
+		        datasets: [{
+		            label: title,
+		            data: data,
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.5)',
+		                'rgba(54, 162, 235, 0.5)',
+		                'rgba(255, 206, 86, 0.5)',
+		                'rgba(75, 192, 192, 0.5)',
+		                'rgba(153, 102, 255, 0.5)',
+		                'rgba(255, 159, 64, 0.5)'
+		            ],
+		            borderColor: [
+		                'rgba(255,99,132,1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+			    //차트를 누르면 이벤트 발생
+			    onClick: function(c,i) {
+					},
+			        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    beginAtZero:true
+			                }
+			            }]
+			        }
+			    }
+			});
+			}
+			});
+ 	
 
 function doShow() { 
     if ($('#hide').is(":visible")) { 
@@ -161,3 +242,5 @@ function selectAll(selectAll)  {
 	    checkbox.checked = selectAll.checked;
 	  })
 	}
+	
+	

@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-function boardGroup() {
+function communityGroup() {
     var delchk = []; // key 값을 담을 배열
      var bd_num = modal_form.bd_num.value;
     //삭제 key value
@@ -23,14 +23,14 @@ function boardGroup() {
     
    $.ajax({
       type : 'POST',
-      url : _contextPath + "/board/boardGroup",
+      url : _contextPath + "/community/communityGroup",
       data : {checkArray : delchk, bd_num : bd_num},
          success: function pageReload(){
-               location.href= "${pageContext.request.contextPath}/board";
+               location.href= "${pageContext.request.contextPath}/community/board";
            }
       });
 }
-function boardDeleteGroup() {
+function communityDeleteGroup() {
     var delchk = []; // key 값을 담을 배열
     //삭제 key value
     // chk라는 클래스를 가진 체크박스 중에 체크가 된
@@ -41,14 +41,14 @@ function boardDeleteGroup() {
     
    $.ajax({
       type : 'POST',
-      url : _contextPath + "/board/boardDeleteGroup",
+      url : _contextPath + "/community/communityDeleteGroup",
       data : {checkArray : delchk},
          success: function pageReload(){
-               location.href= "${pageContext.request.contextPath}/board";
+               location.href= "${pageContext.request.contextPath}/community";
            }
       });
 }
-function boardNoticeGroup() {
+function communityNoticeGroup() {
     var delchk = []; // key 값을 담을 배열
     //삭제 key value
     // chk라는 클래스를 가진 체크박스 중에 체크가 된
@@ -59,10 +59,10 @@ function boardNoticeGroup() {
     
    $.ajax({
       type : 'POST',
-      url : _contextPath + "/board/boardNoticeGroup",
+      url : _contextPath + "/community/communityNoticeGroup",
       data : {checkArray : delchk},
          success: function pageReload(){
-               location.href= "${pageContext.request.contextPath}/board";
+               location.href= "${pageContext.request.contextPath}/community";
            }
       });
 }
@@ -139,10 +139,10 @@ $("#boardSet").on("click", function () {
 						<li><button type="button" id="boardSet" class="btn2 btn_admin" >
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
 							</button></li>
-						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:communityDeleteGroup()">
 								<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
 							</button></li>
-						<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
+						<li><button type="button" class="btn2 btn_admin" onclick="javascript:communityNoticeGroup()">
 									<img style=" width: 25px; height: 25px;" alt="image" src="${pageContext.request.contextPath}/board/img/megaphone.png"><span style="font-weight: bold;"> 공지로 등록</span>
 							</button></li>
 							  </c:if>

@@ -81,11 +81,21 @@ public class AdminDaoiml implements AdminDao {
 	public  List<Member> memberAllList() {
 		List<Member> memberList = null;
 		try {
-		memberList = session.selectList("memberAllList");
+		memberList = session.selectList("memberAllListOfAdmin");
 		} catch (Exception e) {
 			System.out.println("AdminDaoiml listMember Exception->"+e.getMessage());
 		}
 		return memberList;
+	}
+	@Override
+	public List<Member> timeList() {
+		List<Member> timeList = null;
+		try {
+			timeList = session.selectList("TimeListOfAdmin");
+		} catch (Exception e) {
+			System.out.println("AdminDaoiml listMember Exception->"+e.getMessage());
+		}
+		return timeList;
 	}
 
 }

@@ -20,4 +20,6 @@ public interface AdminService {
 	
 	List<Member> memberAllList();
 
+	List<Member> timeList();
+
 }
