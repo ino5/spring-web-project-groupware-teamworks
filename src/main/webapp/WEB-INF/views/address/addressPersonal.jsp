@@ -201,7 +201,11 @@ function addressDelete(adg_num) {
 						<tr>
 							<td style="text-align: center;"><input type="checkbox"
 								name="check" value="${member.m_id }" class="chk"></td>
-							<td><img style="width: 40px; height: 40px; border-radius: 70%; margin-top: 10px;" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>&nbsp&nbsp${member.m_name }</td>
+							<td><div id="profile" style="float: left">
+                              <img style="border-radius: 70%; width: 40px; height: 40px;"
+                                 src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg"
+                                 onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" />
+                           </div><div style="display: inline-block; padding-top: 8px;">&nbsp&nbsp${member.m_name }</div></td>
 							<c:if test="${member.m_empnum > 0}">
 								<td>${member.m_empnum }</td>
 							</c:if>

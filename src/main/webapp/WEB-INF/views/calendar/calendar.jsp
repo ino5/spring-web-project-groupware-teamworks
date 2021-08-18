@@ -196,58 +196,60 @@
 						&& Number('${item.cl_sdate}'.substr(8, 2)) == Number(document.getElementById('cell_' + i + '_1').dataset.day)) {
 					//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
 					console.log('${item.cl_name}');
-						var a = "<div id='div_"+ i +"_1' class='div_cal'>" + "<span class='span_cal'>${item.cl_name}</span>" + "</div>";
-						var a1 = "<div id='div_"+ i +"'>" + "<span class='span_cal'>${item.cl_name}</span>" + "</div>";
-						var a2 = "<div id='div_"+ i +"_2' class='div_cal'>" + "<span class='span_cal'>${item.cl_name}</span>" + "</div>";
-					if ( ${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode){
-						document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", ${item.cl_term} + 1);
-						document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
-						for(k=1; k <= ${item.cl_term}; k++){
-// 									$('#cell_' + (i+k) + '_1').remove();
-							if(k>1 && rowPlace[i+k] != (rowPlace[i+k-1]-1)){
-// 								console.log(i+k+"// 앞과 뒤가 다를 때");
-// 								console.log("바뀌기 전"+rowPlace[i+k]);
-								rowPlace[i+k] = (rowPlace[i+k-1]-1);
-// 								console.log("바뀌기 후"+rowPlace[i+k]);
-								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
-								++rowPlace[i+k];
-							} else {
-// 								console.log(i+k+"// 앞과 뒤가 같을 때");
-								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
-								++rowPlace[i+k];
+						var a =  "<div id='div_"+ i +"_1' class='div_cal' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'><input type='hidden' name='cl_num' value='${item.cl_num}'>${item.cl_name}</span></div>";	// 2 주 일정의 앞에 일정
+						var a1 = "<div id='div_"+ i +"'>" + "<span class='span_cal_day' onclick='javascript:modal_span(event, ${item.cl_num});'><div class='div_color' style='background-color:${item.cl_color};'></div>${item.cl_name}</span>" + "</div>";						// 당일
+						var a2 = "<div id='div_"+ i +"_2' class='div_cal' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>";	// 2 주 일정의 뒤에 일정 	
+// 						var a2 = "<div id='div_"+ i +"_2' class='div_cal_2' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span><img alt='image' src='${pageContext.request.contextPath}/calendar/img/second_date.png' class='date_img2'></div>";	// 2 주 일정의 뒤에 일정
+						var a3 = "<div id='div_"+ i +"_2' class='div_cal' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>"; // 1 주 안에 일정
+						if ( ${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode){
+							document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", ${item.cl_term} + 1);
+							document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
+							for(k=1; k <= ${item.cl_term}; k++){
+//	 									$('#cell_' + (i+k) + '_1').remove();
+								if(k>1 && rowPlace[i+k] != (rowPlace[i+k-1]-1)){
+//	 								console.log(i+k+"// 앞과 뒤가 다를 때");
+//	 								console.log("바뀌기 전"+rowPlace[i+k]);
+									rowPlace[i+k] = (rowPlace[i+k-1]-1);
+//	 								console.log("바뀌기 후"+rowPlace[i+k]);
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+									++rowPlace[i+k];
+								} else {
+//	 								console.log(i+k+"// 앞과 뒤가 같을 때");
+									$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+									++rowPlace[i+k];
+									}
+								}
+							++rowPlace[i];
+						} else if(${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode != document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode) {
+							diff1 = 0;
+							diff = 0;
+							for(diff; diff <= ${item.cl_term}; diff++){
+								if(document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+ diff) + '_1').parentNode){
+									++diff1;	// 줄바꿈 전까지의 colspan 크기
 								}
 							}
-						++rowPlace[i];
-					} else if(${item.cl_term} > 0 && rowPlace[i] < 7 && document.getElementById('cell_' + i + '_1').parentNode != document.getElementById('cell_' + (i+${item.cl_term}) + '_1').parentNode) {
-						diff1 = 0;
-						diff = 0;
-						for(diff; diff <= ${item.cl_term}; diff++){
-							if(document.getElementById('cell_' + i + '_1').parentNode == document.getElementById('cell_' + (i+ diff) + '_1').parentNode){
-								++diff1;	// 줄바꿈 전까지의 colspan 크기
+							document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", diff1);
+							document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
+							
+							for(k=1; k <= diff1-1; k++){
+								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+								++rowPlace[i+k];
 							}
+							// 줄바꿈 후의 colspan
+							document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).setAttribute("colspan", (${item.cl_term}+1) - diff1);
+							document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).innerHTML = a2;
+							for(k=diff1 + 1; k <= ${item.cl_term}; k++){
+								$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
+								++rowPlace[i+k];	
+							}
+							++rowPlace[i];
+							++rowPlace[i+diff1];
+						} else if ( ${item.cl_term} == 0){
+							document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a1;
+							++rowPlace[i];
 						}
-						document.getElementById('cell_' + i + '_' + rowPlace[i]).setAttribute("colspan", diff1);
-						document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a;
-						
-						for(k=1; k <= diff1-1; k++){
-							$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
-							++rowPlace[i+k];
-						}
-						// 줄바꿈 후의 colspan
-						document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).setAttribute("colspan", (${item.cl_term}+1) - diff1);
-						document.getElementById('cell_' + (i+diff1) + '_' + rowPlace[i]).innerHTML = a2;
-						for(k=diff1 + 1; k <= ${item.cl_term}; k++){
-							$('#cell_' + (i+k) + '_' + rowPlace[i+k]).css("display", "none");
-							++rowPlace[i+k];	
-						}
-						++rowPlace[i];
-						++rowPlace[i+diff1];
-					} else if ( ${item.cl_term} == 0){
-						document.getElementById('cell_' + i + '_' + rowPlace[i]).innerHTML = a1;
-						++rowPlace[i];
 					}
-				}
-			</c:forEach>
+				</c:forEach>
 		}
 	}
 	$(document).ready(function() {
@@ -280,29 +282,76 @@
 			}
 			$("input[type=date]").val(year + "-" + month + "-" + day);
 			if(td.context.dataset.day>0){
-				$('#myModal').show();
+				$('#Modal').show();
 			}
 		});
-		$(".div1").on("click", function(e) {
-			e.stopPropagation();
-			$('#myModal2').show();
+		
+		$("#btn1").on("click", function() {
+			$('#Modal').show();
 		});
 		//모달창 Close 기능
 		$("#close_btn").unbind('click').on('click', function() {
-			$('#myModal').hide();
+			$('#Modal').hide();
 		});
 		//모달창 Close 기능
 		$("#x_icon").unbind('click').on('click', function() {
-			$('#myModal').hide();
+			$('#Modal').hide();
 		});//모달창 Close 기능
 		$("#close_btn2").unbind('click').on('click', function() {
-			$('#myModal2').hide();
+			$('#Modal2').hide();
 		});
 		//모달창 Close 기능
 		$("#x_icon2").unbind('click').on('click', function() {
-			$('#myModal2').hide();
+			$('#Modal2').hide();
 		});
 	});
+	
+	function modal_div(event, cl_num) {
+		$.ajax({
+			type: 'POST',
+			url : _contextPath + "/calendar/calendarSelect",
+			data : { 
+				cl_num : cl_num
+			},
+			dataType : 'json',
+			success : function(result) {
+				var jsonResult = JSON.stringify(result);
+				$('#modal_title').html(result[0].cl_name);
+				$('#modal_sdate').html(result[0].cl_sdate);
+				$('#modal_edate').html(result[0].cl_edate);
+				$('#modal_content').html(result[0].cl_content);
+				$('#modal_group').html(result[0].cl_groupname);
+				event.stopPropagation();
+				$('#Modal').hide();
+				$('#Modal2').show();
+			}  
+	});
+	}
+	
+	function modal_span(event, cl_num) {
+		$.ajax({
+			type: 'POST',
+			url : _contextPath + "/calendar/calendarSelect",
+			data : { 
+				cl_num : cl_num
+			},
+			dataType : 'json',
+			success : function(result) {
+				var jsonResult = JSON.stringify(result);
+				$('#modal_title').html(result[0].cl_name);
+				$('#modal_sdate').html(result[0].cl_sdate);
+				$('#modal_edate').html(result[0].cl_edate);
+				$('#modal_content').html(result[0].cl_content);
+				$('#modal_group').html(result[0].cl_groupname);
+				event.stopPropagation();
+				$('#Modal').hide();
+				$('#Modal2').show();
+			}  
+	});
+	}
+// 	function modal_open(e){
+// 		e.stopPropagation();
+// 	}
 	// div side 없애기
 	function doShow() {
 		if ($('#side').is(":visible")) {
@@ -329,6 +378,16 @@
 			});
 		}
 	}
+	
+	// li 만들기 (groupAdd)
+	function doShow3() {
+		if ($('#group').is(":visible")) {
+			$('#group').fadeOut(150);
+		} else {
+			$('#group').fadeIn(150);
+			$('#group').show();
+		}
+	}
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -343,18 +402,48 @@
 					src="${pageContext.request.contextPath}/calendar/img/white.png"
 					style="width: 16px; height: 12px;" id="img1"></span> 내 캘린더</a>
 			<ol id="scroll" style="display: none; list-style: none;">
-				<li class="li"><input type="checkbox" name="check" id="chk_1"><label
-					for="chk_1">내 일정(기본)</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_2"><label
-					for="chk_2">내 일정(중요)</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_3"><label
-					for="chk_3">연차</label></li>
-				<li class="li"><input type="checkbox" name="check" id="chk_4"><label
-					for="chk_4">aa</label></li>
+				<c:forEach items="${calendarGroupList}" var="calendarGroupList">
+					<li class="li"><input type="checkbox" name="check"
+						id="chk_${calendarGroupList.cl_group}"><label
+						for="chk_${calendarGroupList.cl_group}">${calendarGroupList.cl_groupname}</label><span
+						class="span_color"
+						style="background-color:${calendarGroupList.cl_color};"></span></li>
+				</c:forEach>
+				<li class="li"><span class="groupAdd"
+					onclick="javascript:doShow3()">캘린더 그룹 추가</span></li>
+				<li class="li" id="group">
+					<form action="${pageContext.request.contextPath}/calendar/groupAdd">
+						<sec:csrfInput />
+						<div style="display: block; margin-bottom: 20px;">
+							<input type="text" name="cl_groupname" placeholder="그룹 명"
+								required="required" id="groupName"
+								style="width: 150px; margin-right: 15px;"><input
+								type="image"
+								src="${pageContext.request.contextPath}/address/img/plus.png"
+								name="Submit" value="Submit" id="groupAdd"> <img alt=""
+								src="${pageContext.request.contextPath}/address/img/gear.png"
+								width="19px" height="19px" style="margin-top: 2px;"
+								class="groupAdd" id="groupSet">
+						</div>
+						<input type="hidden" name="cl_color" id="cl_color">
+						<c:forEach items="${color_cal}" var="item">
+							<span class="span_color2" id="color_${item.color_num}"
+								style="cursor: pointer; background-color: ${item.color_name};"></span>
+
+							<script type="text/javascript">
+							$("#color_${item.color_num}").on("click", function() {
+								$("#cl_color").val('${item.color_name}');
+								$(".span_color2").css({"border" : "0px"});
+								$("#color_${item.color_num}").css({"border" : "2px solid black"});
+							});
+							</script>
+						</c:forEach>
+					</form>
+				</li>
 			</ol>
 		</div>
 	</div>
-	<div id="content">
+	<div id="content" style="height: 1000px;">
 		<h2>
 			<span id="content1">일정목록</span>
 		</h2>
@@ -397,29 +486,9 @@
 		<script type="text/javascript">
 			buildCalendar();
 		</script>
-		<!-- 		<table id="calendar2" style="background-color: #CC9999; width: 100%"> -->
-		<!-- 			<tr> -->
-		<!-- 				<th><font color="red">일</font></th> -->
-		<!-- 				<th>월</th> -->
-		<!-- 				<th>화</th> -->
-		<!-- 				<th>수</th> -->
-		<!-- 				<th>목</th> -->
-		<!-- 				<th>금</th> -->
-		<!-- 				<th><font color="blue">토</font></th> -->
-		<!-- 			</tr> -->
-		<!-- 			<tr> -->
-		<!-- 				<td id="day_1" data-set="01"><span id='date2'>1</span></td> -->
-		<!-- 				<td id="day_2"><span id='date'>2</span></td> -->
-		<!-- 				<td id="day_3"><span id='date'>3</span></td> -->
-		<!-- 				<td id="day_4"><span id='date'>4</span></td> -->
-		<!-- 				<td id="day_5"><span id='date'>5</span></td> -->
-		<!-- 				<td id="day_6"><span id='date'>6</span></td> -->
-		<!-- 				<td id="day_7"><span id='date'>7</span></td> -->
-		<!-- 			</tr> -->
-		<!-- 		</table> -->
 
 	</div>
-	<div id="myModal" class="modal">
+	<div id="Modal" class="modal">
 
 		<!-- Modal content -->
 		<div class="modal-content">
@@ -450,6 +519,15 @@
 						<td colspan="3"><input type="text" class="input"
 							name="cl_content"></td>
 					</tr>
+					<tr>
+						<td>그룹</td>
+						<td colspan="3">						
+							<select name="cl_group">
+								<c:forEach items="${calendarGroupList}" var="calendarGroupList">
+									<option value="${calendarGroupList.cl_group}">${calendarGroupList.cl_groupname}</option>
+								</c:forEach>
+							</select></td>
+					</tr>
 				</table>
 				<br>
 				<div style="margin-left: 500px;">
@@ -461,7 +539,7 @@
 		</div>
 	</div>
 	<!-- 	========================================================================================== -->
-	<div id="myModal2" class="modal2">
+	<div id="Modal2" class="modal2">
 
 		<!-- Modal content -->
 		<div class="modal-content2">
@@ -478,8 +556,29 @@
 				<table style="font-size: 17px;">
 					<tr>
 						<td>제목</td>
-						<td>${calendarSelect.cl_name}</td>
+						<td id="modal_title"></td>
+						<td></td>
+						<td></td>
 					</tr>
+					<tr>
+						<td>시작일</td>
+						<td id="modal_sdate"></td>
+						<td>종료일</td>
+						<td id="modal_edate"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td colspan="3" id="modal_content"></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>그룹</td>
+						<td id="modal_group"></td>
+						<td></td>
+						<td></td>
+					</tr>
+
 				</table>
 				<br>
 				<div style="margin-left: 500px;">
