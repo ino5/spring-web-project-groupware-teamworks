@@ -19,7 +19,7 @@
 		<button type="button" id="Test"></button>
 	</div>
 	<!-- Modal content -->
-	<div id="myModal" class="modal">
+	<div id="my_Modal" class="chatModal">
 		<div id="content1">
 			<div id="room1">
 				<div id="logo">

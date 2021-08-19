@@ -31,7 +31,7 @@ $(document).ready(function() {
    					 	+ '</button></td></tr>'
    					 ); 
 					}					
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#groupRoomlist').hide();
@@ -78,7 +78,7 @@ $(document).ready(function() {
 					isClickedOnebyOneChat = true;
 				}
 */					
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#groupRoomlist').hide();
@@ -182,7 +182,10 @@ $(document).ready(function() {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ roomList[i].m_id + '"'
-						+ '><td><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"></td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
+						+ '><td><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">'
+						+  (roomList[i].talkerList[1] != null ? '<img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">': '')
+						+  (roomList[i].talkerList[2] != null ? '<img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">': '')	
+						+ '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
    					 	+ '\''
@@ -191,7 +194,7 @@ $(document).ready(function() {
    					 	+ '</button></td></tr>'
    					 ); 
 				}			
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#memberlist').hide();
@@ -304,7 +307,7 @@ $(document).ready(function() {
 					}
 					isClickedGroupchat = true;			
 				}	
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').show();
 				$('#chatting_wrap').hide();
 				
@@ -588,7 +591,7 @@ $("#Test").on("click", function () {
    					 	+ '</button></td></tr>'
    					 ); 
 					}					
-				$('.modal').show();
+				$('.chatModal').show();
 			},
 			error : function(err){
 				console.log('error');

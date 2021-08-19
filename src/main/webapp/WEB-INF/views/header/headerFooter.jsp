@@ -6,7 +6,7 @@
 	</button>
 	</div>
 	<!-- Modal content -->
-	<div id="myModal" class="modal drag">
+	<div id="talkModal" class="chatModal">
 		<div id="content1">
 			<div id="room1">
 				<div id="logo">
@@ -37,7 +37,7 @@
 		</div>
 		<div id="chatting_wrap">
 			<div class="container">
-				<h1 id="roomName"></h1>
+				<h1 id="roomName" style="color: black"></h1>
 				<input type="hidden" id="sessionId" value="">
 				<input type="hidden" id="m_id">
 				<input type="hidden" id="m_name">

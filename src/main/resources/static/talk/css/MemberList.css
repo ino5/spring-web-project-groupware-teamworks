@@ -8,12 +8,12 @@
 /*    			margin-left: 400px; */
 /*     		margin-top: 70px; */
 /* 		} */
-		#myModal #content1 {
+		#talkModal #content1 {
 			width: 600px;
     		float: left;
     		position: relative;
 		}
-		#myModal .container{
+		#talkModal .container{
 			width: 600px;
 			padding: 25px;
 			display: block;
@@ -21,10 +21,10 @@
 			margin-top: 10px;
 		}
 		
-		#my_Modal .container h1{
+		#talkModal .container h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
-			color: white;
+			color: black;
 			border-left: 3px solid black;
 			margin-bottom: 20px;
 		}		
