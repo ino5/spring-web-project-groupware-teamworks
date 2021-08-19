@@ -255,6 +255,14 @@ public class TalkController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String m_id = sessionMember.getM_id();
 		List<Room> roomList = talkService.selectgetGroupRoomList(m_id);
+		
+//		List<Room> talkerList = new ArrayList<Room>();
+		for (Room room : roomList) {
+			int tkrm_num = room.getTkrm_num();
+			List<String> talkerList = talkService.selectgetGroupTalkerList(tkrm_num);
+			room.setTalkerList(talkerList);
+		}
+		
 		map.put("m_id", m_id);
 		map.put("m_name", sessionMember.getM_name());
 		map.put("roomList", roomList);

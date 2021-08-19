@@ -58,4 +58,8 @@
 <update id="updateFileImageOfTalk" parameterType="String">
 	update talk set tk_type=2, tk_content=#{content} where tk_num=(select max(tk_num) from talk)
 </update>
+
+<select id="selectgetGroupTalkerListOfTalk" parameterType="int" resultType="String">
+	select te.m_id from talk_room tr, talker te where tr.tkrm_num= te.tkrm_num and tr.tkrm_num=#{tkrm_num}
+</select>
 </mapper>

@@ -28,6 +28,8 @@ public interface TalkService {
 
 	void updateFileImage(String filePath);
 
+	List<String> selectgetGroupTalkerList(int tkrm_num);
+
 	
 	
 }

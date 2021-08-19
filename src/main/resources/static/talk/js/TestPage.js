@@ -175,13 +175,14 @@ $(document).ready(function() {
 			url: _contextPath + '/talk/getGroupRoomList',
 			type: 'get',
 			success: function (res) {
+				$('#groupRoomlist').html('');
 				//멤버리스트 가져오기
 				let roomList = res.roomList;
 				for(var i = 0; i<roomList.length; i++) {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ roomList[i].m_id + '"'
-						+ '><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].m_id+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><button type="button"  id="chat" onclick="getRoomOfApi2('
+						+ '><td><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"></td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
    					 	+ '\''
@@ -189,7 +190,7 @@ $(document).ready(function() {
    					 	+ roomList[i].tkrm_name
    					 	+ '</button></td></tr>'
    					 ); 
-				}				
+				}			
 				$('.modal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
