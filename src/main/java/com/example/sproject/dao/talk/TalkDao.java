@@ -36,4 +36,6 @@ public interface TalkDao {
 
 	void updateFileImage(String filePath);
 
+	List<String> selectgetGroupTalkerList(int tkrm_num);
+
 }

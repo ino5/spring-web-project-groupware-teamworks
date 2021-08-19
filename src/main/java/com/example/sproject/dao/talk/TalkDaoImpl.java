@@ -100,4 +100,9 @@ public class TalkDaoImpl implements TalkDao {
 	public void updateFileImage(String filePath) {
 		session.update("updateFileImageOfTalk", filePath);		
 	}
+
+	@Override
+	public List<String> selectgetGroupTalkerList(int tkrm_num) {
+		return session.selectList("selectgetGroupTalkerListOfTalk", tkrm_num);
+	}
 }

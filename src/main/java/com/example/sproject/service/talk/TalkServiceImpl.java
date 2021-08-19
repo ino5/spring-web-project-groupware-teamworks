@@ -97,4 +97,9 @@ public class TalkServiceImpl implements TalkService {
 	public void updateFileImage(String filePath) {
 		talkDao.updateFileImage(filePath);
 	}
+
+	@Override
+	public List<String> selectgetGroupTalkerList(int tkrm_num) {
+		return talkDao.selectgetGroupTalkerList(tkrm_num);
+	}
 }
