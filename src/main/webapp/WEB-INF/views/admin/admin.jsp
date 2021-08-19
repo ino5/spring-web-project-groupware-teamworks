@@ -39,7 +39,6 @@
 </style>
 <title>Insert title here</title>
 <script type="text/javascript">
-let global_res;
 
 function adminGroup() {
     var delchk = []; // key 값을 담을 배열

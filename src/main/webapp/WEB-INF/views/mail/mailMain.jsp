@@ -27,7 +27,10 @@
 				</div>
 				<div id="toolbar_wrap">
 					<input type="checkbox" name="all_listOfMl_num" class="all_checkbox_mail">
-					<button type="button" onclick="deleteMails();">삭제</button>
+<!-- 					<button type="button" onclick="deleteMails();">삭제</button> -->
+					<a class="btn_tool" onclick="deleteMails();">
+						<span class="ic_toolbar del"></span><span class="mail_tool_txt">삭제</span>
+					</a>
 					<div id="mail_server_time">
 						서버 동기화 시간: <fmt:formatDate value="${updateDateOfDb}" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate>
 					</div>
