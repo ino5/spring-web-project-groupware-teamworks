@@ -23,12 +23,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 import com.example.sproject.service.talk.TalkService;
 
 @Component
 public class SocketHandler extends TextWebSocketHandler {
 	@Autowired
 	TalkService talkService;
+	
+	private static int j;
 	
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); // 웹소켓 세션을 담아둘 리스트 -- roomListSessions
@@ -57,6 +60,9 @@ public class SocketHandler extends TextWebSocketHandler {
 			talk.setM_id(m_id);
 			talk.setTk_content(content);
 			talkService.insertMsg(talk);
+			Talk_Reading talk_Reading = new Talk_Reading();
+			talk_Reading.setTkrm_num(Integer.parseInt(rN));
+			talkService.insertReadMsg(talk_Reading);
 		}
 
 		//TalkMsg = dto
@@ -186,7 +192,9 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("SocketHandler afterConnectionEstablished start...");
-		// 웹소켓 연결이 되면 동작
+		// 웹소켓 연결이 되면 동작	
+		j++;
+	    System.out.println(session.getId() + " 연결 성공 => 총 접속 인원 : " + j + "명");
 		super.afterConnectionEstablished(session);
 		boolean flag = false;
 		String url = session.getUri().toString();
@@ -220,6 +228,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		obj.put("sessionId", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
+	
 	
 	@Override 
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {

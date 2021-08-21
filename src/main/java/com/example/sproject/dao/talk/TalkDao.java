@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 
 public interface TalkDao {
 
@@ -37,5 +38,9 @@ public interface TalkDao {
 	void updateFileImage(String filePath);
 
 	List<String> selectgetGroupTalkerList(int tkrm_num);
+
+	void insertReadMsg(Talk_Reading talk_Reading);
+
+	void readMember(int roomNumber, String m_id);
 
 }

@@ -45,12 +45,6 @@
 	border-radius: 50%;
 }
 
-#back2 {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-}
-
 .groupchat {
 	width: 100px;
 	height: 100px;
@@ -116,11 +110,16 @@
 			}
 .chating .date4{
 			float: left;
-			font-size: 12px;
+			font-size: 12px;	
 			padding-left: 7.5px;
 		}
 		
 #memo2 {
 			height: 200px;
 			
-		}	
+		}
+		
+.button_x3 {
+	margin-left: 270px;
+	cursor: pointer;
+}	

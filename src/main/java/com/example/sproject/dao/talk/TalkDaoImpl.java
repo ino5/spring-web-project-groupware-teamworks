@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 import com.example.sproject.model.talk.Talker;
 @Repository
 public class TalkDaoImpl implements TalkDao {
@@ -104,5 +105,18 @@ public class TalkDaoImpl implements TalkDao {
 	@Override
 	public List<String> selectgetGroupTalkerList(int tkrm_num) {
 		return session.selectList("selectgetGroupTalkerListOfTalk", tkrm_num);
+	}
+
+	@Override
+	public void insertReadMsg(Talk_Reading talk_Reading) {
+		session.insert("talk_ReadingOfTalk", talk_Reading);	
+	}
+
+	@Override
+	public void readMember(int roomNumber, String m_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("roomNumber", roomNumber);
+		map.put("m_id", m_id);
+		session.update("readMemberOfTalk", map);		
 	}
 }

@@ -176,6 +176,7 @@ $(document).ready(function() {
 			type: 'get',
 			success: function (res) {
 				$('#groupRoomlist').html('');
+				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
 				//멤버리스트 가져오기
 				let roomList = res.roomList;
 				for(var i = 0; i<roomList.length; i++) {
@@ -390,7 +391,10 @@ $(document).ready(function() {
 				$('.group').removeAttr('checked');
 				$('#join_member_list').html('');
 				$('#groupRoomlist').html('');
-				$('#groupRoomlist').append('<tr><th>방 이름</th></tr>');
+				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
+				
+				// 그룹채팅 버튼 누른것과 같은 효과				
+				$(".group").trigger("click");
 			},
 			error : function(err){
 				console.log('error');
@@ -398,6 +402,7 @@ $(document).ready(function() {
 		});
 	});
 });
+		
 
 //그룹 참여하는 사람 이름 보이기
 function join_member(tkrm_num) {
@@ -448,9 +453,8 @@ function wsEvt() {
 		}
 	
 	//메시지를 받으면 동작
-	console.log("메세지를 받다")
 	ws.onmessage = function(data) {
-		
+		console.log("메세지를 받다")
 		var msg = data.data;
 		var date = new Date();
 		//alert("ws.onmessage->"+msg)
@@ -482,6 +486,20 @@ function wsEvt() {
 			}else{
 				console.warn("unknown type!")
 			}
+			// 읽었다고 알려주기
+	   		$.ajax({
+				url: _contextPath + '/talk/readMember',
+				data: {	'roomNumber' : $("#roomNumber").val(),
+						'm_id' : $("#m_id").val()
+				},
+				type: 'get',
+				success: function (res) {
+
+				},
+				error : function(err){
+					console.log('error');
+				}
+			});
 		}else{
 			// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
 			var url = URL.createObjectURL(new Blob([msg]));

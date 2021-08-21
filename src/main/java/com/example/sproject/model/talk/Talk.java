@@ -17,4 +17,5 @@ public class Talk {
 	
 	//Member 테이블
 	private String m_name;
+
 }

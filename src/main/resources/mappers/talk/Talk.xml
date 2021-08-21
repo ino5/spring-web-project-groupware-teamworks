@@ -62,4 +62,12 @@
 <select id="selectgetGroupTalkerListOfTalk" parameterType="int" resultType="String">
 	select te.m_id from talk_room tr, talker te where tr.tkrm_num= te.tkrm_num and tr.tkrm_num=#{tkrm_num}
 </select>
+
+<insert id="talk_ReadingOfTalk" parameterType="com.example.sproject.model.talk.Talk_Reading">
+	insert into talk_reading(tkrm_num, tk_num, m_id, tkrd_is_read) values(#{tkrm_num}, #{tk_num}, #{m_id}, 0)
+</insert>
+
+<update id="readMemberOfTalk" parameterType="Map">
+	update talk_reading set tkrd_is_read = 1 where tkrd_is_read = 0 and m_id = #{m_id} and tkrm_num = #{roomNumber}
+</update>
 </mapper>

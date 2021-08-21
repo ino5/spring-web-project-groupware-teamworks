@@ -1,5 +1,6 @@
 package com.example.sproject.service.talk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.example.sproject.dao.talk.TalkDao;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 @Service
 public class TalkServiceImpl implements TalkService {
 
@@ -101,5 +103,22 @@ public class TalkServiceImpl implements TalkService {
 	@Override
 	public List<String> selectgetGroupTalkerList(int tkrm_num) {
 		return talkDao.selectgetGroupTalkerList(tkrm_num);
+	}
+
+	@Override
+	public void insertReadMsg(Talk_Reading talk_Reading) {
+		int tk_num = talkDao.selectOneMaxTk_num();
+		talk_Reading.setTk_num(tk_num);
+		List<String> GroupTalkerList = talkDao.selectgetGroupTalkerList(talk_Reading.getTkrm_num());
+		for (int i=0; i<GroupTalkerList.size(); i++) {
+				talk_Reading.setM_id(GroupTalkerList.get(i));	
+				talkDao.insertReadMsg(talk_Reading);
+		}
+	}
+
+	@Override
+	public void readMember(int roomNumber, String m_id) {
+		talkDao.readMember(roomNumber, m_id);
+		
 	}
 }
