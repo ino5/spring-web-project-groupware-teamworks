@@ -309,4 +309,14 @@ public class TalkController {
 		for(Member member : memberList) System.out.println(member);
 		return map;
 	}
+	
+	/**
+	 * 채팅 읽은 사람이 읽었다고 알려주기
+	 */
+	@RequestMapping("/readMember")
+	@ResponseBody
+	public String readMember(int roomNumber, String m_id) {
+		talkService.readMember(roomNumber, m_id);
+		return null;
+	}
 }
