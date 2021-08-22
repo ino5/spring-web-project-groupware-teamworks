@@ -84,7 +84,6 @@
 				<a href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.totalPage}" class="ic_paginate ic_last"></a>
 			</div>
 		</div>
-
 	</div>
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>

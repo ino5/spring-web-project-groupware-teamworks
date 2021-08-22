@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.board.Board;
 import com.example.sproject.model.board.Post;
 import com.example.sproject.model.board.PostLike;
@@ -162,7 +163,8 @@ public class CommunityController {
 		System.out.println("uploadSummernoteImageFile");
 		JsonObject jsonObject = new JsonObject();
 
-		String fileRoot = "C:\\summernote_image\\";
+//		String fileRoot = "C:\\summernote_image\\";
+		String fileRoot = WebMvcConfig.RESOURCE_PATH + "/summernote/";
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 
@@ -173,7 +175,8 @@ public class CommunityController {
 		try {
 			InputStream filStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(filStream, targetFile);
-			jsonObject.addProperty("url", "/summernoteImage/" + savedFileName);
+//			jsonObject.addProperty("url", "/summernoteImage/" + savedFileName);
+			jsonObject.addProperty("url", "/resource/summernote/" + savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 
 		} catch (Exception e) {

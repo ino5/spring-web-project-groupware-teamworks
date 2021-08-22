@@ -4,7 +4,7 @@ html, body, #content {
 /* 	overflow:hidden; */
 }
 
-/* 공용 */
+/* 공용, ic 관련 */
 a {
 	text-decoration: none;
     cursor: pointer;
@@ -13,6 +13,10 @@ a {
 
 .ic_toolbar {
 	height: 23px !important;
+}
+
+#toolbar_wrap .ic_toolbar {
+	height: 27px !important;
 }
 
 

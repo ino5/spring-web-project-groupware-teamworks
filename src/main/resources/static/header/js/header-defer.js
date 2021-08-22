@@ -20,6 +20,7 @@ function doShow() {
 // 로딩 화면 띄우기
 function waitLoading() {
 	$('#loading_modal').show();
+	$('.gif_spinner').show();
 }
 
 // 헤더 오른쪽에 프로필 사진 눌렀을 때 메뉴 띄우기/가리기
