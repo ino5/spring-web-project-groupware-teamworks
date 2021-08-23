@@ -36,7 +36,7 @@ public interface MailDao {
 
 	int updateMailRead(int ml_num);
 
-	int deleteMail(String ml_email, int ml_num);
+	int deleteMail(int ml_num);
 
 	int countTotalMailSent(Mail mail);
 

@@ -107,11 +107,8 @@
 		UPDATE mail SET ml_is_read = 1 WHERE ml_num = #{ml_num}
 	</update>
 	
-	<update id="deleteMailOfMail" parameterType="com.example.sproject.model.mail.Mail">
-		UPDATE mail SET ml_is_deleted = 1 WHERE ml_num = (
-			SELECT ml.ml_num FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email like #{ml_email} 
-			AND ml.ml_num = #{ml_num}
-			)
+	<update id="deleteMailOfMail" parameterType="int">
+		UPDATE mail SET ml_is_deleted = 1 WHERE ml_num = #{ml_num}
 	</update>
 	
 	<update id="updateMl_rcvdateOfMail" parameterType="java.sql.Timestamp">

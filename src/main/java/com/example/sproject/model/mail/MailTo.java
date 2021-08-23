@@ -13,4 +13,7 @@ public class MailTo {
 	String ml_email;
 	int mlt_type;
 	int mlt_status;
+	
+	// FOR HTML
+	private String ml_emailForHtml;
 }

@@ -41,6 +41,7 @@ import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.dao.mail.MailDao;
 import com.example.sproject.model.drive.DriveFileInfo;
 import com.example.sproject.model.globals.GlobalsOfMail;
+import com.example.sproject.model.globals.GlobalsOfMl_type;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailFile;
@@ -301,7 +302,7 @@ public class MailServiceImpl implements MailService {
 
 
         // mail 객체 안에 데이터 넣기
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         mail.setMl_regdate(Timestamp.valueOf(simpleDateFormat.format(msg.getSentDate()))); 
         mail.setMl_email(ml_email);
         
@@ -340,12 +341,12 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	public void replaceStringForHtml(Mail mail) {
-		mail.setMl_email(replaceStringForHtml(mail.getMl_email()));
+		mail.setMl_emailForHtml(replaceStringForHtml(mail.getMl_email()));
 	}
 
 	@Override
 	public void replaceStringForHtml(MailTo mailTo) {
-		mailTo.setMl_email(replaceStringForHtml(mailTo.getMl_email()));
+		mailTo.setMl_emailForHtml(replaceStringForHtml(mailTo.getMl_email()));
 	}
 	
 	@Override
@@ -410,14 +411,11 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public int deleteMail(String m_id, List<Integer> listOfMl_num) {
-		String ml_email = m_idToMl_emailForLike(m_id);
-		for (int ml_num : listOfMl_num) {
-			mailDao.deleteMail(ml_email, ml_num);
-		}
-		return 1;
-	}
-
+	public int deleteMail(int ml_num) {
+		return mailDao.deleteMail(ml_num);
+	}	
+	
+	
 	@Override
 	public String m_idToMl_emailForLike(String m_id) {
 		return '%' + m_id+ '@' + GlobalsOfMail.MAIL_DOMAIN + '%';
@@ -439,6 +437,27 @@ public class MailServiceImpl implements MailService {
 	public Timestamp findUpdateDateOfDb() {
 		return mailDao.findUpdateDateOfDb();
 	}
+
+	@Override
+	public boolean isAuthorized(Mail mail, String m_id) {
+    	if (mail.getMl_type() == GlobalsOfMl_type.RECEIVED) { // 받은 메일
+    		List<MailTo> listOfMailTo = listMailTo(mail.getMl_num());
+        	for (MailTo mailTo : listOfMailTo) {
+        		String emailExtracted = extractEmailAddress(mailTo.getMl_email());
+        		if (emailExtracted != null && emailExtracted.toLowerCase().equals((m_id + "@" + GlobalsOfMail.MAIL_DOMAIN).toLowerCase())) {
+        			return true;
+        		}
+        	}
+    	} else if (mail.getMl_type() == GlobalsOfMl_type.SENT) { // 보낸 메일   		
+    		String emailExtracted = extractEmailAddress(mail.getMl_email());
+    		if (emailExtracted != null && emailExtracted.toLowerCase().equals((m_id + "@" + GlobalsOfMail.MAIL_DOMAIN).toLowerCase())) {
+    			return true;
+    		}
+    	}
+		return false;
+	}
+
+
 
 
 }
