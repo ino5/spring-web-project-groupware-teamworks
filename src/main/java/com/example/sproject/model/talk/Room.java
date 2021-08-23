@@ -18,4 +18,6 @@ public class Room {
 	String m_id;
 	
 	List<String> talkerList;
+	
+	List<String> RnUnreadNum;
 }

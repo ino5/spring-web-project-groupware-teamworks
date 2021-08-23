@@ -56,7 +56,11 @@ public class TalkServiceImpl implements TalkService {
 
 	@Override
 	public int makeRoomOfOneByOne(String m_id, String m_id2) {
-		talkDao.insertTalkRoomOneByOne();
+	
+		String m_id1 = talkDao.selectTkrm_name(m_id);
+		String m_id3 = talkDao.selectTkrm_name(m_id2);
+		String tkrm_name = m_id3 + ", " + m_id1;
+		talkDao.insertTalkRoomOneByOne(tkrm_name);
 		int roomNumber = talkDao.selectMaxRn();
 		talkDao.insertTalker(roomNumber, m_id);
 		talkDao.insertTalker(roomNumber, m_id2);
@@ -125,6 +129,16 @@ public class TalkServiceImpl implements TalkService {
 	@Override
 	public List<Talk_Reading> unreadCount(int roomNumber) {
 		return talkDao.unreadCount(roomNumber);
+	}
+
+	@Override
+	public int selectAllUnreadCount(String m_id) {
+		return talkDao.selectAllUnreadCount(m_id);
+	}
+
+	@Override
+	public List<String> selectRnUnreadNum(int tkrm_num, String m_id) {
+		return talkDao.selectRnUnreadNum(tkrm_num, m_id);
 	}
 
 }

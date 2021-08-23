@@ -9,6 +9,24 @@ let isClickedOnebyOneTalkList = false;
 let isClickedJoinGroupMember = false;
 let nowTk_num = 0;
 
+// 전체 안읽은 메세지 가져오기
+$(document).ready(function() {
+	refreshNumOfAllUnread();
+});
+function refreshNumOfAllUnread() {
+	$.ajax({
+		url: _contextPath + '/talk/AllChatCount',
+		type: 'get',
+		success: function (res) {
+			if(res == 0) {
+				$('.blue_circle').hide();
+			}else {
+				$('.blue_circle').show();
+				$('.blue_circle').text(res);
+			}
+		}
+	});
+}
 
 $(document).ready(function() {
  	//멤버리스트 보이기
@@ -58,16 +76,15 @@ $(document).ready(function() {
 			url: _contextPath + '/talk/getMemberList',
 			type: 'get',
 			success: function (res) {
-/*
+				$('#memberlist').html('');
 				//멤버리스트 가져오기
 				let memberList = res.memberList;
 				
-				if(!isClickedOnebyOneChat) {
 				for(var i = 0; i<memberList.length; i++) {
    					 $('#memberlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
-   					 	+ memberList[i].m_id
-   					 	+ '"><button type="button"  id="chat" onclick="getRoomOfApi('
+   					 	+ memberList[i].m_id + '"'
+   					 	+ '><sec:authorize access="isAuthenticated()"><sec:authentication property="principal.username" var="sec_m_id" /><img src="' + _contextPath + '/resource/member/photo/' + memberList[i].m_id + '.jpg" onerror=this.src="' + _contextPath + '/resource/member/photo/default.jpg" style="width: 50px; height: 50px"></sec:authorize><button type="button"  id="chat" onclick="getRoomOfApi('
    					 	+ '\''
    					 	+ memberList[i].m_id
    					 	+ '\''
@@ -75,10 +92,8 @@ $(document).ready(function() {
    					 	+ memberList[i].m_name
    					 	+ '</button></td></tr>'
    					 ); 
-					} 
-					isClickedOnebyOneChat = true;
-				}
-*/					
+					}
+					
 				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
@@ -184,16 +199,18 @@ $(document).ready(function() {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ roomList[i].m_id + '"'
-						+ '><td><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">'
-						+  (roomList[i].talkerList[1] != null ? '<img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">': '')
-						+  (roomList[i].talkerList[2] != null ? '<img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">': '')	
+						+ '><td><img id="img1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>'
+						+  (roomList[i].talkerList[2] != null ? '<img id="img2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')
+						+  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 30px; height: 30px">': '')	
 						+ '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
    					 	+ '\''
    					 	+ ')">'
    					 	+ roomList[i].tkrm_name
-   					 	+ '</button></td></tr>'
+   					 	+ '</button></td><td><div class="RnUnreadNum">'
+   					 	+ (roomList[i].RnUnreadNum[i] != undefined ? roomList[i].RnUnreadNum[i] : '')
+   					 	+'</div></td></tr>'
    					 ); 
 				}			
 				$('.chatModal').show();
@@ -301,7 +318,7 @@ $(document).ready(function() {
 	   					 $('#makegroup').append(
 	   					 	'<input type="hidden" class="m_id2" value="'
 	   					 	+ memberList[i].m_id
-	   					 	+ '"><input type="checkbox" name="group" class="group" value="'
+	   					 	+ '"><input type="checkbox" name="group" class="groupCheckbox" value="'
 	   					 	+ memberList[i].m_id
 	   					 	+ '">'
 	   					 	+ memberList[i].m_name
@@ -329,7 +346,7 @@ function talkGroup() {
     var chk = []; // key 값을 담을 배열
     // chk라는 클래스를 가진 체크박스 중에 체크가 된
     // object들을 찾아서 delchk라는 배열에 담는다.
-    $('.group:checked').each(function(){
+    $('.groupCheckbox:checked').each(function(){
         chk.push($(this).val());
     });
     
@@ -389,7 +406,7 @@ $(document).ready(function() {
 				//채팅 기록 지우기(변경됨)
 				$('#chating').html('');
 				$('#roomName').html('');
-				$('.group').removeAttr('checked');
+				$('.groupCheckbox').removeAttr('checked');
 				$('#join_member_list').html('');
 				$('#groupRoomlist').html('');
 				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
@@ -550,6 +567,9 @@ function countUnread(tkrm_num) {
 				let tk_num = numOfUnreadList[i].tk_num;
 				let unread_num = numOfUnreadList[i].unread_num;
 				$('#unReadNum' + tk_num).text(unread_num);
+				if (unread_num == 0) {
+					$('#unReadNum' + tk_num).text('');
+				}
 			}
 		},
     error : function(err){
@@ -619,6 +639,18 @@ function readMember() {
 		}
 	});
 }
+
+// 메신저창 닫기
+$(document).ready(function() {
+	$(".button_x3").on("click", function () {
+		$('.chatModal').hide();
+		$('#TestCircle').show();
+		$('#Test').show();
+		// 안읽은 메시지 숫자 가져오기
+		refreshNumOfAllUnread();
+	});
+});
+
 
 
 

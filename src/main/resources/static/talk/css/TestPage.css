@@ -10,6 +10,22 @@
 	outline: 0;
 	cursor: pointer;
 	background-color: transparent;
+	margin-bottom: 100px;
+}
+
+#Test img {
+	position: absolute;
+}
+
+.blue_circle {
+	position: absolute;
+	border-radius: 70%;
+	background-color: #0f91e6;
+	width: 30px;
+	height: 30px;
+	color: white;
+    font-size: 20px;
+    line-height: 28px;
 }
 
 /* =========================== Modal ===================================== */
@@ -45,12 +61,6 @@
 	border-radius: 50%;
 }
 
-.groupchat {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-}
-
 #content2 {
     		position: relative;
     		background-color: white;
@@ -58,12 +68,43 @@
     		height: 500px;
     		overflow: auto;
 }
+
+#member {
+	position: relative;
+	float: left;
+}
+
 .onebyone {
 	width: 50px;
 	height: 20px;
 }
 
+#group_circle {
+	float: left;
+}
+
 .group {
+	width: 50px;
+	height: 20px;
+	position: absolute;
+}
+
+.total {
+	text-align: center;
+	margin-left: 40px;
+}
+
+#makeGroupButton {
+	float: left;
+}
+
+.groupchat {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.groupCheckbox {
 	width: 50px;
 	height: 20px;
 }
@@ -123,3 +164,18 @@
 	margin-left: 270px;
 	cursor: pointer;
 }	
+
+#groupRoomlist #img1 {
+	width: 30px;
+	height: 30px;
+}
+
+#groupRoomlist #img2 {
+	width: 30px;
+	height: 30px;
+}
+
+#groupRoomlist #img3 {
+	width: 30px;
+	height: 30px;
+}

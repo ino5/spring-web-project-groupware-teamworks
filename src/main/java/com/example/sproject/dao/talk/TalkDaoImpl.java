@@ -40,8 +40,8 @@ public class TalkDaoImpl implements TalkDao {
 	}
 
 	@Override
-	public int insertTalkRoomOneByOne() {
-		return session.insert("insertTalkRoomOneByOneOfTalk");
+	public int insertTalkRoomOneByOne(String tkrm_name) {
+		return session.insert("insertTalkRoomOneByOneOfTalk", tkrm_name);
 	}
 
 	@Override
@@ -129,6 +129,19 @@ public class TalkDaoImpl implements TalkDao {
 	@Override
 	public List<Talk_Reading> unreadCount(int roomNumber) {
 		return session.selectList("unreadCountListOfTalk", roomNumber);
+	}
+
+	@Override
+	public int selectAllUnreadCount(String m_id) {
+		return session.selectOne("selectAllUnreadCountOfTalk", m_id);
+	}
+
+	@Override
+	public List<String> selectRnUnreadNum(int tkrm_num, String m_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tkrm_num", tkrm_num);
+		map.put("m_id", m_id);
+		return session.selectList("selectRnUnreadNumOfTalk", map);
 	}
 
 

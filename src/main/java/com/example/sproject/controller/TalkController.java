@@ -262,8 +262,12 @@ public class TalkController {
 		for (Room room : roomList) {
 			int tkrm_num = room.getTkrm_num();
 			List<String> talkerList = talkService.selectgetGroupTalkerList(tkrm_num);
+			List<String> RnUnreadNum = talkService.selectRnUnreadNum(tkrm_num, m_id);
 			room.setTalkerList(talkerList);
+			room.setRnUnreadNum(RnUnreadNum);
 		}
+		
+		
 		
 		map.put("m_id", m_id);
 		map.put("m_name", sessionMember.getM_name());
@@ -329,5 +333,13 @@ public class TalkController {
 		List<Talk_Reading> numOfUnreadList = talkService.unreadCount(roomNumber);
 		map.put("numOfUnreadList", numOfUnreadList);
 		return map;
+	}
+	
+	@RequestMapping("/AllChatCount")
+	@ResponseBody
+	public int AllUnreadCount(@AuthenticationPrincipal Member sessionMember) {
+		String m_id = sessionMember.getM_id();
+		int allUnreadCount = talkService.selectAllUnreadCount(m_id);
+		return allUnreadCount;
 	}
 }
