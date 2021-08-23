@@ -131,4 +131,14 @@ public class TalkServiceImpl implements TalkService {
 		return talkDao.unreadCount(roomNumber);
 	}
 
+	@Override
+	public int selectAllUnreadCount(String m_id) {
+		return talkDao.selectAllUnreadCount(m_id);
+	}
+
+	@Override
+	public List<String> selectRnUnreadNum(int tkrm_num, String m_id) {
+		return talkDao.selectRnUnreadNum(tkrm_num, m_id);
+	}
+
 }

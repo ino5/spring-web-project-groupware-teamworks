@@ -82,4 +82,12 @@
 <select id="unreadCountListOfTalk" parameterType="int" resultType="com.example.sproject.model.talk.Talk_Reading">
 	SELECT tk_num, COUNT(tk_num) - SUM(tkrd_is_read) unread_num FROM talk_reading WHERE tkrm_num = #{roomNumber} GROUP BY tk_num
 </select>
+
+<select id="selectAllUnreadCountOfTalk" parameterType="String" resultType="int">
+	select count(*) allUnreadCount from talk_reading where m_id=#{m_id} and tkrd_is_read=0
+</select>
+
+<select id="selectRnUnreadNumOfTalk" parameterType="Map" resultType="String">
+	select count(*) from talk_reading where tkrm_num=#{tkrm_num} and m_id=#{m_id} and tkrd_is_read=0
+</select>
 </mapper>

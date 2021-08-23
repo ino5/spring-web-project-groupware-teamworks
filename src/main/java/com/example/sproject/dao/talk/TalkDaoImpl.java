@@ -131,5 +131,18 @@ public class TalkDaoImpl implements TalkDao {
 		return session.selectList("unreadCountListOfTalk", roomNumber);
 	}
 
+	@Override
+	public int selectAllUnreadCount(String m_id) {
+		return session.selectOne("selectAllUnreadCountOfTalk", m_id);
+	}
+
+	@Override
+	public List<String> selectRnUnreadNum(int tkrm_num, String m_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tkrm_num", tkrm_num);
+		map.put("m_id", m_id);
+		return session.selectList("selectRnUnreadNumOfTalk", map);
+	}
+
 
 }

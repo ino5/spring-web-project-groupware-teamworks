@@ -9,6 +9,24 @@ let isClickedOnebyOneTalkList = false;
 let isClickedJoinGroupMember = false;
 let nowTk_num = 0;
 
+// 전체 안읽은 메세지 가져오기
+$(document).ready(function() {
+	refreshNumOfAllUnread();
+});
+function refreshNumOfAllUnread() {
+	$.ajax({
+		url: _contextPath + '/talk/AllChatCount',
+		type: 'get',
+		success: function (res) {
+			if(res == 0) {
+				$('.blue_circle').hide();
+			}else {
+				$('.blue_circle').show();
+				$('.blue_circle').text(res);
+			}
+		}
+	});
+}
 
 $(document).ready(function() {
  	//멤버리스트 보이기
@@ -190,7 +208,9 @@ $(document).ready(function() {
    					 	+ '\''
    					 	+ ')">'
    					 	+ roomList[i].tkrm_name
-   					 	+ '</button></td></tr>'
+   					 	+ '</button></td><td><div class="RnUnreadNum">'
+   					 	+ (roomList[i].RnUnreadNum[i] != undefined ? roomList[i].RnUnreadNum[i] : '')
+   					 	+'</div></td></tr>'
    					 ); 
 				}			
 				$('.chatModal').show();
@@ -542,6 +562,9 @@ function countUnread(tkrm_num) {
 				let tk_num = numOfUnreadList[i].tk_num;
 				let unread_num = numOfUnreadList[i].unread_num;
 				$('#unReadNum' + tk_num).text(unread_num);
+				if (unread_num == 0) {
+					$('#unReadNum' + tk_num).text('');
+				}
 			}
 		},
     error : function(err){
@@ -610,12 +633,14 @@ function readMember() {
 	});
 }
 
+// 메신저창 닫기
 $(document).ready(function() {
-// 그룹채팅추가멤버보이기
 	$(".button_x3").on("click", function () {
 		$('.chatModal').hide();
 		$('#TestCircle').show();
 		$('#Test').show();
+		// 안읽은 메시지 숫자 가져오기
+		refreshNumOfAllUnread();
 	});
 });
 

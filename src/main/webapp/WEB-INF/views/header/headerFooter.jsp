@@ -3,6 +3,7 @@
 	<div id="TestCircle">
 	<button type="button" id="Test">
 		<img alt="물풍선.png" src="${pageContext.request.contextPath}/header/img/물풍선.png" style="width: 100px; height: 100px">
+		<div class="blue_circle"></div>
 	</button>
 	</div>
 	<!-- Modal content -->
@@ -26,9 +27,9 @@
 					</table>
 				</div>
 			<div id="button_bar"></div>
-				<button type="button" class="onebyone">회원</button>
-				<button type="button" class="group">채팅</button>
-				<button type="button" class="groupchat">그룹 방만들기</button>
+				<div id="member"><button type="button" class="onebyone">회원</button></div>
+				<div id="group_circle"><button type="button" class="group">채팅</button><div class="blue_circle total"></div></div>
+				<div id="makeGroupButton"><button type="button" class="groupchat">그룹 방만들기</button></div>
 			</div>
 		</div>
 		<div id="content2">

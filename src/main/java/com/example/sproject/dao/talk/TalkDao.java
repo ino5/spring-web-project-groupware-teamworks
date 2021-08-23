@@ -47,6 +47,10 @@ public interface TalkDao {
 
 	List<Talk_Reading> unreadCount(int roomNumber);
 
+	int selectAllUnreadCount(String m_id);
+
+	List<String> selectRnUnreadNum(int tkrm_num, String m_id);
+
 
 
 }
