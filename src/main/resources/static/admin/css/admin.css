@@ -158,7 +158,12 @@ h2 {
 	font-weight: 500;
 	width: 150px;
 }
-
+.pageNum{
+	display: block;
+    width: 100%;
+    text-align: center;
+    padding: 24px 0 0;
+}
 #search:focus {
 	outline : none;
 }
@@ -342,9 +347,12 @@ position:relative;
 	width: 70px;
 	line-height: 35px;
 }
-
+#admin_select{
+  width: 300px;
+}
 #modal_form tr td {
 	padding: 14px;	
+	width: 95px;
 }
 
 #modal_tb input {
@@ -364,7 +372,66 @@ position:relative;
 #modal_wrap{
 	margin-left: 88px;
 }
-#profile{
+
+#button_save {
+	display: inline-block;
+	height: 36px;
+	line-height: 33px;
+	padding: 0px 24px;
+	font-size: 16px;
+	background: #37D2E7;
+	color: #FFF;
+	border: 1px solid #37D2E7;
+	border-radius: 4px;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+#button_cancle {
+	display: inline-block;
+	height: 36px;
+	line-height: 34px;
+	padding: 0px 24px;
+	font-size: 16px;
+	background: transparent;
+	color: #888;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-weight: normal;
+	cursor: pointer;
+	margin-left: 4px;
+}
+/* Modal Content/Box */
+.modal-content2 {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 400px; /* Could be more or less, depending on screen size */
+	height: 200px;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 5px 8px rgb(0 0 0/ 20%);
+}
+#modal_form_pt_select {
+	border: 1px solid #CFCFCF;
+	width:200px;
+	color: #666666;
+	font-weight: normal;
+	height: 30px;
+	line-height: 25px;
+	padding: 2px;
+	border-radius: 7px;
+}
+#text_password {
+	margin: 0 0 5px 0;
+	font-size: 22px;
+	font-weight: normal;
+	letter-spacing: -1px;
+	word-break: normal;
+	word-break: break-word;
+}
+
+#profile {
 	float: left;
 }
 
@@ -374,3 +441,17 @@ position:relative;
 }
 .id_ok{color:#fff; display: none;}
 .id_already{color:#6A82FB; display: none;}
+
+#page_num_button{
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center; 
+     color: #333 !important;
+    border-color: #333 !important;
+}

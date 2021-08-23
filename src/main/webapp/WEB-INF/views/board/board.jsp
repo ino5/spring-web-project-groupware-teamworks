@@ -127,7 +127,8 @@ $("#boardSet").on("click", function () {
 			</ol>
 		</div>
 	</div>
-	<div style="margin-top: 20px; margin-left: 20px; position:relative; float: left;" ><span style="font-size: 22px;">게시글 목록</span></div>
+	<div style=" height: 40px;"></div>
+	<div id="p_title">게시글 목록</div>
 				<div id="searchBox_div" style=" position:relative; float: right;">
 <form action="${pageContext.request.contextPath}/board/BoardSearchList" method="post">
 <sec:csrfInput/>
@@ -190,7 +191,7 @@ $("#boardSet").on("click", function () {
 						<c:forEach var="ps_notice" items="${listNoticePost}" begin="0" end="2">			
 					<tr style="background-color: #F6F6F6;">
 						<td style="text-align: center;">
-							<input type="checkbox" name="check" class="chk_1" value="${ps.p_type}">
+							<input type="checkbox" name="check" class="chk_1" value="${ps.p_num}">
 						</td>
 						<td><img style=" width: 50px; height: 50px;" alt="image" src="${pageContext.request.contextPath}/board/img/공지1.png"></td>
 						<td ><a style="color:#0f91e6; font-weight: bold; font-size: 20px;" href='${pageContext.request.contextPath}/board/view?p_num=${ps_notice.p_num}'>${ps_notice.p_name}</a></td>
@@ -221,7 +222,7 @@ $("#boardSet").on("click", function () {
 		</c:if>
 		<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
 			<c:if test="${i > 0 }">
-				<a href="?currentPage=${i}">[${i}]</a>
+				<a id="page_num_button" href="?currentPage=${i}">${i}</a>
 			</c:if>
 		</c:forEach>
 		<c:if test="${pg.endPage < pg.totalPage }">
@@ -235,7 +236,7 @@ $("#boardSet").on("click", function () {
 		<!-- Modal content -->
 		<div class="modal-content">
 			<p>
-				<span>게시판 관리 <img
+				<span id="modal_HeadText">게시물 이동 <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
 					onclick="close_pop2();" id="x_icon" />
@@ -245,11 +246,11 @@ $("#boardSet").on("click", function () {
 			<p style="text-align: center; line-height: 1.5;"></p>
 			<form id="modal_form" name="modal_form">
 			<sec:csrfInput/>
-				<table>
+				<table style="margin-left: 150px;">
 					<tr>
 						<td>게시판선택</td>
 						<td colspan="3">
-							<select name="bd_num">
+							<select style="width: 200px; height: 35px; border-color:#EAEAEA; border-radius:7px; " name="bd_num">
 								<c:forEach var="boardListOfAll" items="${boardListOfAll}">
 									  <option value="${boardListOfAll.bd_num}">${boardListOfAll.bd_name}</option>
 								</c:forEach>
@@ -261,14 +262,12 @@ $("#boardSet").on("click", function () {
 							
 
 					<tr>
-						<td>이름변경</td>
-						<td colspan="3"><input type="text" name="adg_name"></td>
+						<td style="width: 200px; height: 35px; border-color:#EAEAEA; border-radius:7px;" >이름변경</td>
+						<td colspan="3"><input type="text" name="adg_name" class="input_text"></td>
 					</tr>
-					<tr>
-						<td></td>
-						<td><input type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
-						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/board/groupDelete"></td>
-						<td><input type="button" value="취소" id="close_btn"></td>
+					<tr><td></td>
+						<td ><input id="boardGroup" type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
+						<td><input id="cancleGroup"  style="width: 64px;" type="button" value="취소" id="close_btn"></td>
 				</table>
 			</form>
 		</div>

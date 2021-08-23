@@ -22,7 +22,12 @@ table{
 .head_nav ul li {
 	display: inline;
 }
-
+.pageNum{
+	display: block;
+    width: 100%;
+    text-align: center;
+    padding: 24px 0 0;
+}
 .head_nav ul li a {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
 	padding-top: 15px;
@@ -227,7 +232,17 @@ position:relative;
 	background-color: white;
 	
 }
-
+#content_wrap{
+	position: relative;
+    min-width: 500px;
+    margin: 10px 24px;
+    padding: 10px 10px 14px;
+    background-color: #f9f9f9;
+    border: 1px solid #dcdcdc;
+    /* border-top: 1px solid #9b9b9b; */
+    border-radius: 4px;
+    font-size: 13px;
+}
 #list_table{
 
     border-bottom: 2px solid #EAEAEA;
@@ -353,6 +368,7 @@ select {
 
 }
 /* =========================== Modal ===================================== */
+/* =========================== Modal ===================================== */
 
 .modal-content {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
@@ -383,12 +399,13 @@ select {
 	padding: 8px;	
 }
 
-.input {
-	width: 494px;	
-	height: 25px;
-	border: 1px solid #c0c0c0;
-	border-radius: 4px;
-}
+/* 검색 창 수정 중 */
+/* .input { */
+/* 	width: 494px;	 */
+/* 	height: 25px; */
+/* 	border: 1px solid #c0c0c0; */
+/* 	border-radius: 4px; */
+/* } */
 
 .modal {
 	display: none; /* Hidden by default */
@@ -402,19 +419,7 @@ select {
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-#btnNotice button{
-	display: inline-block;
-    cursor: pointer;
-    padding: 0 8px;
-    color: #fff;
-    height: 26px;
-    line-height: 26px;
-    background: #00a1b9;
-    border: 1px solid #00a1b9;
-    border-radius: 2px;
-    font-size: 13px;
-}    
-}
+
 /* Modal Content/Box */
 .modal-content {
 	background-color: #fefefe;
@@ -425,15 +430,47 @@ select {
 	border-radius: 4px;
 	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
 }
-#content_wrap{
-
-	position: relative;
-    min-width: 500px;
-    margin: 50px 24px;
-    padding: 10px 10px 14px;
-    background-color: #f9f9f9;
-    border: 1px solid #dcdcdc;
-    /* border-top: 1px solid #9b9b9b; */
-    border-radius: 4px;
+#modal_HeadText{
+	font-weight: normal;
+	font-size: 25px;
+	padding-left: 20px;
+	}
+	#boardGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    background: #00a1b9;
+    border: 1px solid #00a1b9;
+    border-radius: 2px;
     font-size: 13px;
+    vertical-align: middle;
+	}
+	#cancleGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+    font-size: 13px;
+    vertical-align: middle;
+	}
+	#page_num_button{
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center; 
+     color: #333 !important;
+    border-color: #333 !important;
 }

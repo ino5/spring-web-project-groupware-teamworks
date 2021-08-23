@@ -79,15 +79,33 @@ function clickDelete(rpNum){
              $(".rp_"+rpNum).remove();
         },
          error: function(err) {
-         
-	 
 			console.log(err);
 			
 			//현재 통신후 404 에러가 나서 임의로 구현
 			// 아이디가 rp_num td를 찾아서 remove
 	      //  $("#"+rpNum).remove();
 		}
-        
+    });
+}
+//댓글등록
+function clickDelete(rpNum){
+	console.log(rpNum);
+	
+	$.ajax({
+        type : "POST",
+        url : _contextPath+"/board/reply_delete",   
+        data : {'rp_num':rpNum},
+        success : function(result) {
+        	console.log(result);
+             $(".rp_"+rpNum).remove();
+        },
+         error: function(err) {
+			console.log(err);
+			
+			//현재 통신후 404 에러가 나서 임의로 구현
+			// 아이디가 rp_num td를 찾아서 remove
+	      //  $("#"+rpNum).remove();
+		}
     });
 }
 //아이디가 관리자인 사람만 보이게 

@@ -22,6 +22,8 @@ public interface AdminDao {
 	List<Member> memberAllList();
 
 	List<Member> timeList();
+
+	List<Member> member_PositionList(Member member);
 	
 
 

@@ -17,26 +17,6 @@
 
 <title>Insert title here</title>
 </head>
-		<script type="text/javascript">
-										$('#summernote').summernote({
-											height : 600, // 에디터 높이
-											width:1200,
-			
-											minHeight : null, // 최소 높이
-											maxHeight : null, // 최대 높이
-											focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-											lang : "ko-KR", // 한글 설정
-											placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-											callbacks: {	//이미지 첨부하는 부분
-										               onImageUpload : function(files) {
-										            	   	alert("onImageUpload : function");
-										                    uploadSummernoteImageFile(files[0],this);
-										                }
-										            }
-
-										});
-						
-									</script>
 <body>
 <%@include file="/WEB-INF/views/header/headerBody.jsp"%>
 		
@@ -81,31 +61,26 @@
 				<sec:csrfInput/>
 				<section id="point">
 					<article class="pt pt1">
-					<table>
-					<tr>
-						<td>게시판선택</td>
-						<td colspan="3">
+						<div id="Top">
+							<span id="td_title">글쓰기</span>
+								</div>
+								<div id="write_Select">
+				<span style="color: #888; font: bold 18px verdana; margin-right: 20px;">To.</span>
 							<select name="bd_num">
 								<c:forEach var="boardListOfCommunity" items="${boardListOfCommunity}">
 									  <option value="${boardListOfCommunity.bd_num}">${boardListOfCommunity.bd_name}</option>
 								</c:forEach>
-
 							</select>
-							</td>
-							</tr>
-							</table>
-						<table class="pt_tb">
-							<tr>
-								<td id="td_title">글 작성하기</td>
-							</tr>
-							<tr>
-							<th>제목</th>
+							</div>	
+								<table class="pt_tb">
+								<tr>
+							<th style="color: #888;">제목</th>
 								<td class="td_subject">
 								<input id="subject" type="text" name="p_name" placeholder="글 제목" class="form_box">
 								</td>
 							</tr>
 						<tr>
-							<td colspan="5"><textarea id="summernote" class="summernote"
+							<td colspan="100"><textarea id="summernote" class="summernote"
 									name="p_content" placeholder="글 내용" rows="15" style="width: 900px;">${view.p_content}</textarea>
 
 								<script type="text/javascript">

@@ -22,4 +22,6 @@ public interface AdminService {
 
 	List<Member> timeList();
 
+	List<Member> member_PositionList(Member member);
+
 }

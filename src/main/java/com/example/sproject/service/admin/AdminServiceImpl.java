@@ -69,6 +69,12 @@ public class AdminServiceImpl implements AdminService {
 		timeList = admindao.timeList();
 		return timeList;
 	}
+
+	@Override
+	public List<Member> member_PositionList(Member member) {
+		List<Member> member_PositionList = admindao.member_PositionList(member);
+		return member_PositionList;
+	}
 	
 	
 }

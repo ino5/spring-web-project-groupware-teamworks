@@ -64,7 +64,7 @@
 
 <!--     댓글 리스트  -->
 <select id="ReplyListofBoard" parameterType="int" resultType="com.example.sproject.model.board.Reply">
-		select m.m_name, p.pt_name, r.* 
+		select m.m_id, m.m_name, p.pt_name, r.* 
 		from reply r, member m, position p
 		where r.p_num = #{p_num} and r.m_id = m.m_id and p.pt_code = m.pt_code 
 		order by r.rp_ref, r.rp_order, r.rp_depth

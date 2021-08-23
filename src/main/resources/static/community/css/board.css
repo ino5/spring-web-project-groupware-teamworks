@@ -182,6 +182,12 @@ h2 {
 	background-color: #5D5D5D;
 	
 }
+.pageNum{
+	display: block;
+    width: 100%;
+    text-align: center;
+    padding: 24px 0 0;
+}
 a { text-decoration:none;
 		font-size:15px;
     color: black; } 
@@ -353,6 +359,7 @@ select {
 
 }
 /* =========================== Modal ===================================== */
+/* =========================== Modal ===================================== */
 
 .modal-content {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
@@ -383,12 +390,13 @@ select {
 	padding: 8px;	
 }
 
-.input {
-	width: 494px;	
-	height: 25px;
-	border: 1px solid #c0c0c0;
-	border-radius: 4px;
-}
+/* 검색 창 수정 중 */
+/* .input { */
+/* 	width: 494px;	 */
+/* 	height: 25px; */
+/* 	border: 1px solid #c0c0c0; */
+/* 	border-radius: 4px; */
+/* } */
 
 .modal {
 	display: none; /* Hidden by default */
@@ -402,7 +410,23 @@ select {
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-#btnNotice button{
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 620px; /* Could be more or less, depending on screen size */
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}
+#modal_HeadText{
+	font-weight: normal;
+	font-size: 25px;
+	padding-left: 20px;
+	}
+	#boardGroup{
 	display: inline-block;
     cursor: pointer;
     padding: 0 8px;
@@ -413,23 +437,41 @@ select {
     border: 1px solid #00a1b9;
     border-radius: 2px;
     font-size: 13px;
-}    
-#boardSet2 button{
-    padding: 2px 4px 4px;
+    vertical-align: middle;
+	}
+	#cancleGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
     color: #fff;
-    font-weight: normal;
-    font-size: 11px;
-    line-height: 11px;
-    background: #aeb2ba;
+    height: 26px;
+    line-height: 26px;
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+    font-size: 13px;
+    vertical-align: middle;
+	}
+	#page_num_button{
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center; 
+     color: #333 !important;
+    border-color: #333 !important;
 }
-}
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	width: 620px; /* Could be more or less, depending on screen size */
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+#p_title {
+	display: inline;
+	min-height: 13px;
+	margin: 0 8px 0 0;
+	margin-top: 40px;
+	margin-left: 46px;
+	font-weight: bold;
+	color: #383838;
+	font-size: 25px;
 }

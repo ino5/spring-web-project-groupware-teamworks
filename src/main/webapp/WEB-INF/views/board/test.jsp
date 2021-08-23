@@ -182,7 +182,7 @@ $("#boardSet").on("click", function () {
 				<a href="?bd_num=${bd_num}&currentPage=${pg.startPage-pg.pageBlock}"></a>
 			</c:if>
 			<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
-				<a href="?bd_num=${bd_num}&currentPage=${i}">[${i}]</a>
+				<a id="page_num_button" href="?bd_num=${bd_num}&currentPage=${i}">${i}</a>
 			</c:forEach>
 			<c:if test="${pg.endPage < pg.totalPage }">
 				<a href="?bd_num=${bd_num}&currentPage=${pg.startPage+pg.pageBlock}"></a>
@@ -220,14 +220,13 @@ $("#boardSet").on("click", function () {
 							
 
 					<tr>
-						<td>이름변경</td>
+						<td style="width: 200px; height: 35px; border-color:#EAEAEA; border-radius:7px;" >이름변경</td>
 						<td colspan="3"><input type="text" name="adg_name"></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
-						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/address/groupDelete"></td>
-						<td><input type="button" value="취소" id="close_btn"></td>
+						<td><input id="boardGroup" type="button" value="그룹지정" onclick="javascript:boardGroup()"></td>
+						<td><input id="cancleGroup"  style="width: 64px;"  type="button" value="취소" id="close_btn"></td>
 				</table>
 			</form>
 		</div>

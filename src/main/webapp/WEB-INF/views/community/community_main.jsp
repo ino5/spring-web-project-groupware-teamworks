@@ -9,6 +9,18 @@
 <script src="${pageContext.request.contextPath}/community/js/community_main.js"></script>
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+function myReplace() {
+	var summernote = summernote.replace(/(<([^>]+)>)/ig,"");
+	if(!m_name.test(frm.m_name.value)) {
+	
+	} else {
+
+	}
+};
+ 
+
+</script>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 		<div id="side">
@@ -43,8 +55,10 @@
 		</div>
 	</div>
 <div id="content">
-<div id="main_Text">
-<h1 style="margin-left: 60px; margin-top:30px; font-weight: normal;font-size: 20px;">커뮤니티 홈</h1>
+<div style=" height: 40px;"></div>
+
+<div id="text_conotent" >
+	커뮤니티 홈
 </div>
 <div class="block">
 
@@ -56,16 +70,23 @@
 					<div id="community_list">
 				<ul>
 				<li  style="margin-top: 20px;">${ps.bd_name} > ${ps.p_name} <span id="img_com" style="color: black;"> &nbsp;&nbsp;&nbsp; <img alt="image"
-											src="${pageContext.request.contextPath}/community/img/arrow5.png"
-											style="width: 20px; height: 15px;"> &nbsp;${ps.p_view} </span></li>
-				<li ><a style="font-size: 20px;" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_content}</a></li>
+											src="${pageContext.request.contextPath}/community/img/arrow5.png" style="width: 20px; height: 15px;"> &nbsp;${ps.p_view} </span></li>
+				<li><div style="width: 400px; height: 20px !important; "><a class="p_content" style="font-size: 20px;" href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_content}</a></div></li>
 			
 				<li>
-				<img style="border-radius:70%; width:30px; height: 30px; " src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>
-				${ps.m_name}${ps.pt_name}&nbsp; &nbsp; &nbsp;
-				<fmt:formatDate value="${ps.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/><button style="background-color: transparent; border: none;" type="button" id="buttonRecommand" onclick="location.href='${pageContext.request.contextPath}/board/recommend?p_num=${view.p_num}'">
-</button>
-			<c:if test="${ps.is_liked == 0}">
+				<div id="profile">
+									<img style="border-radius: 70%; width: 30px; height: 30px; padding-top: 7px;"
+										src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg"
+										onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" /></div> 
+									${ps.m_name}${ps.pt_name}&nbsp; &nbsp; &nbsp;
+									<fmt:formatDate value="${ps.p_regdate}"
+										pattern="yyyy-MM-dd HH:mm:ss" />
+									<button style="background-color: transparent; border: none;"
+										type="button" id="buttonRecommand"
+										onclick="location.href='${pageContext.request.contextPath}/board/recommend?p_num=${view.p_num}'">
+
+									</button>
+								<c:if test="${ps.is_liked == 0}">
 			<img alt="image" src="${pageContext.request.contextPath}/board/img/heart.png"
 											style="width: 30px; height: 30px; margin-left: 800px;">
 									</c:if>
@@ -73,9 +94,7 @@
 										<img alt="image"
 											src="${pageContext.request.contextPath}/board/img/checkedheart.png"
 											style="width: 30px; height: 30px; margin-left: 800px;">
-									</c:if></li>
-		
-								
+									</c:if></li>			
 				</ul>	
 				</div>
 					</c:forEach>	
@@ -97,7 +116,7 @@
 			</p>
 			<br>
 			<p style="text-align: center; line-height: 1.5;"></p>
-			<form id="modal_form" name="modal_form" name="form_insert" action="${pageContext.request.contextPath}/community/CommunitySign?bd_num=${as.bd_num}" method="post" enctype="multipart/form-data">
+			<form id="modal_form" name="modal_form" name="form_insert" action="${pageContext.request.contextPath}/community/communitySign?bd_num=${as.bd_num}" method="post" enctype="multipart/form-data">
 	
 			<sec:csrfInput/>
 				<table>
@@ -110,14 +129,19 @@
 	<script>
 	//커뮤니티 가입 모달
 		$(document).ready(function() {
-		// 가입 클릭 시 모달창 열기
-		$("#boardSet2_${as.bd_num}").on("click", function () {
-			$('#myModal2_${as.bd_num}').show();
-		});
-		//모달창 Close 기능
+			// 가입 클릭 시 모달창 열기
+			$("#boardSet2_${as.bd_num}").on("click", function () {
+				$('#myModal2_${as.bd_num}').show();
+			});
+			//모달창 Close 기능
 			$("#x_icon_${as.bd_num}").unbind('click').on('click', function() {
 				$('#myModal2_${as.bd_num}').hide();
 			});
+		
+			//내용 태그 부분 삭제
+			for (let i = 0; i < document.getElementsByClassName('p_content').length ; i++) {
+			    document.getElementsByClassName('p_content')[i].innerHTML = document.getElementsByClassName('p_content')[i].innerHTML.replace(/(<([^>]+)>)/ig,"");
+			}
 		});
 	</script>
 	</c:forEach>

@@ -97,5 +97,15 @@ public class AdminDaoiml implements AdminDao {
 		}
 		return timeList;
 	}
+	@Override
+	public List<Member> member_PositionList(Member member) {
+		List<Member> member_PositionList = null;
+		try {
+			member_PositionList = session.selectList("member_PositionListOfAdmin", member);
+		} catch (Exception e) {
+			System.out.println("AdminDaoiml listMember Exception->"+e.getMessage());
+		}
+		return member_PositionList;
+	}
 
 }
