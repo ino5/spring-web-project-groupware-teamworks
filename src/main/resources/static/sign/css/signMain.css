@@ -160,3 +160,27 @@ a {
 	background-color: #ff616b;
 }
 /* end of 상태 */
+
+
+/* 페이징 */
+#paging {
+	text-align: center;
+    margin-top: 14px;
+}
+#paging .paginate_active {
+    color: #333 !important;
+    border-color: #333 !important;
+    	
+}
+#paging .paginate_button {
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center;    
+}
+/* end of 페이징 */

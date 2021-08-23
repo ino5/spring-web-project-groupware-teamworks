@@ -42,6 +42,12 @@ public interface SignDao {
 	int approveSign(SignLine signLine);
 
 	List<SignForm> selectListSignForm();
+	/**
+	 * 전자결재 상태 업데이트하기
+	 * @param sg_status
+	 * @return
+	 */
+	int updateSignStatus(int sg_num, int sg_status);
 
 
 

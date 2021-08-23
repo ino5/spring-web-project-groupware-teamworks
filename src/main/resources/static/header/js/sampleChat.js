@@ -16,13 +16,14 @@
 			var msg = data.data;
 			if(msg != null && msg.trim() != ''){
 				var jsonMsg = JSON.parse(msg);
+				// 이미지 전송 받을 때
 				if (jsonMsg.type == 'beforeFile') {
 					jsonMsg.type = 'message';
 					jsonMsg.msg = '(이미지)';
 				}
 				if (jsonMsg.type == 'message') {
 					if (jsonMsg.m_id != $('#sec_m_id').val()) {				
-						// 초기화 설정
+						// html, css 초기화 
 						clearTimeout(sampleAlertTimer);
 						$('#sample_alert_wrapper').css('transition', '0s');
 						$('#sample_alert_wrapper').hide();
@@ -46,11 +47,14 @@
 						$('#sample_alert_wrapper').css('transition', '0.5s');
 						$('#sample_alert_wrapper').height('100px');
 						
+						// 안읽은 메세지 수 초기화하기
+						refreshNumOfAllUnread();
+						
 						// 알림창 사라지기
 						sampleAlertTimer = setTimeout(function() {
 							$('#sample_alert_wrapper').height('0px');
 							$('#sample_alert_wrapper').css('border', 'none');
-						},3000);
+						}, 2000);
 					}
 				}
 			}

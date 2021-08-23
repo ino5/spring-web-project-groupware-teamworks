@@ -47,10 +47,10 @@
 		style="width: 16px; height: 12px;" id="img1"></span> 결재 문서</a>
 <ol id="scroll2" class="scroll" style="display: none; list-style: none;">
 	<li class="li"><p class="menu_title">
-		<a href="${pageContext.request.contextPath}/sign/list/proposalProcessing">결재 대기 문서</a>
+		<a href="${pageContext.request.contextPath}/sign/list/approvalWaited">결재 대기 문서</a>
 		</p></li>
 	<li class="li"><p class="menu_title">
-		<a href="${pageContext.request.contextPath}/sign/list/proposalCompleted">결재 처리 문서</a>
+		<a href="${pageContext.request.contextPath}/sign/list/approvalCompleted">결재 처리 문서</a>
 		</p></li>
 </ol>
 </div>

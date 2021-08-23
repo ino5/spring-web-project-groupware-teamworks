@@ -194,4 +194,8 @@
 	<select id="selectListSignForm" resultType="com.example.sproject.model.sign.SignForm">
 		SELECT * FROM sign_form ORDER BY cg_num
 	</select>
+	
+	<update id="updateSignStatusOfSign" parameterType="com.example.sproject.model.sign.Sign">
+		UPDATE sign SET sg_status = #{sg_status} WHERE sg_num = #{sg_num}
+	</update>
 </mapper>

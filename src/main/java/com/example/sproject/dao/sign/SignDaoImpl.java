@@ -127,6 +127,14 @@ public class SignDaoImpl implements SignDao {
 		return session.selectList("selectListSignForm");
 	}
 
+	@Override
+	public int updateSignStatus(int sg_num, int sg_status) {
+		Sign sign = new Sign();
+		sign.setSg_num(sg_num);
+		sign.setSg_status(sg_status);
+		return session.update("updateSignStatusOfSign", sign);
+	}
+
 
 
 

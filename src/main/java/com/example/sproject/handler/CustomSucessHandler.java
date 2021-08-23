@@ -60,8 +60,10 @@ public class CustomSucessHandler implements AuthenticationSuccessHandler {
         
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         
-        if(savedRequest!=null) {
+//        if(savedRequest!=null) {
+        if(false) {
             String targetUrl = savedRequest.getRedirectUrl();
+            System.out.println("targetUrl: " + targetUrl);
             redirectStratgy.sendRedirect(request, response, targetUrl);
         } else {
             redirectStratgy.sendRedirect(request, response, "");

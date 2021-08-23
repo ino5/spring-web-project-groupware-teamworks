@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.sproject.dao.sign.SignDao;
+import com.example.sproject.model.globals.GlobalsOfSg_status;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.sign.Sign;
 import com.example.sproject.model.sign.SignContent;
@@ -186,6 +187,25 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public List<SignForm> listSignForm() {
 		return signDao.selectListSignForm();
+	}
+
+	/**
+	 * 서명 이후 문서 상태 업데이트 하기
+	 */
+	@Override
+	public int updateSignStatus(int sg_num) {
+		List<SignLine> signLineList = findListOfSignLine(sg_num);
+		int sg_status = GlobalsOfSg_status.COMPLETED;
+		for (SignLine signLine : signLineList) {
+			if (signLine.getSgl_status() == GlobalsOfSg_status.REJECTED) { // 반려 라인 있으면 문서 반려상태로 바로 업데이트 하기
+				sg_status = GlobalsOfSg_status.REJECTED;
+				return signDao.updateSignStatus(sg_num, sg_status);
+			} else if (signLine.getSgl_status() == GlobalsOfSg_status.ONGOING) { // 진행중 라인 있으면 문서 진행상태로 돌려놓고 다른 라인들 마저 확인하기
+				sg_status = GlobalsOfSg_status.ONGOING;
+			}
+		}
+		// 반려 라인 없이 모든 라인 확인한 후에 문서 상태 업데이드하기
+		return signDao.updateSignStatus(sg_num, sg_status);
 	}
 
 

@@ -43,6 +43,13 @@ public interface SignService {
 	int approveSign(SignLine signLine);
 
 	List<SignForm> listSignForm();
+	
+	/**
+	 *  서명 이후 문서 상태 업데이트 하기
+	 * @param sg_num
+	 * @return
+	 */
+	int updateSignStatus(int sg_num);
 
 
 

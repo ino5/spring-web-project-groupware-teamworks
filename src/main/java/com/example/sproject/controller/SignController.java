@@ -79,7 +79,7 @@ public class SignController {
 	public String list(@PathVariable String listType, @RequestParam(required = false) Integer currentPage, @AuthenticationPrincipal Member principal, Model model) {
 		Sign sign = new Sign();
 		sign.setM_id(principal.getM_id());
-
+		model.addAttribute("listType", listType);
 		// 목록 가져오기 : 기안 진행 중 문서
 		if (listType.equals("proposalProcessing")) {
 			CommonPaging commonPaging = new CommonPaging(signService.countSignOfProposalProcessing(sign), currentPage);
@@ -87,7 +87,7 @@ public class SignController {
 			sign.setRn_end(commonPaging.getEnd());
 			List<Sign> listOfSignOfProposalProcessing = signService.listSignOfProposalProcessing(sign);
 			model.addAttribute("listOfSign", listOfSignOfProposalProcessing);
-			model.addAttribute("paging", commonPaging);
+			model.addAttribute("commonPaging", commonPaging);
 		}
 		
 		// 목록 가져오기 : 기안 완료 문서
@@ -97,7 +97,7 @@ public class SignController {
 			sign.setRn_end(commonPaging.getEnd());
 			List<Sign> listOfSignOfProposalCompleted = signService.listSignOfProposalCompleted(sign);
 			model.addAttribute("listOfSign", listOfSignOfProposalCompleted);
-			model.addAttribute("paging", commonPaging);
+			model.addAttribute("commonPaging", commonPaging);
 		} 
 		
 		// 목록 가져오기 : 결재 대기 문서
@@ -107,7 +107,7 @@ public class SignController {
 			sign.setRn_end(commonPaging.getEnd());
 			List<Sign> listOfSignOfApprovalWaited = signService.listSignOfApprovalWaited(sign);
 			model.addAttribute("listOfSign", listOfSignOfApprovalWaited);
-			model.addAttribute("paging", commonPaging);
+			model.addAttribute("commonPaging", commonPaging);
 		} 
 		
 		// 목록 가져오기 : 결제 처리 문서
@@ -117,7 +117,7 @@ public class SignController {
 			sign.setRn_end(commonPaging.getEnd());
 			List<Sign> listOfSignOfApprovalCompleted = signService.listSignOfApprovalCompleted(sign);
 			model.addAttribute("listOfSign", listOfSignOfApprovalCompleted);
-			model.addAttribute("paging", commonPaging);
+			model.addAttribute("commonPaging", commonPaging);
 		}
 	
 		return "sign/signList";
@@ -219,6 +219,9 @@ public class SignController {
 		
 		// 결재하기
 		signService.approveSign(signLine);
+		
+		// 전자결재문서 결재상태 업데이트하기
+		signService.updateSignStatus(sg_num);
 		
 		return "redirect:/sign/view/"+ sgf_id + "/" + sg_num;
 	}
