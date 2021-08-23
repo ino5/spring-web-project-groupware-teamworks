@@ -22,12 +22,12 @@
 					<tr><th>이름</th></tr>
 					</table>
 					<table id="groupRoomlist">
-					<tr><th>방 이름</th></tr>
+<!-- 					<tr><th>방 이름</th></tr> -->
 					</table>
 				</div>
 			<div id="button_bar"></div>
-				<button type="button" class="onebyone">1:1</button>
-				<button type="button" class="group">그룹</button>
+				<button type="button" class="onebyone">회원</button>
+				<button type="button" class="group">채팅</button>
 				<button type="button" class="groupchat">그룹 방만들기</button>
 			</div>
 		</div>

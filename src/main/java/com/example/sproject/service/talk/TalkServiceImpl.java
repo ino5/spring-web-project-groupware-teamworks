@@ -56,7 +56,11 @@ public class TalkServiceImpl implements TalkService {
 
 	@Override
 	public int makeRoomOfOneByOne(String m_id, String m_id2) {
-		talkDao.insertTalkRoomOneByOne();
+	
+		String m_id1 = talkDao.selectTkrm_name(m_id);
+		String m_id3 = talkDao.selectTkrm_name(m_id2);
+		String tkrm_name = m_id3 + ", " + m_id1;
+		talkDao.insertTalkRoomOneByOne(tkrm_name);
 		int roomNumber = talkDao.selectMaxRn();
 		talkDao.insertTalker(roomNumber, m_id);
 		talkDao.insertTalker(roomNumber, m_id2);

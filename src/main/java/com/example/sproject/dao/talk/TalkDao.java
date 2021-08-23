@@ -17,7 +17,7 @@ public interface TalkDao {
 
 	List<Member> selectMemberList(String m_id);
 
-	int insertTalkRoomOneByOne();
+	int insertTalkRoomOneByOne(String tkrm_name);
 	
 	int selectRnOfOneByOne(String m_id, String m_id2);
 

@@ -40,8 +40,8 @@ public class TalkDaoImpl implements TalkDao {
 	}
 
 	@Override
-	public int insertTalkRoomOneByOne() {
-		return session.insert("insertTalkRoomOneByOneOfTalk");
+	public int insertTalkRoomOneByOne(String tkrm_name) {
+		return session.insert("insertTalkRoomOneByOneOfTalk", tkrm_name);
 	}
 
 	@Override

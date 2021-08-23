@@ -68,6 +68,11 @@
 	height: 20px;
 }
 
+.groupCheckbox {
+	width: 50px;
+	height: 20px;
+}
+
 .insertroom {
 	width: 70px;
 	height: 20px;
@@ -123,3 +128,18 @@
 	margin-left: 270px;
 	cursor: pointer;
 }	
+
+#groupRoomlist #img1 {
+	width: 30px;
+	height: 30px;
+}
+
+#groupRoomlist #img2 {
+	width: 30px;
+	height: 30px;
+}
+
+#groupRoomlist #img3 {
+	width: 30px;
+	height: 30px;
+}
