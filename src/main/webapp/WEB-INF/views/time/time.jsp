@@ -54,7 +54,6 @@
 					success : function(result) {
 						// 				debugger;
 						document.getElementById('startTime').innerHTML = global_nowTime;
-						start_text = new Date(global_now);
 						document.getElementById(global_date).rows[0].insertCell(-1).innerText=global_nowTime;
 						document.getElementById('btn1').style.color = '#CFCFCF';
 						document.getElementById('btn1').style.pointerEvents = 'none';
@@ -74,7 +73,7 @@
 			success : function(result) {
 				// 				debugger;
 				var end_text = new Date(global_now);
-				start_text = new Date(global_date + $('#startTime').text());
+				start_text = new Date(global_date + " " + $('#startTime').text());
 				console.log(start_text);
 				var end_start = end_text - start_text;
 				HHH = Math.floor((end_start % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

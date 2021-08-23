@@ -462,10 +462,7 @@
 								style="width: 150px; margin-right: 15px;"><input
 								type="image"
 								src="${pageContext.request.contextPath}/address/img/plus.png"
-								name="Submit" value="Submit" id="groupAdd"> <img alt=""
-								src="${pageContext.request.contextPath}/address/img/gear.png"
-								width="19px" height="19px" style="margin-top: 2px;"
-								class="groupAdd" id="groupSet">
+								name="Submit" value="Submit" id="groupAdd">  
 						</div>
 						<input type="hidden" name="cl_color" id="cl_color">
 						<c:forEach items="${color_cal}" var="item">
