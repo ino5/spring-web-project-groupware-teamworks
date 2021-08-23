@@ -474,9 +474,22 @@ function wsEvt() {
             // 최초 이름을 입력하고 연결되었을때, 발급받은 sessionId값을 비교하여 같다면 자기 자신이 발신한
             // 메시지이므로 오른쪽으로 정렬하는 클래스를 처리하고 메시지를 출력.     
             // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
+				$.ajax({
+					url: _contextPath + '/talk/readNumber',
+					data: {	'roomNumber' : $("#roomNumber").val()},
+					type: 'get',
+					success: function (res) {
+						debugger;
+						$('.readNumber').text(res);
+					},
+					error : function(err){
+						console.log('error');
+					}
+				});	
+				
 				if(jsonMsg.sessionId == $("#sessionId").val()){
 					isMyMessage = 1;
-					$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + moment(date).format("HH:mm") + "</p></div>");
+					$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + moment(date).format("HH:mm") + "</p><p class='readNumber'>" + $('.readNumber').val() + "</p></div>");
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}else{
 					isMyMessage = 0;
@@ -494,7 +507,6 @@ function wsEvt() {
 				},
 				type: 'get',
 				success: function (res) {
-
 				},
 				error : function(err){
 					console.log('error');

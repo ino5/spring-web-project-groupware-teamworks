@@ -43,7 +43,8 @@
 				<input type="hidden" id="m_name">
 				<input type="hidden" id="roomNumber">
 				<div id="meName"></div>
-				<div id="chating" class="chating">
+				<div id="chating" class="chating">				
+				<input type="hidden" id="read_Number">
 				</div>
 				<div id="yourMsg">
 					<table class="inputTable">

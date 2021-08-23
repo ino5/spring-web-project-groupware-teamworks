@@ -43,4 +43,6 @@ public interface TalkDao {
 
 	void readMember(int roomNumber, String m_id);
 
+	int readNumber(int roomNumber, int tk_num);
+
 }

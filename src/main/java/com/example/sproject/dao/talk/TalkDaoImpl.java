@@ -119,4 +119,12 @@ public class TalkDaoImpl implements TalkDao {
 		map.put("m_id", m_id);
 		session.update("readMemberOfTalk", map);		
 	}
+
+	@Override
+	public int readNumber(int roomNumber, int tk_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("roomNumber", roomNumber);
+		map.put("tk_num", tk_num);
+		return session.selectOne("readNumberOfTalk", map);
+	}
 }

@@ -40,6 +40,8 @@ public interface TalkService {
 	 */
 	void readMember(int roomNumber, String m_id);
 
+	int readNumber(int roomNumber);
+
 	
 	
 }

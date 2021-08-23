@@ -121,4 +121,10 @@ public class TalkServiceImpl implements TalkService {
 		talkDao.readMember(roomNumber, m_id);
 		
 	}
+
+	@Override
+	public int readNumber(int roomNumber) {
+		int tk_num = talkDao.selectOneMaxTk_num();
+		return talkDao.readNumber(roomNumber, tk_num);
+	}
 }

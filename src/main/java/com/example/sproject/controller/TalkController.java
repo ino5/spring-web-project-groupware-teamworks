@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.sproject.dao.talk.TalkDao;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
@@ -318,5 +319,14 @@ public class TalkController {
 	public String readMember(int roomNumber, String m_id) {
 		talkService.readMember(roomNumber, m_id);
 		return null;
+	}
+	
+	// 메세지 보낼때 읽음카운트
+	@RequestMapping("/readNumber")
+	@ResponseBody
+	public int readNumber(int roomNumber) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int readNumber = talkService.readNumber(roomNumber);
+		return readNumber;
 	}
 }

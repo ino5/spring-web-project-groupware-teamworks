@@ -70,4 +70,8 @@
 <update id="readMemberOfTalk" parameterType="Map">
 	update talk_reading set tkrd_is_read = 1 where tkrd_is_read = 0 and m_id = #{m_id} and tkrm_num = #{roomNumber}
 </update>
+
+<select id="readNumberOfTalk" parameterType="Map" resultType="int">
+	select count(*) from talk_reading where tk_num = #{tk_num} and tkrm_num = #{roomNumber} and tkrd_is_read = 0
+</select>
 </mapper>
