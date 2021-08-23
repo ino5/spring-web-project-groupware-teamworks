@@ -39,7 +39,8 @@
 			</sec:authorize>
 		</div>
 	</header>
-
+	<!-- 세션 아이디 -->
+	<input type="hidden" name="sec_m_id" id="sec_m_id" value="${sec_m_id}">
 	
 	<!-- 헤더 오른쪽 프로필 사진 눌렀을 때 나오는 메뉴 -->	
 	<div id="header_right_modal">

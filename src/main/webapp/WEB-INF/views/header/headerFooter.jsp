@@ -66,3 +66,13 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 알림창 -->
+	<div id="sample_alert_wrapper">
+		<div id="sample_alert_photo">
+		</div>
+		<div id="sample_alert_userName">
+		</div>
+		<div id="sample_alert_msg">
+		</div>
+	</div>

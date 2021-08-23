@@ -8,6 +8,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.json.simple.JSONObject;
@@ -24,12 +25,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.talk.Talk;
 import com.example.sproject.model.talk.Talk_Reading;
-import com.example.sproject.service.talk.TalkService;
+import com.example.sproject.service.talk.TalkService;import com.google.gson.JsonObject;
 
 @Component("socketHandler")
 public class SocketHandler extends TextWebSocketHandler {
 	@Autowired
 	TalkService talkService;
+	
+	@Autowired
+	SampleSocketHandler sampleSocketHandler; // 알람 관련
 	
 	private static int j;
 	
@@ -39,6 +43,12 @@ public class SocketHandler extends TextWebSocketHandler {
 	private static final String FILE_UPLOAD_PATH = WebMvcConfig.RESOURCE_PATH + "/talk";
 	static int fileUploadIdx = 0;
 	static String fileUploadSession  = "";
+	
+	// session.getId()마다 m_id 값 저장
+	Map<String, String> sessionIdToM_idMap = new HashMap<>();
+	
+	
+	
 	// 메시지 발송
 	
 	@Override	
@@ -67,6 +77,9 @@ public class SocketHandler extends TextWebSocketHandler {
 			obj.put("tk_num", tk_num);
 		} else if(msgType.equals("readMember")) {
 			sendMessageOfUpdateOfSession(rN);
+		} else if(msgType.equals("m_id")) {
+			String m_idInIf = (String) obj.get("m_id");
+			sessionIdToM_idMap.put(session.getId(), m_idInIf);
 		}
 
 		//TalkMsg = dto
@@ -79,8 +92,9 @@ public class SocketHandler extends TextWebSocketHandler {
 		//xml 안에 id를 insertMsgOfTalk 이거로 해서 "insert into talk(m_id, content, regdate) values(#{m_id}, #{content}, SYSDATE)
 		HashMap<String, Object> temp = new HashMap<String, Object>();
 		if(rls.size() > 0) {
+			String roomNumber = null;
 			for(int i=0; i < rls.size(); i++) {
-				String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
+				roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
 				if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
 					temp = rls.get(i); //해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다 (hashmap이니까! number get하면 value인   object를 가져옴)
 					fileUploadIdx = i;
@@ -105,6 +119,14 @@ public class SocketHandler extends TextWebSocketHandler {
 						}
 					}
 				}
+				
+				// 알림보내기
+				System.out.println("m_idList");
+				List<String> m_idList = talkService.selectgetGroupTalkerList(Integer.parseInt(roomNumber));
+				for (String m_idInList : m_idList) {
+					System.out.println(m_idInList);
+					sampleSocketHandler.sendTalkMessage(m_idInList,obj);
+				}				
 			}
 		}
 	}
@@ -245,6 +267,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 			
 		}
+		sessionIdToM_idMap.remove(session.getId());
 		super.afterConnectionClosed(session, status);
 	}
 
@@ -296,12 +319,15 @@ public class SocketHandler extends TextWebSocketHandler {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-					}					
+					}
 				}
 				break;
 			}
 		}		
 	}
+	
+		
+	
 	
 	/**
 	 * 특정 방에 소켓 연결되어 있는 세션 수 찾기

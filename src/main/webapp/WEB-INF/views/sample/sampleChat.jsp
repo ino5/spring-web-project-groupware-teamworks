@@ -50,7 +50,11 @@
 	<div id="content">
 		<div id="sample_container" class="sample_container">
 			<h1>채팅</h1>
+			<input type="hidden" name="sample_m_id" id="sample_m_id" value="${sec_m_id}">
+			
+			
 			<div id="sample_chating" class="sample_chating">
+			
 			</div>
 			
 			<div id="sample_yourName">
@@ -85,21 +89,19 @@
 		
 	function sampleWsEvt() {
 		sampleWs.onopen = function(data){
-			//소켓이 열리면 초기화 세팅하기
+			sampleSend('m_id');
 		}
 		
 		sampleWs.onmessage = function(data) {
+			console.log('onmessage');
 			var msg = data.data;
 			if(msg != null && msg.trim() != ''){
-				$("#sample_chating").append("<p>" + msg + "</p>");
+				var jsonMsg = JSON.parse(msg);
+				if (jsonMsg.type == "message") {
+					
+				}
 			}
 		}
-
-// 		document.addEventListener("keypress", function(e){
-// 			if(e.keyCode == 13){ //enter press
-// 				send();
-// 			}
-// 		});
 	}
 
 	function sampleChatName(){
@@ -114,11 +116,16 @@
 		}
 	}
 
-	function sampleSend() {
-		var uN = $("#sample_userName").val();
-		var msg = $("#sample_chatting").val();
-		sampleWs.send(uN+" : "+msg);
-		$('#sample_chatting').val("");
+	function sampleSend(type) {
+		if (!type) {
+			type = 'message';
+		}
+		var option = {
+				type : type,
+				m_id : $('#sample_m_id').val()
+		}
+		sampleWs.send(JSON.stringify(option));
+		
 	}
 </script>
 </html>

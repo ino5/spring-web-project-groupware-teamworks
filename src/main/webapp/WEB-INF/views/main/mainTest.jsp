@@ -451,7 +451,7 @@
 								style="width: 550px" >
 									<td class="date" style="width: 150px; text-align: center">
 									<fmt:formatDate value="${mail.ml_regdate}" pattern="yyyy/MM/dd hh:mm"></fmt:formatDate></td>		
-									<td class="email" style="height: 40px; width: 200px; text-align: center">${mail.ml_email}</td>
+									<td class="email" style="height: 40px; width: 200px; text-align: center">${mail.ml_emailForHtml}</td>
 									<td style="width: 200px">
 										<a href="${pageContext.request.contextPath}/mail/view/${mail.ml_num}" style="text-decoration: none; color:black">
 											<c:choose>

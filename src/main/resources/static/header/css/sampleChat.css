@@ -1,0 +1,17 @@
+#sample_alert_wrapper {
+	position: fixed;
+    background-color: white;
+    width: 446px;
+    height: 0px;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid black;
+    transition: 0.3s;
+    display: none;
+    overflow: hidden;
+}
+#sample_alert_img_photo {
+	width: 40px;
+    height: 40px;
+    border-radius: 70%;
+}

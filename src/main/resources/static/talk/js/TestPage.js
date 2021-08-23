@@ -451,7 +451,12 @@ function wsEvt() {
 	//소켓이 열리면 동작
 	ws.onopen = function(data){
 		console.log("wsEvt  소켓이 열리면 초기화 세팅하기..");
+		var option = {
+			type : 'm_id',
+			m_id : $('#sec_m_id').val()
 		}
+		ws.send(JSON.stringify(option));
+	}
 	
 	//메시지를 받으면 동작
 	ws.onmessage = function(data) {
@@ -567,7 +572,9 @@ function send(type) {
 		m_id : $("#m_id").val()
 	}  //roomNumber는 방의 번호를 보내줌으로써 소켓서버는 어느방에서 메시지를 보냈는지 구분
 	ws.send(JSON.stringify(option))
-	$('#chatting').val("");
+	if (type == 'message') {
+		$('#chatting').val("");
+	}
 }
 
 function fileSend() {

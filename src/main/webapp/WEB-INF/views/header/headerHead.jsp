@@ -34,3 +34,7 @@
 <script src="${pageContext.request.contextPath}/talk/js/TestPage.js"></script>
 <script src="${pageContext.request.contextPath}/talk/js/moment.js"></script>
 <link rel="styleSheet" href="${pageContext.request.contextPath}/talk/css/MemberList.css">
+
+<!-- 알림기능(항시소켓연결) -->
+<script src="${pageContext.request.contextPath}/header/js/sampleChat.js"></script>
+<link rel="styleSheet" href="${pageContext.request.contextPath}/header/css/sampleChat.css">
