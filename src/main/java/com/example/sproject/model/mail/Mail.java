@@ -27,4 +27,8 @@ public class Mail {
 	private int rn_start;
 	private int rn_end;
 	
+	// FOR HTML
+	private String ml_emailForHtml;
+	
+	
 }

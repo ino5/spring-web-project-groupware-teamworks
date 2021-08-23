@@ -23,12 +23,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 import com.example.sproject.service.talk.TalkService;
 
-@Component
+@Component("socketHandler")
 public class SocketHandler extends TextWebSocketHandler {
 	@Autowired
 	TalkService talkService;
+	
+	private static int j;
 	
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); // 웹소켓 세션을 담아둘 리스트 -- roomListSessions
@@ -57,6 +60,9 @@ public class SocketHandler extends TextWebSocketHandler {
 			talk.setM_id(m_id);
 			talk.setTk_content(content);
 			talkService.insertMsg(talk);
+			Talk_Reading talk_Reading = new Talk_Reading();
+			talk_Reading.setTkrm_num(Integer.parseInt(rN));
+			talkService.insertReadMsg(talk_Reading);
 		}
 
 		//TalkMsg = dto
@@ -92,7 +98,7 @@ public class SocketHandler extends TextWebSocketHandler {
 						wss.sendMessage(new TextMessage(obj.toJSONString()));
 					} catch (IOException e) {
 						e.printStackTrace();
-				}
+					}
 				}
 			
 			}
@@ -186,7 +192,9 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("SocketHandler afterConnectionEstablished start...");
-		// 웹소켓 연결이 되면 동작
+		// 웹소켓 연결이 되면 동작	
+		j++;
+	    System.out.println(session.getId() + " 연결 성공 => 총 접속 인원 : " + j + "명");
 		super.afterConnectionEstablished(session);
 		boolean flag = false;
 		String url = session.getUri().toString();
@@ -219,7 +227,13 @@ public class SocketHandler extends TextWebSocketHandler {
 		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
+		
+		// 새로운 세션이 들어왔음을 접속 중인 같은 방 멤버들에게 알리기
+		JSONObject objOfNewSessionMember = new JSONObject();
+		objOfNewSessionMember.put("type", "newSessionMember");
+		SendMessage(roomNumber, objOfNewSessionMember);
 	}
+	
 	
 	@Override 
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
@@ -243,5 +257,34 @@ public class SocketHandler extends TextWebSocketHandler {
 			e.printStackTrace();
 		}
 		return obj;
+	}
+	
+	/**
+	 * 같은 방 멤버들에게 텍스트 메세지 보내기
+	 * @param roomNumber
+	 * @param jsonObject
+	 */
+	private void SendMessage(String roomNumber, JSONObject jsonObject) {
+		for(int i=0; i < rls.size(); i++) {
+			String rN = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
+			if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
+				HashMap<String, Object> temp = rls.get(i);
+				// 각 세션들에게 메세지 보내기
+				for(String k : temp.keySet()) {
+					if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
+						continue;
+					}
+					WebSocketSession wss = (WebSocketSession)temp.get(k);
+					if(wss != null) {
+						try {
+							wss.sendMessage(new TextMessage(jsonObject.toJSONString()));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}					
+				}
+				break;
+			}
+		}		
 	}
 }

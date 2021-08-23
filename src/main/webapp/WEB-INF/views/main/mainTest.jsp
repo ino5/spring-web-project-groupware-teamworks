@@ -271,7 +271,7 @@
  		<hr style="border-top: 3px dotted black; margin-left: 15px">
 	<div id = "write2">
 		<!-- 결재작성 -->
-		<div class="write_button1"><button type="button" id="button_new_sign"><img alt="결재작성.png" src="main/img/결재작성.png" style="width: 100px; height: 100px"><br>
+		<div class="write_button1"><button type="button" id="button_new_sign"><img alt="결재작성.png" src="${pageContext.request.contextPath}/main/img/결재작성.png" style="width: 100px; height: 100px"><br>
 		<b style="margin-right: 13px;">결재작성</b></button></div>
 	
 		<!-- 새 결제 진행 모달창 -->
@@ -289,7 +289,7 @@
 		</div>
 		
 		<!-- 게시판작성 -->
-		<div class="write_button2"><button type="button" id="btn1" onclick="location.href='${pageContext.request.contextPath}/board/write'"><img alt="게시판작성.png" src="main/img/게시판작성.png" style="width: 100px; height: 100px"><br>
+		<div class="write_button2"><button type="button" id="btn1" onclick="location.href='${pageContext.request.contextPath}/board/write'"><img alt="게시판작성.png" src="${pageContext.request.contextPath}/main/img/게시판작성.png" style="width: 100px; height: 100px"><br>
 		<b>게시판 작성</b></button></div>
 	</div>
 		<!-- 캘린더 -->
@@ -322,7 +322,7 @@
 		<div class="box1">
 			<div class="box1_1">
 				<div class="text"><b>근태관리</b></div>
-				<div class="img"><img alt="근태.png" src="main/img/출근.png"> </div>
+				<div class="img"><img alt="근태.png" src="${pageContext.request.contextPath}/main/img/출근.png"> </div>
 			</div>
 			<div class="box1_2">
 				<!-- 시간 + 근태 -->
@@ -352,7 +352,7 @@
 				<table id="list_table">
 					<tr>
 						<td></td>
-						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>게시판</b></td>
+						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><img alt="바람개비.png" src="${pageContext.request.contextPath}/main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>게시판</b></td>
 					</tr>
 					<tr style="height: 10px"></tr>
 					<c:forEach var="ps" items="${listPost}" begin="0" end="3">				
@@ -366,7 +366,7 @@
 				</table>
 			</div>
 			<div class="box2_2">
-				<img alt="게시판.png" src="main/img/게시판3.png"> 
+				<img alt="게시판.png" src="${pageContext.request.contextPath}/main/img/게시판3.png"> 
 			</div>
 		</div>
 		<!-- 드라이브 -->
@@ -374,7 +374,7 @@
 			<div class="box3_1">
 						<table>
 								<tr>
-									<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>드라이브</b></td>
+									<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="${pageContext.request.contextPath}/main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>드라이브</b></td>
 								</tr>
 								<tr style="height: 10px"></tr>		
 							<c:forEach var= "driveFileInfo" items="${driveFileInfoListOfEnterprise}" begin="0" end="3">
@@ -396,14 +396,14 @@
 										${driveFileInfo.m_id}
 									</td>
 									<td style="width: 100px; text-align: center">
-										<button type="button" class="button_download_file" data-dv_id="${driveFileInfo.dv_id}"><img alt="다운로드.png" src="main/img/다운로드.png" style="width: 20px; height: 20px"> </button>
+										<button type="button" class="button_download_file" data-dv_id="${driveFileInfo.dv_id}"><img alt="다운로드.png" src="${pageContext.request.contextPath}/main/img/다운로드.png" style="width: 20px; height: 20px"> </button>
 									</td>
 								</tr>
 						</c:forEach>
 						</table>
 			</div>
 			<div class="box3_2">
-				<img alt="드라이브.png" src="main/img/드라이브1.png"> 
+				<img alt="드라이브.png" src="${pageContext.request.contextPath}/main/img/드라이브1.png"> 
 			</div>
 		</div>
 	</div>
@@ -411,7 +411,7 @@
 		<div class="box4">
 			<div class="box4_1">
 				<div class="text"><b>결재현황</b></div>
-				<div class="img"><img alt="전자결재.png" src="main/img/전자결재.png"> </div>
+				<div class="img"><img alt="전자결재.png" src="${pageContext.request.contextPath}/main/img/전자결재.png"> </div>
 			</div>
 			<div class="box4_2">
 				<div class="box4_2_1">
@@ -440,12 +440,12 @@
 			<div class="box5_1">
 				<table id="list_mail">
 								<tr>
-										<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>메일</b></td>
+										<td colspan="4" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="${pageContext.request.contextPath}/main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>메일</b></td>
 								</tr>
 								<tr style="height: 10px"></tr>
 							<c:forEach var="mail" items="${listOfMail}" begin="0" end="3">
 								<tr
-									<c:if test="${mail.ml_read == '1'}">
+									<c:if test="${mail.ml_is_read == '1'}">
 										class="tr_read"
 									</c:if>
 								style="width: 550px" >
@@ -468,14 +468,14 @@
 					</table>
 			</div>
 			<div class="box5_2">
-				<img alt="메일.png" src="main/img/메일4.png"> 
+				<img alt="메일.png" src="${pageContext.request.contextPath}/main/img/메일4.png"> 
 			</div>		
 		</div>
 		<div class="box6">
 			<div class="box6_1">
 				<table id="list_table">	
 						<tr>
-							<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>커뮤니티</b></td>
+							<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px"><img alt="바람개비.png" src="${pageContext.request.contextPath}/main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>커뮤니티</b></td>
 						</tr>
 						<tr style="height: 10px"></tr>			
 					<c:forEach var="ps" items="${listPost2}" begin="0" end="3">					
@@ -489,7 +489,7 @@
 				</table>
 			</div>
 			<div class="box6_2">
-				<img alt="커뮤니티.png" src="main/img/커뮤니티.png"> 
+				<img alt="커뮤니티.png" src="${pageContext.request.contextPath}/main/img/커뮤니티.png"> 
 			</div>	
 		</div>	
 	</div>

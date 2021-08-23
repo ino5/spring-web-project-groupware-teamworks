@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 
 public interface TalkService {
 
@@ -27,6 +28,17 @@ public interface TalkService {
 	List<Member> selectJoinGroupMemberList(int tkrm_num);
 
 	void updateFileImage(String filePath);
+
+	List<String> selectgetGroupTalkerList(int tkrm_num);
+
+	void insertReadMsg(Talk_Reading talk_Reading);
+	
+	/**
+	 * 해당 방번호와 해당 아이디에 대한 모든 TALK_READING의 데이터에서 읽은 여부(tkrd_is_read)를 1로 만들기
+	 * @param roomNumber
+	 * @param m_id
+	 */
+	void readMember(int roomNumber, String m_id);
 
 	
 	

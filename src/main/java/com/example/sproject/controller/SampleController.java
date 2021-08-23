@@ -311,6 +311,12 @@ public class SampleController {
         
         return null;
     }
+ 
+    @RequestMapping(value ="chat", method= {RequestMethod.GET, RequestMethod.POST})
+    public String chat() {
+    	return "sample/sampleChat";
+    }
+    
     
 //    // OCR 테스트
 //    @RequestMapping(value ="ocr/test", method= {RequestMethod.GET, RequestMethod.POST})

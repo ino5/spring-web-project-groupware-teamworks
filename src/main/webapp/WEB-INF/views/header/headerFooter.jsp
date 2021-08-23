@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 	<div id="TestCircle">
 	<button type="button" id="Test">
-		<img alt="물풍선.png" src="header/img/물풍선.png" style="width: 100px; height: 100px">
+		<img alt="물풍선.png" src="${pageContext.request.contextPath}/header/img/물풍선.png" style="width: 100px; height: 100px">
 	</button>
 	</div>
 	<!-- Modal content -->
-	<div id="myModal" class="modal drag">
+	<div id="talkModal" class="chatModal drag">
 		<div id="content1">
 			<div id="room1">
 				<div id="logo">
@@ -15,21 +15,21 @@
 					</div>
 					<div class="h5"><b>TEAM</b></div>
 					<div class="h6"><b>works</b></div>
-					<div class="x"><b>X</b></div>
+					<span class="ic_gnb_x button_x3"></span>
 				</div>
 				<div id="roomContainer" class="roomContainer">
 					<table id="memberlist" class="memberlist">
-					<tr><th>이름</th>
-</tr>
+					<tr><th>이름</th></tr>
 					</table>
 					<table id="groupRoomlist">
 					<tr><th>방 이름</th></tr>
 					</table>
 				</div>
+			<div id="button_bar"></div>
 				<button type="button" class="onebyone">1:1</button>
 				<button type="button" class="group">그룹</button>
+				<button type="button" class="groupchat">그룹 방만들기</button>
 			</div>
-			<button type="button" class="groupchat">그룹 방만들기</button>
 		</div>
 		<div id="content2">
 			<div id="makegroup"></div>
@@ -37,7 +37,7 @@
 		</div>
 		<div id="chatting_wrap">
 			<div class="container">
-				<h1 id="roomName"></h1>
+				<h1 id="roomName" style="color: black"></h1>
 				<input type="hidden" id="sessionId" value="">
 				<input type="hidden" id="m_id">
 				<input type="hidden" id="m_name">

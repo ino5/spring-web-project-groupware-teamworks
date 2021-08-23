@@ -33,6 +33,7 @@ import com.example.sproject.configuration.WebMvcConfig;
 import com.example.sproject.model.drive.DriveFileInfo;
 import com.example.sproject.model.globals.GlobalsOfCg_num;
 import com.example.sproject.model.globals.GlobalsOfMail;
+import com.example.sproject.model.globals.GlobalsOfMl_type;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailTo;
@@ -152,7 +153,7 @@ public class MailController {
      * @return
      */
     @RequestMapping(value ="view/{ml_num:.+}", method= {RequestMethod.GET, RequestMethod.POST})
-    public String view(@PathVariable int ml_num, @AuthenticationPrincipal Member principal, Model model ) {
+    public String view(@PathVariable int ml_num, @AuthenticationPrincipal Member principal, Model model) {
     	// 메일 정보 가져오기
     	Mail mail = mailService.selectMail(ml_num);
     	mailService.replaceStringForHtml(mail);
@@ -168,15 +169,8 @@ public class MailController {
     	List<DriveFileInfo> listOfDriveFileInfo = mailService.listDriveFileInfo(ml_num);
     	model.addAttribute("listOfDriveFileInfo", listOfDriveFileInfo);
     	
-    	// 메일 읽을 권한 있는지 체크
-    	boolean isAuthorized = false;
-    	for (MailTo mailTo : listOfMailTo) {
-    		if (mailTo.getMl_email().toLowerCase().contains((principal.getM_id() + "@" + GlobalsOfMail.MAIL_DOMAIN).toLowerCase())) {
-    			isAuthorized = true;
-    			break;
-    		}
-    	}
-    	if (!isAuthorized) {
+    	// 메일 권한 있는지 체크
+    	if (!mailService.isAuthorized(mail, principal.getM_id())) {
     		return "login/denied";
     	}
     	
@@ -236,13 +230,48 @@ public class MailController {
 		return "redirect:/mail";
 	}
 	
-
-    @RequestMapping(value="delete", method= {RequestMethod.POST})
-    @ResponseBody
-    public String delete(@RequestParam(value="chkArr[]", required = false) List<Integer> listOfMl_num, @AuthenticationPrincipal Member principal) {
-    	if (listOfMl_num != null && listOfMl_num.size() > 0) {
-    		mailService.deleteMail(principal.getM_id(), listOfMl_num);
+	/**
+	 * 메일 삭제하기
+	 * @param ml_num
+	 * @param listOfMl_num
+	 * @param principal
+	 * @return
+	 */
+    @RequestMapping(value="delete", method= {RequestMethod.GET, RequestMethod.POST})
+    public String delete(@RequestParam(required = false) Integer ml_num, @RequestParam(value="chkArr[]", required = false) List<Integer> listOfMl_num, @AuthenticationPrincipal Member principal) {   	
+    	// 단일 메일 삭제 요청에 대한 삭제
+    	if (ml_num != null && ml_num > 0) {
+        	// 메일 가져오기
+        	Mail mail = mailService.selectMail(ml_num);
+        	
+        	// 메일 권한 있는지 체크
+        	if (!mailService.isAuthorized(mail, principal.getM_id())) {
+        		return "login/denied";
+        	}
+        	
+        	// 메일 삭제
+        	mailService.deleteMail(ml_num);
+        	return "redirect:/mail";
     	}
+    	
+
+    	// 다수 메일 삭제 요청에 대한 삭제 (ajax)
+    	if (listOfMl_num != null && listOfMl_num.size() > 0) {
+    		for (int ml_numInList : listOfMl_num) {
+            	// 메일 가져오기
+            	Mail mail = mailService.selectMail(ml_numInList);
+            	
+            	// 메일 권한 있는지 체크
+            	if (!mailService.isAuthorized(mail, principal.getM_id())) {
+            		return "forward:/mail/api/result?result=fail";
+            	}
+            	
+            	// 메일 삭제
+            	mailService.deleteMail(ml_numInList);    			
+    		}
+    		return "forward:/mail/api/result?result=success";
+    	}
+    	
     	return null;
     }
     
@@ -253,14 +282,12 @@ public class MailController {
     @RequestMapping(value="test", method= {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String test(String text) {
-    	System.out.println("text: " + text);
-    	Matcher matcher = Pattern.compile("\\<[^\\<\\>]+\\>").matcher(text);
-    	String textMatched = new String();
-    	if (matcher.find()) {
-    		textMatched = text.substring(matcher.start()+1, matcher.end()-1);
-    	} else {
-    		textMatched = text;
-    	}
-    	return textMatched;
+    	return mailService.extractEmailAddress(text);
+    }
+    
+    @RequestMapping(value="api/result", method= {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public String apiResult(String result) {
+    	return result;
     }
 }

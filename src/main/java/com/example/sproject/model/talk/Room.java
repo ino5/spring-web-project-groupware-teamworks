@@ -1,5 +1,7 @@
 package com.example.sproject.model.talk;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -14,4 +16,6 @@ public class Room {
 
 	//Talker
 	String m_id;
+	
+	List<String> talkerList;
 }

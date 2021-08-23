@@ -31,7 +31,7 @@ $(document).ready(function() {
    					 	+ '</button></td></tr>'
    					 ); 
 					}					
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#groupRoomlist').hide();
@@ -78,7 +78,7 @@ $(document).ready(function() {
 					isClickedOnebyOneChat = true;
 				}
 */					
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#groupRoomlist').hide();
@@ -175,13 +175,18 @@ $(document).ready(function() {
 			url: _contextPath + '/talk/getGroupRoomList',
 			type: 'get',
 			success: function (res) {
+				$('#groupRoomlist').html('');
+				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
 				//멤버리스트 가져오기
 				let roomList = res.roomList;
 				for(var i = 0; i<roomList.length; i++) {
    					 $('#groupRoomlist').append(
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ roomList[i].m_id + '"'
-						+ '><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].m_id+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px"><button type="button"  id="chat" onclick="getRoomOfApi2('
+						+ '><td><img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">'
+						+  (roomList[i].talkerList[1] != null ? '<img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">': '')
+						+  (roomList[i].talkerList[2] != null ? '<img src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 50px; height: 50px">': '')	
+						+ '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
    					 	+ '\''
@@ -189,8 +194,8 @@ $(document).ready(function() {
    					 	+ roomList[i].tkrm_name
    					 	+ '</button></td></tr>'
    					 ); 
-				}				
-				$('.modal').show();
+				}			
+				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
 				$('#memberlist').hide();
@@ -303,7 +308,7 @@ $(document).ready(function() {
 					}
 					isClickedGroupchat = true;			
 				}	
-				$('.modal').show();
+				$('.chatModal').show();
 				$('#content2').show();
 				$('#chatting_wrap').hide();
 				
@@ -386,7 +391,10 @@ $(document).ready(function() {
 				$('.group').removeAttr('checked');
 				$('#join_member_list').html('');
 				$('#groupRoomlist').html('');
-				$('#groupRoomlist').append('<tr><th>방 이름</th></tr>');
+				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
+				
+				// 그룹채팅 버튼 누른것과 같은 효과				
+				$(".group").trigger("click");
 			},
 			error : function(err){
 				console.log('error');
@@ -394,6 +402,7 @@ $(document).ready(function() {
 		});
 	});
 });
+		
 
 //그룹 참여하는 사람 이름 보이기
 function join_member(tkrm_num) {
@@ -444,9 +453,8 @@ function wsEvt() {
 		}
 	
 	//메시지를 받으면 동작
-	console.log("메세지를 받다")
 	ws.onmessage = function(data) {
-		
+		console.log("메세지를 받다")
 		var msg = data.data;
 		var date = new Date();
 		//alert("ws.onmessage->"+msg)
@@ -475,9 +483,25 @@ function wsEvt() {
 					$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + moment(date).format("HH:mm") + "</p></div>");
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}						
+			}else if(jsonMsg.type == "newSessionMember"){
+				console.log('newSessionMember');
 			}else{
 				console.warn("unknown type!")
 			}
+			// 읽었다고 알려주기
+	   		$.ajax({
+				url: _contextPath + '/talk/readMember',
+				data: {	'roomNumber' : $("#roomNumber").val(),
+						'm_id' : $("#m_id").val()
+				},
+				type: 'get',
+				success: function (res) {
+
+				},
+				error : function(err){
+					console.log('error');
+				}
+			});
 		}else{
 			// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
 			var url = URL.createObjectURL(new Blob([msg]));
@@ -587,7 +611,7 @@ $("#Test").on("click", function () {
    					 	+ '</button></td></tr>'
    					 ); 
 					}					
-				$('.modal').show();
+				$('.chatModal').show();
 			},
 			error : function(err){
 				console.log('error');

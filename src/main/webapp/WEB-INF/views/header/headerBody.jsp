@@ -4,7 +4,9 @@
 <!-- 로딩 중 모달 -->
 	<div id="loading_modal">
 	</div>
-    
+	<div class="gif_spinner">
+	</div>	
+   
 <!-- header 부분     -->
 	<header>
 			<a href="${pageContext.request.contextPath}/main"><img id="logo" alt="" src="${pageContext.request.contextPath}/header/img/logo.png"></a>

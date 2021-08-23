@@ -4,7 +4,6 @@ function deleteMails() {
 	$('.checkbox_mail:checked').each(function() {
 		chkArr.push($(this).val());
 	});
-	
 	$.ajax({
 		type: "POST",
 		data: {'chkArr' : chkArr},

@@ -61,8 +61,8 @@ public interface MailService {
 	int insertMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo);
 
 	int updateMailRead(int ml_num);
-
-	int deleteMail(String m_id, List<Integer> listOfMl_num);
+	
+	int deleteMail(int ml_num);
 	
 	String m_idToMl_emailForLike(String m_id);
 
@@ -75,5 +75,13 @@ public interface MailService {
 	 * @return
 	 */
 	Timestamp findUpdateDateOfDb();
+	
+	/**
+	 * 메일에 대한 권한 있는지 체크
+	 * @param mail
+	 * @param m_id
+	 * @return
+	 */
+	boolean isAuthorized(Mail mail, String m_id);
 	
 }

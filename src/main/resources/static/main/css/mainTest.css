@@ -302,6 +302,7 @@ button {
 	margin-left: 20px;	
 	border-radius: 10px;
 	background-color: white;
+	border : 2px solid white;
 }
 
 .box1:hover {
@@ -349,6 +350,7 @@ button {
 	margin-left: 20px;
 	border-radius: 10px;
 	background-color: white;
+	border : 2px solid white;
 }
 
 .box2:hover {
@@ -388,6 +390,7 @@ button {
 	margin-left: 20px;
 	border-radius: 10px;
 	background-color: white;
+	border : 2px solid white;
 }
 
 .box3:hover {
@@ -438,6 +441,7 @@ button {
 	margin-right: 20px;
 	background-color: white;
 	border-radius: 10px;
+	border : 2px solid white;
 }
 
 .box4:hover {
@@ -580,6 +584,7 @@ button {
 	margin-right: 20px;
 	background-color: white;
 	border-radius: 10px;
+	border : 2px solid white;
 }
 
 .box5:hover {
@@ -619,6 +624,7 @@ button {
 	margin-right: 20px;
 	background-color: white;
 	border-radius: 10px;
+	border : 2px solid white;
 	
 }
 
