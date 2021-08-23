@@ -57,4 +57,8 @@
     </select>
 	
 	
+	<select id="member_PositionListOfAdmin" parameterType="com.example.sproject.model.login.Member" resultType="com.example.sproject.model.login.Member">
+	 select m.*, p.pt_name from member m, position p
+	where m.pt_code=p.pt_code and m.pt_code = #{pt_code}
+    </select>
 </mapper>

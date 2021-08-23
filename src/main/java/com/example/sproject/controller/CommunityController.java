@@ -134,6 +134,8 @@ public class CommunityController {
 			int statusOfLike = communityService.checkLike(postLike);
 			modelandview.addObject("statusOfLike", statusOfLike);
 		}
+		String m_id = principal.getName();
+		modelandview.addObject("m_id", m_id);
 		return modelandview;
 	}
 
@@ -256,9 +258,9 @@ public class CommunityController {
 		for (int i = 0; i < groupList.size(); i++) {
 			GroupArray.add(groupList.get(i));
 		}
+		System.out.println("GroupArray>>" + GroupArray);
 		communityService.communityDeleteGroup(groupList);
 	}
-	
 
 //공지로 등록
 	@PostMapping(value = "communityNoticeGroup")
@@ -317,7 +319,7 @@ public class CommunityController {
 		model.addAttribute("boardListOfCommunity", boardListOfCommunity);
 		model.addAttribute("pg", pg);
 		communityService.listSide(principal.getName(), model);
-		return "community/test";
+		return "community/community_boardList";
 	}
 
 	// 커뮤니티 작성화면
@@ -325,12 +327,12 @@ public class CommunityController {
 	public String write_Community(Model model, Principal principal) {
 		// 사이드바 리스트
 		communityService.listSide(principal.getName(), model);
-		return "community/CommunityCreate";
+		return "community/communityCreate";
 
 	}
 
 	// 커뮤니티 만들기
-	@PostMapping(value = "CommunityCreate")
+	@PostMapping(value = "communityCreate")
 	public String Community_create(Model model, Board board, Principal principal) throws Exception {
 		// 커뮤니티 타입 설정하기
 		int bd_type = 3;
@@ -347,8 +349,8 @@ public class CommunityController {
 	}
 
 //커뮤니티 가입하기
-	@PostMapping(value = "CommunitySign")
-	public String CommunitySign(Model model, BoardMember boardMember, Principal principal, int bd_num)
+	@PostMapping(value = "communitySign")
+	public String communitySign(Model model, BoardMember boardMember, Principal principal, int bd_num)
 			throws Exception {
 		// 아이디 넣기
 		boardMember.setM_id(principal.getName());

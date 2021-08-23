@@ -112,90 +112,88 @@ a { text-decoration:none }
 	  border-bottom: 1px solid #ddd;
 
 }
-a{
-	color: black;
-}
 select{
 	border: 1px solid #ddd;
-    height: 35px;
+    height: 26px;
     width:200px;
     border-radius:7px;
+   padding-bottom:30px;
+   	
+}
+#create_community_wrap{
+	margin-top: 40px;
+}
+#subject {
+	width: 1000px;
+	height: 30px;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
 }
 
-.td_subject input{
-width: 780px;
-height: 30px;
-margin-top: 20px;
-margin-left: 20px;
-margin-bottom: 20px;
-border: 1px solid #ddd;
-}
-#btnUpdete{
+#text_conotent {
 	
-	margin-left: 600px;
-display: inline-block;
-    cursor: pointer;
-    padding: 0 20px;
-    color: #fff;
-    font-weight: normal;
-    font-size: 13px;
-    height: 34px;
-    line-height: 33px;
-    background: #00a1b9;
-    border: 1px solid #00a1b9;
-    border-radius: 2px;
-    display: inline-block;
+		width: 1000px;
+	height: 50px;
+	margin-top: 20px;
+	margin-left: 73px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
 }
-#btnNotice{
 
-    display: inline-block;
-    cursor: pointer;
-    padding: 0 16px;
-    height: 34px;
-    line-height: 33px;
-    border-radius: 2px;
-    background: #f4f4f4;
-    border: 1px solid #ddd;
-margin-left: 20px;
-margin-bottom: 100px;
-display: inline-block;
-    }
+#p_title {
+	display: inline;
+	min-height: 13px;
+	margin: 0 8px 0 0;
+	margin-top: 40px;
+	margin-left: 46px;
+	font-weight: bold;
+	color: #383838;
+	font-size: 25px;
+}
+
+#btnUpdete {
+	margin-left: 600px;
+	display: inline-block;
+	cursor: pointer;
+	padding: 0 20px;
+	color: #fff;
+	font-weight: normal;
+	font-size: 13px;
+	height: 34px;
+	line-height: 33px;
+	background: #00a1b9;
+	border: 1px solid #00a1b9;
+	border-radius: 2px;}
+#btnNotice {
+	display: inline-block;
+	cursor: pointer;
+	padding: 0 16px;
+	height: 34px;
+	line-height: 33px;
+	border-radius: 2px;
+	background: #f4f4f4;
+	border: 1px solid #ddd;
+	margin-left: 20px;
+	margin-bottom: 100px;}
 
 .note-editor{
      margin-top: 30px;
  	 margin-left: 31px;
      margin-bottom: 50px;
     }
-/* 검색창 */
-#searchBox{
-	float:right;
-	margin-top: 40px;
-	margin-right: 50px;
-	position: relative;
-	width: 200px;
-	height: 37px;
-	border: 1px solid #ddd;
-	padding : 0px 10px;
-}
 
- #search {
- 	border : none;
-	padding : 0px 30px;
-	border-radius: 50px;
-	font-size: 18px;
-	font-family: "Nunito";
-	color : #424242;
-	font-weight: 500;
-	width: 150px;
-}
-
-#search:focus {
-	outline : none;
-}
-
-#option {
-	border: 0;
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-	font-size: 17px;
-	color: black;
+#page_num_button{
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center; 
+     color: #333 !important;
+    border-color: #333 !important;
 }

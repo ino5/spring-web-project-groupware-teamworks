@@ -192,7 +192,7 @@
 				</tr>
 				<c:forEach var="ps" items="${board_list}">
 					<tr>
-						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.p_type}"></td>
+						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.p_num}"></td>
 						<td>${ps.p_num}</td>
 						<td><a style="color: #666666;"
 							href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>
@@ -208,7 +208,7 @@
 				<a href="?currentPage=${pg.startPage-pg.pageBlock}"></a>
 			</c:if>
 			<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
-				<a href="?currentPage=${i}">[${i}]</a>
+				<a id="page_num_button" href="?currentPage=${i}">${i}</a>
 			</c:forEach>
 			<c:if test="${pg.endPage < pg.totalPage }">
 				<a href="?currentPage=${pg.startPage+pg.pageBlock}"></a>
@@ -242,9 +242,8 @@
 						</td>
 					<tr>
 						<td></td>
-						<td><input type="button" value="그룹지정" onclick="javascript:communityGroup()"></td>
-						<td><input type="submit" value="그룹삭제" formaction="${pageContext.request.contextPath}/community/communityDeleteGroup"></td>
-						<td><input type="button" value="취소" id="close_btn"></td>
+						<td><input id="boardGroup" type="button" value="그룹지정" onclick="javascript:communityGroup()"></td>
+						<td><input  id="cancleGroup"  style="width: 64px;"  type="button"  value="취소" id="close_btn"></td>
 				</table>
 			</form>
 		</div>

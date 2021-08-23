@@ -102,7 +102,7 @@ public class AdminController {
 		int result = adminservice.checkID(m_id);
 		return result;
 	}
-	
+	//멤버리스트 가져오기
 	@ResponseBody
 	@PostMapping(value = "/memberAllList")
 	public List<Member> memberAllList(Model model) throws Exception {
@@ -111,7 +111,7 @@ public class AdminController {
 		
 		return adminservice.memberAllList();
 	}
-	
+	//근태시간
 	@ResponseBody
 	@PostMapping(value = "/timeList")
 	public List<Member> TimeList(Model model) throws Exception {
@@ -120,5 +120,11 @@ public class AdminController {
 		
 		return adminservice.timeList();
 	}
-	
+	//특정 부서 직원만 선택하기
+	@ResponseBody
+	@PostMapping(value = "/member_PositionList")
+	public List<Member> member_PositionList(Model model, Member member) throws Exception {
+		List<Member> member_PositionList = adminservice.member_PositionList(member);
+		return member_PositionList;
+	}
 }

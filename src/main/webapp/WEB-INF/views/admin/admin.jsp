@@ -31,7 +31,7 @@
 	margin: 15% auto; /* 15% from the top and centered */
 	padding: 20px;
 	width: 650px; /* Could be more or less, depending on screen size */
-	height: 850px;
+	height: 950px;
 	border: 2px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0px 5px 8px rgb(0 0 0/ 20%);
@@ -99,6 +99,42 @@ function DeleteBoardGroupOfAdmin() {
     	swal ("하나 이상 선택해주세요.");
     }
 }
+function select_PositionList() {
+	var pt_code = $("#ex_select option:selected").val();
+    
+	$.ajax({
+		type : 'POST',
+		url : _contextPath + "/admin/member_PositionList",
+		data : {'pt_code' : pt_code},
+		success: function (res){
+ 	  		$( '#list_table > tbody').empty();
+ 	  		for (let i = 0; i< res.length; i++) {
+				let member = res[i];
+				//자바스크립트 -> html을 조작
+				$("#list_table > tbody").append(''
+					+ '<tr>'
+						+ '<td style="text-align: center;"><input type="checkbox"'
+						+	'name="check" class="chk_1" value="' + member.m_id + '"></td>'
+						+ '<td><div id="profile">'
+						+		'<img style="border-radius: 70%; width: 40px; height: 40px;"'
+						+			'src="' + _contextPath + '/resource/member/photo/' + member.m_id + '.jpg"'
+						+			'onerror="this.src=\'' + _contextPath + '/resource/member/photo/default.jpg\'" />'
+						+	'</div>'
+						+	'<div id="profile_name">' + member.m_name + '</div></td>'
+						+ '<td>' + member.pt_name + '</td>'
+						+ '<td>' + member.m_empnum + '</td>'
+						+ '<td>' + member.m_phone + '</td>'
+						+ '<td>' + member.m_email + '</td>'
+						+ '<td>' + member.dpt_name + '</td>'
+					+ '</tr>'
+				);    		    	    
+			}
+		}
+	});
+	
+	$('.pageNum').remove();
+}
+
 </script>
 </head>
 <!-- 바디 태그 더블 클릭 시 블록 선택 방지 -->
@@ -205,7 +241,7 @@ function DeleteBoardGroupOfAdmin() {
 								style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">이름</td>
 							<td
 								style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">직위
-								<select id="ex_select" name="pt_code" required="required">
+								<select id="ex_select" class="select_position" name="pt_code" required="required" onchange="javascript:select_PositionList();">
 									<option>직위</option>
 									<option value="SJ">사장</option>
 									<option value="IS">이사</option>
@@ -249,7 +285,6 @@ function DeleteBoardGroupOfAdmin() {
 								<td>${member.m_phone }</td>
 								<td>${member.m_email }</td>
 								<td>${member.dpt_name }</td>
-
 							</tr>
 
 						</c:forEach>
@@ -265,7 +300,7 @@ function DeleteBoardGroupOfAdmin() {
 						style="width: 35px; height: 25px; float: right; cursor: pointer;"
 						id="x_icon" /> <br>
 					<p style="text-align: center; line-height: 1.5;"></p>
-					<h2>멤버 생성</h2>
+					<h3>멤버 생성</h3>
 					<p>
 					<form id="modal_form"
 						action="${pageContext.request.contextPath}/login/join"
@@ -274,7 +309,7 @@ function DeleteBoardGroupOfAdmin() {
 						<table id="modal_tb"
 							style="font-size: 20px; font-weight: bold; margin: 0 auto;">
 							<tr>
-								<td><span style="color: red;"> * </span>이름 (한글)</td>
+								<td><span style="color: red;"> * </span>이름</td>
 								<td colspan="3"><input type="text" class="input"
 									name=m_name></td>
 							</tr>
@@ -357,7 +392,7 @@ function DeleteBoardGroupOfAdmin() {
 				</c:if>
 				<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage}">
 					<c:if test="${i > 0 }">
-						<a href="?currentPage=${i}">[${i}]</a>
+						<a id="page_num_button" href="?currentPage=${i}">${i}</a>
 					</c:if>
 				</c:forEach>
 				<c:if test="${pg.endPage < pg.totalPage }">
@@ -406,9 +441,9 @@ function selectAll(selectAll)  {
 
 	<div id="myModal2" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content2">
 			<p>
-				<span>사원 정보 수정<img
+				<span style="20px;">사원 정보 수정<img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
 					id="x_icon2" />
@@ -435,9 +470,9 @@ function selectAll(selectAll)  {
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="button" value="저장"
+						<td><input id="button_save" type="button" value="저장"
 							onclick="javascript:adminGroup()"></td>
-						<td><input type="button" value="취소" id="close_btn2"></td>
+						<td><input  id="button_cancle"  type="button" value="취소" id="close_btn2"></td>
 				</table>
 			</form>
 		</div>
@@ -446,9 +481,9 @@ function selectAll(selectAll)  {
 
 	<div id="myModal3" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content2">
 			<p>
-				<span>사원 정보 수정<img
+				<span id="text_password">비밀번호 초기화 <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
 					id="x_icon3" />
@@ -461,13 +496,14 @@ function selectAll(selectAll)  {
 				<sec:csrfInput />
 				<table>
 					<tr>
-						<td>비밀번호 초기화 선택된 사용자 1명에 대해서, 비밀번호를 초기화 하시겠습니까?</td>
+						<td>선택된 사용자 1명에 대해서<br>
+						 비밀번호를 초기화 하시겠습니까?</td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="button" value="저장"
+						<td><input  id="button_save"  type="button" value="저장"
 							onclick="javascript:adminPassWordChangeGroup()"></td>
-						<td><input type="button" value="취소" id="close_btn3"></td>
+						<td><input  id="button_cancle" type="button" value="취소" id="close_btn3"></td>
 				</table>
 			</form>
 		</div>

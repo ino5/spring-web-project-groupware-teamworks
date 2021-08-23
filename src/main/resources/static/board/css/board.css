@@ -19,6 +19,16 @@ table{
 	border-spacing:0;
 	
 }
+#p_title {
+	display: inline;
+	min-height: 13px;
+	margin: 0 8px 0 0;
+	margin-top: 40px;
+	margin-left: 46px;
+	font-weight: bold;
+	color: #383838;
+	font-size: 25px;
+}
 .head_nav ul li {
 	display: inline;
 }
@@ -341,6 +351,25 @@ input[type="checkbox"]:checked {
 	background: url('images/right4.png') no-repeat 97% 50%/15px auto;
 
 }
+.pageNum{
+	display: block;
+    width: 100%;
+    text-align: center;
+    padding: 24px 0 0;
+}
+#page_num_button{
+    display: inline-block;
+    padding: 0;
+    height: 26px;
+    min-width: 24px;
+    font-size: 16px;
+    line-height: 25px;
+    vertical-align: top;
+    border: 1px solid #fff;	
+    text-align: center; 
+     color: #333 !important;
+    border-color: #333 !important;
+}
 /* =========================== Modal ===================================== */
 
 .modal-content {
@@ -402,4 +431,42 @@ input[type="checkbox"]:checked {
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
+}
+#modal_HeadText{
+	font-weight: normal;
+	font-size: 25px;
+	padding-left: 20px;
+}
+#boardGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    background: #00a1b9;
+    border: 1px solid #00a1b9;
+    border-radius: 2px;
+    font-size: 13px;
+    vertical-align: middle;
+}
+#cancleGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+    font-size: 13px;
+    vertical-align: middle;
+}
+	
+.input_text{
+	width: 195px;
+	height: 25px;
+	border-radius: 7px;
+	border: 1px solid #EAEAEA;
 }

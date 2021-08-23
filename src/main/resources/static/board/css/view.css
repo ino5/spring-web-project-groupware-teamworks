@@ -21,9 +21,6 @@
 a {
 	text-decoration: none
 }
-list_table td {
-	width: 30px;
-}
 #btn1:hover {
 	transition: all 0.2s linear;
 	transform: translate(0, -5%);
@@ -54,6 +51,7 @@ list_table td {
 
 #div2 {
 	margin-top: 7%;
+	
 }
 
 .li {
@@ -154,11 +152,16 @@ to {
 }
 
 #rp_content{
-	margin-left:100px;
-	width: 500px;
+	margin-left:20px;
+	width: 1200px;
 	height: 30px;
 
     }
+    
+#rp_content2{
+	width: 800px;
+	height: 30px;
+}
     
 .table_rp td {
 	width: 1500px;
@@ -172,9 +175,10 @@ margin-top: 20px;
 margin-bottom: 20px;
 border: 1px solid #ddd;
 }
+
 #btnUpdete{
-		margin-left: 600px;
-display: inline-block;
+	margin-left: 600px;
+	display : inline-block;
     cursor: pointer;
     padding: 0 20px;
     color: #fff;
@@ -185,6 +189,20 @@ display: inline-block;
     background: #0f91e6;
     border: 1px solid #0f91e6;
     border-radius: 2px;
+}
+
+#btnUpdete2{
+    cursor: pointer;
+    padding: 0 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 13px;
+    height: 34px;
+    line-height: 33px;
+    background:transparent;
+    border: 1px solid #eaeaea;
+    border-radius: 2px;
+    margin-right: 100px;
 }
 a{
 	color: black;
@@ -202,4 +220,19 @@ a{
     border: 1px solid #c0c0c0;
     border-radius: 2px;
     margin: 0 4px;
+}
+#text_conotent {
+padding-top: 40px;
+	display: inline;
+	min-height: 13px;
+	margin: 0 8px 0 0;
+	margin-top: 40px;
+	margin-left: 46px;
+	font-weight: bold;
+	color: #383838;
+	font-size: 25px;
+}
+#subject{
+	font-size: 20px;
+	
 }

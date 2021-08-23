@@ -156,8 +156,9 @@ public class BoardController {
 			int statusOfLike = boardService.checkLike(postLike);
 			modelandview.addObject("statusOfLike", statusOfLike);
 		}
-		
-		
+
+		String m_id = principal.getName();
+		modelandview.addObject("m_id", m_id);
 		boardService.listSide(modelandview);	
         return modelandview;
     }
@@ -231,10 +232,11 @@ public class BoardController {
 			if(principal != null) {
 				reply.setM_id(principal.getName());
 			}
-			
+			String m_id = principal.getName();
 			int p_num = reply.getP_num();
 			boardService.insert(reply);
-			return "redirect:/board/view?p_num=" + p_num;
+	        return "redirect:/board/view?p_num=" + p_num;
+			
 		}	
 		//댓글 삭제하기		
 		//@ResponseBody

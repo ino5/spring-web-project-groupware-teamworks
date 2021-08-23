@@ -46,6 +46,17 @@ header {
 	width: 84%; 
 	float: right;
 }
+#text_conotent {
+padding-top: 40px;
+	display: inline;
+	min-height: 13px;
+	margin: 0 8px 0 0;
+	margin-top: 40px;
+	margin-left: 46px;
+	font-weight: bold;
+	color: #383838;
+	font-size: 25px;
+}
 
 /* ======================== Div Side ============================= */
 
@@ -221,6 +232,9 @@ input[type="checkbox"]:checked {
 .tool_ul li{
 	float: left;
 }
+#profile {
+	float: left;
+}
 
 .btn2 {
 	background-color: white;
@@ -319,6 +333,7 @@ article {padding: 52px 3% 0;}
 article .block:nth-child(2n+1)
 article .block:nth-child(2n)
 /* =========================== Modal ===================================== */
+/* =========================== Modal ===================================== */
 
 .modal-content {
 	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
@@ -349,12 +364,13 @@ article .block:nth-child(2n)
 	padding: 8px;	
 }
 
-.input {
-	width: 494px;	
-	height: 25px;
-	border: 1px solid #c0c0c0;
-	border-radius: 4px;
-}
+/* 검색 창 수정 중 */
+/* .input { */
+/* 	width: 494px;	 */
+/* 	height: 25px; */
+/* 	border: 1px solid #c0c0c0; */
+/* 	border-radius: 4px; */
+/* } */
 
 .modal {
 	display: none; /* Hidden by default */
@@ -379,3 +395,34 @@ article .block:nth-child(2n)
 	border-radius: 4px;
 	box-shadow: 0px 4px 8px rgb(0 0 0/ 20%);
 }
+#modal_HeadText{
+	font-weight: normal;
+	font-size: 25px;
+	padding-left: 20px;
+	}
+	#boardGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    background: #00a1b9;
+    border: 1px solid #00a1b9;
+    border-radius: 2px;
+    font-size: 13px;
+    vertical-align: middle;
+	}
+	#cancleGroup{
+	display: inline-block;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+    font-size: 13px;
+    vertical-align: middle;
+	}
