@@ -18,7 +18,12 @@
 		<div id="mail_wrap">
 			<div id="mail_header">
 				<div id="title">
-					<span class="span_title">받은메일함</span>
+					<c:if test="${mode=='received'}">
+						<span class="span_title">받은메일함</span>
+					</c:if>
+					<c:if test="${mode=='sent'}">
+						<span class="span_title">보낸메일함</span>
+					</c:if>
 					<span class="span_gray">전체메일</span>
 					<span class="span_number">${numRead + numUnread}</span>
 					&nbsp;/&nbsp;
@@ -27,13 +32,14 @@
 				</div>
 				<div id="toolbar_wrap">
 					<input type="checkbox" name="all_listOfMl_num" class="all_checkbox_mail">
-<!-- 					<button type="button" onclick="deleteMails();">삭제</button> -->
 					<a class="btn_tool" onclick="deleteMails();">
 						<span class="ic_toolbar del"></span><span class="mail_tool_txt">삭제</span>
 					</a>
-					<div id="mail_server_time">
-						서버 동기화 시간: <fmt:formatDate value="${updateDateOfDb}" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate>
-					</div>
+					<c:if test="${mode=='received'}">
+						<div id="mail_server_time">
+							서버 동기화 시간: <fmt:formatDate value="${updateDateOfDb}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+						</div>
+					</c:if>
 					<div style="clear:both;"></div>
 				</div>
 			</div>
@@ -49,7 +55,7 @@
 								
 							>
 								<td class="td_checkbox_mail"><input type="checkbox" name="listOfMl_num" class="checkbox_mail" value="${mail.ml_num}"></td>
-								<td class="email">${mail.ml_email}</td>
+								<td class="email">${mail.ml_emailForHtml}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/mail/view/${mail.ml_num}">${mail.ml_title}</a>
 								</td>
@@ -60,28 +66,28 @@
 				</table>		
 			</div>
 			<div id="mail_footer">
-				<a href="${pageContext.request.contextPath}/mail?currentPage=1" class="ic_paginate ic_first"></a>
+				<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=1" class="ic_paginate ic_first"></a>
 				<c:if test="${commonPaging.currentPage != 1}">
-					<a href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage - 1}" class="ic_paginate ic_previous"></a>
+					<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage - 1}" class="ic_paginate ic_previous"></a>
 				</c:if>
 				<c:if test="${commonPaging.currentPage == 1}">
-					<a href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage}" class="ic_paginate ic_previous"></a>
+					<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage}" class="ic_paginate ic_previous"></a>
 				</c:if>				
 				<c:forEach var="index" begin="${commonPaging.startPage}" end="${commonPaging.endPage}">
 					<c:if test="${index == commonPaging.currentPage}">
-						<a href="${pageContext.request.contextPath}/mail?currentPage=${index}" class="paginate_active paginate_button">${index}</a>
+						<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${index}" class="paginate_active paginate_button">${index}</a>
 					</c:if>
 					<c:if test="${index != commonPaging.currentPage}">
-						<a href="${pageContext.request.contextPath}/mail?currentPage=${index}" class="paginate_button">${index}</a>
+						<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${index}" class="paginate_button">${index}</a>
 					</c:if>
 				</c:forEach>
 				<c:if test="${commonPaging.currentPage != commonPaging.totalPage}">
-					<a href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage + 1}" class="ic_paginate ic_next"></a>
+					<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage + 1}" class="ic_paginate ic_next"></a>
 				</c:if>
 				<c:if test="${commonPaging.currentPage == commonPaging.totalPage}">
-					<a href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage}" class="ic_paginate ic_next"></a>
+					<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.currentPage}" class="ic_paginate ic_next"></a>
 				</c:if>
-				<a href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.totalPage}" class="ic_paginate ic_last"></a>
+				<a onclick="waitLoading();" href="${pageContext.request.contextPath}/mail?currentPage=${commonPaging.totalPage}" class="ic_paginate ic_last"></a>
 			</div>
 		</div>
 	</div>

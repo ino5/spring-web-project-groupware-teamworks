@@ -51,6 +51,8 @@ a {
 /* 툴바 부분 */
 #toolbar_wrap {
 	margin-left: 17px;
+	margin-top: 9px;
+	margin-bottom: 9px;
 }
 
 .mail_tool_txt {
@@ -76,6 +78,11 @@ a {
 #toolbar_wrap .btn_tool:hover {
 	background: #eee;
 }
+    
+.all_checkbox_mail {
+    margin-right: 42px;
+}    
+    
     
 /* 메일 목록 부분 */
 #mail_server_time {

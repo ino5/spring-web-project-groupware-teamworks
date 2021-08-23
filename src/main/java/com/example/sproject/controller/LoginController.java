@@ -52,10 +52,10 @@ public class LoginController {
 		if (null == principal) {
 			return "login/login";
 		}
-		String m_id = principal.getName();
-		System.out.println("m_id: " + m_id);
-		model.addAttribute("m_id", m_id);
-		return "main/sampleMain";
+//		String m_id = principal.getName();
+//		System.out.println("m_id: " + m_id);
+//		model.addAttribute("m_id", m_id);
+		return "redirect:/main";
 	}
 	
 	@GetMapping("denied")

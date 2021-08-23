@@ -496,6 +496,8 @@ function wsEvt() {
 					$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + moment(date).format("HH:mm") + "</p></div>");
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}						
+			}else if(jsonMsg.type == "newSessionMember"){
+				console.log('newSessionMember');
 			}else{
 				console.warn("unknown type!")
 			}

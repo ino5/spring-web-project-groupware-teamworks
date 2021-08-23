@@ -98,7 +98,7 @@ public class SocketHandler extends TextWebSocketHandler {
 						wss.sendMessage(new TextMessage(obj.toJSONString()));
 					} catch (IOException e) {
 						e.printStackTrace();
-				}
+					}
 				}
 			
 			}
@@ -227,6 +227,11 @@ public class SocketHandler extends TextWebSocketHandler {
 		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
+		
+		// 새로운 세션이 들어왔음을 접속 중인 같은 방 멤버들에게 알리기
+		JSONObject objOfNewSessionMember = new JSONObject();
+		objOfNewSessionMember.put("type", "newSessionMember");
+		SendMessage(roomNumber, objOfNewSessionMember);
 	}
 	
 	
@@ -252,5 +257,34 @@ public class SocketHandler extends TextWebSocketHandler {
 			e.printStackTrace();
 		}
 		return obj;
+	}
+	
+	/**
+	 * 같은 방 멤버들에게 텍스트 메세지 보내기
+	 * @param roomNumber
+	 * @param jsonObject
+	 */
+	private void SendMessage(String roomNumber, JSONObject jsonObject) {
+		for(int i=0; i < rls.size(); i++) {
+			String rN = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
+			if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
+				HashMap<String, Object> temp = rls.get(i);
+				// 각 세션들에게 메세지 보내기
+				for(String k : temp.keySet()) {
+					if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
+						continue;
+					}
+					WebSocketSession wss = (WebSocketSession)temp.get(k);
+					if(wss != null) {
+						try {
+							wss.sendMessage(new TextMessage(jsonObject.toJSONString()));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}					
+				}
+				break;
+			}
+		}		
 	}
 }

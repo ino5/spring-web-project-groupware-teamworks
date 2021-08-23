@@ -91,11 +91,8 @@ public class MailDaoImpl implements MailDao {
 	}
 
 	@Override
-	public int deleteMail(String ml_email, int ml_num) {
-		Mail mail = new Mail();
-		mail.setMl_email(ml_email);
-		mail.setMl_num(ml_num);
-		return session.update("deleteMailOfMail", mail);
+	public int deleteMail(int ml_num) {
+		return session.update("deleteMailOfMail", ml_num);
 	}
 
 	@Override
