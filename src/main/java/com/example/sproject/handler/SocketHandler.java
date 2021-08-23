@@ -53,7 +53,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		String content = (String) obj.get("msg");
 		System.out.println("m_id: " + m_id);
 		System.out.println("content: " + content);
-		if(msgType.equals("message")) {
+		if(msgType.equals("message") || msgType.equals("beforeFile")) {
 			Talk talk = new Talk();
 			talk.setTkrm_num(Integer.parseInt(rN));
 			talk.setM_id(m_id);
@@ -65,6 +65,8 @@ public class SocketHandler extends TextWebSocketHandler {
 			
 			// 메세지에 tk_num 넣어주기
 			obj.put("tk_num", tk_num);
+		} else if(msgType.equals("readMember")) {
+			sendMessageOfUpdateOfSession(rN);
 		}
 
 		//TalkMsg = dto
@@ -87,23 +89,22 @@ public class SocketHandler extends TextWebSocketHandler {
 					break;
 				}
 			}
-		if(!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송			
-		// 해당 방의 세션들만 찾아서 메시지를 발송
-			for(String k : temp.keySet()) {
-				if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
-					continue;
-				}
-				
-				WebSocketSession wss = (WebSocketSession)temp.get(k);
-				if(wss != null) {
-					try {
-						wss.sendMessage(new TextMessage(obj.toJSONString()));
-					} catch (IOException e) {
-						e.printStackTrace();
+			if(!msgType.equals("fileUpload")) { //메시지의 타입이 파일업로드가 아닐때만 전송			
+			// 해당 방의 세션들만 찾아서 메시지를 발송
+				for(String k : temp.keySet()) {
+					if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
+						continue;
+					}
+					
+					WebSocketSession wss = (WebSocketSession)temp.get(k);
+					if(wss != null) {
+						try {
+							wss.sendMessage(new TextMessage(obj.toJSONString()));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
-			
-			}
 			}
 		}
 	}
@@ -229,14 +230,11 @@ public class SocketHandler extends TextWebSocketHandler {
 		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
-		
-		// 새로운 세션이 들어왔음을 접속 중인 같은 방 멤버들에게 알리기
-		JSONObject objOfNewSessionMember = new JSONObject();
-		objOfNewSessionMember.put("type", "newSessionMember");
-		SendMessage(roomNumber, objOfNewSessionMember);
 	}
 	
 	
+
+
 	@Override 
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("SocketHandler afterConnectionEstablished start...");
@@ -261,12 +259,27 @@ public class SocketHandler extends TextWebSocketHandler {
 		return obj;
 	}
 	
+	
 	/**
-	 * 같은 방 멤버들에게 텍스트 메세지 보내기
+	 * 특정 방 멤버들에게 해당 방에 세션업데이트 메세지 보내기
+	 * @param roomNumber
+	 */
+	private void sendMessageOfUpdateOfSession(String roomNumber) {
+		JSONObject objOfNumOfSession = new JSONObject();
+		objOfNumOfSession.put("type", "updateOfSession");
+		int numOfAllMember = talkService.selectJoinGroupMemberList(Integer.parseInt(roomNumber)).size();
+		int numOfSessionMember = findNumOfSessionMember(roomNumber);
+		objOfNumOfSession.put("numOfAllMember", numOfAllMember);
+		objOfNumOfSession.put("numOfSessionMember", numOfSessionMember);
+		sendMessage(roomNumber, objOfNumOfSession);
+	}
+	
+	/**
+	 * 특정 방 멤버들에게 텍스트 메세지 보내기
 	 * @param roomNumber
 	 * @param jsonObject
 	 */
-	private void SendMessage(String roomNumber, JSONObject jsonObject) {
+	private void sendMessage(String roomNumber, JSONObject jsonObject) {
 		for(int i=0; i < rls.size(); i++) {
 			String rN = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
 			if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
@@ -288,5 +301,31 @@ public class SocketHandler extends TextWebSocketHandler {
 				break;
 			}
 		}		
+	}
+	
+	/**
+	 * 특정 방에 소켓 연결되어 있는 세션 수 찾기
+	 * @param roomNumber
+	 * @return
+	 */
+	private int findNumOfSessionMember(String roomNumber) {
+		int numOfSessionMember = 0;		
+		for(int i=0; i < rls.size(); i++) {
+			String rN = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호 가져오기
+			if(roomNumber.equals(rN)) {//같은값의 방이 존재한다면
+				HashMap<String, Object> temp = rls.get(i);
+				for(String k : temp.keySet()) {
+					if(k.equals("roomNumber")) {//다만 방번호일 경우에는 건너뛴다
+						continue;
+					}
+					WebSocketSession wss = (WebSocketSession)temp.get(k);
+					if(wss != null) {
+						++numOfSessionMember;
+					}					
+				}
+				break;
+			}
+		}
+		return numOfSessionMember;
 	}
 }

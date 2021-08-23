@@ -7,6 +7,7 @@ let isClickedOnebyOneChat = false;
 let isClickedGroupRoomList = false;
 let isClickedOnebyOneTalkList = false;
 let isClickedJoinGroupMember = false;
+let nowTk_num = 0;
 
 
 $(document).ready(function() {
@@ -117,7 +118,7 @@ function getRoomOfApi(m_id2) {
 			if(talkList[i].tk_type == 1) {
 				if(talkList[i].m_id != m_id){				
 	   					 $('#chating').append(
-	   					 	'<div id="memo"><p class="others">'
+	   					 	'<div id="memo"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="others">'
 	   					 	+ talkList[i].m_name + ':' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
 	   					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -126,7 +127,7 @@ function getRoomOfApi(m_id2) {
 					}
 				else if(talkList[i].m_id == m_id){
 						$('#chating').append(
-	   					 	'<div id="memo"><p class="me">'
+	   					 	'<div id="memo"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="me">'
 	   					 	+ '나 :' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
 	   					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -136,7 +137,7 @@ function getRoomOfApi(m_id2) {
    				} else if(talkList[i].tk_type == 2) {
 				if(talkList[i].m_id != m_id){				
 	   					 $('#chating').append(
-	   					 	'<div id="memo2"><p class="others2">'
+	   					 	'<div id="memo2"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="others2">'
 	   					 	+ talkList[i].m_name + ':'  + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
 	   					 	+'</p><p class="date4">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -145,7 +146,7 @@ function getRoomOfApi(m_id2) {
 					}
 				else if(talkList[i].m_id == m_id){
 						$('#chating').append(
-	   					 	'<div id="memo2"><p class="me2">'
+	   					 	'<div id="memo2"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="me2">'
 	   					 	+ '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
 	   					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
 	   					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -234,7 +235,7 @@ function getRoomOfApi2(tkrm_num) {
 		if(talkList[i].tk_type == 1) {
 			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
-   					 	'<div id="memo"><p class="others">'
+   					 	'<div id="memo"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="others">'
    					 	+ talkList[i].m_name + ':' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
    					 	+'</p><p class="date2">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -243,7 +244,7 @@ function getRoomOfApi2(tkrm_num) {
 				}
 			else if(talkList[i].m_id == m_id){
 					$('#chating').append(
-   					 	'<div id="memo"><p class="me">'
+   					 	'<div id="memo"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="me">'
    					 	+ '나:' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content) 
    					 	+'</p><p class="date">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -253,7 +254,7 @@ function getRoomOfApi2(tkrm_num) {
    		} else if(talkList[i].tk_type == 2) {
    			if(talkList[i].m_id != m_id){				
    					 $('#chating').append(
-   					 	'<div id="memo2"><p class="others2">'
+   					 	'<div id="memo2"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="others2">'
    					 	+ talkList[i].m_name + ':' + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
    					 	+'</p><p class="date4">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -262,7 +263,7 @@ function getRoomOfApi2(tkrm_num) {
 				}
 			else if(talkList[i].m_id == m_id){
 					$('#chating').append(
-   					 	'<div id="memo2"><p class="me2">'
+   					 	'<div id="memo2"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="me2">'
    					 	+ '나:' + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
    					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
@@ -468,50 +469,55 @@ function wsEvt() {
 				if(sid != ''){
 					$("#sessionId").val(sid); 
 				}
-				countUnread($("#roomNumber").val());
+				readMember();
 			}else if(jsonMsg.type == "message"){
 			// type이 message인 경우엔 채팅이 발생한 경우.
             // 상대방과 자신을 구분하기 위해 여기서 sessionId값을 사용
             // 최초 이름을 입력하고 연결되었을때, 발급받은 sessionId값을 비교하여 같다면 자기 자신이 발신한
             // 메시지이므로 오른쪽으로 정렬하는 클래스를 처리하고 메시지를 출력.     
             // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
-				
+            	nowTk_num = jsonMsg.tk_num;
 				if(jsonMsg.sessionId == $("#sessionId").val()){
 					isMyMessage = 1;
 					$("#chating").append('<div id="memo"><p id="unReadNum'+ jsonMsg.tk_num + '"></p><p class="me">' + '나 : ' + jsonMsg.msg + '</p><br><p class="date">' + moment(date).format('HH:mm') + '</p></div>');
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}else{
 					isMyMessage = 0;
-					$("#chating").append("<div id='memo'><p class='others'>" + jsonMsg.userName + " : " + jsonMsg.msg + "</p><br><p class='date2'>" + moment(date).format("HH:mm") + "</p></div>");
+					$("#chating").append('<div id="memo"><p id="unReadNum'+ jsonMsg.tk_num + '"></p><p class="others">' + jsonMsg.userName + ' : ' + jsonMsg.msg + '</p><br><p class="date2">' + moment(date).format('HH:mm') + '</p></div>');
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
-				}						
-			}else if(jsonMsg.type == "newSessionMember"){
-				console.log('newSessionMember');
+				}
+				// 읽었다고 알려주기
+				readMember();						
+			}else if(jsonMsg.type == "updateOfSession"){ // 현재 방에 세션 관련 업데이트 필요할 때
+				console.log(jsonMsg.type);
+				console.log("numOfAllMember: " + jsonMsg.numOfAllMember);
+				console.log("numOfSessionMember: " + jsonMsg.numOfSessionMember);
 				countUnread($("#roomNumber").val());
-			}else{
+			}else if(jsonMsg.type == 'beforeFile'){ // 파일 보내기 전에 보내는 메세지
+				nowTk_num = jsonMsg.tk_num;
+				if(jsonMsg.sessionId == $("#sessionId").val()) {
+					isMyMessage = 1;
+				} else {
+					isMyMessage = 0;
+				}
+				console.log(jsonMsg.type);
+				
+				// 읽었다고 알려주기
+				readMember();
+			}
+			else{
 				console.warn("unknown type!")
 			}
-			// 읽었다고 알려주기
-	   		$.ajax({
-				url: _contextPath + '/talk/readMember',
-				data: {	'roomNumber' : $("#roomNumber").val(),
-						'm_id' : $("#m_id").val()
-				},
-				type: 'get',
-				success: function (res) {
-				},
-				error : function(err){
-					console.log('error');
-				}
-			});
+
+
 		}else{
 			// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
 			var url = URL.createObjectURL(new Blob([msg]));
 			if(isMyMessage == 1){
-				$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
+				$("#chating").append('<div class="img"><p id="unReadNum'+ nowTk_num + '"></p><img class="msgImg" src='+url+'></div><div class="clearBoth"></div>');
 				$("#chating").scrollTop($("#chating")[0].scrollHeight);
 			} else{
-				$("#chating").append("<div class='img2'><img class='msgImg2' src="+url+"></div><div class='clearBoth'></div>");
+				$("#chating").append('<div class="img2"><p id="unReadNum'+ nowTk_num + '"></p><img class="msgImg2" src='+url+'></div><div class="clearBoth"></div>');
 				$("#chating").scrollTop($("#chating")[0].scrollHeight);
 			}	
 		}			
@@ -548,9 +554,12 @@ function countUnread(tkrm_num) {
 }
 		
 
-function send() {
+function send(type) {
+	if (!type) {
+		type = 'message';
+	}
 	var option ={
-		type: "message",
+		type: type,
 		roomNumber : $("#roomNumber").val(),  
 		sessionId : $("#sessionId").val(),
 		userName : $("#m_name").val(),
@@ -563,7 +572,10 @@ function send() {
 
 function fileSend() {
 	console.log("파일전송 시작");
-	send();
+	// 파일 보낼 것이라는 것을 알려주기
+	send('beforeFile');
+	
+	// 파일 보내기
 	var file = document.querySelector("#fileUpload").files[0];
 	var fileReader = new FileReader();
 	fileReader.onload = function() {
@@ -582,6 +594,23 @@ function fileSend() {
 			ws.send(arrayBuffer); // 파일 소켓 전송
 	};
 	fileReader.readAsArrayBuffer(file);	
+}
+
+// 메세지 읽었다고 알려주기
+function readMember() {
+	$.ajax({
+		url: _contextPath + '/talk/readMember',
+		data: {	'roomNumber' : $("#roomNumber").val(),
+				'm_id' : $("#m_id").val()
+		},
+		type: 'get',
+		success: function (res) {
+			send('readMember');
+		},
+		error : function(err){
+			console.log('error');
+		}
+	});
 }
 
 
