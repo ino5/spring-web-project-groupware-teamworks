@@ -21,6 +21,7 @@ import com.example.sproject.dao.talk.TalkDao;
 import com.example.sproject.model.login.Member;
 import com.example.sproject.model.talk.Room;
 import com.example.sproject.model.talk.Talk;
+import com.example.sproject.model.talk.Talk_Reading;
 import com.example.sproject.service.talk.TalkService;
 
 @Controller
@@ -321,12 +322,12 @@ public class TalkController {
 		return null;
 	}
 	
-	// 메세지 보낼때 읽음카운트
-	@RequestMapping("/readNumber")
+	@RequestMapping("/countUnread")
 	@ResponseBody
-	public int readNumber(int roomNumber) {
+	public Map<String, Object> unreadCount(int roomNumber) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int readNumber = talkService.readNumber(roomNumber);
-		return readNumber;
+		List<Talk_Reading> numOfUnreadList = talkService.unreadCount(roomNumber);
+		map.put("numOfUnreadList", numOfUnreadList);
+		return map;
 	}
 }

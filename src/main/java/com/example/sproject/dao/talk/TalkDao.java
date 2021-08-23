@@ -11,7 +11,7 @@ public interface TalkDao {
 
 	int insertMsg(Talk talk);
 
-	int selectOneMaxTk_num();
+	int selectOneMaxTk_num(int tkrm_num);
 
 	List<Talk> selectChat(int roomNumber);
 
@@ -41,8 +41,12 @@ public interface TalkDao {
 
 	void insertReadMsg(Talk_Reading talk_Reading);
 
-	void readMember(int roomNumber, String m_id);
+	void readMember(int roomNumber, String m_id);	
 
-	int readNumber(int roomNumber, int tk_num);
+	List<Talk_Reading> selectTk_numList(int roomNumber);
+
+	List<Talk_Reading> unreadCount(int roomNumber);
+
+
 
 }

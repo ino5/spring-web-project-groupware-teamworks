@@ -53,16 +53,18 @@ public class SocketHandler extends TextWebSocketHandler {
 		String content = (String) obj.get("msg");
 		System.out.println("m_id: " + m_id);
 		System.out.println("content: " + content);
-		
 		if(msgType.equals("message")) {
 			Talk talk = new Talk();
 			talk.setTkrm_num(Integer.parseInt(rN));
 			talk.setM_id(m_id);
 			talk.setTk_content(content);
-			talkService.insertMsg(talk);
+			int tk_num = talkService.insertMsg(talk);		
 			Talk_Reading talk_Reading = new Talk_Reading();
 			talk_Reading.setTkrm_num(Integer.parseInt(rN));
-			talkService.insertReadMsg(talk_Reading);
+			talkService.insertReadMsg(tk_num, talk_Reading);
+			
+			// 메세지에 tk_num 넣어주기
+			obj.put("tk_num", tk_num);
 		}
 
 		//TalkMsg = dto

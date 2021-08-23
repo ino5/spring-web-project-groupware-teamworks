@@ -468,28 +468,17 @@ function wsEvt() {
 				if(sid != ''){
 					$("#sessionId").val(sid); 
 				}
+				countUnread($("#roomNumber").val());
 			}else if(jsonMsg.type == "message"){
 			// type이 message인 경우엔 채팅이 발생한 경우.
             // 상대방과 자신을 구분하기 위해 여기서 sessionId값을 사용
             // 최초 이름을 입력하고 연결되었을때, 발급받은 sessionId값을 비교하여 같다면 자기 자신이 발신한
             // 메시지이므로 오른쪽으로 정렬하는 클래스를 처리하고 메시지를 출력.     
             // 비교하여 같지 않다면 타인이 발신한 메시지이므로 왼쪽으로 정렬하는 클래스를 처리하고 메시지를 출력
-				$.ajax({
-					url: _contextPath + '/talk/readNumber',
-					data: {	'roomNumber' : $("#roomNumber").val()},
-					type: 'get',
-					success: function (res) {
-						debugger;
-						$('.readNumber').text(res);
-					},
-					error : function(err){
-						console.log('error');
-					}
-				});	
 				
 				if(jsonMsg.sessionId == $("#sessionId").val()){
 					isMyMessage = 1;
-					$("#chating").append("<div id='memo'><p class='me'>" + "나 : " + jsonMsg.msg + "</p><br><p class='date'>" + moment(date).format("HH:mm") + "</p><p class='readNumber'>" + $('.readNumber').val() + "</p></div>");
+					$("#chating").append('<div id="memo"><p id="unReadNum'+ jsonMsg.tk_num + '"></p><p class="me">' + '나 : ' + jsonMsg.msg + '</p><br><p class="date">' + moment(date).format('HH:mm') + '</p></div>');
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}else{
 					isMyMessage = 0;
@@ -498,6 +487,7 @@ function wsEvt() {
 				}						
 			}else if(jsonMsg.type == "newSessionMember"){
 				console.log('newSessionMember');
+				countUnread($("#roomNumber").val());
 			}else{
 				console.warn("unknown type!")
 			}
@@ -533,10 +523,30 @@ function wsEvt() {
 			}
 		});
 		isClickEventKeypressEnter = true;
-	}
-	
+	}	
 
 }
+
+// 특정 방번호의 모든 메세지에 대한 읽지 않은 수를 가져와서 메세지 옆에 업데이트
+function countUnread(tkrm_num) {
+	$.ajax({
+	url : _contextPath + '/talk/countUnread',
+	data: {'roomNumber' : $("#roomNumber").val()},
+	type : 'get',
+	success: function(res) {
+			let numOfUnreadList = res.numOfUnreadList;
+			for(var i = 0; i<numOfUnreadList.length; i++) {
+				let tk_num = numOfUnreadList[i].tk_num;
+				let unread_num = numOfUnreadList[i].unread_num;
+				$('#unReadNum' + tk_num).text(unread_num);
+			}
+		},
+    error : function(err){
+        console.log('error');
+    }        
+	});
+}
+		
 
 function send() {
 	var option ={

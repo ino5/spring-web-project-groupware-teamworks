@@ -31,7 +31,7 @@ public interface TalkService {
 
 	List<String> selectgetGroupTalkerList(int tkrm_num);
 
-	void insertReadMsg(Talk_Reading talk_Reading);
+	void insertReadMsg(int tk_num, Talk_Reading talk_Reading);
 	
 	/**
 	 * 해당 방번호와 해당 아이디에 대한 모든 TALK_READING의 데이터에서 읽은 여부(tkrd_is_read)를 1로 만들기
@@ -40,8 +40,7 @@ public interface TalkService {
 	 */
 	void readMember(int roomNumber, String m_id);
 
-	int readNumber(int roomNumber);
-
+	List<Talk_Reading> unreadCount(int roomNumber);
 	
 	
 }

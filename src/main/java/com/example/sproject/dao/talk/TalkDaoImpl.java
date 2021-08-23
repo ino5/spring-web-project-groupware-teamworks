@@ -25,8 +25,8 @@ public class TalkDaoImpl implements TalkDao {
 	}
 
 	@Override
-	public int selectOneMaxTk_num() {
-		return session.selectOne("selectOneMaxTk_numOfTalk");
+	public int selectOneMaxTk_num(int tkrm_num) {
+		return session.selectOne("selectOneMaxTk_numOfTalk", tkrm_num);
 	}
 
 	@Override
@@ -119,12 +119,17 @@ public class TalkDaoImpl implements TalkDao {
 		map.put("m_id", m_id);
 		session.update("readMemberOfTalk", map);		
 	}
+	
 
 	@Override
-	public int readNumber(int roomNumber, int tk_num) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("roomNumber", roomNumber);
-		map.put("tk_num", tk_num);
-		return session.selectOne("readNumberOfTalk", map);
+	public List<Talk_Reading> selectTk_numList(int roomNumber) {
+		return session.selectList("selectTk_numListOfTalk", roomNumber);
 	}
+
+	@Override
+	public List<Talk_Reading> unreadCount(int roomNumber) {
+		return session.selectList("unreadCountListOfTalk", roomNumber);
+	}
+
+
 }

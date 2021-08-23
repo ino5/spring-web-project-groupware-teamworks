@@ -19,9 +19,10 @@ public class TalkServiceImpl implements TalkService {
 	
 	@Override
 	public int insertMsg(Talk talk) {
-		int tk_num = 1 + talkDao.selectOneMaxTk_num();
+		int tk_num = 1 + talkDao.selectOneMaxTk_num(talk.getTkrm_num());
 		talk.setTk_num(tk_num);
-		return talkDao.insertMsg(talk);
+		talkDao.insertMsg(talk);
+		return tk_num;
 	}
 
 	@Override
@@ -106,8 +107,7 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
-	public void insertReadMsg(Talk_Reading talk_Reading) {
-		int tk_num = talkDao.selectOneMaxTk_num();
+	public void insertReadMsg(int tk_num, Talk_Reading talk_Reading) {
 		talk_Reading.setTk_num(tk_num);
 		List<String> GroupTalkerList = talkDao.selectgetGroupTalkerList(talk_Reading.getTkrm_num());
 		for (int i=0; i<GroupTalkerList.size(); i++) {
@@ -123,8 +123,8 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
-	public int readNumber(int roomNumber) {
-		int tk_num = talkDao.selectOneMaxTk_num();
-		return talkDao.readNumber(roomNumber, tk_num);
+	public List<Talk_Reading> unreadCount(int roomNumber) {
+		return talkDao.unreadCount(roomNumber);
 	}
+
 }
