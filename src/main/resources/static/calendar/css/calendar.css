@@ -85,7 +85,7 @@
 }
 
 input[type=checkbox] + label {
-  display: block;
+  display: inline-block;
   margin: 0.2em;
   cursor: pointer;
   padding: 0.2em;
@@ -211,11 +211,39 @@ h2 {
 .div_cal {
 	margin : 0.5px 2px;
 	cursor: pointer;
-	background-color: #0f91e6;
+	margin-right: 10px;
+	position: relative;
+	width : 99.8%;
+}
+
+.date_img{
+    float: right;
+	width: 10px;
+	height: 20px;
+}
+
+
+.date_img2 {
+    float: left;
+	width: 10px;
+	height: 20px;
 }
 
 .span_cal{
 	padding-left: 15px;
+	color: white;
+	width: 100%;
+}
+
+.span_cal_day {
+	cursor: pointer;
+	padding-left: 15px;
+}
+
+.span_color2{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
 }
 
 #date{
@@ -229,35 +257,39 @@ h2 {
 	padding : 0px 10px;
 	color: blue;	
 }
-#calendar2 {
-	border-top:1px solid #ddd;
-	margin-top: 50px;
-	width: 84%;
-	border-collapse : collapse;
+
+.div_color{
+	width: 8px;
+	height: 8px;
+	border-radius: 8px;
+	display: inline-block;
+	margin-right: 5px;
 }
 
-#calendar2 tr{
-	border-top: 1px;
-	border-color: #F6F6F6;
+.span_color{
+	width: 16px;
+	height: 16px;
+	border-radius: 16px;
+	float : right;
+	display: inline-block;
+	margin-right: 20px;
+	margin-top: 9px;
 }
 
-#calendar2 tr th{
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-	text-align: center;
-	font-weight: normal;
+/* 캘린더 그룹 추가 */
+.groupAdd{
+	cursor: pointer;
 }
 
-#calendar2 tr td{
-	border-top : 1px solid #F6F6F6;
-   	width: 170px;
-   	height: 140px;
-   	text-align: center;
-   	font-size: 14px;
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-    text-align: left;
-    vertical-align : top;
+#groupAdd{
+	width:17px; 
+	height:17px;
+	margin-right: 10px;
 }
 
+#group {
+	display: none;
+}
 
 /* =========================== Modal ===================================== */
 

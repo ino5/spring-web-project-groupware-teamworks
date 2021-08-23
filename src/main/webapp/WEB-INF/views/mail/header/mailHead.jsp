@@ -13,5 +13,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mail/css/mailSide.css">
 <script defer src="${pageContext.request.contextPath}/mail/js/mailSide.js"></script>
 
-<!-- mail css -->
+<!-- mail -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mail/css/mail.css">
+<script defer src="${pageContext.request.contextPath}/mail/js/mail.js"></script>

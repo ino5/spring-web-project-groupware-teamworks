@@ -62,6 +62,13 @@ public class AdminServiceImpl implements AdminService {
 		memberList = admindao.memberAllList();
 		return memberList;
 	}
+
+	@Override
+	public List<Member> timeList() {
+		List<Member> timeList = null;
+		timeList = admindao.timeList();
+		return timeList;
+	}
 	
 	
 }

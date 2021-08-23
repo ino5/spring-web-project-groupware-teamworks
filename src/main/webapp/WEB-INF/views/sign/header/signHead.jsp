@@ -11,14 +11,6 @@
 <!-- 파일 다운로드 관련 js -->
 <script defer src="${pageContext.request.contextPath}/drive/js/main.js"></script>
 
-<!-- jquery-ui sortable -->
-<script>
-	$(function() {
-		$( "#sortable" ).sortable();
-	    $( "#sortable" ).disableSelection();
-	});
-</script>
-<!-- end of jquery-ui sortable  -->
 
 <!-- signSide css, js -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/sign/css/signSide.css">

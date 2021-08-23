@@ -55,7 +55,7 @@
 </c:if>
 <div id="sign_line">
 	<c:if test="${jspType == 'w' }">
-		<ul id="sortable">
+		<ul id="sortable" class="sortable">
 		</ul>
 		<button type="button" id="button_new_sign_line">
 			<span class="ic_toolbar plus"></span>

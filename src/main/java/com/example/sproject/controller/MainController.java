@@ -128,14 +128,14 @@ public class MainController {
 	    	mail.setM_id(m_id);
 	    	
 	    	// 페이징 처리
-	    	CommonPaging commonPaging = new CommonPaging(mailService.countTotalMail(mail), currentPage2, 10, 5);
+	    	CommonPaging commonPaging = new CommonPaging(mailService.countTotalMailReceived(mail), currentPage2, 10, 5);
 	    	System.out.println("commonPaging: " + commonPaging);
 	    	model.addAttribute("commonPaging", commonPaging);
 	    	mail.setRn_start(commonPaging.getStart());
 	    	mail.setRn_end(commonPaging.getEnd());
 	    	
 	    	// 페이징 처리에 맞게 메일 가져오기
-	    	List<Mail> listOfMail = mailService.listMail(mail);    	
+	    	List<Mail> listOfMail = mailService.listMailReceived(mail);    	
 	    	mailService.replaceStringForHtml(listOfMail);
 	    	
 	    	// 커뮤니티

@@ -4,7 +4,7 @@
 <button type="button" id="button_new_sign">새 결재 진행</button> <br>
 
 <!-- 새 결제 진행 모달창 -->
-<div id="modal_wrap_new_sign" class="modal_wrap">
+<div id="modal_wrap_new_sign" class="modal_wrap drag">
 	<button type="button" id="modal_close_new_sign" class="button_x"><span class="ic_gnb_x"></button>
 	<h1>결재양식 선택</h1>
 	<div class="modal_content">

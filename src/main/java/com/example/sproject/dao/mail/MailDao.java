@@ -1,5 +1,6 @@
 package com.example.sproject.dao.mail;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.example.sproject.model.drive.DriveFileInfo;
@@ -19,7 +20,7 @@ public interface MailDao {
 
 	int insertMailTo(MailTo mailTo);
 
-	List<Mail> selectListMail(Mail mail);
+	List<Mail> selectListMailReceived(Mail mail);
 
 	Mail selectMail(int ml_num);
 
@@ -31,8 +32,23 @@ public interface MailDao {
 
 	int insertAllMailFile(int ml_num, List<DriveFileInfo> listOfDriveFileInfo);
 
-	int countTotalMail(Mail mail);
+	int countTotalMailReceived(Mail mail);
 
 	int updateMailRead(int ml_num);
+
+	int deleteMail(String ml_email, int ml_num);
+
+	int countTotalMailSent(Mail mail);
+
+	List<Mail> selectListMailSent(Mail mail);
+	
+	/**
+	 * 메일 서버에서 불러온 시간 업데이트하기 (ml_num=1 일 때의 ml_rcvdate 갱신)
+	 * @param nowTime
+	 * @return
+	 */
+	int updateMl_rcvdate(Timestamp nowTime);
+
+	Timestamp findUpdateDateOfDb();
 
 }

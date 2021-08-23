@@ -5,15 +5,28 @@
 <mapper namespace="com.example.sproject.dao.calendar.CalendarDao">
 
 	<insert id="scheduleAddOfCalendar" parameterType="com.example.sproject.model.calendar.Calendar">
-		insert into calendar (cl_num, m_id, cl_name, cl_content, cl_sdate, cl_edate) values 
-		((select nvl(max(cl_num),0) +1 from calendar), #{m_id}, #{cl_name}, #{cl_content}, #{cl_sdate}, #{cl_edate})	
+		insert into calendar (cl_num, m_id, cl_name, cl_content, cl_sdate, cl_edate, cl_group) values 
+		((select nvl(max(cl_num),0) +1 from calendar), #{m_id}, #{cl_name}, #{cl_content}, #{cl_sdate}, #{cl_edate}, #{cl_group})	
 	</insert>
 	
 	<select id="calendarListOfCalendar" parameterType="java.lang.String" resultType="com.example.sproject.model.calendar.Calendar">
-		select cl_num, cl_name, cl_sdate, cl_edate, to_date(cl_edate)-to_date(cl_sdate) cl_term from calendar where m_id = #{m_id} order by to_date(cl_edate)-to_date(cl_sdate) desc, cl_num
+		select cl.cl_group, cl.cl_num, cl.cl_name, cl.cl_sdate, cl.cl_edate, to_date(cl.cl_edate)-to_date(cl.cl_sdate) cl_term, cg.cl_groupname, cg.cl_color from calendar cl, calendar_group cg 
+		where cl.m_id = #{m_id} and cl.cl_group = cg.cl_group  order by to_date(cl.cl_edate)-to_date(cl.cl_sdate) desc, cl.cl_num
 	</select>
 	
 	<select id="calendarSelectOfCalendar" parameterType="int" resultType="com.example.sproject.model.calendar.Calendar">
-		select cl_name, cl_content, cl_sdate, cl_edate from calendar where cl_num = #{cl_num}
+		select ca.cl_name, ca.cl_content, ca.cl_sdate, ca.cl_edate, cg.cl_groupname from calendar ca, calendar_group cg where ca.cl_num = #{cl_num} and ca.cl_group = cg.cl_group
+	</select>
+	
+	<select id="calendarGroupListOfCalendar" parameterType="java.lang.String" resultType="com.example.sproject.model.calendar.Calendar_group">
+		select * from calendar_group where m_id = #{m_id}
+	</select>
+	
+	<insert id="groupAddOfCalendar" parameterType="com.example.sproject.model.calendar.Calendar_group">
+		insert into calendar_group (cl_group, cl_groupname, cl_color, m_id) values ((select nvl(max(cl_group),0) +1 from calendar_group), #{cl_groupname}, #{cl_color}, #{m_id})
+	</insert>
+	
+	<select id="color_calListOfColor_cal" resultType="com.example.sproject.model.calendar.Color_cal">
+		select color_num, color_name from color_cal
 	</select>
 </mapper>

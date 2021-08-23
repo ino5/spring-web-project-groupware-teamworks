@@ -9,11 +9,11 @@
 	<insert id="insertMailOfMail" parameterType="com.example.sproject.model.mail.Mail">
 		INSERT INTO mail(
 				ml_num, ml_email, mlb_num, ml_title, ml_content, 
-				ml_regdate, ml_rcvdate, ml_type
+				ml_regdate, ml_rcvdate, ml_type, ml_is_read, ml_is_deleted
 		)
 		VALUES(
 				#{ml_num}, #{ml_email}, #{mlb_num}, #{ml_title}, #{ml_content}, 
-				#{ml_regdate}, #{ml_rcvdate, jdbcType = DATE}, #{ml_type}
+				#{ml_regdate}, #{ml_rcvdate, jdbcType = DATE}, #{ml_type}, #{ml_is_read}, #{ml_is_deleted}
 		) 
 	</insert>
 	
@@ -39,18 +39,36 @@
 		)
 	</insert>	
 	
-	<select id="selectListMailOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="com.example.sproject.model.mail.Mail">
+	<select id="selectListMailReceivedOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="com.example.sproject.model.mail.Mail">
 		<![CDATA[
 		SELECT *
 		FROM (SELECT ROWNUM rn, a.* FROM (
-			SELECT ml.* FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type}
+			SELECT ml.* FROM mail ml, mail_to mlt 
+			WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type} AND ml.ml_is_deleted = #{ml_is_deleted}
+			ORDER BY ml.ml_regdate desc			  		  
+		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
+		]]>	
+	</select>
+
+	<select id="selectListMailSentOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="com.example.sproject.model.mail.Mail">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM rn, a.* FROM (
+			SELECT ml.* FROM mail ml
+			WHERE ml.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type} AND ml.ml_is_deleted = #{ml_is_deleted}
 			ORDER BY ml.ml_regdate desc			  		  
 		) a) WHERE rn >= #{rn_start} and rn <= #{rn_end}
 		]]>	
 	</select>
 	
-	<select id="countTotalMailOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="int">
-		SELECT COUNT(*) FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type}
+	<select id="countTotalMailReceivedOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="int">
+		SELECT COUNT(*) FROM mail ml, mail_to mlt 
+		WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type} AND ml.ml_is_deleted = #{ml_is_deleted}
+	</select>
+
+	<select id="countTotalMailSentOfMail" parameterType="com.example.sproject.model.mail.Mail" resultType="int">
+		SELECT COUNT(*) FROM mail ml
+		WHERE ml.ml_email LIKE #{ml_email} AND ml.ml_type = #{ml_type} AND ml.ml_is_deleted = #{ml_is_deleted}
 	</select>
 	
 	<select id="selectMailOfMail" parameterType="int" resultType="com.example.sproject.model.mail.Mail">
@@ -86,7 +104,22 @@
 	</insert>	
 	
 	<update id="updateMailReadOfMail" parameterType="int">
-		UPDATE mail SET ml_read = 1 WHERE ml_num = #{ml_num}
+		UPDATE mail SET ml_is_read = 1 WHERE ml_num = #{ml_num}
 	</update>
+	
+	<update id="deleteMailOfMail" parameterType="com.example.sproject.model.mail.Mail">
+		UPDATE mail SET ml_is_deleted = 1 WHERE ml_num = (
+			SELECT ml.ml_num FROM mail ml, mail_to mlt WHERE ml.ml_num = mlt.ml_num AND mlt.ml_email like #{ml_email} 
+			AND ml.ml_num = #{ml_num}
+			)
+	</update>
+	
+	<update id="updateMl_rcvdateOfMail" parameterType="java.sql.Timestamp">
+		UPDATE mail SET ml_rcvdate = #{nowTime} WHERE ml_num = 1
+	</update>
+	
+	<select id="findUpdateDateOfDbOfMail" resultType="java.sql.Timestamp">
+		SELECT ml_rcvdate FROM mail WHERE ml_num = 1
+	</select>
 	
 </mapper>

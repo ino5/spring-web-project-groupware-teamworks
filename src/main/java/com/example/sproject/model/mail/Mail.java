@@ -15,7 +15,9 @@ public class Mail {
 	private Timestamp ml_rcvdate;
 	private Timestamp ml_deldate;
 	private int ml_type; // 타입 -> 1: 받은 메일, 2: 보낸 메일
-	private int ml_read;
+	private int ml_is_read;
+	private int ml_is_deleted;
+	private int ml_is_sent;
 	
 	private String m_name;
 	private String m_id;

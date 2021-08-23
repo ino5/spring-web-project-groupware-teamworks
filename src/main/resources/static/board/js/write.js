@@ -35,18 +35,8 @@ $(document).ready(function() {
 	var loginId = $('#loginId').val();
 	console.log("mid",mid);
 	console.log("loginId",loginId);
-	if(mid == loginId){
-		$('#summernote').summernote('enable');
-		
-	}else{
-		$('#summernote').summernote('disable');
-		$("#btnUpdete").remove();
-		$("#btnDelete").remove();
-	}
 	console.log($("#btnUpdete"));
 	
-	
-
 function uploadSummernoteImageFile(file, editor) {
 		alert('이미지업로드');
     data = new FormData();

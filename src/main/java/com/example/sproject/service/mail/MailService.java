@@ -1,5 +1,6 @@
 package com.example.sproject.service.mail;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -38,9 +39,9 @@ public interface MailService {
 	 * @param mail (rn_start, rn_end, m_id)
 	 * @return
 	 */
-	List<Mail> listMail(Mail mail);
+	List<Mail> listMailReceived(Mail mail);
 	
-	int countTotalMail(Mail mail);
+	int countTotalMailReceived(Mail mail);
 
 	void replaceStringForHtml(List list);
 	void replaceStringForHtml(Mail mail);
@@ -61,5 +62,18 @@ public interface MailService {
 
 	int updateMailRead(int ml_num);
 
+	int deleteMail(String m_id, List<Integer> listOfMl_num);
+	
+	String m_idToMl_emailForLike(String m_id);
+
+	int countTotalMailSent(Mail mail);
+
+	List<Mail> listMailSent(Mail mail);
+
+	/**
+	 * mail db 업데이트 시간 가져오기
+	 * @return
+	 */
+	Timestamp findUpdateDateOfDb();
 	
 }

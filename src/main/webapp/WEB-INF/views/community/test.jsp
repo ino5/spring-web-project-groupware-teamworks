@@ -12,98 +12,106 @@
 </head>
 <script type="text/javascript">
 
-	
-function communityGroup() {
-    var delchk = []; // key 값을 담을 배열
-     var bd_num = modal_form.bd_num.value;
-    //삭제 key value
-    // chk라는 클래스를 가진 체크박스 중에 체크가 된
-    // object들을 찾아서 delchk라는 배열에 담는다.
-    $('.chk_1:checked').each(function(){
-        delchk.push($(this).val());
-    });
-    
-   $.ajax({
-      type : 'POST',
-      url : _contextPath + "/community/boardGroup",
-      data : {checkArray : delchk, bd_num : bd_num},
-         success: function pageReload(){
-               location.href= "${pageContext.request.contextPath}/board/sideboard_list?bd_num=${bd_num}";
-           }
-      });
-}
-function communityDeleteGroup() {
-    var delchk = []; // key 값을 담을 배열
-    //삭제 key value
-    // chk라는 클래스를 가진 체크박스 중에 체크가 된
-    // object들을 찾아서 delchk라는 배열에 담는다.
-    $('.chk_1:checked').each(function(){
-        delchk.push($(this).val());
-    });
-    
-   $.ajax({
-      type : 'POST',
-      url : _contextPath + "/community/boardDeleteGroup",
-      data : {checkArray : delchk},
-         success: function pageReload(){
-               location.href= "${pageContext.request.contextPath}/board/sideboard_list?bd_num=${bd_num}";
-           }
-      });
-}
-function boardNoticeGroup() {
-    var delchk = []; // key 값을 담을 배열
-    //삭제 key value
-    // chk라는 클래스를 가진 체크박스 중에 체크가 된
-    // object들을 찾아서 delchk라는 배열에 담는다.
-    $('.chk_1:checked').each(function(){
-        delchk.push($(this).val());
-    });
-    
-   $.ajax({
-      type : 'POST',
-      url : _contextPath + "/community/boardNoticeGroup",
-      data : {checkArray : delchk},
-         success: function pageReload(){
-               location.href= "${pageContext.request.contextPath}/board/sideboard_list?bd_num=${bd_num}";
-           }
-      });
-}
-$(document).ready(function() {
-	// 달력 클릭 시 모달창 열기
-$("#boardSet").on("click", function () {
-	$('#myModal').show();
-});
-//모달창 Close 기능
-	$("#close_btn").unbind('click').on('click', function() {
-		$('#myModal').hide();
-	});
-//모달창 Close 기능
-	$("#x_icon").unbind('click').on('click', function() {
-		$('#myModal').hide();
-	});
-});
-
-
-</script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#button1").click(function() {
-		var submenu = $(this).next("#scroll");
-		// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
-		if (submenu.is(":visible")) {
-			$('#img1').css({
-				'transform' : 'rotate(0deg)'
-			});
-			submenu.slideUp("fast");
-		} else {
-			$('#img1').css({
-				'transform' : 'rotate(90deg)'
-			});
-			submenu.slideDown("fast");
+		function communityGroup() {
+		    var delchk = []; // key 값을 담을 배열
+		     var bd_num = modal_form.bd_num.value;
+		    //삭제 key value
+		    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+		    // object들을 찾아서 delchk라는 배열에 담는다.
+		    $('.chk_1:checked').each(function(){
+		        delchk.push($(this).val());
+		    });
+		    
+		   $.ajax({
+		      type : 'POST',
+		      url : _contextPath + "/community/communityGroup",
+		      data : {checkArray : delchk, bd_num : bd_num},
+		         success: function pageReload(){
+		               location.href= "${pageContext.request.contextPath}/community/sideboard_list?bd_num=${bd_num}";
+		           }
+		      });
 		}
-	});
-});
-
+		function communityDeleteGroup() {
+		    var delchk = []; // key 값을 담을 배열
+		    //삭제 key value
+		    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+		    // object들을 찾아서 delchk라는 배열에 담는다.
+		    $('.chk_1:checked').each(function(){
+		        delchk.push($(this).val());
+		    });
+		    
+		   $.ajax({
+		      type : 'POST',
+		      url : _contextPath + "/community/communityDeleteGroup",
+		      data : {checkArray : delchk},
+		         success: function pageReload(){
+		        	  location.href= "${pageContext.request.contextPath}/community/sideboard_list?bd_num=${bd_num}";
+		           }
+		      });
+		}
+		function communityNoticeGroup() {
+			console.log();
+		    var delchk = []; // key 값을 담을 배열
+		    //삭제 key value
+		    // chk라는 클래스를 가진 체크박스 중에 체크가 된
+		    // object들을 찾아서 delchk라는 배열에 담는다.
+		    $('.chk_1:checked').each(function(){
+		        delchk.push($(this).val());
+		    });
+		    
+		   $.ajax({
+		      type : 'POST',
+		      url : _contextPath + "/community/communityNoticeGroup",
+		      data : {checkArray : delchk},
+		         success: function pageReload(){
+		               location.href= "${pageContext.request.contextPath}/community/sideboard_list?bd_num=${bd_num}";
+		           }
+		      });
+		}
+			$(document).ready(function() {
+			// 달력 클릭 시 모달창 열기
+		$("#boardSet").on("click", function () {
+			$('#myModal').show();
+		});
+		//모달창 Close 기능
+			$("#close_btn").unbind('click').on('click', function() {
+				$('#myModal').hide();
+			});
+		//모달창 Close 기능
+			$("#x_icon").unbind('click').on('click', function() {
+				$('#myModal').hide();
+			});
+		});
+		
+//체크박스 전체선택
+		function selectAll(selectAll)  {
+			  const checkboxes 
+			       = document.getElementsByName('check');
+			  
+			  checkboxes.forEach((checkbox) => {
+			    checkbox.checked = selectAll.checked;
+			  })
+			}
+</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#button1").click(function() {
+				var submenu = $(this).next("#scroll");
+				// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+				if (submenu.is(":visible")) {
+					$('#img1').css({
+						'transform' : 'rotate(0deg)'
+					});
+					submenu.slideUp("fast");
+				} else {
+					$('#img1').css({
+						'transform' : 'rotate(90deg)'
+					});
+					submenu.slideDown("fast");
+				}
+			});
+		});
+	
 </script>
 <body>
 	<%@include file="/WEB-INF/views/header/headerBody.jsp"%>
@@ -124,7 +132,11 @@ $(document).ready(function() {
 			</span>가입 멤버</a>
 			<ol id="scroll" style="display: none; list-style: none;">
 				<c:forEach var="bc" items="${boardListOfJoinedCommunity }">
-					<li class="li">${bc.m_name}</li>
+					<li class="li">${bc.m_name} 
+						<img style="border-radius:70%; width:30px; height: 30px; " src="${pageContext.request.contextPath}/resource/member/photo/${ps.m_id}.jpg" 
+							 onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/> 
+					</li>
+					
 				</c:forEach>
 			</ol>
 		</div>
@@ -152,10 +164,10 @@ $(document).ready(function() {
 							<li><button type="button" id="boardSet" class="btn2 btn_admin" >
 									<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/move.png"><span style="font-weight: bold;"> 이동</span>
 								</button></li>
-							<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardDeleteGroup()">
+							<li><button type="button" class="btn2 btn_admin" onclick="javascript:communityDeleteGroup()">
 									<img style=" width: 20px; height: 20px;" alt="image" src="${pageContext.request.contextPath}/board/img/delete.png"><span style="font-weight: bold;"> 삭제</span>
 								</button></li>
-							<li><button type="button" class="btn2 btn_admin" onclick="javascript:boardNoticeGroup()">
+							<li><button type="button" class="btn2 btn_admin" onclick="javascript:communityNoticeGroup()">
 										<img style=" width: 25px; height: 25px;" alt="image" src="${pageContext.request.contextPath}/board/img/megaphone.png"><span style="font-weight: bold;"> 공지로 등록</span>
 								</button></li>
 						</c:if>
@@ -168,19 +180,14 @@ $(document).ready(function() {
 				<tr>
 					<td
 						style="text-align: center; border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">
-						<input type="checkbox" name="check" id="chk_1"
-						onclick='selectAll(this)'> <label for="chk_1"></label>
+						<input type="checkbox" name="check" id="chk_1"	onclick='selectAll(this)'>
+ 						 <label for="chk_1"></label> 
 					</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">번호</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">제목</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">작성자</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">작성일</td>
-					<td
-						style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">조회</td>
+					<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">번호</td>
+					<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">제목</td>
+					<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">작성자</td>
+					<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">작성일</td>
+					<td style="border-bottom: 2px solid #EAEAEA; border-top: 2px solid solid #EAEAEA;">조회</td>
 
 				</tr>
 				<c:forEach var="ps" items="${board_list}">

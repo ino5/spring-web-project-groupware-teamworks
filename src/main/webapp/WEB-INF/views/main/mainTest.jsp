@@ -445,7 +445,7 @@
 								<tr style="height: 10px"></tr>
 							<c:forEach var="mail" items="${listOfMail}" begin="0" end="3">
 								<tr
-									<c:if test="${mail.ml_read == '1'}">
+									<c:if test="${mail.ml_is_read == '1'}">
 										class="tr_read"
 									</c:if>
 								style="width: 550px" >

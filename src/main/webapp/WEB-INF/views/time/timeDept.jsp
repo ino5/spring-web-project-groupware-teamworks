@@ -261,8 +261,12 @@
 			<c:forEach var="member" items="${listDeptGroupMember }">
 				<tr id="${member.m_id}" style="height: 100px;">
 					<td>
-					<img style="width: 40px; height: 40px; border-radius: 70%; margin-top: 10px;" src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'"/>
-					<span style="font-size: 18px; font-weight: bold;">${member.m_name } </span>
+					<div id="profile" style="float: left; padding-top:15px;">
+                              <img style="border-radius: 70%; width: 40px; height: 40px;"
+                                 src="${pageContext.request.contextPath}/resource/member/photo/${member.m_id}.jpg"
+                                 onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'" />
+                           </div><div style="display: inline-block; padding-top: 20px; padding-left: 5px;">
+					<span style="font-size: 18px; font-weight: bold;">${member.m_name } </span></div>
 					<span class="td_span" style="font-size: 18px; font-weight: bold;">${member.pt_name }</span>
 						<p style="color: #888; font-size: 14px; padding-left: 70px;">${member.dpt_name }</p></td>
 

@@ -26,7 +26,7 @@ import com.example.sproject.model.talk.Talk;
 import com.example.sproject.model.talk.Talk_Reading;
 import com.example.sproject.service.talk.TalkService;
 
-@Component
+@Component("socketHandler")
 public class SocketHandler extends TextWebSocketHandler {
 	@Autowired
 	TalkService talkService;

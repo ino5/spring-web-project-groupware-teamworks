@@ -232,6 +232,17 @@ $("#boardSet").on("click", function () {
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+	//체크박스 전체선택
+	function selectAll(selectAll)  {
+		  const checkboxes 
+		       = document.getElementsByName('check');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked;
+		  })
+		}
 	
+	</script>
 </body>
 </html>
