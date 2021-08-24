@@ -192,7 +192,7 @@
 				</tr>
 				<c:forEach var="ps" items="${board_list}">
 					<tr>
-						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.p_type}"></td>
+						<td style="text-align: center;"><input type="checkbox" name="check" class="chk_1" value="${ps.p_num}"></td>
 						<td>${ps.p_num}</td>
 						<td><a style="color: #666666;"
 							href='${pageContext.request.contextPath}/community/view?p_num=${ps.p_num}'>${ps.p_name}</a></td>

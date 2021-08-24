@@ -190,11 +190,11 @@ $("#boardSet").on("click", function () {
 						<c:forEach var="ps_notice" items="${listNoticePost}" begin="0" end="2">			
 					<tr style="background-color: #F6F6F6;">
 						<td style="text-align: center;">
-							<input type="checkbox" name="check" class="chk_1" value="${ps.p_type}">
+							<input type="checkbox" name="check" class="chk_1" value="${ps_notice.p_num}">
 						</td>
 						<td><img style=" width: 50px; height: 50px;" alt="image" src="${pageContext.request.contextPath}/board/img/공지1.png"></td>
 						<td ><a style="color:#0f91e6; font-weight: bold; font-size: 20px;" href='${pageContext.request.contextPath}/board/view?p_num=${ps_notice.p_num}'>${ps_notice.p_name}</a></td>
-						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;">${ps_notice.m_id}</td>
+						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;">${ps_notice.m_name}${ps_notice.pt_name}</td>
 						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;"><fmt:formatDate value="${ps_notice.p_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td style="color:#0f91e6; font-weight: bold; font-size: 20px;">${ps_notice.p_view}</td>		
 					</tr>

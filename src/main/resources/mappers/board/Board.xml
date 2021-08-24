@@ -7,7 +7,7 @@
 		select *
 		from (select rownum rn, a.*
 			  from (select p.*, b.bd_name, m.m_name, ps.pt_name FROM post p inner join board b on(p.bd_num = b.bd_num) inner join member m on(p.m_id = m.m_id)  inner join position ps on(m.pt_code = ps.pt_code) 
-        WHERE b.BD_TYPE in (1,2) order by p_num desc) 
+        WHERE b.BD_TYPE in (1,2) and p.p_type = 2 order by p_num desc) 
 			  a) where rn >= #{start} and rn <= #{end}
 
 	]]>	
@@ -156,9 +156,10 @@
  	]]>	  
  </select> 
 	
+<!-- 	공지 보여주기 -->
 	<select id="selectListPost_ofBoard" parameterType="int" resultType="com.example.sproject.model.board.Post">
 		select *
-		from post where p_type = #{p_type} order by p_num desc
+		from post p, member m, position ps where p_type = #{p_type} and p.m_id = m.m_id and ps.pt_code = m.pt_code order by p_num desc
 </select> 
 	<update id="selectBoardGroupOfBoard" parameterType="Map">
 		UPDATE post SET bd_num = #{bd_num}  WHERE p_num = #{p_num}

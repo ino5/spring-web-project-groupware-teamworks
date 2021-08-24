@@ -274,7 +274,6 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<Post> listNoticePost(int p_type) {
-		
 		return session.selectList("selectListPost_ofBoard",p_type);
 	}
 
