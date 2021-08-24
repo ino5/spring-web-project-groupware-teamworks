@@ -224,7 +224,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<Post> listNoticePost(int p_type) {
 		List<Post>listType = boardDao.listNoticePost(p_type);
-		List<Post>listOfType = boardDao.listNoticePost(p_type);
 		return listType;
 	}
 

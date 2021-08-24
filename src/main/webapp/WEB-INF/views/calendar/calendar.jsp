@@ -197,7 +197,7 @@
 					//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
 					console.log('${item.cl_name}');
 						var a =  "<div id='div_"+ i +"_1' class='div_cal div_cal_${item.cl_group}' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'><input type='hidden' name='cl_num' value='${item.cl_num}'>${item.cl_name}</span></div>";	// 2 주 일정의 앞에 일정
-						var a1 = "<div id='div_"+ i +"'>" + "<span class='span_cal_day' onclick='javascript:modal_span(event, ${item.cl_num});'><div class='div_color' style='background-color:${item.cl_color};'></div>${item.cl_name}</span>" + "</div>";						// 당일
+						var a1 = "<div id='div_"+ i +"'>" + "<span class='span_cal_day span_cal_${item.cl_group}' onclick='javascript:modal_span(event, ${item.cl_num});'><div class='div_color div_color_${item.cl_group}' style='background-color:${item.cl_color};'></div>${item.cl_name}</span>" + "</div>";						// 당일
 						var a2 = "<div id='div_"+ i +"_2' class='div_cal div_cal_${item.cl_group}' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>";	// 2 주 일정의 뒤에 일정 	
 // 						var a2 = "<div id='div_"+ i +"_2' class='div_cal_2' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span><img alt='image' src='${pageContext.request.contextPath}/calendar/img/second_date.png' class='date_img2'></div>";	// 2 주 일정의 뒤에 일정
 						var a3 = "<div id='div_"+ i +"_2' class='div_cal div_cal_${item.cl_group}' onclick='javascript:modal_div(event, ${item.cl_num});' style='background-color:${item.cl_color};'>" + "<span class='span_cal'>${item.cl_name}</span></div>"; // 1 주 안에 일정
@@ -445,8 +445,13 @@
 							$("#chk_${calendarGroupList.cl_group}").change(function(){
 						    	if($("#chk_${calendarGroupList.cl_group}").is(":checked")){
 						    		$('.div_cal_${calendarGroupList.cl_group}').css({"background-color" : "${calendarGroupList.cl_color}"});
+						    		$('.div_color_${calendarGroupList.cl_group}').css({"background-color" : "${calendarGroupList.cl_color}"});
+						    		$('.span_cal_${calendarGroupList.cl_group}').css({"color" : "black"});
+						    		
 						    	}else{
 						    		$('.div_cal_${calendarGroupList.cl_group}').css({"background-color" : "white"});
+						    		$('.span_cal_${calendarGroupList.cl_group}').css({"color" : "white"});
+						    		$('.div_color_${calendarGroupList.cl_group}').css({"background-color" : "white"});
 						   		}
 							});
 						</script>
