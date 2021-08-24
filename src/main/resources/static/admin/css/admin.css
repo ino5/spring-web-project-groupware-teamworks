@@ -402,8 +402,15 @@ position:relative;
 	padding-top:7px;
 	margin-left: 70px;
 }
-.id_ok{color:#fff; display: none;}
-.id_already{color:#3ca7ef;display: none;}
+.id_ok {
+	color: #fff;
+	display: none;
+}
+
+.id_already {
+	color: #3ca7ef;
+	display: none;
+}
 
 #page_num_button{
     display: inline-block;
