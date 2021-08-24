@@ -130,36 +130,34 @@ margin-left: 20px;
 margin-bottom: 20px;
 border: 1px solid #ddd;
 }
-#btnUpdete{
-	
+#btnUpdete {
 	margin-left: 600px;
-display: inline-block;
-    cursor: pointer;
-    padding: 0 20px;
-    color: #fff;
-    font-weight: normal;
-    font-size: 13px;
-    height: 34px;
-    line-height: 33px;
-    background: #00a1b9;
-    border: 1px solid #00a1b9;
-    border-radius: 2px;
-    display: inline-block;
+	display: inline-block;
+	cursor: pointer;
+	padding: 0 20px;
+	color: #fff;
+	font-weight: normal;
+	font-size: 13px;
+	height: 34px;
+	line-height: 33px;
+	background: #00a1b9;
+	border: 1px solid #00a1b9;
+	border-radius: 2px;
+	display: inline-block;
 }
-#btnNotice{
-
-    display: inline-block;
-    cursor: pointer;
-    padding: 0 16px;
-    height: 34px;
-    line-height: 33px;
-    border-radius: 2px;
-    background: #f4f4f4;
-    border: 1px solid #ddd;
-margin-left: 20px;
-margin-bottom: 100px;
-display: inline-block;
-    }
+#btnNotice {
+	display: inline-block;
+	cursor: pointer;
+	padding: 0 16px;
+	height: 34px;
+	line-height: 33px;
+	border-radius: 2px;
+	background: #f4f4f4;
+	border: 1px solid #ddd;
+	margin-left: 20px;
+	margin-bottom: 100px;
+	display: inline-block;
+}
 
 .note-editor{
      margin-top: 30px;
