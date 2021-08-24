@@ -262,9 +262,9 @@ public class TalkController {
 		for (Room room : roomList) {
 			int tkrm_num = room.getTkrm_num();
 			List<String> talkerList = talkService.selectgetGroupTalkerList(tkrm_num);
-			List<String> RnUnreadNum = talkService.selectRnUnreadNum(tkrm_num, m_id);
+			int rnUnreadNum = talkService.selectRnUnreadNum(tkrm_num, m_id);
 			room.setTalkerList(talkerList);
-			room.setRnUnreadNum(RnUnreadNum);
+			room.setRnUnreadNum(rnUnreadNum);
 		}
 		
 		

@@ -137,7 +137,7 @@ public class TalkServiceImpl implements TalkService {
 	}
 
 	@Override
-	public List<String> selectRnUnreadNum(int tkrm_num, String m_id) {
+	public int selectRnUnreadNum(int tkrm_num, String m_id) {
 		return talkDao.selectRnUnreadNum(tkrm_num, m_id);
 	}
 

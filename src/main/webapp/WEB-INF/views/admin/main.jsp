@@ -69,10 +69,10 @@
 				</h2>
 			</div>
 			
-			<div style="width:800px; display: inline-block; margin: 0px 70px;">
+			<div style="width:750px; display: inline-block; margin: 0px 70px;">
 			    <canvas id="myChart"></canvas>
 			</div>
-			<div style="width:800px; display: inline-block;">
+			<div style="width:750px; display: inline-block;">
 			    <canvas id="myChart_time"></canvas>
 			</div>
 	</div>

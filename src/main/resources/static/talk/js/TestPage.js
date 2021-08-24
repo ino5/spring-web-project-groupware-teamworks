@@ -176,6 +176,7 @@ function getRoomOfApi(m_id2) {
 		$('#chatting_wrap').show();
 		$('#content2').hide();
 		$('#back2').hide();
+		$('#groupRoomlist').hide();
 
 	},
 	err: function(err){}
@@ -187,48 +188,63 @@ function getRoomOfApi(m_id2) {
 $(document).ready(function() {
  	//그룹채팅방 리스트 보이기
 	$(".group").on("click", function () {
-   		$.ajax({
-			url: _contextPath + '/talk/getGroupRoomList',
-			type: 'get',
-			success: function (res) {
-				$('#groupRoomlist').html('');
-				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
-				//멤버리스트 가져오기
-				let roomList = res.roomList;
-				for(var i = 0; i<roomList.length; i++) {
-   					 $('#groupRoomlist').append(
-   					 	'<tr><td><input type="hidden" id="m_id2" value="'
-   					 	+ roomList[i].m_id + '"'
-						+ '><td><img id="img1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>'
-						+  (roomList[i].talkerList[2] != null ? '<img id="img2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')
-						+  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[3]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 30px; height: 30px">': '')	
-						+ '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
-   					 	+ '\''
-   					 	+ roomList[i].tkrm_num
-   					 	+ '\''
-   					 	+ ')">'
-   					 	+ roomList[i].tkrm_name
-   					 	+ '</button></td><td><div class="RnUnreadNum">'
-   					 	+ (roomList[i].RnUnreadNum[i] != undefined ? roomList[i].RnUnreadNum[i] : '')
-   					 	+'</div></td></tr>'
-   					 ); 
-				}			
-				$('.chatModal').show();
-				$('#content2').hide();
-				$('#chatting_wrap').hide();
-				$('#memberlist').hide();
-				$('#groupRoomlist').show();
-				
-				//input에 m_id, m_name 정보 넣기
-				$('#m_id').val(res.m_id);
-				$('#m_name').val(res.m_name);
-			},
-			error : function(err){
-				console.log('error');
-			}
-		});
+		getGroupRoomList();
 	});
 });
+
+// 채팅 방 목록 보여주기
+function getGroupRoomList() {
+	$.ajax({
+		url: _contextPath + '/talk/getGroupRoomList',
+		type: 'get',
+		success: function (res) {
+            // 채팅방 목록 가져오는 일반적인 경우
+            if ($('#groupRoomlist').css('display') == 'none') {
+                $('#groupRoomlist').html('');
+                $('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
+                //멤버리스트 가져오기
+                let roomList = res.roomList;
+                for(var i = 0; i<roomList.length; i++) {
+                     $('#groupRoomlist').append(
+                         '<tr><td><input type="hidden" id="m_id2" value="'
+                         + roomList[i].m_id + '"'
+                        + '><td><img id="img1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>'
+                        +  (roomList[i].talkerList[2] != null ? '<img id="img2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')
+                        +  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[3]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 30px; height: 30px">': '')	
+                        + '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
+                         + '\''
+                         + roomList[i].tkrm_num
+                         + '\''
+                         + ')">'
+                         + roomList[i].tkrm_name
+                         + '</button></td><td><div class="rnUnreadNum_'+ roomList[i].tkrm_num +'">'
+                         + (roomList[i].rnUnreadNum != 0 ? roomList[i].rnUnreadNum : '')
+                         +'</div></td></tr>'
+                     ); 
+                }			
+                $('.chatModal').show();
+                $('#content2').hide();
+                $('#chatting_wrap').hide();
+                $('#memberlist').hide();
+                $('#groupRoomlist').show();
+                
+                //input에 m_id, m_name 정보 넣기
+                $('#m_id').val(res.m_id);
+                $('#m_name').val(res.m_name);                
+            }
+            // 방마다 읽지 않은 메시지 수만 갱신하기
+            else if ($('#groupRoomlist').css('display') != 'none') {
+                let roomList = res.roomList;
+                for(var i = 0; i<roomList.length; i++) {
+                    $('.rnUnreadNum_'+roomList[i].tkrm_num).html((roomList[i].rnUnreadNum != 0 ? roomList[i].rnUnreadNum : ''));
+                }
+            }
+		},
+		error : function(err){
+			console.log('error');
+		}
+	});
+}
 
 // 그룹채팅 방이름 클릭시,
 function getRoomOfApi2(tkrm_num) {
@@ -295,6 +311,7 @@ function getRoomOfApi2(tkrm_num) {
 		$('#chatting_wrap').show();
 		$('#content2').hide();
 		$('#bakc1').hide();
+		$('#groupRoomlist').hide();
 
 	},
 	err: function(err){}
@@ -659,6 +676,7 @@ function readMember() {
 // 메신저창 닫기
 $(document).ready(function() {
 	$(".button_x3").on("click", function () {
+		$('#groupRoomlist').hide();
 		$('.chatModal').hide();
 		$('#TestCircle').show();
 		$('#Test').show();

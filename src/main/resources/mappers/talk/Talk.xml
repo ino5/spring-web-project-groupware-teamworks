@@ -87,7 +87,7 @@
 	select count(*) allUnreadCount from talk_reading where m_id=#{m_id} and tkrd_is_read=0
 </select>
 
-<select id="selectRnUnreadNumOfTalk" parameterType="Map" resultType="String">
+<select id="selectRnUnreadNumOfTalk" parameterType="Map" resultType="int">
 	select count(*) from talk_reading where tkrm_num=#{tkrm_num} and m_id=#{m_id} and tkrd_is_read=0
 </select>
 </mapper>

@@ -44,7 +44,7 @@ public interface TalkService {
 
 	int selectAllUnreadCount(String m_id);
 
-	List<String> selectRnUnreadNum(int tkrm_num, String m_id);
+	int selectRnUnreadNum(int tkrm_num, String m_id);
 	
 	
 }

@@ -137,11 +137,11 @@ public class TalkDaoImpl implements TalkDao {
 	}
 
 	@Override
-	public List<String> selectRnUnreadNum(int tkrm_num, String m_id) {
+	public int selectRnUnreadNum(int tkrm_num, String m_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tkrm_num", tkrm_num);
 		map.put("m_id", m_id);
-		return session.selectList("selectRnUnreadNumOfTalk", map);
+		return session.selectOne("selectRnUnreadNumOfTalk", map);
 	}
 
 

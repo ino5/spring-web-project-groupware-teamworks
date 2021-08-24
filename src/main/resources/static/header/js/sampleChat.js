@@ -52,6 +52,11 @@
 						// 안읽은 메세지 수 초기화하기
 						refreshNumOfAllUnread();
 						
+						// 그룹채팅방 안읽은 메세지 수 초기화하기
+						if ($('#groupRoomlist').css('display') != 'none') {
+							getGroupRoomList();
+						}
+						
 						// 알림창 사라지기
 						sampleAlertTimer = setTimeout(function() {
 							$('#sample_alert_wrapper').height('0px');

@@ -19,5 +19,5 @@ public class Room {
 	
 	List<String> talkerList;
 	
-	List<String> RnUnreadNum;
+	int rnUnreadNum;
 }
