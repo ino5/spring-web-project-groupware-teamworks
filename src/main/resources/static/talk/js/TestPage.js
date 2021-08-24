@@ -53,9 +53,11 @@ $(document).ready(function() {
 				$('.chatModal').show();
 				$('#content2').hide();
 				$('#chatting_wrap').hide();
+				$('.phone_bg2').hide();
+				$('.phone_bg').show();
 				$('#groupRoomlist').hide();
 				$('#Test').hide();
-				$('#TestCircle').hide();			
+				$('#TestCircle').hide();		
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -99,6 +101,8 @@ $(document).ready(function() {
 				$('#chatting_wrap').hide();
 				$('#groupRoomlist').hide();
 				$('#memberlist').show();
+				$('.phone_bg2').hide();
+				$('.phone_bg').show();
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -177,6 +181,8 @@ function getRoomOfApi(m_id2) {
 		$('#content2').hide();
 		$('#back2').hide();
 		$('#groupRoomlist').hide();
+		$('.phone_bg').hide();
+		$('.phone_bg2').show();
 
 	},
 	err: function(err){}
@@ -208,9 +214,10 @@ function getGroupRoomList() {
                      $('#groupRoomlist').append(
                          '<tr><td><input type="hidden" id="m_id2" value="'
                          + roomList[i].m_id + '"'
-                        + '><td><img id="img1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>'
-                        +  (roomList[i].talkerList[2] != null ? '<img id="img2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')
-                        +  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[3]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 30px; height: 30px">': '')	
+                        + '><td id="img_set">'
+                        +  (roomList[i].talkerList[3] == null ? (roomList[i].talkerList[2] == null ? '<img id="img1_1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">' : '<img id="img1_2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">') : '<img id="img1_3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>')
+                        +  (roomList[i].talkerList[2] != null ? (roomList[i].talkerList[3] != null ? '<img id="img2_1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">' : '<img id="img2_2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">') : '')
+                        +  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[3]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')	
                         + '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
                          + '\''
                          + roomList[i].tkrm_num
@@ -227,6 +234,8 @@ function getGroupRoomList() {
                 $('#chatting_wrap').hide();
                 $('#memberlist').hide();
                 $('#groupRoomlist').show();
+                $('.phone_bg2').hide();
+				$('.phone_bg').show();
                 
                 //input에 m_id, m_name 정보 넣기
                 $('#m_id').val(res.m_id);
@@ -312,6 +321,8 @@ function getRoomOfApi2(tkrm_num) {
 		$('#content2').hide();
 		$('#bakc1').hide();
 		$('#groupRoomlist').hide();
+		$('.phone_bg').hide();
+		$('.phone_bg2').show();
 
 	},
 	err: function(err){}
@@ -346,6 +357,8 @@ $(document).ready(function() {
 				$('.chatModal').show();
 				$('#content2').show();
 				$('#chatting_wrap').hide();
+				$('.phone_bg2').hide();
+				$('.phone_bg').show();	
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -385,6 +398,8 @@ function talkGroup() {
 				$('#content2').hide();
 				$('#chatting_wrap').show();
 				$('#back1').hide();
+				$('.phone_bg').hide();
+				$('.phone_bg2').show();	
         	}
 		});
 	}
@@ -415,6 +430,8 @@ $(document).ready(function() {
 					}					
 				$('#content1').show();
 				$('#chatting_wrap').hide();
+				$('.phone_bg2').hide();
+				$('.phone_bg').show();	
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -459,6 +476,8 @@ function join_member(tkrm_num) {
 				}						
 				$('#content1').hide();
 				$('#chatting_wrap').show();
+				$('.phone_bg').hide();
+				$('.phone_bg2').show();	
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(m_id);

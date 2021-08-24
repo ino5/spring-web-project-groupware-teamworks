@@ -8,15 +8,21 @@
 	</div>
 	<!-- Modal content -->
 	<div id="talkModal" class="chatModal drag">
+		<div class="phone_bg">	
+			<img alt=" " src="${pageContext.request.contextPath}/header/img/핸드폰.png">
+		</div>
 		<div id="content1">
 			<div id="room1">
 				<div id="logo">
 					<div class="img">
-						<img alt="로고.jpg" src="${pageContext.request.contextPath}/talk/img/로고.png">
+						<img alt="로고.jpg" src="${pageContext.request.contextPath}/header/img/바람개비 로고.png">
 					</div>
 					<div class="h5"><b>TEAM</b></div>
 					<div class="h6"><b>works</b></div>
-					<span class="ic_gnb_x button_x3"></span>
+<!-- 				<span class="ic_gnb_x button_x3"></span> -->
+					<div class="button_x3">
+						<img alt="X" src="${pageContext.request.contextPath}/header/css/images/ic_gnb3.png" onmouseover="this.src='${pageContext.request.contextPath}/header/css/images/ic_gnb4.png'" onmouseout="this.src='${pageContext.request.contextPath}/header/css/images/ic_gnb3.png'">
+					</div>
 				</div>
 				<div id="roomContainer" class="roomContainer">
 					<table id="memberlist" class="memberlist">
@@ -27,9 +33,20 @@
 					</table>
 				</div>
 			<div id="button_bar"></div>
-				<div id="member"><button type="button" class="onebyone">회원</button></div>
-				<div id="group_circle"><button type="button" class="group">채팅</button><div class="blue_circle total"></div></div>
-				<div id="makeGroupButton"><button type="button" class="groupchat">그룹 방만들기</button></div>
+				<div id="member"><button type="button" class="onebyone">
+					<img alt="회원" src="${pageContext.request.contextPath}/talk/img/회원.png">
+				</button></div>
+				<div id="group_circle">
+					<div id="chat_button">
+						<button type="button" class="group">
+							<img alt="채팅" src="${pageContext.request.contextPath}/talk/img/채팅.png">
+						</button>
+					</div>
+					<div class="blue_circle total"></div>
+				</div>				
+				<div id="makeGroupButton"><button type="button" class="groupchat">
+					<img alt="방만들기" src="${pageContext.request.contextPath}/talk/img/방만들기.png">
+				</button></div>
 			</div>
 		</div>
 		<div id="content2">
@@ -37,7 +54,21 @@
 			<button type="button" onclick="javascript:talkGroup()" class="insertroom">방만들기</button>
 		</div>
 		<div id="chatting_wrap">
+			<div class="phone_bg2">	
+				<img alt=" " src="${pageContext.request.contextPath}/header/img/핸드폰.png">
+			</div>
 			<div class="container">
+<!-- 				<div id="logo2"> -->
+<!-- 					<div class="img"> -->
+<%-- 						<img alt="로고.jpg" src="${pageContext.request.contextPath}/header/img/바람개비 로고.png"> --%>
+<!-- 					</div> -->
+<!-- 					<div class="h5"><b>TEAM</b></div> -->
+<!-- 					<div class="h6"><b>works</b></div> -->
+<!-- <!-- 				<span class="ic_gnb_x button_x3"></span> --> -->
+<!-- 					<div class="button_x3"> -->
+<%-- 						<img alt="X" src="${pageContext.request.contextPath}/header/css/images/ic_gnb3.png" onmouseover="this.src='${pageContext.request.contextPath}/header/css/images/ic_gnb4.png'" onmouseout="this.src='${pageContext.request.contextPath}/header/css/images/ic_gnb3.png'"> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 				<h1 id="roomName" style="color: black"></h1>
 				<input type="hidden" id="sessionId" value="">
 				<input type="hidden" id="m_id">
@@ -66,7 +97,7 @@
 				<table id="join_member_list"></table>
 			</div>
 		</div>
-	</div>
+	</div>	
 	
 	<!-- 알림창 -->
 	<div id="sample_alert_wrapper">
