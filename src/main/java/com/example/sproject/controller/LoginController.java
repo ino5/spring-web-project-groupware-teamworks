@@ -43,7 +43,7 @@ public class LoginController {
 		System.out.println("Method joinPost in Class LoginController");
 		loginService.join(member);
 		System.out.println("after loginService.join(member)");
-		return "redirect:/login/login";
+		return "redirect:/admin/admin";
 	}
 	
 	@GetMapping("")

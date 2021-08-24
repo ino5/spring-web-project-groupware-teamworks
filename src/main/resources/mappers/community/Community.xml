@@ -115,7 +115,7 @@
 	</insert>
 <!-- 	좋아요 삭제 -->
 <delete id="deleteLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike">
-	delete from post_like where p_num = #p_num and m_id=#{m_id}
+	delete from post_like where p_num = #{p_num} and m_id=#{m_id}
 	</delete>
 <!-- 	좋아요 확인한기 -->
 <select id="checkLikeOfCommunity" parameterType="com.example.sproject.model.board.PostLike" resultType="int">
