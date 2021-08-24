@@ -44,6 +44,7 @@
    z-index: 1; /* Sit on top */
    left: 0;
    top: 0;
+   margin-top: 150px;
    width: 100%; /* Full width */
    height: 100%; /* Full height */
    overflow: auto; /* Enable scroll if needed */
@@ -74,34 +75,71 @@
 	float: left;
 }
 
+#member img {
+	width: 55px;
+	height: 55px;
+}
+
 .onebyone {
-	width: 50px;
-	height: 20px;
+	border: 0;
+    outline: 0;
+    background-color: #0f91e6;
+    margin-left: 62px;
+    height: 73px;
+    border-top: 1px solid white;
+    border-radius: 0px 0px 0px 35px / 0px 0px 0px 35px;
+    width: 105px;
 }
 
 #group_circle {
 	float: left;
 }
 
+#chat_button {
+	float: left;
+	position: relative;
+}
+
 .group {
-	width: 50px;
-	height: 20px;
-	position: absolute;
+    border: 0;
+    outline: 0;
+    background-color: #0f91e6;
+    height: 73px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    width: 105px;
+}
+
+#group_circle img {
+	width: 35px;
+	height: 35px;
 }
 
 .total {
 	text-align: center;
-	margin-left: 40px;
+    margin-left: 55px;
+    float: right;
+    background-color: red;
 }
 
 #makeGroupButton {
 	float: left;
 }
 
+#makeGroupButton img {
+	width: 40px;
+	height: 40px;
+}
+
 .groupchat {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+	border: 0;
+    outline: 0;
+    background-color: #0f91e6;
+    height: 73px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    width: 109px;
+    border-radius: 0px 0px 35px 0px / 0px 0px 35px 0px;
 }
 
 .groupCheckbox {
@@ -161,21 +199,73 @@
 		}
 		
 .button_x3 {
-	margin-left: 270px;
 	cursor: pointer;
-}	
-
-#groupRoomlist #img1 {
-	width: 30px;
-	height: 30px;
+	display:inline-block;
+	float: right;
+	width: 25px;
+	height: 25px;
 }
 
-#groupRoomlist #img2 {
+.button_x3 img {
+	width: 25px;
+    height: 25px;
+    padding-top: 2px;
+}
+
+#groupRoomlist #img_set {
+	text-align: center;
+}
+
+#groupRoomlist #img1_1 {
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+}
+
+#groupRoomlist #img1_2 {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;	
+}
+
+#groupRoomlist #img1_3 {
 	width: 30px;
 	height: 30px;
+	border-radius: 20px;
+}
+
+#groupRoomlist #img2_1 {
+	width: 30px;
+	height: 30px;
+	border-radius: 20px;
+	margin-right: 5px;
+}
+
+#groupRoomlist #img2_2 {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
+
+#groupRoomlist #img2_3 {
+	width: 50px;
+	height: 50px;
+	border-radius: 20px;
 }
 
 #groupRoomlist #img3 {
 	width: 30px;
 	height: 30px;
+	border-radius: 20px;
 }
+
+.phone_bg img {
+	position: absolute;
+	width: 450px;
+}
+
+.phone_bg2 img {
+	position: absolute;
+	width: 450px;
+}
+

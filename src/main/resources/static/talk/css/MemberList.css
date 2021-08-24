@@ -12,13 +12,15 @@
 			width: 600px;
     		float: left;
     		position: relative;
+    		margin-top: 100px;
 		}
 		#talkModal .container{
 			width: 600px;
 			padding: 25px;
 			display: block;
 			float: left;
-			margin-top: 10px;
+			margin-top: 50px;
+			margin-left: 10px
 		}
 		
 		#talkModal .container h1{
@@ -26,25 +28,29 @@
 			padding: 5px 5px 5px 15px;
 			color: black;
 			border-left: 3px solid black;
-			margin-bottom: 20px;
+			position: relative;
+		    margin-bottom: 20px;
+		    margin-left: 30px;
+}
 		}		
 		#room1 {
-			margin-top: 50px;
+			margin-top: 100px;
 		}
 		#logo {
-			background: white;
+			background: #0F91E6;
 			/* border-right: 3px solid #0F91E6; */
     		/* border-left: 3px solid #0F91E6; */
     		/* border-top: 3px solid #0F91E6; */
     		height: 70px;
-    		width: 501px;
+    		width: 317px;
+    		margin-left: 63px;
 		}
 		#logo .img{
 			width: 40px;
 			position: relative;
 			float: left;
 		}
-		#logo img {
+		#logo .img img {
 			height: 40px;
     		margin-left: 20px;
     		margin-top: 13px;
@@ -55,27 +61,89 @@
 			position: relative;
 			font-family: 'talk/img/서울 남산체.ttf';
 			font-size: 25px;
-			color: #0F91E6;
+			color: white;
 			margin-left: 30px;
    			margin-top: 18px;
 		}
 		#logo .h6 {
 			width: 60px;
 			float: left;
+			position: relative;
 			font-family: 'talk/img/서울 남산체.ttf';
 			font-size: 20px;
-			color: #5DAEF0;
+			color: white;
 			opacity: 50%;
 			margin-top: 22px;
 		}
+/* 		#logo2 { */
+/* 			background: #0F91E6; */
+/* 			border-right: 3px solid #0F91E6; */
+/*     		border-left: 3px solid #0F91E6; */
+/*     		border-top: 3px solid #0F91E6; */
+/*     		height: 70px; */
+/*     		width: 317px; */
+/*     		margin-left: 63px; */
+/* 		} */
+/* 		#logo2 .img{ */
+/* 			width: 40px; */
+/* 			position: relative; */
+/* 			float: left; */
+/* 		} */
+/* 		#logo2 .img img { */
+/* 			height: 40px; */
+/*     		margin-left: 20px; */
+/*     		margin-top: 13px; */
+/* 		} */
+/* 		#logo2 .h5 { */
+/* 			width: 80px; */
+/* 			float: left; */
+/* 			position: relative; */
+/* 			font-family: 'talk/img/서울 남산체.ttf'; */
+/* 			font-size: 25px; */
+/* 			color: white; */
+/* 			margin-left: 30px; */
+/*    			margin-top: 18px; */
+/* 		} */
+/* 		#logo2 .h6 { */
+/* 			width: 60px; */
+/* 			float: left; */
+/* 			position: relative; */
+/* 			font-family: 'talk/img/서울 남산체.ttf'; */
+/* 			font-size: 20px; */
+/* 			color: white; */
+/* 			opacity: 50%; */
+/* 			margin-top: 22px; */
+/* 		}		 */
 		.roomContainer{
 			background-color: white;
-			width: 501px;
+			width: 317px;
 			height: 500px;
-			overflow: auto;
+			overflow: scroll;
+			margin-left: 63px;
 			/* border-right: 3px solid #0F91E6; */
     		/* border-left: 3px solid #0F91E6; */
+    		overflow-x: hidden
 		}
+		
+		.roomContainer::-webkit-scrollbar{ 
+			display: none;
+		 }
+
+		.roomContainer:hover::-webkit-scrollbar{
+			display: block; 
+			width: 20px;
+		 }
+		 
+		.roomContainer::-webkit-scrollbar-thumb {
+    		background-color: #0f91e6;
+    		border-radius: 10px;
+  		}
+  		.roomContainer::-webkit-scrollbar-track {
+    		background-color: lightgray;
+    		border-radius: 10px;
+    		box-shadow: inset 0px 0px 5px white;
+  		}
+		
 		.roomList{
 			border: none;
 		}
@@ -149,9 +217,10 @@
 		}				
 		.chating{
 			background-color: white;
-			width: 500px;
+			width: 317px;
 			height: 500px;
-			overflow: auto;
+			overflow: scroll;
+			margin-left: 40px;
 		}
 		.chating .me{
 			color: white;
@@ -198,6 +267,7 @@
 		}
 		#yourMsg{
 /* 			display: none; */
+			position: relative;
 		}
 		.clearBoth{
 			clear: both;

@@ -264,7 +264,7 @@
 			<div id="text">
 					<div style="font-size: 15px;">안녕하세요!</div>
 					<b style="font-size: 25px;">${m_name } ${pt_name }님</b> <br>
-					<a style="text-decoration: none; color:black; font-size: " href="${pageContext.request.contextPath}/login/simpleMyProfile">내 프로파일>></a>
+					<a style="text-decoration: none; color:black; font-size: " href="${pageContext.request.contextPath}/login/simpleMyProfile">내 프로필>></a>
 		 	</div>
  		</div>
  		<br>
