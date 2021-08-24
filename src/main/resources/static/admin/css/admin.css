@@ -6,40 +6,7 @@
 body{
     background: #f1f1f1;
 }
-header {
-	width: 100%; 
-	background-color: #0f91e6;
-}
 
-html, body, .container {
-	height: 100%;
-}
-
-.head_nav {
-	margin-left: 18%;
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
-
-.head_nav ul li {
-	display: inline;
-}
-
-.head_nav ul li a {
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	padding-left: 1%;
-	padding-right: 1%;
-	font-size: 18px;
-	color: white;
-	text-decoration : none;
-	letter-spacing: -0.5px;
-}
-
-.head_nav ul li a:hover {
-	background-color: #4374D9;
-}
 
 .side {
 	 z-index: 2;
@@ -220,16 +187,16 @@ h2 {
 }
 
 #wrap {
-	margin-top:5%;
-	margin-left:2%;
-	padding-top:30px;
-	line-height:70px;
-	padding-bottom:30px;
-	padding-left: 20px;
-	border-radius:10px;
-	width: 95%;
-	height: 80px;
-	background-color: white;
+	margin-top: 5%;
+    margin-left: 5%;
+    padding-top: 30px;
+    line-height: 70px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    border-radius: 10px;
+    width: 90%;
+    height: 80px;
+    background-color: white;
 }
 #wrap tr, #wrap td{
 	height: 50px;
@@ -238,16 +205,16 @@ h2 {
 	font-weight: bold;
 }
 #board_table {
-	width: 92%;
-	position: relative;
-	margin-top: 2%;
-	margin-left: 2%;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	padding-right: 4%;
-/* 	padding-left: 20px; */
-	border-radius: 10px;
-	background-color: white;
+    width: 87%;
+    position: relative;
+    margin-top: 2%;
+    margin-left: 5%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 4%;
+    /* padding-left: 20px; */
+    border-radius: 10px;
+    background-color: white;
 	}
 #list_table{
 	
@@ -308,9 +275,6 @@ select {
 	background: url('images/right4.png') no-repeat 97% 50%/15px auto;
 
 }
-/* select::-ms-expand { IE 10, 11의 네이티브 화살표 숨기기 */
-/* 	display: none; */
-/* } */
 
 /* =========================== Modal ===================================== */
 
@@ -322,7 +286,6 @@ select {
 .modal_btn {
 	margin-left:30px;
 	margin-top: 3%;
-/* margin-right: 30px; */
     color: white;
     height: 50px;
     font-weight:bold;
@@ -330,8 +293,8 @@ select {
     width:200px;
     vertical-align: top;
     font-size: 20px;
-	background: #0f91e6;
-    border: 1px solid #0f91e6;
+	background: #37D2E7;
+    border: 1px solid #37D2E7;
     border-radius: 3px;
     padding-left: 5px; 
     padding-right: 5px;
@@ -365,7 +328,7 @@ position:relative;
 }
 
 #modal_tb input:hover {
-	border: 3px solid #0f91e6;
+	border: 3px solid #37D2E7;
 	border-radius: 4px;
 	
 }
@@ -440,7 +403,7 @@ position:relative;
 	margin-left: 70px;
 }
 .id_ok{color:#fff; display: none;}
-.id_already{color:#6A82FB; display: none;}
+.id_already{color:#3ca7ef;display: none;}
 
 #page_num_button{
     display: inline-block;

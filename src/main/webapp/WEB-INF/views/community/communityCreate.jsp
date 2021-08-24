@@ -47,8 +47,8 @@
 		
 			
 		<button type="submit" id="btnUpdete"onclick="">확인</button>
-		</form>
 		<button type="submit" id="btnNotice"onclick="form_insert.p_type.value = 1;">취소</button>		
+		</form>
 	</div>
 	</div>
 	

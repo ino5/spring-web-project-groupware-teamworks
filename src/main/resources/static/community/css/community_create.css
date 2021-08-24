@@ -112,6 +112,9 @@ a { text-decoration:none }
 	  border-bottom: 1px solid #ddd;
 
 }
+a{
+	color: black;
+}
 select{
 	border: 1px solid #ddd;
     height: 26px;

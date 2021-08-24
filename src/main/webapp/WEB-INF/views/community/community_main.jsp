@@ -108,7 +108,7 @@ function myReplace() {
 		<div class="modal-content">
 		
 			<p>
-				<span style="font-size: 20px; font-weight: bold;">가입을 하시겠습니까? <img
+				<span style="font-size: 20px; font-weight: bold; margin-left: 200px;">가입을 하시겠습니까? <img
 					src="https://img.icons8.com/fluent-systems-regular/48/000000/x.png"
 					style="width: 35px; height: 25px; float: right; cursor: pointer;"
 					 id="x_icon_${as.bd_num}" />
@@ -121,7 +121,7 @@ function myReplace() {
 			<sec:csrfInput/>
 				<table>
 		          <tr> 
-					<td id="btnNotice"><button type="submit" onclick="">가입</button>	</td></tr>	
+					<td id="btnNotice"><button id="btn_sign" type="submit" onclick="">가입</button>	</td></tr>	
 				</table>
 			</form>
 		</div>

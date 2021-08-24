@@ -4,23 +4,10 @@
 	padding: 0;
 }
 
-header {
-	width: 100%; 
-	background-color: #0f91e6;
-}
-
-.head_nav {
-	margin-left: 18%;
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
 table{
 	border-collapse:collapse;
 	border-spacing:0;
 	
-}
-.head_nav ul li {
-	display: inline;
 }
 .pageNum{
 	display: block;
@@ -28,32 +15,18 @@ table{
     text-align: center;
     padding: 24px 0 0;
 }
-.head_nav ul li a {
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	padding-left: 1%;
-	padding-right: 1%;
-	font-size: 18px;
-	color: white;
-	text-decoration : none;
-	letter-spacing: -0.5px;
-}
 
-.head_nav ul li a:hover {
-	background-color: #4374D9;
-}
 
 #side {
 	 width: 15%; 
 	 float:left;
 }
 
-#content {
-	border-left: 2px solid #EAEAEA;
-	width: 84%; 
-	float: right;
-}
+/* #content { */
+/* 	border-left: 2px solid #EAEAEA; */
+/* 	width: 84%;  */
+/* 	float: right; */
+/* } */
 
 /* ======================== Div Side ============================= */
 
@@ -118,16 +91,7 @@ table{
             opacity: 1;
         }
     }
-    
-/*     @-webkit-keyframes fadeout { */
-/*         Safari and Chrome */
-/*         from { */
-/*             opacity: 1; */
-/*         } */
-/*         to { */
-/*             opacity: 0; */
-/*         } */
-/*     } */
+
 #side:hover #span_hover {
     display: inline;	
     -webkit-animation: fadein 1s;
@@ -244,7 +208,7 @@ position:relative;
     font-size: 13px;
 }
 #list_table{
-
+	width : 100%;
     border-bottom: 2px solid #EAEAEA;
     border-top:2px solid #EAEAEA;
 }

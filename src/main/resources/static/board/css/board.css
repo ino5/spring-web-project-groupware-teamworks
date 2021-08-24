@@ -4,16 +4,6 @@
 	padding: 0;
 }
 
-header {
-	width: 100%; 
-	background-color: #0f91e6;
-}
-
-.head_nav {
-	margin-left: 18%;
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
 table{
 	border-collapse:collapse;
 	border-spacing:0;
@@ -28,37 +18,9 @@ table{
 	font-weight: bold;
 	color: #383838;
 	font-size: 25px;
-}
-.head_nav ul li {
-	display: inline;
+
 }
 
-.head_nav ul li a {
-	font-family: 'Noto Sans KR',맑은 고딕,돋움, malgun gothic, dotum,AppleGothic,Helvetica,sans-serif;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	padding-left: 1%;
-	padding-right: 1%;
-	font-size: 18px;
-	color: white;
-	text-decoration : none;
-	letter-spacing: -0.5px;
-}
-
-.head_nav ul li a:hover {
-	background-color: #4374D9;
-}
-
-#side {
-	 width: 15%; 
-	 float:left;
-}
-
-#content {
-	border-left: 2px solid #EAEAEA;
-	width: 84%; 
-	float: right;
-}
 /* 검색창 */
 #searchBox{
 	float:right;
@@ -239,7 +201,7 @@ position:relative;
 }
 
 #list_table{
-
+	width : 100%;
     border-bottom: 2px solid #EAEAEA;
     border-top:2px solid #EAEAEA;
 }
@@ -258,7 +220,7 @@ position:relative;
 #board_table tr, #board_table td{
 /* 	margin-left:5%; */
 	height: 45px;
-	width: 300px;
+/* 	width: 300px; */
 	font-size:18px;
 	border-collapse: collapse;
 	color: #333333;

@@ -48,7 +48,7 @@
 					style="width: 16px; height: 12px; transition: 0.5s;" id="img2"></span>
 				<span id="span_none"><img alt="image"
 					src="${pageContext.request.contextPath}/board/img/white.png"
-					style="width: 16px; height: 12px;" id="img2"></span>부서게시판</a>
+					style="width: 16px; height: 12px;" id="img2"></span></a>
 			<ol id="scroll" style="display: none; list-style: none;">
 					<li class="li">
 						</li>
