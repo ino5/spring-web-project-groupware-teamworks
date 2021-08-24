@@ -31,7 +31,9 @@
 						$('#sample_alert_photo').html('');
 						$('#sample_alert_userName').html('');
 						$('#sample_alert_msg').html('');
-						$('#sample_alert_wrapper').css('border', '1px solid black');
+						$('#sample_alert_wrapper').css('border', '1px solid #ddd');
+						$('#sample_alert_wrapper').css('box-shadow', '0px 4px 8px rgb(0 0 0 / 20%)');
+						$('#sample_alert_wrapper').css('padding', '15px 15px');
 						
 						// 메세지 삽입
 						$('#sample_alert_photo').append(''		
@@ -45,7 +47,7 @@
 						// 알림창 보여주기
 						$('#sample_alert_wrapper').show();
 						$('#sample_alert_wrapper').css('transition', '0.5s');
-						$('#sample_alert_wrapper').height('100px');
+						$('#sample_alert_wrapper').height('64px');
 						
 						// 안읽은 메세지 수 초기화하기
 						refreshNumOfAllUnread();
@@ -54,6 +56,8 @@
 						sampleAlertTimer = setTimeout(function() {
 							$('#sample_alert_wrapper').height('0px');
 							$('#sample_alert_wrapper').css('border', 'none');
+							$('#sample_alert_wrapper').css('box-shadow', 'none');
+							$('#sample_alert_wrapper').css('padding', '0px 15px');
 						}, 2000);
 					}
 				}

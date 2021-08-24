@@ -21,7 +21,6 @@ public class SampleSocketHandler extends TextWebSocketHandler {
 	Map<String, WebSocketSession> sessionMap = new HashMap<>();
 	Map<String, String> m_idToSessionIdMap = new HashMap<>();
 	
-	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("--handleTextMessage in SampleSocketHandler");
@@ -31,7 +30,6 @@ public class SampleSocketHandler extends TextWebSocketHandler {
 		if (msgType.equals("m_id")) {
 			String m_id = (String) obj.get("m_id");
 			m_idToSessionIdMap.put(m_id, session.getId());
-			System.out.println("m_id");
 			System.out.println("m_id: " + m_id);
 			System.out.println("session.getId() " + session.getId());
 		}
@@ -48,9 +46,15 @@ public class SampleSocketHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		sessionMap.remove(session.getId());
-		super.afterConnectionClosed(session, status);
 		System.out.println("--afterConnectionClosed Of SampleSocketHandler");
+		sessionMap.remove(session.getId());
+		for (String m_id : m_idToSessionIdMap.keySet()) {
+			if (m_idToSessionIdMap.get(m_id).equals(session.getId())) {
+				m_idToSessionIdMap.remove(m_id);
+				break;
+			}
+		}
+		super.afterConnectionClosed(session, status);
 	}
 
 	private static JSONObject jsonToObjectParser(String jsonStr) {
@@ -63,9 +67,14 @@ public class SampleSocketHandler extends TextWebSocketHandler {
 		}
 		return obj;
 	}	
-	
+	/**
+	 * 메시지 보내기
+	 * SocketHandler에서 알림 보낼 때 사용. m_id에게 JsonObject 전달.
+	 * @param m_id
+	 * @param JsonObject
+	 */
 	public void sendTalkMessage(String m_id, JSONObject JsonObject) {
-		System.out.println("sendTalkMessage");
+		System.out.println("sendTalkMessage in SampleSocketHandler");
 		String sessionId = m_idToSessionIdMap.get(m_id);
 		WebSocketSession wss = (WebSocketSession)sessionMap.get(sessionId);
 		System.out.println("sessionId: " + sessionId);

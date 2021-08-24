@@ -120,6 +120,8 @@ header #header_right #my_photo {
     letter-spacing: -1px;
     white-space: nowrap;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 #header_right_modal li a:hover {

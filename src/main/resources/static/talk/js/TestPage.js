@@ -200,8 +200,8 @@ $(document).ready(function() {
    					 	'<tr><td><input type="hidden" id="m_id2" value="'
    					 	+ roomList[i].m_id + '"'
 						+ '><td><img id="img1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>'
-						+  (roomList[i].talkerList[2] != null ? '<img id="img2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')
-						+  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 30px; height: 30px">': '')	
+						+  (roomList[i].talkerList[2] != null ? '<img id="img2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')
+						+  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[3]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg" style="width: 30px; height: 30px">': '')	
 						+ '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('
    					 	+ '\''
    					 	+ roomList[i].tkrm_num
@@ -281,7 +281,7 @@ function getRoomOfApi2(tkrm_num) {
 			else if(talkList[i].m_id == m_id){
 					$('#chating').append(
    					 	'<div id="memo2"><p id="unReadNum'+ talkList[i].tk_num + '"></p><p class="me2">'
-   					 	+ '나:' + '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
+   					 	+ '<img src = "' + _contextPath + '/' + (talkList[i].tk_content === undefined ? "" : talkList[i].tk_content)  + '" ' + ' style="width: 150px; height: 150px">'
    					 	+'</p><p class="date3">'+ moment(talkList[i].tk_time_sent).format("YY-MM-DD")
    					 	+'<br>' + moment(talkList[i].tk_time_sent).format("HH:mm")
    					 	+'</p></div>'
@@ -517,6 +517,8 @@ function wsEvt() {
 				countUnread($("#roomNumber").val());
 			}else if(jsonMsg.type == 'beforeFile'){ // 파일 보내기 전에 보내는 메세지
 				nowTk_num = jsonMsg.tk_num;
+				nowUserName = jsonMsg.userName;
+				nowDate = moment(date).format('HH:mm');
 				if(jsonMsg.sessionId == $("#sessionId").val()) {
 					isMyMessage = 1;
 				} else {
@@ -528,7 +530,7 @@ function wsEvt() {
 				readMember();
 			}
 			else{
-				console.warn("unknown type!")
+				console.warn("unknown type!" + jsonMsg.type);
 			}
 
 
@@ -536,10 +538,24 @@ function wsEvt() {
 			// 파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다
 			var url = URL.createObjectURL(new Blob([msg]));
 			if(isMyMessage == 1){
-				$("#chating").append('<div class="img"><p id="unReadNum'+ nowTk_num + '"></p><img class="msgImg" src='+url+'></div><div class="clearBoth"></div>');
+				// '<div class="img"><p id="unReadNum'+ nowTk_num + '"></p><img class="msgImg" src='+url+'></div><div class="clearBoth"></div>'
+				$("#chating").append(
+		            '<div id="memo2"><p id="unReadNum' + nowTk_num + '"></p><p class="me2">'
+		            + '<img src = "' + url + '" ' + ' style="width: 150px; height: 150px">'
+		            + '</p><p class="date3">'
+		            + '<br>' + nowDate
+		            + '</p></div>'			            			
+				);
 				$("#chating").scrollTop($("#chating")[0].scrollHeight);
 			} else{
-				$("#chating").append('<div class="img2"><p id="unReadNum'+ nowTk_num + '"></p><img class="msgImg2" src='+url+'></div><div class="clearBoth"></div>');
+				// '<div class="img2"><p id="unReadNum'+ nowTk_num + '"></p><img class="msgImg2" src='+url+'></div><div class="clearBoth"></div>'
+				$("#chating").append(		
+		            '<div id="memo2"><p id="unReadNum' + nowTk_num + '"></p><p class="others2">'
+		            + nowUserName + ':' + '<img src = "' + url + '" ' + ' style="width: 150px; height: 150px">'
+		            + '</p><p class="date4">'
+		            + '<br>' + nowDate
+		            + '</p></div>'				
+				);
 				$("#chating").scrollTop($("#chating")[0].scrollHeight);
 			}	
 		}			
@@ -558,23 +574,23 @@ function wsEvt() {
 // 특정 방번호의 모든 메세지에 대한 읽지 않은 수를 가져와서 메세지 옆에 업데이트
 function countUnread(tkrm_num) {
 	$.ajax({
-	url : _contextPath + '/talk/countUnread',
-	data: {'roomNumber' : $("#roomNumber").val()},
-	type : 'get',
-	success: function(res) {
-			let numOfUnreadList = res.numOfUnreadList;
-			for(var i = 0; i<numOfUnreadList.length; i++) {
-				let tk_num = numOfUnreadList[i].tk_num;
-				let unread_num = numOfUnreadList[i].unread_num;
-				$('#unReadNum' + tk_num).text(unread_num);
-				if (unread_num == 0) {
-					$('#unReadNum' + tk_num).text('');
-				}
-			}
-		},
-    error : function(err){
-        console.log('error');
-    }        
+        url : _contextPath + '/talk/countUnread',
+        data: {'roomNumber' : $("#roomNumber").val()},
+        type : 'get',
+        success: function(res) {
+            let numOfUnreadList = res.numOfUnreadList;
+            for(var i = 0; i<numOfUnreadList.length; i++) {
+                let tk_num = numOfUnreadList[i].tk_num;
+                let unread_num = numOfUnreadList[i].unread_num;
+                $('#unReadNum' + tk_num).text(unread_num);
+                if (unread_num == 0) {
+                    $('#unReadNum' + tk_num).text('');
+                }
+            }
+        },
+        error : function(err){
+            console.log('error');
+        }        
 	});
 }
 		

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 세션 아이디 -->
+<sec:authentication property="principal.username" var="sec_m_id" />
+<input type="hidden" name="sec_m_id" id="sec_m_id" value="${sec_m_id}">
 
 <!-- 로딩 중 모달 -->
 	<div id="loading_modal">
@@ -29,18 +32,17 @@
 				<li><a href="${pageContext.request.contextPath}/drive" id="head_drive">드라이브</a></li>
 <%-- 				<li><a href="${pageContext.request.contextPath}/reservation" id="head_reservation">예약</a></li> --%>
 <%-- 				<li><a href="${pageContext.request.contextPath}/survey" id="head_survey">설문</a></li> --%>
-				<li><a href="${pageContext.request.contextPath}/admin" id="head_admin">관리자</a></li>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li><a href="${pageContext.request.contextPath}/admin" id="head_admin">관리자</a></li>
+				</sec:authorize>
 			</ul>
 		</nav>
-		<div id="header_right">
-			<sec:authorize access="isAuthenticated()">
-				<sec:authentication property="principal.username" var="sec_m_id" />
-				<img id="my_photo" onclick="showHeaderRightModal();" src="${pageContext.request.contextPath}/resource/member/photo/${sec_m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'">
-			</sec:authorize>
+		<div id="header_right">		
+			<img id="my_photo" onclick="showHeaderRightModal();" src="${pageContext.request.contextPath}/resource/member/photo/${sec_m_id}.jpg" onerror="this.src='${pageContext.request.contextPath}/resource/member/photo/default.jpg'">
+
 		</div>
 	</header>
-	<!-- 세션 아이디 -->
-	<input type="hidden" name="sec_m_id" id="sec_m_id" value="${sec_m_id}">
+
 	
 	<!-- 헤더 오른쪽 프로필 사진 눌렀을 때 나오는 메뉴 -->	
 	<div id="header_right_modal">

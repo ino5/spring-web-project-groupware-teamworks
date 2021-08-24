@@ -1,17 +1,33 @@
 #sample_alert_wrapper {
 	position: fixed;
     background-color: white;
-    width: 446px;
+    width: 381px;
     height: 0px;
-    bottom: 10px;
-    right: 10px;
-    border: 1px solid black;
+    bottom: 30px;
+    right: 54px;
     transition: 0.3s;
     display: none;
     overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 20%);    
+    border-radius: 19px;
+    padding: 15px 15px;    
 }
+
+#sample_alert_photo {
+	float: left;
+    margin-right: 12px;
+	margin-bottom: 24px;
+}
+
 #sample_alert_img_photo {
 	width: 40px;
     height: 40px;
     border-radius: 70%;
+}
+
+#sample_alert_userName {
+	margin-bottom: 8px;
+	margin-top: 4px;
+}
 }

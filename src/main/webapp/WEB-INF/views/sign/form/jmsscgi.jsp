@@ -86,7 +86,7 @@
 								<td class="td_head td_style_short">영문주소</td>
 								<td class="td_style_middle" colspan="3">
 									<c:if test="${jspType == 'r'}">
-										${mapOfSignContent.jcc}
+										${mapOfSignContent.ymjs}
 									</c:if>			
 									<c:if test="${jspType == 'w'}">
 										<input class="td_style_100per" type="text" name="ymjs">
