@@ -6,14 +6,14 @@
 <head>
 <%@include file = "/WEB-INF/views/header/headerHead.jsp" %>
 <title>Insert title here</title>
-<script defer src="${pageContext.request.contextPath}/board/js/write.js"></script>
-<link rel="styleSheet" href="${pageContext.request.contextPath}/board/css/write.css">
+<script defer src="${pageContext.request.contextPath}/community/js/write.js"></script>
+<link rel="styleSheet" href="${pageContext.request.contextPath}/community/css/community_create.css">
 </head>
 <body>
 <%@include file = "/WEB-INF/views/header/headerBody.jsp" %>
 <div id="side">
 		<button type="button" id="btn1"
-			onclick="location.href='${pageContext.request.contextPath}/community/CommunityCreate'">커뮤니티만들기</button>
+			onclick="location.href='${pageContext.request.contextPath}/community/communityCreate'">커뮤니티만들기</button>
 		<div id="side_text">
 			<a id="button1" class="button1"><span id="span_hover"><img
 					alt="image"
@@ -33,23 +33,25 @@
 		</div>
 	</div>
 		<div id="content">
-	<form name="form_insert" action="${pageContext.request.contextPath}/community/CommunityCreate" method="post" enctype="multipart/form-data">
+		<div id="create_community_wrap">
+	<form name="form_insert" action="${pageContext.request.contextPath}/community/communityCreate" method="post" enctype="multipart/form-data">
 				<sec:csrfInput/>
-					
-			<table id="create_community">
-					<table class="pt_tb">
-						<tr>
+			<table  id="create_community">
+						<tr style="height: 80px;">
 							<td id="p_title">커뮤니티 만들기</td>
 							</tr>
-							<tr><th><span>커뮤니티 명</span></th><td>	<input id="subject" type="text" name="bd_name" placeholder="커뮤니티명" class="form_box"></td></tr>
-								<tr><th><span>소개</span></th><td><textarea id="text" name="bd_content">${view._content}</textarea></td></tr>
+							<tr><td><span style="font-size: 18px; padding-left: 20px;">커뮤니티 명</span>
+								<input id="subject" type="text" name="bd_name" placeholder="커뮤니티명" class="form_box"></td></tr>
+								<tr><td><span style="font-size: 18px; padding-left: 20px;">소개 </span><input id="text_conotent" name="bd_content">${view._content}</td></tr>
 								</table>
-							</table>
+		
 			
 		<button type="submit" id="btnUpdete"onclick="">확인</button>
 		</form>
 		<button type="submit" id="btnNotice"onclick="form_insert.p_type.value = 1;">취소</button>		
 	</div>
+	</div>
+	
 <%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>
 </html>
