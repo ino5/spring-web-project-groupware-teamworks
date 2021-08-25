@@ -39,9 +39,9 @@ $(document).ready(function() {
 				let memberList = res.memberList;
 				for(var i = 0; i<memberList.length; i++) {
    					 $('#memberlist').append(
-   					 	'<tr><td><input type="hidden" id="m_id2" value="'
+   					 	'<tr><td style="padding: 5px;"><input type="hidden" id="m_id2" value="'
    					 	+ memberList[i].m_id + '"'
-   					 	+ '><sec:authorize access="isAuthenticated()"><sec:authentication property="principal.username" var="sec_m_id" /><img src="' + _contextPath + '/resource/member/photo/' + memberList[i].m_id + '.jpg" onerror=this.src="' + _contextPath + '/resource/member/photo/default.jpg" style="width: 50px; height: 50px"></sec:authorize><button type="button"  id="chat" onclick="getRoomOfApi('
+   					 	+ '><sec:authorize access="isAuthenticated()"><sec:authentication property="principal.username" var="sec_m_id" /><img src="' + _contextPath + '/resource/member/photo/' + memberList[i].m_id + '.jpg" onerror=this.src="' + _contextPath + '/resource/member/photo/default.jpg" style="width: 50px; height: 50px; border-radius: 30%; margin-left: 10px;"></sec:authorize></td><td><button type="button"  id="chat2" onclick="getRoomOfApi('
    					 	+ '\''
    					 	+ memberList[i].m_id
    					 	+ '\''
@@ -85,9 +85,9 @@ $(document).ready(function() {
 				
 				for(var i = 0; i<memberList.length; i++) {
    					 $('#memberlist').append(
-   					 	'<tr><td><input type="hidden" id="m_id2" value="'
+   					 	'<tr><td style="padding: 5px;"><input type="hidden" id="m_id2" value="'
    					 	+ memberList[i].m_id + '"'
-   					 	+ '><sec:authorize access="isAuthenticated()"><sec:authentication property="principal.username" var="sec_m_id" /><img src="' + _contextPath + '/resource/member/photo/' + memberList[i].m_id + '.jpg" onerror=this.src="' + _contextPath + '/resource/member/photo/default.jpg" style="width: 50px; height: 50px"></sec:authorize><button type="button"  id="chat" onclick="getRoomOfApi('
+   					 	+ '><sec:authorize access="isAuthenticated()"><sec:authentication property="principal.username" var="sec_m_id" /><img src="' + _contextPath + '/resource/member/photo/' + memberList[i].m_id + '.jpg" onerror=this.src="' + _contextPath + '/resource/member/photo/default.jpg" style="width: 50px; height: 50px; border-radius: 30%; margin-left: 10px;"></sec:authorize></td><td><button type="button"  id="chat2" onclick="getRoomOfApi('
    					 	+ '\''
    					 	+ memberList[i].m_id
    					 	+ '\''
@@ -218,7 +218,7 @@ function getGroupRoomList() {
                          '<tr><td><input type="hidden" id="m_id2" value="'
                          + roomList[i].m_id + '"'
                         + '><td id="img_set">'
-                        +  (roomList[i].talkerList[3] == null ? (roomList[i].talkerList[2] == null ? '<img id="img1_1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">' : '<img id="img1_2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">') : '<img id="img1_3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[1]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>')
+                        +  (roomList[i].talkerList[3] == null ? (roomList[i].talkerList[2] == null ? '<img id="img1_1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">' : '<img id="img1_2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">') : '<img id="img1_3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[0]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg"><br>')
                         +  (roomList[i].talkerList[2] != null ? (roomList[i].talkerList[3] != null ? '<img id="img2_1" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">' : '<img id="img2_2" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[2]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">') : '')
                         +  (roomList[i].talkerList[3] != null ? '<img id="img3" src="'+_contextPath+'/resource/member/photo/'+roomList[i].talkerList[3]+'.jpg" onerror=this.src="'+_contextPath+'/resource/member/photo/default.jpg">': '')	
                         + '</td><td><button type="button"  id="chat" onclick="getRoomOfApi2('

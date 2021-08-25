@@ -368,6 +368,7 @@
 		}
 		#sendFileBtn{
 			border: 0px white;
+			position: relative;
 		}
 		
 		.btn { 

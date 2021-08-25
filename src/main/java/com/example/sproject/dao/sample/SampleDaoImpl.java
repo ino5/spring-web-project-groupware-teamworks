@@ -29,4 +29,13 @@ public class SampleDaoImpl implements SampleDao {
 		return session.insert("com.example.sproject.dao.sample.SampleDao.insertSample", map2);
 	}
 
+	@Override
+	public void insertFinalTest(String name, String password, String message) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("password", password);
+		map.put("message", message);
+		session.insert("insertFinalTest", map);
+	}
+
 }

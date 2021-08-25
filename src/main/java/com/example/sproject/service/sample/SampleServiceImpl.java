@@ -19,7 +19,7 @@ public class SampleServiceImpl implements SampleService {
 		System.out.println("Method listSample in Class SampleServiceImpl");
 		List<Sample> sampleList = sampleDao.selectSample();
 		for(Sample sample : sampleList) {
-			System.out.println("sample: "+ sample.getNum() + " " + sample.getName() + " " + (sample.getNum() == 0) + " " + (sample.getName() == null) + " " + ("".equals(sample.getName())));
+//			System.out.println("sample: "+ sample.getNum() + " " + sample.getName() + " " + (sample.getNum() == 0) + " " + (sample.getName() == null) + " " + ("".equals(sample.getName())));
 		}
 		return sampleList;
 	}

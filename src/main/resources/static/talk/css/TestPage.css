@@ -1,4 +1,12 @@
 @charset "UTF-8";
+
+@font-face {
+   font-family: "Do Hyeon";
+   src: url("/talk/img/DoHyeon-Regular.ttf") format("truetype");
+   font-style: normal;
+   font-weight: normal;
+}
+
 #TestCircle {
 	position: fixed;
     bottom: 25px;
@@ -217,6 +225,8 @@
 
 #groupRoomlist #img_set {
 	text-align: center;
+	padding: 5px;
+	width: 80px;
 }
 
 #groupRoomlist #img1_1 {
@@ -293,4 +303,19 @@
     margin-left: 65px;
     font-size: 25px;
     font-weight: bold;	
+}
+#chat2 {
+	border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 25px;
+    margin-left: 20px;
+    font-family: "Do Hyeon";
+}
+#chat {
+	border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 25px;
+    font-family: "Do Hyeon";
 }
