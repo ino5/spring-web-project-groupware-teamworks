@@ -13,7 +13,7 @@
 </a>
 <ol id="scroll1" class="scroll" style="display: none; list-style: none;">
 		<li class="li"><p class="menu_title">
-			<a href="${pageContext.request.contextPath}/mail">받은 메일함</a>
+			<a href="${pageContext.request.contextPath}/mail" onclick="waitLoading();">받은 메일함</a>
 		</p></li>
 		<li class="li"><p class="menu_title">
 			<a href="${pageContext.request.contextPath}/mail?mode=sent">보낸 메일함</a>

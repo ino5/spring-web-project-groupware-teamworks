@@ -17,8 +17,12 @@ a {
 
 #toolbar_wrap .ic_toolbar {
 	height: 27px !important;
+    margin-right: 3px;
 }
 
+#toolbar_wrap .ic.ic_important_off {
+	padding: 2px;
+}
 
 /* content 부분 */
 #mail_wrap {
@@ -68,6 +72,7 @@ a {
     white-space: nowrap;
     border-radius: 2px;
     font-size: 13px;
+    margin-right: 5px;
 }
 
 #toolbar_wrap .all_checkbox_mail {

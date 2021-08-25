@@ -39,6 +39,7 @@ import com.example.sproject.model.mail.Mail;
 import com.example.sproject.model.mail.MailTo;
 import com.example.sproject.service.common.CommonPaging;
 import com.example.sproject.service.drive.DriveService;
+import com.example.sproject.service.login.LoginService;
 import com.example.sproject.service.mail.MailService;
 import com.example.sproject.service.sample.EmailReader;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -59,6 +60,8 @@ public class MailController {
 	MailService mailService;
 	@Autowired
 	DriveService driveService;
+	@Autowired
+	LoginService loginService;
 	
     /**
      * 받은 메일 리스트 가져오기
@@ -185,7 +188,25 @@ public class MailController {
      * @return
      */
     @RequestMapping(value ="writeForm", method= {RequestMethod.GET, RequestMethod.POST})
-    public String writeForm(@AuthenticationPrincipal Member principal, Model model) {
+    public String writeForm(@RequestParam(value="ml_num", required = false) Integer ml_num, @RequestParam(value="chkArr[]", required = false) List<String> listOfM_id, @AuthenticationPrincipal Member principal, Model model) {
+    	System.out.println("-- writeForm in MailController");
+    	String email = "";
+    	// 답장하기
+    	if (ml_num != null && ml_num > 0) {
+    		Mail mail = mailService.selectMail(ml_num);
+    		email = mailService.extractEmailAddress(mail.getMl_email());
+    		model.addAttribute("email", email);
+    	}
+    	
+    	// 받는 사람 아이디 리스트 받았을 때
+    	else if (listOfM_id != null && listOfM_id.size() > 0) {
+    		for (String m_id : listOfM_id) {
+    			Member member = (Member) loginService.loadUserByUsername(m_id);
+    			email += member.getM_email() + " ";
+    		}
+    		model.addAttribute("email", email);
+    	}
+    	
     	model.addAttribute("principal", principal);
     	return "mail/mailWriteForm";
     }

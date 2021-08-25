@@ -124,7 +124,7 @@ function addressGroup() {
 								src="${pageContext.request.contextPath}/address/img/plus.png"
 								width="17px" height="17px">&nbsp;빠른 등록
 						</button></li>
-					<li><button type="button" class="btn2">
+					<li><button type="button" class="btn2" onclick="doMail()">
 							<img alt=""
 								src="${pageContext.request.contextPath}/address/img/mail.png"
 								width="17px" height="17px">&nbsp;메일발송

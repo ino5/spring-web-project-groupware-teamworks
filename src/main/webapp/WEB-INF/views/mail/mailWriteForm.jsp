@@ -27,7 +27,7 @@
 					</tr>
 					<tr>
 						<td class="title txt">받는 사람</td>
-						<td><input class="border_bottom txt" type="text" name="addressTo"></td>
+						<td><input class="border_bottom txt" type="text" name="addressTo" value="${email}"></td>
 					</tr>
 					<tr>
 						<td class="title txt">제목</td>

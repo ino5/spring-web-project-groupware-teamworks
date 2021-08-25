@@ -44,6 +44,9 @@
 					</c:if>		
 				</table>
 				<div id="toolbar_wrap">
+					<a class="btn_tool" href="${pageContext.request.contextPath}/mail/writeForm?ml_num=${mail.ml_num}">
+						<span class="ic_toolbar reply"></span><span class="mail_tool_txt">답장</span>
+					</a>				
 					<a class="btn_tool" href="${pageContext.request.contextPath}/mail/delete?ml_num=${mail.ml_num}" onclick="waitLoading();">
 						<span class="ic_toolbar del"></span><span class="mail_tool_txt">삭제</span>
 					</a>

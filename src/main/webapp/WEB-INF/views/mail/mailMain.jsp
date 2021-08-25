@@ -34,7 +34,7 @@
 					<input type="checkbox" name="all_listOfMl_num" class="all_checkbox_mail">
 					<a class="btn_tool" onclick="deleteMails();">
 						<span class="ic_toolbar del"></span><span class="mail_tool_txt">삭제</span>
-					</a>
+					</a>			
 					<c:if test="${mode=='received'}">
 						<div id="mail_server_time">
 							서버 동기화 시간: <fmt:formatDate value="${updateDateOfDb}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>

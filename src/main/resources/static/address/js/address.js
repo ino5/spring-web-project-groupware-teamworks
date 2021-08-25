@@ -135,6 +135,15 @@
 		}
 	}
 	
+	// 체크한 사람들에게 메일 보내기 페이지 이동
+	function doMail() {
+		let chkArr = [];
+		$('.chk:checked').each(function() {
+			chkArr.push($(this).val());
+		});		
+		location.href = _contextPath + '/mail/writeForm?' + 'chkArr' + escape('[]') + '=' + chkArr;	
+	}
+	
 	function selectAll(selectAll)  {
 		const checkboxes 
 		       = document.getElementsByName('check');
