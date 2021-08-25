@@ -52,9 +52,11 @@
 			</div>
 		</div>
 		<div id="content2">
-			<div id="makegroup"></div>
-			<button type="button" onclick="javascript:talkGroup()" class="insertroom">방만들기</button>
+			<div id="makegroup"></div>			
 		</div>
+			<div id="insertRoom">
+				<button type="button" onclick="javascript:talkGroup()" class="insertroom">방만들기</button>
+			</div>
 		<div id="chatting_wrap">
 			<div class="phone_bg2">	
 				<img alt=" " src="${pageContext.request.contextPath}/header/img/핸드폰.png">

@@ -73,9 +73,30 @@
 #content2 {
     		position: relative;
     		background-color: white;
-    		width: 501px;
+    		width: 140px;
     		height: 500px;
-    		overflow: auto;
+    		overflow: scroll;
+    		overflow-x: hidden;
+    		margin-top: 40px;
+}
+
+#content2::-webkit-scrollbar{ 
+			display: none;
+}
+
+#content2:hover::-webkit-scrollbar{
+		display: block; 
+		width: 20px;
+}
+ 
+#content2::-webkit-scrollbar-thumb {
+  		background-color: #0f91e6;
+  		border-radius: 10px;
+}
+#content2::-webkit-scrollbar-track {
+		background-color: lightgray;
+		border-radius: 10px;
+		box-shadow: inset 0px 0px 5px white;
 }
 
 #member {
@@ -139,6 +160,13 @@
 	height: 40px;
 }
 
+#makegroup {
+	height: 500px;
+    /* border: 1px solid black; */
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 20%);
+}
+
 .groupchat {
 	border: 0;
     outline: 0;
@@ -156,8 +184,17 @@
 }
 
 .insertroom {
-	width: 70px;
-	height: 20px;
+	width: 80px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: #0f91e6;
+    border-radius: 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 23px;
+    margin-top: 20px;
 }
 
 #join_member {
@@ -318,4 +355,38 @@
     background-color: transparent;
     font-size: 25px;
     font-family: "Do Hyeon";
+}
+.circle3 {
+	border-radius: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #0f91e6;
+    text-align: center;
+    line-height: 26px;
+    padding-right: 2px;
+    color: white;
+    margin-top: 30px;
+}
+.rnUnreadNum {
+	position: relative;
+}
+
+.unReadNum1 {
+	float: right;
+    margin-right: 10px;
+    /* margin-bottom: 20px; */
+    font-size: 13px;
+    color: #0f91e6;
+    font-weight: bold;
+    line-height: 10px;
+}
+
+.unReadNum2 {	
+	float: left;
+    margin-left: 10px;
+    /* margin-bottom: 20px; */
+    font-size: 13px;
+    color: #0f91e6;
+    font-weight: bold;
+    margin-top: 7px;
 }
