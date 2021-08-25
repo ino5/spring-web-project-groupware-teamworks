@@ -6,4 +6,5 @@ import lombok.Data;
 public class Sample {
 	int num;
 	String name;
+
 }

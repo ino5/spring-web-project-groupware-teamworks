@@ -352,7 +352,7 @@
 				<table id="list_table">
 					<tr>
 						<td></td>
-						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px"><img alt="바람개비.png" src="${pageContext.request.contextPath}/main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>게시판</b></td>
+						<td colspan="3" rowspan="1" style="width: 550px; font-size: 25px; padding-top: 15px; padding-left: 50px;"><img alt="바람개비.png" src="${pageContext.request.contextPath}/main/img/바람개비.png" width="25px" height="25px">&nbsp;&nbsp;&nbsp;<b>게시판</b></td>
 					</tr>
 					<tr style="height: 10px"></tr>
 					<c:forEach var="ps" items="${listPost}" begin="0" end="3">				
