@@ -15,26 +15,56 @@
     		margin-top: 100px;
 		}
 		#talkModal .container{
-			width: 600px;
+			width: 400px;
 			padding: 25px;
 			display: block;
 			float: left;
-			margin-top: 50px;
+			margin-top: 40px;
 			margin-left: 10px
 		}
 		
-		#talkModal .container h1{
+		#talkModal .container #h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
-			color: black;
-			border-left: 3px solid black;
+			color: white;
+			background-color: #0f91e6;
+			width: 298px;
 			position: relative;
-		    margin-bottom: 20px;
-		    margin-left: 30px;
-}
-		}		
+		    margin-left: 28px;
+		    height: 60px;
+		    line-height: 60px;
+		    font-size: 15px;
+		}
+		
+		#h1_1 {
+			position: relative;
+			float: left;
+		}
+		
+		#chatingRoom_icon {
+			float: right;
+    		height: 60px;
+		}
+		
+		#back_back {
+			position: relative;
+			float: right;
+		}
+		#back img {
+			width: 50px;
+    		height: 40px;
+    		margin-top: 10px;
+		}
+		.join_member_button {
+			float: right;
+		}
+		#join_member img{
+			width: 50px;
+    		height: 40px;
+    		margin-top: 10px;
+		}
+				
 		#room1 {
-			margin-top: 100px;
 		}
 		#logo {
 			background: #0F91E6;
@@ -200,12 +230,10 @@
 		}
 		
 		.inputTable th{
-			padding: 5px;
 		}
 		.inputTable input{
-			width: 330px;
-			height: 25px;
 		}
+		
 		#meName{
 			color: #0F91E6;
 			font-size: 15px;
@@ -218,10 +246,33 @@
 		.chating{
 			background-color: white;
 			width: 317px;
-			height: 500px;
+			height: 470px;
 			overflow: scroll;
-			margin-left: 40px;
+			margin-left: 28px;
+			position: relative;
+			overflow-x: hidden;
+			margin-top: 10px;
 		}
+		
+		.chating::-webkit-scrollbar{ 
+			display: none;
+		 }
+
+		.chating:hover::-webkit-scrollbar{
+			display: block; 
+			width: 20px;
+		 }
+		 
+		.chating::-webkit-scrollbar-thumb {
+    		background-color: #0f91e6;
+    		border-radius: 10px;
+  		}
+  		.chating::-webkit-scrollbar-track {
+    		background-color: lightgray;
+    		border-radius: 10px;
+    		box-shadow: inset 0px 0px 5px white;
+  		}
+		
 		.chating .me{
 			color: white;
 			background-color: #0F91E6;
@@ -241,6 +292,7 @@
 			font-size: 12px;
 			padding-right: 7.5px;
 			text-align: right;
+			position: relative;
 		}
 		.chating .others{
 			color: black;
@@ -260,6 +312,7 @@
 			float: left;
 			font-size: 12px;
 			padding-left: 7.5px;
+			position: relative;
 		}
 		#yourName {
 			margin-top: 10px;
@@ -268,6 +321,7 @@
 		#yourMsg{
 /* 			display: none; */
 			position: relative;
+			margin-left: 10px;
 		}
 		.clearBoth{
 			clear: both;
@@ -291,7 +345,8 @@
 		#chatting{
 			border: 3px solid #0F91E6;
    	 		border-radius: 5px;
-    		margin-left: 15px;
+    		width: 250px;
+    		height: 25px;
 		}
 		#sendBtn{
 			background-color: #0F91E6;
@@ -302,15 +357,61 @@
 			font-weight: bold;
 			margin: 3px;
 		}
+		.inputTable .file_uploadTh input[type="file"] {
+			position: absolute;
+			margin-left: 30px;
+    		margin-top: 5px;
+		}
+		
 		#sendFileBtn img{
 			width: 30px;
 		}
 		#sendFileBtn{
 			border: 0px white;
 		}
-/* 		input#file-upload-button{ */
-/* 			background-color: #0F91E6; */
-/* 		} */
+		
+		.btn { 
+			display: inline-block; 
+			margin-bottom: 0; 
+			font-weight: normal; 
+			text-align: center; 
+			vertical-align: middle; 
+			-ms-touch-action: manipulation; 
+			touch-action: manipulation; 
+			cursor: pointer; 
+			background-image: none; 
+			border: 1px solid transparent; 
+			white-space: nowrap; 
+			padding: 6px 12px; 
+			font-size: 14px; 
+			line-height: 1.42857143; 
+			border-radius: 4px; 
+			-webkit-user-select: none; 
+			-moz-user-select: none; 
+			-ms-user-select: none; 
+			user-select: none; 
+		}
+		.btn-primary { 
+			color: #ffffff; 
+			background-color: #337ab7; 
+			border-color: #2e6da4; 
+			text-decoration: none;
+			position: relative; 
+			margin-bottom: 10px;
+		}
+		#target_file_wrap {
+			margin-right: 140px;
+			float: left;
+    		position: relative;
+		}
+		
+		#fileSendButton {
+			float: left;
+		}
+		
+		/* 		input#file-upload-button{ */
+		/* 			background-color: #0F91E6; */
+		/* 		} */
 		.img{
 			float: right;
 		}
