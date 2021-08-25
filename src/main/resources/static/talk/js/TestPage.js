@@ -226,7 +226,7 @@ function getGroupRoomList() {
                          + roomList[i].tkrm_num
                          + '\''
                          + ')">'
-                         + roomList[i].tkrm_name
+                         + (roomList[i].tkrm_name.length > 10 ? roomList[i].tkrm_name.substring(0,11) + '...' : roomList[i].tkrm_name)
                          + '</button></td><td><div class="rnUnreadNum_'+ roomList[i].tkrm_num +'">'
                          + (roomList[i].rnUnreadNum != 0 ? roomList[i].rnUnreadNum : '')
                          +'</div></td></tr>'
