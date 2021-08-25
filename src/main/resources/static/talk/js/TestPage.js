@@ -454,6 +454,9 @@ $(document).ready(function() {
 				//$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
 				$('#join_member_list').html('');
 				
+				// 안읽은 메시지 숫자 가져오기
+				refreshNumOfAllUnread();
+				
 				// 그룹채팅 버튼 누른것과 같은 효과				
 				$(".group").trigger("click");
 			},
