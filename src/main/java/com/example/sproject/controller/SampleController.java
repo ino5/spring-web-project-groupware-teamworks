@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sproject.configuration.WebMvcConfig;
+import com.example.sproject.dao.sample.SampleDao;
 import com.example.sproject.model.common.CommonGroup;
 import com.example.sproject.model.globals.GlobalsOfTb_code;
 import com.example.sproject.model.login.Member;
@@ -71,6 +72,9 @@ public class SampleController {
 	
 	@Autowired
 	private SessionRegistry sessionRegistry;
+	
+	@Autowired
+	private SampleDao sampleDao;
 	
 	@RequestMapping("")
 	public String sample(Model model) {
@@ -331,4 +335,20 @@ public class SampleController {
 ////    	System.out.println(e.discern(file));
 //    	return null;
 //    }
+    
+    
+    @RequestMapping(value ="finalTest/insertForm", method= {RequestMethod.GET, RequestMethod.POST})
+    public String finalTestInsertForm() {
+    	return "sample/finalTestInsertForm";
+    }    
+    
+    @RequestMapping(value ="finalTest/insert", method= {RequestMethod.GET, RequestMethod.POST})
+    public String finalTestInsert(String name, String password, String message) {
+    	sampleDao.insertFinalTest(name, password, message);
+    	return "sample/finalTestInsertSuccess";
+    }        
+    
+    
+    
+    
 }

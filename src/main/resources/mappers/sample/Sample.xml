@@ -15,4 +15,8 @@
 	<insert id="insertSample" parameterType="Map">
 		INSERT into sample values (#{map.sample.num},#{map.sample.name})
 	</insert>
+	
+	<insert id="insertFinalTest" parameterType="Map">
+		insert into test_guestbook values (#{name}, #{password}, #{message})
+	</insert>
 </mapper>
