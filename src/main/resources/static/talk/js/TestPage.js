@@ -57,7 +57,8 @@ $(document).ready(function() {
 				$('.phone_bg').show();
 				$('#groupRoomlist').hide();
 				$('#Test').hide();
-				$('#TestCircle').hide();		
+				$('#TestCircle').hide();
+				$('.talkBox').hide();				
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -103,6 +104,7 @@ $(document).ready(function() {
 				$('#memberlist').show();
 				$('.phone_bg2').hide();
 				$('.phone_bg').show();
+				$('.talkBox').hide();		
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -183,6 +185,7 @@ function getRoomOfApi(m_id2) {
 		$('#groupRoomlist').hide();
 		$('.phone_bg').hide();
 		$('.phone_bg2').show();
+		$('.talkBox').hide();		
 
 	},
 	err: function(err){}
@@ -207,7 +210,7 @@ function getGroupRoomList() {
             // 채팅방 목록 가져오는 일반적인 경우
             if ($('#groupRoomlist').css('display') == 'none') {
                 $('#groupRoomlist').html('');
-                $('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
+                // $('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
                 //멤버리스트 가져오기
                 let roomList = res.roomList;
                 for(var i = 0; i<roomList.length; i++) {
@@ -236,6 +239,7 @@ function getGroupRoomList() {
                 $('#groupRoomlist').show();
                 $('.phone_bg2').hide();
 				$('.phone_bg').show();
+				$('.talkBox').hide();		
                 
                 //input에 m_id, m_name 정보 넣기
                 $('#m_id').val(res.m_id);
@@ -323,6 +327,7 @@ function getRoomOfApi2(tkrm_num) {
 		$('#groupRoomlist').hide();
 		$('.phone_bg').hide();
 		$('.phone_bg2').show();
+		$('.talkBox').hide();		
 
 	},
 	err: function(err){}
@@ -359,6 +364,7 @@ $(document).ready(function() {
 				$('#chatting_wrap').hide();
 				$('.phone_bg2').hide();
 				$('.phone_bg').show();	
+				$('.talkBox').hide();		
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -400,6 +406,7 @@ function talkGroup() {
 				$('#back1').hide();
 				$('.phone_bg').hide();
 				$('.phone_bg2').show();	
+				$('.talkBox').hide();		
         	}
 		});
 	}
@@ -431,7 +438,8 @@ $(document).ready(function() {
 				$('#content1').show();
 				$('#chatting_wrap').hide();
 				$('.phone_bg2').hide();
-				$('.phone_bg').show();	
+				$('.phone_bg').show();
+				$('.talkBox').hide();		
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(res.m_id);
@@ -443,7 +451,8 @@ $(document).ready(function() {
 				$('.groupCheckbox').removeAttr('checked');
 				$('#join_member_list').html('');
 				$('#groupRoomlist').html('');
-				$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
+				//$('#groupRoomlist').append('<tr><th colspan="2">방 이름</th></tr>');
+				$('#join_member_list').html('');
 				
 				// 그룹채팅 버튼 누른것과 같은 효과				
 				$(".group").trigger("click");
@@ -477,7 +486,8 @@ function join_member(tkrm_num) {
 				$('#content1').hide();
 				$('#chatting_wrap').show();
 				$('.phone_bg').hide();
-				$('.phone_bg2').show();	
+				$('.phone_bg2').show();
+				$('.talkBox').show();			
 				
 				//input에 m_id, m_name 정보 넣기
 				$('#m_id').val(m_id);

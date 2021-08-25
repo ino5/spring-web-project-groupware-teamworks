@@ -57,9 +57,9 @@
 }
 
 #back {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+	border: 0px;
+	outline: 0px;
+	background-color:transparent;
 }
 
 #content2 {
@@ -153,8 +153,9 @@
 }
 
 #join_member {
-	width: 70px;
-	height: 20px;
+	border: 0px;
+	outline: 0px;
+	background-color:transparent;
 }
 
 .chating .me2{
@@ -173,6 +174,7 @@
 			padding-right: 7.5px;
 			text-align: right;
 			margin-top: 80px;
+			position: relative;
 		}
 .chating .others2{
 			color: black;
@@ -191,6 +193,7 @@
 			float: left;
 			font-size: 12px;	
 			padding-left: 7.5px;
+			position: relative;
 		}
 		
 #memo2 {
@@ -268,4 +271,26 @@
 	position: absolute;
 	width: 450px;
 }
+.talkBox {
+}
 
+.talkBox img {
+	width: 200px;
+    height: 200px;
+    margin-top: 150px;
+    position: rea;
+    position: absolute;
+    float: left;
+}
+
+#join_member_list {
+	height: 50px;
+    /* width: 200px; */
+    position: relative;
+    float: left;
+    /* margin-right: 100px; */
+    margin-top: 205px;
+    margin-left: 65px;
+    font-size: 25px;
+    font-weight: bold;	
+}
