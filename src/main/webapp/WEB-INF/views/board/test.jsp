@@ -243,5 +243,6 @@ $("#boardSet").on("click", function () {
 		}
 	
 	</script>
+<%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>
 </html>

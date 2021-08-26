@@ -273,6 +273,6 @@ $("#boardSet").on("click", function () {
 		</div>
 	</div>
 
-
+<%@include file = "/WEB-INF/views/header/headerFooter.jsp" %>
 </body>
 </html>

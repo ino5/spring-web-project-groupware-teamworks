@@ -59,7 +59,7 @@
 								<td>
 									<a href="${pageContext.request.contextPath}/mail/view/${mail.ml_num}">${mail.ml_title}</a>
 								</td>
-								<td class="date"><fmt:formatDate value="${mail.ml_regdate}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate></td>				
+								<td class="date"><fmt:formatDate value="${mail.ml_regdate}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>				
 							</tr>
 						</c:forEach>
 					</tbody>

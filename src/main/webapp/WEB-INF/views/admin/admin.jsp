@@ -181,12 +181,12 @@ function select_PositionList() {
 		<div id="content">
 			<h2>
 				<span
-					style="color: #8C8C8C; font-size: 20px; font-weight: bold; margin-top: 20px;">메뉴관리/게시판</span>
+					style="color: #8C8C8C; font-size: 20px; font-weight: bold; margin-top: 20px;"></span>
 			</h2>
 			<br>
 			<div style="z-index: 2; padding-top: 20px; margin-left: 50px;">
 				<h2>
-					<span id="content1" style="font-weight: bold; font-size: 35px;">게시판</span>
+					<span id="content1" style="font-weight: bold; font-size: 35px;">회원 관리</span>
 				</h2>
 			</div>
 			<div id="right2" style="margin-top: 20px;"></div>
