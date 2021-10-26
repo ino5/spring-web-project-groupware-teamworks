@@ -23,7 +23,7 @@
 - DB: Oracle, Mybatis
 - 템플릿 엔진: JSP
 - 로그인, 권한 처리: Spring Security
-- 메일: improvmx(Email forwarding), cafe24(DNS)
+- 메일: improvmx(Email forwarding, sending), cafe24(DNS)
 - 배포: AWS (EC2, RDS)
 
 <br>
