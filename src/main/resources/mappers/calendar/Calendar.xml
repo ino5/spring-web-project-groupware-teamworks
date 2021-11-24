@@ -10,8 +10,8 @@
 	</insert>
 	
 	<select id="calendarListOfCalendar" parameterType="java.lang.String" resultType="com.example.sproject.model.calendar.Calendar">
-		select cl.cl_group, cl.cl_num, cl.cl_name, cl.cl_sdate, cl.cl_edate, to_date(cl.cl_edate)-to_date(cl.cl_sdate) cl_term, cg.cl_groupname, cg.cl_color from calendar cl, calendar_group cg 
-		where cl.m_id = #{m_id} and cl.cl_group = cg.cl_group  order by to_date(cl.cl_edate)-to_date(cl.cl_sdate) desc, cl.cl_num
+		select cl.cl_group, cl.cl_num, cl.cl_name, cl.cl_sdate, cl.cl_edate, to_date(cl.cl_edate, 'YYYY-MM-DD')-to_date(cl.cl_sdate, 'YYYY-MM-DD') cl_term, cg.cl_groupname, cg.cl_color from calendar cl, calendar_group cg 
+		where cl.m_id = #{m_id} and cl.cl_group = cg.cl_group  order by to_date(cl.cl_edate, 'YYYY-MM-DD')-to_date(cl.cl_sdate, 'YYYY-MM-DD') desc, cl.cl_num
 	</select>
 	
 	<select id="calendarSelectOfCalendar" parameterType="int" resultType="com.example.sproject.model.calendar.Calendar">

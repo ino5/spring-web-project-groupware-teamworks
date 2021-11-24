@@ -17,6 +17,6 @@
 	</insert>
 	
 	<insert id="insertFinalTest" parameterType="Map">
-		insert into test_guestbook values (#{name}, #{password}, #{message})
+		insert into test_guestbook values ((select nvl(max(id)+1, 1) from test_guestbook), #{name}, #{password}, #{message})
 	</insert>
 </mapper>

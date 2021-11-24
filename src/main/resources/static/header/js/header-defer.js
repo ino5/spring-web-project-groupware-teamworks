@@ -33,12 +33,12 @@ function showHeaderRightModal() {
 }
 
 
-	$(function() {
-		// jquery-ui sortable
-		$( ".sortable" ).sortable();
-	    $( ".sortable" ).disableSelection();
-		
-		// jquery-ui draggable
-		$('.drag').draggable({ 
-		}); 	    
-	});
+$(function() {
+	// jquery-ui sortable
+	$( ".sortable" ).sortable();
+    $( ".sortable" ).disableSelection();
+	
+	// jquery-ui draggable
+	$('.drag').draggable({ 
+	}); 	    
+});

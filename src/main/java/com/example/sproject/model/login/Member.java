@@ -30,6 +30,10 @@ public class Member implements UserDetails{
 	private int m_status;
 	private String m_photo;
 
+	// 리스트
+	private List<Member> members;
+	
+	
 //	position
 	private String pt_name;
 	private int pt_order;

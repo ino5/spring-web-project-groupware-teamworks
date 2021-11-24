@@ -40,6 +40,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.*;
 import java.net.InetAddress;
 import java.util.Properties;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -348,7 +349,15 @@ public class SampleController {
     	return "sample/finalTestInsertSuccess";
     }        
     
-    
+    @RequestMapping(value ="listTest")
+    @ResponseBody
+    public String listTest(Member listOfMember) {
+    	System.out.println("--listTest");
+    	for (Member member : listOfMember.getMembers()) {
+    		System.out.println(member);
+    	}
+    	return "ok";
+    }
     
     
 }
